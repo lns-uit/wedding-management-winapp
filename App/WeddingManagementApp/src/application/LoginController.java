@@ -1,8 +1,12 @@
 package application;
+import java.sql.SQLException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import oracle.net.aso.f;
 
 public class LoginController {
 
@@ -16,12 +20,22 @@ public class LoginController {
     private Button btnLogin;
 
     @FXML
-    void LoginToApp(ActionEvent event) {
+    void LoginToApp(ActionEvent event) throws SQLException {
     	String usernameString = tfUsername.getText() ;
     	String passwordString	 = tfPassword.getText() ;
     	
     	if (ValiDateForm(usernameString, passwordString)) {
-    		System.out.println("validate ok");
+    		int type = AccountModel.Login(usernameString, passwordString);
+    		if ( type > -1) {
+    			System.out.println("Login success with type " + type);
+    			indexScene mainScene = new indexScene();
+    			Stage stage = new Stage();
+    			mainScene.start(stage);
+    			Stage currentScene = (Stage) btnLogin.getScene().getWindow();
+    			currentScene.close();
+    		} else {
+    			System.out.println("Wrong email and password");
+    		}
     	} else {
     		System.out.println("please retype");
     	}
