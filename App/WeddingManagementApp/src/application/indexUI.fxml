@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="681.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.indexController">
+   <children>
+      <HBox prefHeight="717.0" prefWidth="1120.0">
+         <children>
+            <VBox prefHeight="664.0" prefWidth="211.0" style="-fx-background-color: rgb(184, 55, 55);">
+               <children>
+                  <AnchorPane prefHeight="181.0" prefWidth="259.0">
+                     <children>
+                        <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="105.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../img/accountIcon.png" />
+                           </image></ImageView>
+                        <Button accessibleRole="TEXT" layoutY="75.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="NGUYEN VAN A" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <VBox prefHeight="414.0" prefWidth="259.0">
+                     <children>
+                        <Button fx:id="btnWeddingOrderManagement" mnemonicParsing="false" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thông tin đặt tiệc" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="-40.0" />
+                           </padding>
+                           <graphic>
+                              <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="21.0" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnStaffManagement" mnemonicParsing="false" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý nhân viên" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="-93.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="btnWeddingInfoManagement" mnemonicParsing="false" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thông tin tiệc cưới" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="-30.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="btnReport" mnemonicParsing="false" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Báo cáo" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="-160.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="71.0" prefWidth="259.0">
+                     <children>
+                        <Button fx:id="btnInfoPersonal" mnemonicParsing="false" prefHeight="34.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Thông tin cá nhân" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="0.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Đăng xuất" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <StackPane prefHeight="664.0" prefWidth="938.0">
+               <children>
+                  <AnchorPane fx:id="weddingOrderPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="7.0" prefHeight="39.0" prefWidth="202.0" text="Quản lý thông tin đặt tiệc" textFill="#b83737">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <TableView layoutX="21.0" layoutY="127.0" prefHeight="426.0" prefWidth="821.0">
+                           <columns>
+                              <TableColumn prefWidth="37.0" text="STT" />
+                              <TableColumn prefWidth="87.0" text="Mã đặt tiệc" />
+                              <TableColumn minWidth="0.0" prefWidth="248.0" text="Tên người đặt" />
+                              <TableColumn prefWidth="227.0" text="Số điện thoại" />
+                              <TableColumn prefWidth="221.0" text="Ngày đặt" />
+                           </columns>
+                        </TableView>
+                        <TextField layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                        <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                        <Button layoutX="721.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm tiệc cưới" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="7.0" prefHeight="39.0" prefWidth="202.0" text="Quản lý nhân viên" textFill="#b83737">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <TableView layoutX="21.0" layoutY="127.0" prefHeight="426.0" prefWidth="821.0">
+                           <columns>
+                              <TableColumn prefWidth="37.0" text="STT" />
+                              <TableColumn prefWidth="87.0" text="Mã nhân viên" />
+                              <TableColumn minWidth="0.0" prefWidth="136.0" text="Tên nhân viên" />
+                              <TableColumn prefWidth="110.0" text="Ngày sinh" />
+                              <TableColumn prefWidth="116.0" text="Địa chỉ" />
+                              <TableColumn prefWidth="120.0" text="Số điện thoại" />
+                              <TableColumn prefWidth="100.0" text="Email" />
+                              <TableColumn prefWidth="114.0" text="Loại" />
+                           </columns>
+                        </TableView>
+                        <TextField layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" text="Tìm kiếm" />
+                        <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                        <Button layoutX="719.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" text="Thêm nhân viên" />
+                        <Button layoutX="755.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="87.0" text="Xóa" />
+                        <Button layoutX="652.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="87.0" text="Sửa" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="weddingOrderPanel1" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="7.0" prefHeight="39.0" prefWidth="202.0" text="Quản lý thông tin đặt tiệc" textFill="#b83737">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <StackPane prefHeight="664.0" prefWidth="861.0">
+                           <children>
+                              <AnchorPane fx:id="stackOptionInfoWeddingManager" prefHeight="649.0" prefWidth="828.0">
+                                 <children>
+                                    <Button layoutX="351.0" layoutY="245.0" mnemonicParsing="false" prefHeight="174.0" prefWidth="160.0" text="Quản lý thực đơn" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="115.0" layoutY="245.0" mnemonicParsing="false" prefHeight="174.0" prefWidth="160.0" text="Quản lý sảnh" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="587.0" layoutY="245.0" mnemonicParsing="false" prefHeight="174.0" prefWidth="160.0" text="Quản lý thời gian" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="stackLobbyManager" prefHeight="649.0" prefWidth="828.0" visible="false">
+                                 <children>
+                                    <TableView layoutX="20.0" layoutY="145.0" prefHeight="426.0" prefWidth="821.0">
+                                       <columns>
+                                          <TableColumn prefWidth="37.0" text="STT" />
+                                          <TableColumn prefWidth="173.0" text="Tên Sảnh" />
+                                          <TableColumn minWidth="0.0" prefWidth="234.0" text="Số bàn" />
+                                          <TableColumn prefWidth="155.0" text="Đơn giá" />
+                                          <TableColumn prefWidth="221.0" text="Ghi chú" />
+                                       </columns>
+                                    </TableView>
+                                    <TextField layoutX="20.0" layoutY="94.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                                    <Button layoutX="209.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                                    <Button layoutX="727.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm Sảnh" />
+                                    <Label layoutX="380.0" layoutY="55.0" prefHeight="39.0" prefWidth="101.0" text="Quản lý sảnh">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="727.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                    <Button layoutX="600.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="stackMenuManager" prefHeight="649.0" prefWidth="828.0" visible="false">
+                                 <children>
+                                    <TableView layoutX="20.0" layoutY="145.0" prefHeight="426.0" prefWidth="821.0">
+                                       <columns>
+                                          <TableColumn prefWidth="37.0" text="STT" />
+                                          <TableColumn prefWidth="173.0" text="Tên món" />
+                                          <TableColumn minWidth="0.0" prefWidth="234.0" text="Đơn giá" />
+                                          <TableColumn prefWidth="155.0" text="Đơn vị tính" />
+                                          <TableColumn prefWidth="221.0" text="Ghi chú" />
+                                       </columns>
+                                    </TableView>
+                                    <TextField layoutX="20.0" layoutY="94.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                                    <Button layoutX="209.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                                    <Button layoutX="727.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm món" />
+                                    <Label layoutX="371.0" layoutY="55.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thực đơn">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="727.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                    <Button layoutX="600.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="stackTimeManager" prefHeight="649.0" prefWidth="828.0" visible="false">
+                                 <children>
+                                    <TableView layoutX="20.0" layoutY="145.0" prefHeight="426.0" prefWidth="821.0">
+                                       <columns>
+                                          <TableColumn prefWidth="37.0" text="STT" />
+                                          <TableColumn prefWidth="173.0" text="Ca" />
+                                          <TableColumn minWidth="0.0" prefWidth="376.0" text="Thời gian" />
+                                          <TableColumn prefWidth="234.0" text="Ghi chú" />
+                                       </columns>
+                                    </TableView>
+                                    <TextField layoutX="20.0" layoutY="94.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                                    <Button layoutX="209.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                                    <Button layoutX="727.0" layoutY="94.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm ca" />
+                                    <Label layoutX="351.0" layoutY="55.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thời gian tiệc cưới">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="727.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                    <Button layoutX="600.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="reportPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="7.0" prefHeight="39.0" prefWidth="202.0" text="Báo cáo" textFill="#b83737">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <TableView layoutX="21.0" layoutY="127.0" prefHeight="287.0" prefWidth="821.0">
+                           <columns>
+                              <TableColumn prefWidth="37.0" text="STT" />
+                              <TableColumn prefWidth="171.0" text="Tháng" />
+                              <TableColumn minWidth="0.0" prefWidth="196.0" text="Số tiệc" />
+                              <TableColumn prefWidth="322.0" text="Doanh thu" />
+                           </columns>
+                        </TableView>
+                        <LineChart layoutX="21.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <LineChart layoutX="447.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <Label layoutX="166.0" layoutY="632.0" text="Biểu đồ doanh thu theo tháng" />
+                        <Label layoutX="565.0" layoutY="632.0" text="Biểu đồ số lượng tiệc theo tháng" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="7.0" prefHeight="39.0" prefWidth="202.0" text="THÔNG TIN CÁ NHÂN" textFill="#b83737">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Label layoutX="31.0" layoutY="74.0" prefHeight="31.0" prefWidth="80.0" text="Họ và tên: ">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nameStaff" layoutX="179.0" layoutY="74.0" prefHeight="31.0" prefWidth="418.0" text="Nguyen Van A">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="136.0" prefHeight="31.0" prefWidth="114.0" text="Số điện thoại:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="phoneNumberStaff" layoutX="179.0" layoutY="136.0" prefHeight="31.0" prefWidth="418.0" text="0336018244">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="167.0" prefHeight="31.0" prefWidth="114.0" text="Địa chỉ:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addressStaff" layoutX="179.0" layoutY="167.0" prefHeight="31.0" prefWidth="418.0" text="TP.HCM">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="198.0" prefHeight="31.0" prefWidth="114.0" text="Email:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="emailStaff" layoutX="179.0" layoutY="198.0" prefHeight="31.0" prefWidth="418.0" text="nguyenvana@outlook.com">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="42.0" layoutY="284.0" prefHeight="31.0" prefWidth="418.0" text="BẢNG LƯƠNG">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="229.0" prefHeight="31.0" prefWidth="114.0" text="Loại nhân viên:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="typeStaff" layoutX="179.0" layoutY="229.0" prefHeight="31.0" prefWidth="418.0" text="Nhân viên dịch vụ">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="105.0" prefHeight="31.0" prefWidth="114.0" text="Ngày sinh:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dateOfBirthStaff" layoutX="179.0" layoutY="105.0" prefHeight="31.0" prefWidth="418.0" text="14/08/2001">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView layoutX="31.0" layoutY="323.0" prefHeight="306.0" prefWidth="795.0">
+                          <columns>
+                            <TableColumn prefWidth="242.0" text="Tháng" />
+                            <TableColumn prefWidth="213.0" text="Số ngày làm việc" />
+                              <TableColumn minWidth="0.0" prefWidth="166.0" text="Tổng tiền" />
+                              <TableColumn prefWidth="173.0" text="Trạng thái" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="71.0" prefWidth="1120.0" style="-fx-background-color: #e3e3e3;" />
+   </children>
+</VBox>
