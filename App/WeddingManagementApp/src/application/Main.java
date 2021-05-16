@@ -19,12 +19,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("loginUI.fxml"));
-			primaryStage.setTitle("Login");
-			Scene scene = new Scene(root,415,494);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			LoginScene mainScene = new LoginScene();
+			Stage stage = new Stage();
+			mainScene.start(stage);
 			initDatabase();
 		} catch(Exception e) {
 			e.printStackTrace();

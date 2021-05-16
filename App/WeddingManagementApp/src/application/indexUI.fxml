@@ -37,9 +37,9 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <VBox prefHeight="414.0" prefWidth="259.0">
+                  <VBox prefHeight="419.0" prefWidth="259.0">
                      <children>
-                        <Button fx:id="btnWeddingOrderManagement" mnemonicParsing="false" onAction="#PressIndex" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: #d64d4d;" text="Quản lý thông tin đặt tiệc" textFill="WHITE">
+                        <Button fx:id="btnWeddingOrderManagement" mnemonicParsing="false" onAction="#PressIndex" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thông tin đặt tiệc" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -85,9 +85,9 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox prefHeight="71.0" prefWidth="259.0">
+                  <VBox prefHeight="101.0" prefWidth="259.0">
                      <children>
-                        <Button fx:id="btnInfoPersonal" mnemonicParsing="false" onAction="#PressIndex" prefHeight="34.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Thông tin cá nhân" textFill="WHITE">
+                        <Button fx:id="btnInfoPersonal" mnemonicParsing="false" onAction="#PressIndex" prefHeight="54.0" prefWidth="259.0" style="-fx-background-color: #d64d4d;" text="Thông tin cá nhân" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -95,7 +95,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="0.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Đăng xuất" textFill="WHITE">
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#LogOut" prefHeight="54.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Đăng xuất" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -109,7 +109,7 @@
             </VBox>
             <StackPane prefHeight="664.0" prefWidth="938.0">
                <children>
-                  <AnchorPane fx:id="weddingOrderPanel" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="weddingOrderPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -134,7 +134,7 @@
                         <Button layoutX="721.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm tiệc cưới" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -207,14 +207,14 @@
                                     </TableView>
                                     <TextField layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                     <Button layoutX="209.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                    <Button layoutX="727.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm Sảnh" />
+                                    <Button fx:id="btnAddLobby" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm Sảnh" />
                                     <Label layoutX="380.0" layoutY="28.0" prefHeight="39.0" prefWidth="101.0" text="Quản lý sảnh">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="727.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                    <Button layoutX="600.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                    <Button fx:id="btnDeleteLobby" layoutX="727.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                    <Button fx:id="btnUpdateLobby" layoutX="600.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="stackMenuManager" prefHeight="649.0" prefWidth="828.0" visible="false">
@@ -230,19 +230,19 @@
                                     </TableView>
                                     <TextField layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                     <Button layoutX="209.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                    <Button layoutX="727.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm món" />
+                                    <Button fx:id="btnAddMenu" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm món" />
                                     <Label layoutX="371.0" layoutY="28.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thực đơn">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="727.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                    <Button layoutX="600.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                    <Button fx:id="btnDeleteMenu" layoutX="727.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                    <Button fx:id="btnUpdateMenu" layoutX="600.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="stackTimeManager" prefHeight="649.0" prefWidth="828.0" visible="false">
                                  <children>
-                                    <TableView layoutX="20.0" layoutY="114.0" prefHeight="426.0" prefWidth="821.0">
+                                    <TableView layoutX="21.0" layoutY="119.0" prefHeight="426.0" prefWidth="821.0">
                                        <columns>
                                           <TableColumn prefWidth="37.0" text="STT" />
                                           <TableColumn prefWidth="173.0" text="Ca" />
@@ -250,16 +250,16 @@
                                           <TableColumn prefWidth="234.0" text="Ghi chú" />
                                        </columns>
                                     </TableView>
-                                    <TextField layoutX="20.0" layoutY="63.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
-                                    <Button layoutX="209.0" layoutY="63.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                    <Button layoutX="727.0" layoutY="63.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm ca" />
-                                    <Label layoutX="351.0" layoutY="24.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thời gian tiệc cưới">
+                                    <TextField layoutX="21.0" layoutY="68.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                                    <Button layoutX="210.0" layoutY="68.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                                    <Button fx:id="btnAddTime" layoutX="728.0" layoutY="68.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm ca" />
+                                    <Label layoutX="352.0" layoutY="29.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thời gian tiệc cưới">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="727.0" layoutY="556.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                    <Button layoutX="600.0" layoutY="556.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                    <Button fx:id="btnDeleteTime" layoutX="728.0" layoutY="561.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                    <Button fx:id="btnUpdateTime" layoutX="601.0" layoutY="561.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -305,7 +305,7 @@
                         <Label layoutX="565.0" layoutY="632.0" text="Biểu đồ số lượng tiệc theo tháng" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>

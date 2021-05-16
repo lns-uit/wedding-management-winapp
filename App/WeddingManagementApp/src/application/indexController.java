@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -16,7 +18,24 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class indexController {
-
+	@FXML
+    private Button btnAddTime;
+    @FXML
+    private Button btnDeleteTime;
+    @FXML
+    private Button btnUpdateTime;
+    @FXML
+    private Button btnAddMenu;
+    @FXML
+    private Button btnDeleteMenu;
+    @FXML
+    private Button btnUpdateMenu;
+    @FXML
+    private Button btnAddLobby;
+    @FXML
+    private Button btnDeleteLobby;
+    @FXML
+    private Button btnUpdateLobby;
     @FXML
     private Button btnWeddingOrderManagement;
     @FXML
@@ -109,6 +128,8 @@ public class indexController {
     	identityCardStaff.setText(staff.getIdentityCard());
     	typeStaff.setText(staff.getType());
     	startWorkStaff.setText(staff.getStartWork());
+    	IndexInit(staff.getType());
+    	
 	}
     
     public void searchStaff() throws SQLException {
@@ -127,13 +148,6 @@ public class indexController {
 		staffTbView.setItems(arrStaff);
 	}
     
-    void runFirst() throws SQLException {
-
-		
-    }
-    public void ShowStaffList() {
-   
-    }
 
     private AnchorPane currentPane;
     private Button currentButton;
@@ -141,16 +155,14 @@ public class indexController {
     @FXML
     public void PressIndex(ActionEvent event) throws SQLException {
     	
-    	if (currentPane==null) currentPane = weddingOrderPanel;
+    	if (currentPane==null) currentPane = infoPersonalPanel;
     	currentPane.setVisible(false);
-    	if (currentButton==null) currentButton = btnWeddingOrderManagement;
+    	if (currentButton==null) currentButton = btnInfoPersonal;
     	currentButton.setStyle("-fx-background-color: rgb(184, 55, 55)");
     	if (event.getSource()==btnWeddingOrderManagement) { currentPane = weddingOrderPanel; currentButton = btnWeddingOrderManagement;}
     	else if (event.getSource()==btnStaffManagement) { 
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
-
-//    		runFirst();
     		searchStaff();
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 
@@ -182,6 +194,36 @@ public class indexController {
     	AddStaffScene addStaffScene = new AddStaffScene();
 		Stage stage = new Stage();
 		addStaffScene.start(stage);
+    }
+    @FXML
+    public void LogOut(ActionEvent event) {
+		LoginScene mainScene = new LoginScene();
+		Stage stage = new Stage();
+		mainScene.start(stage);
+		Stage currentScene = (Stage) btnInfoPersonal.getScene().getWindow();
+		currentScene.close();
+    }
+    private void IndexInit(String type) {
+    	System.out.print(type);
+    	if (type.equals("nhan vien")) { // Nhân viên lễ tân
+    		
+    		btnStaffManagement.setDisable(true);
+    		btnAddLobby.setDisable(true);
+    		btnDeleteLobby.setDisable(true);
+    		btnUpdateLobby.setDisable(true);	
+    		btnAddTime.setDisable(true);
+    		btnDeleteTime.setDisable(true);
+    		btnUpdateTime.setDisable(true);
+    		btnAddMenu.setDisable(true);
+    		btnDeleteMenu.setDisable(true);
+    		btnUpdateMenu.setDisable(true);
+    	} else if (type.equals("quan ly")) { // Nhân viên phục vụ - Lao công 
+    		btnWeddingInfoManagement.setDisable(true);
+    		btnStaffManagement.setDisable(true);
+    		btnLobbyManager.setDisable(true);
+    		btnWeddingOrderManagement.setDisable(true);
+    		btnReport.setDisable(true);	
+    	}
     }
 }
 
