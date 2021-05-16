@@ -87,20 +87,20 @@ public class indexController {
     
     public void searchStaff() throws SQLException {
 		ArrayList<Staff> arrStaff = StaffModel.getAllStaff();
-		staffList = FXCollections.observableArrayList(arrStaff);
-		tbvStaff.setItems(staffList);
+//		staffList = FXCollections.observableArrayList(arrStaff);
+//		tbvStaff.setItems(staffList);
 	}
     
     void runFirst() throws SQLException {
-    	System.out.print("run table view");
-		tbcStaffId.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffID"));
-		tbcStaffName.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffName"));
-		tbcStaffBornDate.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffBornDate"));
-		tbcStaffAddress.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffAddress"));
-		tbcStaffPhoneNumber.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffPhone"));
-		tbcStaffEmail.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffEmail"));
-		tbcStaffType.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffType"));
-		searchStaff();
+//    	System.out.print("run table view");
+//		tbcStaffId.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffID"));
+//		tbcStaffName.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffName"));
+//		tbcStaffBornDate.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffBornDate"));
+//		tbcStaffAddress.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffAddress"));
+//		tbcStaffPhoneNumber.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffPhone"));
+//		tbcStaffEmail.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffEmail"));
+//		tbcStaffType.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffType"));
+//		searchStaff();
     }
         
 
@@ -116,7 +116,7 @@ public class indexController {
     	else if (event.getSource()==btnStaffManagement) { 
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
-    		runFirst();
+    		searchStaff();
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 
     		currentPane = weddingOrderInfoPanel; 
