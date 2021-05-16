@@ -24,13 +24,13 @@ public class StaffModel {
 			
 			while (rs.next()) {
 				Staff a = new Staff();
-				String idStaff = rs.getString(1);
-				String nameStaff = rs.getString(2);
-				String phoneNumberStaff = rs.getString(3);
-				String addRessStaff = rs.getString(4);
-				String identityCardStaff = rs.getString(5);
-				String startWorkStaff = rs.getString(6);
-				String typeStaff = rs.getString(7);
+				String idStaff = rs.getString(2);
+				String nameStaff = rs.getString(3);
+				String phoneNumberStaff = rs.getString(4);
+				String addRessStaff = rs.getString(5);
+				String identityCardStaff = rs.getString(6);
+				String startWorkStaff = rs.getString(7);
+				String typeStaff = rs.getString(8);
 				
 				a.setId(idStaff);
 				a.setName(nameStaff);
