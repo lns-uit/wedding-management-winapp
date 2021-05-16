@@ -24,21 +24,21 @@ public class StaffModel {
 			
 			while (rs.next()) {
 				Staff a = new Staff();
-				String idStaffColumn = rs.getString(1);
-				String nameStaffColumn = rs.getString(2);
-				String bornDateStaffColumn = rs.getString(3);
-				String addRessStaffColumn = rs.getString(4);
-				String phoneNumberStaffColumn = rs.getString(5);
-				String emailStaffColumn = rs.getString(6);
-				String typeStaffColumn = rs.getString(7);
+				String idStaff = rs.getString(2);
+				String nameStaff = rs.getString(3);
+				String phoneNumberStaff = rs.getString(4);
+				String addRessStaff = rs.getString(5);
+				String identityCardStaff = rs.getString(6);
+				String startWorkStaff = rs.getString(7);
+				String typeStaff = rs.getString(8);
 				
-				a.setId(idStaffColumn);
-				a.setName(nameStaffColumn);
-				a.setBornDate(bornDateStaffColumn);
-				a.setAddress(addRessStaffColumn);
-				a.setPhoneNumber(phoneNumberStaffColumn);
-				a.setEmail(emailStaffColumn);
-				a.setType(typeStaffColumn);
+				
+				a.setId(idStaff);
+				a.setName(nameStaff);
+				a.setPhoneNumber(phoneNumberStaff);
+				a.setIdentityCard(identityCardStaff);
+				a.setStartWork(startWorkStaff);
+				a.setType(typeStaff);
 				
 				arrStaff.add(a);
 			}
