@@ -2,15 +2,16 @@ package application;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class indexScene {
+public class AddStaffScene {
+
 	public void start(Stage primaryStage) {
 		try {
-			VBox root = (VBox)FXMLLoader.load(getClass().getResource("indexUI.fxml"));
-			Scene scene = new Scene(root,1120,681);
-			primaryStage.setTitle("HOME");
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("addStaffUI.fxml"));
+			Scene scene = new Scene(root,923,540);
+			primaryStage.setTitle("Add Staff");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

@@ -6,18 +6,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import oracle.net.aso.f;
-
+import javafx.scene.control.Label;
 public class LoginController {
 
     @FXML
     private TextField tfPassword;
-
     @FXML
     private TextField tfUsername;
-
     @FXML
     private Button btnLogin;
+    @FXML
+    private Label loginWarningTxt;
 
     @FXML
     void LoginToApp(ActionEvent event) throws SQLException {
@@ -34,7 +33,8 @@ public class LoginController {
     			Stage currentScene = (Stage) btnLogin.getScene().getWindow();
     			currentScene.close();
     		} else {
-    			System.out.println("Wrong email and password");
+    			loginWarningTxt.setText("Wrong email or password!");
+    			loginWarningTxt.setVisible(true);
     		}
     	} else {
     		System.out.println("please retype");
@@ -45,14 +45,20 @@ public class LoginController {
     boolean ValiDateForm(String username,String password) {
     	if (username.length()== 0 ) {
     		System.out.println("Email is required");
+    		loginWarningTxt.setText("Email is required!");
+    		loginWarningTxt.setVisible(true);
     		return false;
     	} 
     	
     	if (password.length()== 0) {
     		System.out.println("Password is required");
+    		loginWarningTxt.setText("Password is required!");
+    		loginWarningTxt.setVisible(true);
     		return false;
     	}else if (password.length()<6) {
     		System.out.println("Password is better 6 character");
+    		loginWarningTxt.setText("Password is better 6 character!");
+    		loginWarningTxt.setVisible(true);
     		return false;
     	}
     	

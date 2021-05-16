@@ -9,20 +9,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="540.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddStaffController">
    <children>
       <Label layoutX="348.0" layoutY="36.0" text="Thêm/Chỉnh sửa nhân viên">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="396.0" layoutY="480.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="132.0" text="Xác nhận">
+      <Button layoutX="396.0" layoutY="480.0" mnemonicParsing="false" onAction="#CommitAddStaff" prefHeight="38.0" prefWidth="132.0" text="Xác nhận">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <TextField layoutX="40.0" layoutY="117.0" prefHeight="38.0" prefWidth="321.0" promptText="Họ và tên">
+      <TextField fx:id="name" layoutX="40.0" layoutY="117.0" prefHeight="38.0" prefWidth="321.0" promptText="Họ và tên">
          <font>
             <Font size="18.0" />
          </font>
@@ -32,7 +31,7 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="383.0" layoutY="117.0" prefHeight="39.0" prefWidth="296.0" promptText="Số điện thoại">
+      <TextField fx:id="phone" layoutX="383.0" layoutY="117.0" prefHeight="39.0" prefWidth="296.0" promptText="Số điện thoại">
          <font>
             <Font size="18.0" />
          </font>
@@ -52,8 +51,8 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <DatePicker layoutX="701.0" layoutY="118.0" prefHeight="38.0" prefWidth="183.0" />
-      <TextField layoutX="42.0" layoutY="289.0" prefHeight="38.0" prefWidth="321.0" promptText="Email">
+      <DatePicker fx:id="dateBorn" layoutX="701.0" layoutY="118.0" prefHeight="38.0" prefWidth="183.0" />
+      <TextField fx:id="email" layoutX="42.0" layoutY="289.0" prefHeight="38.0" prefWidth="321.0" promptText="Email">
          <font>
             <Font size="18.0" />
          </font>
@@ -63,16 +62,21 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <ComboBox layoutX="641.0" layoutY="289.0" prefHeight="39.0" prefWidth="240.0" />
+      <ComboBox fx:id="typeStaff" layoutX="641.0" layoutY="289.0" onAction="#ComboBoxChanged" prefHeight="39.0" prefWidth="240.0" visibleRowCount="5" />
       <Label layoutX="649.0" layoutY="270.0" text="Loại nhân viên">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <TextArea layoutX="40.0" layoutY="191.0" prefHeight="68.0" prefWidth="844.0" promptText="Địa chỉ" wrapText="true">
+      <TextArea fx:id="address" layoutX="40.0" layoutY="191.0" prefHeight="68.0" prefWidth="844.0" promptText="Địa chỉ" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </TextArea>
+      <Label fx:id="warningText" layoutX="354.0" layoutY="430.0" prefHeight="38.0" prefWidth="250.0" text="Vui lòng nhập đầy đủ thông tin!" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

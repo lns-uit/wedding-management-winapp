@@ -1,12 +1,11 @@
 package application;
 
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class indexController {
 
@@ -88,7 +87,12 @@ public class indexController {
     	currentButtonOptionWeddingInfoManager.setDisable(true);
     	currentPanelOptionWeddingInfoManager.setVisible(true);
     }
-    
+    @FXML
+    public void AddStaff(ActionEvent event) {
+    	AddStaffScene addStaffScene = new AddStaffScene();
+		Stage stage = new Stage();
+		addStaffScene.start(stage);
+    }
 }
 
 
