@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+
 public class LoginController {
 
     @FXML
@@ -24,8 +25,8 @@ public class LoginController {
     	String passwordString	 = tfPassword.getText() ;
     	
     	if (ValiDateForm(usernameString, passwordString)) {
-    		int type = AccountModel.Login(usernameString, passwordString);
-    		if ( type > -1) {
+    		String type = AccountModel.Login(usernameString, passwordString);
+    		if ( type!=null) {
     			System.out.println("Login success with type " + type);
     			indexScene mainScene = new indexScene();
     			Stage stage = new Stage();
@@ -55,7 +56,7 @@ public class LoginController {
     		loginWarningTxt.setText("Password is required!");
     		loginWarningTxt.setVisible(true);
     		return false;
-    	}else if (password.length()<6) {
+    	}else if (password.length()<1) {
     		System.out.println("Password is better 6 character");
     		loginWarningTxt.setText("Password is better 6 character!");
     		loginWarningTxt.setVisible(true);
