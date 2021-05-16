@@ -134,7 +134,7 @@
                         <Button layoutX="721.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm tiệc cưới" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>

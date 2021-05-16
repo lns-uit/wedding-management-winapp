@@ -35,6 +35,7 @@ public class StaffModel {
 				a.setId(idStaffColumn);
 				a.setName(nameStaffColumn);
 				a.setBornDate(bornDateStaffColumn);
+				a.setAddress(addRessStaffColumn);
 				a.setPhoneNumber(phoneNumberStaffColumn);
 				a.setEmail(emailStaffColumn);
 				a.setType(typeStaffColumn);

@@ -86,9 +86,8 @@ public class indexController {
     static ObservableList<Staff> staffList;
     
     public void searchStaff() throws SQLException {
-		ArrayList<Staff> arrStaff = StaffModel.getAllStaff();
-		staffList = FXCollections.observableArrayList(arrStaff);
-		tbvStaff.setItems(staffList);
+		ObservableList<Staff> arrStaff = FXCollections.observableArrayList(StaffModel.getAllStaff());
+		tbvStaff.setItems(arrStaff);
 	}
     
     void runFirst() throws SQLException {
@@ -102,7 +101,9 @@ public class indexController {
 		tbcStaffType.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffType"));
 		searchStaff();
     }
-        
+    public void ShowStaffList() {
+   
+    }
 
     private AnchorPane currentPane;
     private Button currentButton;
@@ -116,7 +117,8 @@ public class indexController {
     	else if (event.getSource()==btnStaffManagement) { 
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
-    		runFirst();
+//    		runFirst();
+    		searchStaff();
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 
     		currentPane = weddingOrderInfoPanel; 
