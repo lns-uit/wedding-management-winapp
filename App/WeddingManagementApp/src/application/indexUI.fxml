@@ -346,12 +346,12 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutX="31.0" layoutY="198.0" prefHeight="31.0" prefWidth="114.0" text="Email:">
+                        <Label layoutX="31.0" layoutY="198.0" prefHeight="31.0" prefWidth="114.0" text="CMND">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="emailStaff" layoutX="179.0" layoutY="198.0" prefHeight="31.0" prefWidth="418.0" text="nguyenvana@outlook.com">
+                        <Label fx:id="identityCardStaff" layoutX="179.0" layoutY="198.0" prefHeight="31.0" prefWidth="418.0" text="nguyenvana@outlook.com">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -371,12 +371,12 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutX="31.0" layoutY="105.0" prefHeight="31.0" prefWidth="114.0" text="Ngày sinh:">
+                        <Label layoutX="31.0" layoutY="105.0" prefHeight="31.0" prefWidth="114.0" text="Ngày vào làm">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dateOfBirthStaff" layoutX="179.0" layoutY="105.0" prefHeight="31.0" prefWidth="418.0" text="14/08/2001">
+                        <Label fx:id="startWorkStaff" layoutX="179.0" layoutY="105.0" prefHeight="31.0" prefWidth="418.0" text="14/08/2001">
                            <font>
                               <Font size="16.0" />
                            </font>

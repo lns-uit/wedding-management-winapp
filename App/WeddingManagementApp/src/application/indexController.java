@@ -53,17 +53,21 @@ public class indexController {
     private AnchorPane infoPersonalPanel;
     @FXML
     private Label nameStaff;
+
     @FXML
     private Label phoneNumberStaff;
+
     @FXML
     private Label addressStaff;
+
     @FXML
-    private Label emailStaff;
+    private Label identityCardStaff;
+
     @FXML
     private Label typeStaff;
+
     @FXML
-    private Label dateOfBirthStaff;
-    //    Table 
+    private Label startWorkStaff;
     @FXML
     private TableView<Staff> staffTbView;
 
@@ -97,7 +101,14 @@ public class indexController {
     void initialize() {
 		// TODO Auto-generated method stub
     	StaffHolder holder = StaffHolder.getInstance();
-    	btnName.setText(holder.getStaff().getName());
+    	Staff staff = holder.getStaff();
+    	btnName.setText(staff.getName());
+    	nameStaff.setText(staff.getName());
+    	phoneNumberStaff.setText(staff.getPhoneNumber());
+    	addressStaff.setText(staff.getAddress());
+    	identityCardStaff.setText(staff.getIdentityCard());
+    	typeStaff.setText(staff.getType());
+    	startWorkStaff.setText(staff.getStartWork());
 	}
     
     public void searchStaff() throws SQLException {
