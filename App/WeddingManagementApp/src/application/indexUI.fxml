@@ -30,7 +30,7 @@
                            <image>
                               <Image url="@../../../../img/accountIcon.png" />
                            </image></ImageView>
-                        <Button accessibleRole="TEXT" layoutY="75.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="NGUYEN VAN A" textFill="WHITE">
+                        <Button fx:id="btnName" accessibleRole="TEXT" layoutY="75.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

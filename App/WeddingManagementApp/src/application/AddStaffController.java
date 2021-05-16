@@ -19,18 +19,22 @@ import java.util.ResourceBundle;
 public class AddStaffController implements Initializable {
 	@FXML
     private TextField name;
+
     @FXML
     private TextField phone;
-    @FXML
-    private DatePicker dateBorn;
-    @FXML
-    private TextField email;
+
     @FXML
     private TextArea address;
+
     @FXML
     private Label warningText;
+
+    @FXML
+    private TextField identityCard;
+    
 	@FXML
 	ComboBox<String> typeStaff;
+	
 	ObservableList<String> list = FXCollections.observableArrayList("Nhân viên quản lý", "Nhân viên lễ tân", "Nhân viên phục vụ");
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,7 +48,7 @@ public class AddStaffController implements Initializable {
     }
 	@FXML
 	public void CommitAddStaff(ActionEvent event) {
-		if (name.getText()!="" && phone.getText()!="" && dateBorn.getValue()!=null && email.getText()!="" && address.getText()!="") {
+		if (name.getText()!="" && phone.getText()!="" && identityCard.getText()!=null  && address.getText()!="") {
 			warningText.setVisible(false);
 			Stage currentScene = (Stage) name.getScene().getWindow();
 			currentScene.close();

@@ -25,9 +25,11 @@ public class LoginController {
     	String passwordString	 = tfPassword.getText() ;
     	
     	if (ValiDateForm(usernameString, passwordString)) {
-    		String type = AccountModel.Login(usernameString, passwordString);
-    		if ( type!=null) {
-    			System.out.println("Login success with type " + type);
+    		Staff staffLogin = AccountModel.Login(usernameString, passwordString);
+    		if ( staffLogin!=null) {
+    			System.out.println("Hello "+staffLogin.getName());
+    			StaffHolder holder = StaffHolder.getInstance();
+    			holder.setStaff(staffLogin);
     			indexScene mainScene = new indexScene();
     			Stage stage = new Stage();
     			mainScene.start(stage);

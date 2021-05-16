@@ -88,7 +88,17 @@ public class indexController {
     @FXML
     private TableColumn<Staff,String> staffTypeColumn;
     
+    @FXML
+    private Button btnName;
+    
     private ObservableList<Staff> arrStaff;
+    
+    @FXML
+    void initialize() {
+		// TODO Auto-generated method stub
+    	StaffHolder holder = StaffHolder.getInstance();
+    	btnName.setText(holder.getStaff().getName());
+	}
     
     public void searchStaff() throws SQLException {
     	
@@ -116,8 +126,10 @@ public class indexController {
 
     private AnchorPane currentPane;
     private Button currentButton;
+    
     @FXML
     public void PressIndex(ActionEvent event) throws SQLException {
+    	
     	if (currentPane==null) currentPane = weddingOrderPanel;
     	currentPane.setVisible(false);
     	if (currentButton==null) currentButton = btnWeddingOrderManagement;
