@@ -21,9 +21,9 @@ public class AccountModel {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		
 		int type = cStmt.getInt(3);
 		cStmt.close();
+		System.out.print(type);
 		return type;
 	}
 
