@@ -65,44 +65,54 @@ public class indexController {
     private Label dateOfBirthStaff;
     //    Table 
     @FXML
-    private static TableView<Staff> tbvStaff;
+    private TableView<Staff> staffTbView;
+
     @FXML
-    private TableColumn<Staff, Number> tbcStaffNumber;
+    private TableColumn<Staff,String> staffIdColumn;
+
     @FXML
-    private TableColumn<Staff, String> tbcStaffId;
+    private TableColumn<Staff,String> staffNameColumn;
+
     @FXML
-    private TableColumn<Staff, String> tbcStaffName;
+    private TableColumn<Staff,String> staffPhoneColumn;
+
     @FXML
-    private TableColumn<Staff, String> tbcStaffBornDate;
+    private TableColumn<Staff,String> staffAdressColumn;
+
     @FXML
-    private TableColumn<Staff, String> tbcStaffAddress;
+    private TableColumn<Staff,String> staffCMNDColumn;
+
     @FXML
-    private TableColumn<Staff, String> tbcStaffPhoneNumber;
+    private TableColumn<Staff,String> staffStartWorkDateColumn;
+
     @FXML
-    private TableColumn<Staff, String> tbcStaffEmail;
-    @FXML
-    private TableColumn<Staff, String> tbcStaffType;
+    private TableColumn<Staff,String> staffTypeColumn;
     
-    static ObservableList<Staff> staffList;
+    private ObservableList<Staff> arrStaff;
     
     public void searchStaff() throws SQLException {
-		ArrayList<Staff> arrStaff = StaffModel.getAllStaff();
-//		staffList = FXCollections.observableArrayList(arrStaff);
-//		tbvStaff.setItems(staffList);
+    	
+		arrStaff = FXCollections.observableArrayList(
+				StaffModel.getAllStaff()
+		);
+		staffIdColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("id"));
+		staffNameColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("name"));
+		staffPhoneColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("phoneNumber"));
+		staffAdressColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("address"));
+		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
+		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
+		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
+
+		staffTbView.setItems(arrStaff);
 	}
     
     void runFirst() throws SQLException {
-//    	System.out.print("run table view");
-//		tbcStaffId.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffID"));
-//		tbcStaffName.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffName"));
-//		tbcStaffBornDate.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffBornDate"));
-//		tbcStaffAddress.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffAddress"));
-//		tbcStaffPhoneNumber.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffPhone"));
-//		tbcStaffEmail.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffEmail"));
-//		tbcStaffType.setCellValueFactory(new PropertyValueFactory<Staff, String>("StaffType"));
-//		searchStaff();
+
+		
     }
-        
+    public void ShowStaffList() {
+   
+    }
 
     private AnchorPane currentPane;
     private Button currentButton;
@@ -116,6 +126,8 @@ public class indexController {
     	else if (event.getSource()==btnStaffManagement) { 
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
+
+//    		runFirst();
     		searchStaff();
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 

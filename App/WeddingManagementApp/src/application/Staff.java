@@ -1,6 +1,18 @@
 package application;
 
 public class Staff {
+	public Staff(String id, String name, String address, String phoneNumber, String identityCard, String startWork,
+			String type) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.identityCard = identityCard;
+		this.startWork = startWork;
+		this.type = type;
+	}
+	public Staff() {}
 	private String id;
 	private String name;
 	private String address;

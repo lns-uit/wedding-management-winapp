@@ -40,7 +40,6 @@ public class StaffModel {
 				a.setType(typeStaff);
 				
 				arrStaff.add(a);
-				System.out.println(idStaff+ nameStaff+phoneNumberStaff + addRessStaff+identityCardStaff+startWorkStaff+typeStaff);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
