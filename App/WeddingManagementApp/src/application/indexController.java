@@ -154,7 +154,7 @@ public class indexController {
     }
     private void IndexInit(String type) {
     	System.out.print(type);
-    	if (type.equals("nhan vien le tan")) { // Nhân viên lễ tân
+    	if (type.equals("nhân viên lễ tân")) { // Nhân viên lễ tân
     		btnStaffManagement.setDisable(true);
     		btnAddLobby.setDisable(true);
     		btnDeleteLobby.setDisable(true);
@@ -165,7 +165,7 @@ public class indexController {
     		btnAddMenu.setDisable(true);
     		btnDeleteMenu.setDisable(true);
     		btnUpdateMenu.setDisable(true);
-    	} else if (type.equals("nhan vien lao cong")|| type.equals("nhan vien phuc vu")) { // Nhân viên phục vụ - Lao công 
+    	} else if (type.equals("nhân viên lao công")|| type.equals("nhân viên phục vụ")) { // Nhân viên phục vụ - Lao công 
     		btnWeddingInfoManagement.setDisable(true);
     		btnStaffManagement.setDisable(true);
     		btnLobbyManager.setDisable(true);
