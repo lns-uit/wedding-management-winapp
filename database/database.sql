@@ -155,7 +155,7 @@ create table OrderWedding(
 );
 create table ListWedding(
     stt number(7) not null,
-    idWedding varchar2(8),
+    idWedding varchar2(8) unique,
     status varchar2(7),
     constraint ListWedding_pk primary key (idWedding)
 );
@@ -187,6 +187,7 @@ create table Customer(
     nameCustomer varchar2(30),
     numberPhone varchar2(10) unique,
     address varchar2(50),
+    identityCard varchar2(9) unique,
     birthDay date,
     dayRegister date,
     money number(12),
@@ -490,8 +491,8 @@ insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPES
     'Nguyen Van A', '0792545702', 'sadasas', '1213123', '19-MAR-2023', 'quan ly', '15-FEB-2001'
 );
 /*insert cus*/
-insert into Customer(nameCustomer,numberPhone,ADDRESS,BIRTHDAY,DAYREGISTER) values(
-    'Tran Dinh Khoi', '0792545708', 'ádfasdfasdf', '14-FEB-2001', '14-MAR-2020'
+insert into Customer(nameCustomer,numberPhone,ADDRESS, identityCard,BIRTHDAY,DAYREGISTER) values(
+    'Tran Dinh Khoi', '0792545708', 'ádfasdfasdf','2334324' ,'14-FEB-2001', '14-MAR-2020'
 );
 /*insert infor wedding*/
 insert into InForWedding(nameBride, nameGroom) values(
