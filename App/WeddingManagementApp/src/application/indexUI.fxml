@@ -277,32 +277,33 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <TableView layoutX="21.0" layoutY="127.0" prefHeight="287.0" prefWidth="821.0">
+                        <TableView fx:id="tbViewReport" layoutX="21.0" layoutY="127.0" prefHeight="287.0" prefWidth="821.0">
                            <columns>
-                              <TableColumn prefWidth="37.0" text="STT" />
-                              <TableColumn prefWidth="171.0" text="Tháng" />
-                              <TableColumn minWidth="0.0" prefWidth="196.0" text="Số tiệc" />
-                              <TableColumn prefWidth="322.0" text="Doanh thu" />
+                              <TableColumn fx:id="reportIDColumn" prefWidth="37.0" text="STT" />
+                              <TableColumn fx:id="reportMonthColumn" prefWidth="171.0" text="Tháng" />
+                              <TableColumn fx:id="reportCountWeddingColumn" minWidth="0.0" prefWidth="196.0" text="Số tiệc" />
+                              <TableColumn fx:id="reportRevenueColumn" prefWidth="322.0" text="Doanh thu" />
                            </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
                         </TableView>
-                        <LineChart layoutX="21.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
+                        <LineChart fx:id="revenue" animated="false" layoutX="21.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
                           <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <CategoryAxis side="BOTTOM" fx:id="xRevenue" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis side="LEFT" />
+                            <NumberAxis fx:id="yRevenue" side="LEFT" />
                           </yAxis>
                         </LineChart>
-                        <LineChart layoutX="447.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
+                        <LineChart fx:id="countWedding" animated="false" layoutX="447.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
                            <xAxis>
-                              <CategoryAxis side="BOTTOM" />
+                              <CategoryAxis side="BOTTOM" fx:id="xCountWedding" />
                            </xAxis>
                            <yAxis>
-                              <NumberAxis side="LEFT" />
+                              <NumberAxis fx:id="yCountWedding" side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <Label layoutX="166.0" layoutY="632.0" text="Biểu đồ doanh thu theo tháng" />
-                        <Label layoutX="565.0" layoutY="632.0" text="Biểu đồ số lượng tiệc theo tháng" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0">
