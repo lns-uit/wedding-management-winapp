@@ -79,5 +79,4 @@ public class Staff {
 		this.type = type;
 	}
 	
-	
 }

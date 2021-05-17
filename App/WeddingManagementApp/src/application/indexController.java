@@ -3,19 +3,31 @@ package application;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sun.security.rsa.RSAUtil.KeyType;
 
 public class indexController {
 	@FXML
@@ -169,7 +181,11 @@ public class indexController {
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
     	}
-    	else if (event.getSource()==btnReport) { currentPane = reportPanel; currentButton = btnReport;}
+    	else if (event.getSource()==btnReport) { 
+    		currentPane = reportPanel; currentButton = btnReport;
+    		ReportChartShow();    		
+    		ReportTbViewShow();
+    	}
     	else if (event.getSource()==btnInfoPersonal) { currentPane = infoPersonalPanel; currentButton = btnInfoPersonal;}
     	currentButton.setStyle("-fx-background-color:#d64d4d");
     	currentPane.setVisible(true);
@@ -223,6 +239,75 @@ public class indexController {
     		btnWeddingOrderManagement.setDisable(true);
     		btnReport.setDisable(true);	
     	}
+    }
+    
+    // BÁO CÁO DOANH THU THÁNG
+
+    @FXML
+    private CategoryAxis xRevenue;
+    @FXML
+    private NumberAxis yRevenue;
+    @FXML
+    private LineChart< ? ,? > revenue;
+    @FXML
+    private LineChart<?, ?> countWedding;
+    @FXML
+    private CategoryAxis xCountWedding;
+    @FXML
+    private NumberAxis yCountWedding;
+
+   
+    void ReportChartShow() {
+    	// Doanh số theo tháng
+    	revenue.setTitle("Doanh thu theo tháng");
+    	
+    	XYChart.Series revenueSeries = new XYChart.Series();
+    	revenueSeries.getData().add(new XYChart.Data("3/2020",20000000));
+    	revenueSeries.getData().add(new XYChart.Data("4/2020",110000011));
+    	revenueSeries.getData().add(new XYChart.Data("5/2020",12310002));
+    	revenueSeries.getData().add(new XYChart.Data("6/2020",92310002));
+    	xRevenue.setLabel("Tháng");
+    	yRevenue.setLabel("VNĐ");
+    	revenue.getData().addAll(revenueSeries);
+    	
+    	// Só tiệc theo tháng
+    	countWedding.setTitle("Số tiệc theo tháng");
+    	
+    	XYChart.Series countWeddingSeries = new XYChart.Series();
+    	countWeddingSeries.getData().add(new XYChart.Data("3/2020",20));
+      	countWeddingSeries.getData().add(new XYChart.Data("4/2020",32));
+      	countWeddingSeries.getData().add(new XYChart.Data("5/2020",15));
+      	countWeddingSeries.getData().add(new XYChart.Data("6/2020",23));
+      	xCountWedding.setLabel("Tháng");
+      	yCountWedding.setLabel("VNĐ");
+      	countWedding.getData().addAll(countWeddingSeries);
+    }
+    private ObservableList<ReportRevenue> arrReport;
+    @FXML
+    private TableView<ReportRevenue> tbViewReport;
+    @FXML
+    private TableColumn<ReportRevenue, Number> reportIDColumn;
+    @FXML
+    private TableColumn<ReportRevenue, String> reportMonthColumn;
+    @FXML
+    private TableColumn<ReportRevenue, Number> reportCountWeddingColumn;
+    @FXML
+    private TableColumn<ReportRevenue, Number> reportRevenueColumn;
+    public void ReportTbViewShow() {
+
+    	arrReport = FXCollections.observableArrayList(
+    			new ReportRevenue(1,"3/2020",20,20000000),
+    			new ReportRevenue(2,"4/2020",32,110000011),
+    			new ReportRevenue(3,"5/2020",15,12310002),
+    			new ReportRevenue(4,"6/2020",23,92310002)
+    	);
+
+    	reportIDColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue,Number>("stt"));
+    	reportMonthColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue, String>("month"));
+    	reportCountWeddingColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue, Number>("countWedding"));
+    	reportRevenueColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue, Number>("revenue"));
+
+    	tbViewReport.setItems(arrReport);
     }
 }
 
