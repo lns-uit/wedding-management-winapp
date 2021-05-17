@@ -574,3 +574,57 @@ insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
 insert into Report(CLOSINGDATE) values(
     '28-FEB-2020'
 );
+
+/*create produce*/
+create or replace NONEDITIONABLE procedure sp_findStaffByPhone 
+(v_numberPhone in staff.numberPhone%type, v_typeStaff out staff.typestaff%type) 
+is 
+begin
+    select typestaff into v_typeStaff
+    from staff
+    where v_numberphone = numberphone;
+    EXCEPTION
+    when no_data_found 
+    then v_typeStaff := '';
+end;
+
+create or replace NONEDITIONABLE procedure sp_getAllStaff(cur_userOut OUT SYS_REFCURSOR)
+is
+begin
+    open cur_userOut for
+    select  *
+    from staff;
+end;
+
+create or replace NONEDITIONABLE procedure sp_Login (
+    v_username in  account.username%type, 
+    v_password in account.password%type,
+    v_typestaff out staff.TYPESTAFF%type,
+    v_idStaff out staff.idstaff%type
+)
+is
+begin
+    select staff.typestaff,  staff.idstaff  into v_typestaff, v_idStaff 
+    from staff, account
+    where staff.idstaff = account.idstaff and v_username=account.username and v_password = account.password;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+        v_typestaff := '' ;
+        v_idStaff :='';
+end;
+
+create or replace NONEDITIONABLE procedure insert_staff(
+    V_nameStaff in staff.nameStaff%type,
+    V_NUMBERPHONE in staff.NUMBERPHONE%type,
+    V_ADDRESS in staff.ADDRESS%type,
+    V_IDENTITYCARD in staff.IDENTITYCARD%type,
+    V_STARTWORK in staff.STARTWORK%type,
+    V_BIRTHDAY in staff.BIRTHDAY%type,
+    V_TYPESTAFF in staff.TYPESTAFF%type
+)
+is
+begin
+   insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
+        V_nameStaff, V_NUMBERPHONE, V_ADDRESS, V_IDENTITYCARD, V_STARTWORK, V_TYPESTAFF, V_BIRTHDAY
+    );
+end;
