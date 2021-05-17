@@ -140,7 +140,7 @@ create table InforWedding(
 );
 create table OrderWedding(
     stt number(7) not null,
-    idWedding varchar2(8),
+    idWedding varchar2(8) unique,
     idLobby varchar2(8),
     idStaff varchar2(9),
     idCustomer varchar2(8),
@@ -156,17 +156,19 @@ create table OrderWedding(
 create table ListWedding(
     stt number(7) not null,
     idWedding varchar2(8),
+    status varchar2(7),
     constraint ListWedding_pk primary key (idWedding)
 );
 create table Staff(
     stt number(7) not null,
     idStaff varchar2(9),
     nameStaff varchar2(30),
-    numberPhone varchar2(10),
+    numberPhone varchar2(10) unique,
     address varchar2(50),
-    identityCard varchar2(9),
+    identityCard varchar2(9) unique,
     startWork date,
     typeStaff varchar2(10),
+    birthday date,
     constraint Staff_pk primary key (idStaff)
 );
 create table Bill(
@@ -183,7 +185,7 @@ create table Customer(
     stt number(7) not null,
     idCustomer varchar2(8),
     nameCustomer varchar2(30),
-    numberPhone varchar2(10),
+    numberPhone varchar2(10) unique,
     address varchar2(50),
     birthDay date,
     dayRegister date,
