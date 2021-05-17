@@ -47,4 +47,28 @@ public class StaffModel {
 		cStmt.close();
 		return arrStaff;
 	}
+	
+	public static String findStaffByPhone(String phone) throws SQLException {
+		String sqlString = "begin sp_findStaffByPhone(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			
+			cStmt.setString(1, phone);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			cStmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		String resultString = cStmt.getString(2);
+		System.out.print(resultString);
+		if (resultString!= null ) {
+			cStmt.close();
+			return resultString;
+		}
+		
+		cStmt.close();
+		return null;
+	}
 }
