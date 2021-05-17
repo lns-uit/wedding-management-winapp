@@ -159,7 +159,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <TextField layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                        <TextField fx:id="tfSearchStaff" layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                         <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
                         <Button layoutX="719.0" layoutY="69.0" mnemonicParsing="false" onAction="#AddStaff" prefHeight="35.0" prefWidth="123.0" text="Thêm nhân viên" />
                         <Button layoutX="755.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="87.0" text="Xóa" />
