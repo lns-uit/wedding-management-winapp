@@ -107,11 +107,10 @@ create table Lobby(
     stt number(7) not null,
     idLobby varchar(8),
     nameLobby varchar(30),
-    lobbyType varchar(7),
+    lobbyType varchar(20),
     maxTable number(4),
     priceTable number(9),
     priceLobby number(9),
-    status varchar(10),
     note varchar(100),
     constraint Lobby_pk primary key (idLobby)
 );
@@ -155,7 +154,7 @@ create table OrderWedding(
 );
 create table ListWedding(
     stt number(7) not null,
-    idWedding varchar2(8) unique,
+    idWedding varchar2(8),
     status varchar2(7),
     constraint ListWedding_pk primary key (idWedding)
 );
@@ -253,7 +252,6 @@ create or replace trigger Order_Wedding
 before insert on OrderWedding
 for each row
 declare 
-    statusTmp varchar2(10);
     maxTableTmp number(4);
     priceLobbyTmp number(10);
     priceTableTmp number(10);
@@ -262,16 +260,17 @@ declare
     tmp number(7);
     numberOfFoodTmp number(3);
     numberOfServiceTmp number(3);
+    orderLobby number(2);
 begin
     select count(*) into numberOfFoodTmp from FoodOrder where idWedding = :new.idWedding;
     select count(*) into numberOfServiceTmp from ServiceOrder where idWedding = :new.idWedding;
     select maxTable into maxTableTmp from Lobby where idLobby = :new.idLobby;
-    select status into statusTmp from Lobby where idLobby = :new.idLobby;
     select priceLobby into priceLobbyTmp from Lobby where idLobby = :new.idLobby;
     select priceTable into priceTableTmp from Lobby where idLobby = :new.idLobby;
     select Sum(price) into sumService from Service, ServiceOrder where Service.idService = ServiceOrder.idService and ServiceOrder.idWedding = :new.idWedding;
     select Sum(priceFood) into sumFood from Food, FoodOrder where Food.idFood = FoodOrder.idFood and FoodOrder.idWedding = :new.idWedding;
-    if statusTmp = 'ON' then
+    select count(*) into orderLobby from OrderWedding where :new.idLobby = idLobby and :new.DATESTART = DATESTART;
+    if orderLobby > 0 then
         DBMS_OUTPUT.PUT_LINE('sanh nay da co nguoi dat');
         return;
     else
@@ -282,7 +281,6 @@ begin
             :new.NUMBEROFSERVICE := numberOfServiceTmp;
             :new.money := priceLobbyTmp+(priceTableTmp+sumFood)*:new.numberOfTable + sumService;
             :new.deposit := :new.money*0.3;
-            update Lobby set status = 'ON' where idLobby = :new.idLobby;
         else
             DBMS_OUTPUT.PUT_LINE('so luong ban vuot qua gioi han');
             return;
@@ -322,11 +320,7 @@ begin
     :new.stt := tmp;
     :new.idCustomer := concat('CUS',to_char(tmp));
     :new.money := 0;
-    if :new.money > 100000000 then
-        :new.discount := 20;
-    else
-        :new.discount := 0;
-    end if;
+    :new.discount := 0;
 end;
 
 create or replace trigger Account_stt_and_id
@@ -389,30 +383,27 @@ begin
     :new.status := 'ON';
 end;
 
-create or replace trigger UpdateListWedding
-before update on ListWedding
-for each row
-declare idLobbyTmp varchar2(8);
-begin
-    select idLobby into idLobbyTmp from OrderWedding where :old.idWedding = idWedding;
-    if :new.status = 'OFF' then
-        update Lobby set status = 'OFF' where idLobbyTmp = idLobby;
-    end if;
-end;
-
 create or replace trigger Bill
 before insert on Bill
 for each row
 declare 
     tmp number(7);
-    moneyPayment number(14);
+    priceLobbyTmp number(14);
+    priceTableTmp number(14);
+    sumService number(14);
+    sumFood number(14);
+    numberOfTableTmp number(3);
 begin
-    select money into moneyPayment from OrderWedding where idWedding = :new.idWedding;
+    select priceLobby into priceLobbyTmp from Lobby L, OrderWedding O where L.idLobby = O.idLobby and O.idWedding = :new.idWedding;
+    select priceTable into priceTableTmp from Lobby L, OrderWedding O where L.idLobby = O.idLobby and O.idWedding = :new.idWedding;
+    select Sum(price) into sumService from Service, ServiceOrder where Service.idService = ServiceOrder.idService and ServiceOrder.idWedding = :new.idWedding;
+    select Sum(priceFood) into sumFood from Food, FoodOrder where Food.idFood = FoodOrder.idFood and FoodOrder.idWedding = :new.idWedding;
+    select numberOfTable into numberOfTableTmp from OrderWedding where idWedding = :new.idWedding;
     tmp := Bill_stt.nextval;
     :new.stt := tmp;
     :new.idBill := concat('B',tmp);
-    :new.money := moneyPayment;
-    update Customer set money = money + moneyPayment where idCustomer = :new.idCustomer;
+    :new.money := priceLobbyTmp + numberOfTableTmp*(sumFood+priceTableTmp) + sumService;
+    update Customer set money = money + :new.money where idCustomer = :new.idCustomer;
 end;
 
 create or replace trigger UpdateCustomer
@@ -444,18 +435,28 @@ begin
     where EXTRACT(YEAR FROM dateOfPayment) = EXTRACT(YEAR FROM :new.closingDate) and EXTRACT(MONTH FROM dateOfPayment) = EXTRACT(MONTH FROM :new.closingDate);
     :new.TOTALBILLOFMONTH := sumReport;
 end;
+
+create or replace trigger Update_Bill
+before update on Bill
+for each row
+begin
+    if :new.idCustomer != :old.idCustomer then
+        update Customer set money = money-:old.money where idCustomer = :old.idCustomer;
+        update Customer set money = money+:old.money where idCustomer = :new.idCustomer;
+    end if;
+end;
 /*insert Lobby*/
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,status,note) values(
-   'thien duong', 'vip', 40, 1000000, 10000000, 'OFF', 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
+   'Thiên ???ng', 'vip', 40, 1000000, 10000000, 'nothing' 
 );
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,status,note) values(
-   'thien duong', 'thuong', 30, 500000, 5000000, 'OFF', 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
+   'Thiên ???ng', 'th??ng', 30, 500000, 5000000, 'nothing' 
 );
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,status,note) values(
-   'Co Dien', 'vip', 70, 2000000, 50000000, 'OFF', 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
+   'C? ?i?n', 'vip', 70, 2000000, 50000000, 'nothing' 
 );
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,status,note) values(
-   'Co Dien', 'thuong', 50, 1500000, 20000000, 'OFF', 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
+   'C? ?i?n', 'th??ng', 50, 1500000, 20000000, 'nothing' 
 );
 /*insert Food*/
 insert into Food(nameFood,priceFood) values(
@@ -465,30 +466,30 @@ insert into Food(nameFood,priceFood) values(
     'cua', 400000
 );
 insert into Food(nameFood,priceFood) values(
-    'soi ga', 100000
+    'sôi gà', 100000
 );
 insert into Food(nameFood,priceFood) values(
     'rau cau', 20000
 );
 /*insert Service*/
 insert into Service(nameService,price) values(
-    'ca hat', 5000000
+    'ca hát', 5000000
 );
 insert into Service(nameService,price) values(
-    'ao thuat', 2000000
+    '?o thu?t', 2000000
 );
 insert into Service(nameService,price) values(
-    'nhac song', 3000000
+    'nh?c sóng', 3000000
 );
 /*insert Staff*/
 insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
-    'Tran Dinh  Khoi', '0792545700', 'sadasdas', '3213123', '19-MAR-2025', 'admin', '14-FEB-2001'
+    'Tr?n ?ình Khôi', '0792545700', 'sadasdas', '3213123', '19-MAR-2025', 'admin', '14-FEB-2001'
 );
 insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
-    'Do Thanh Van', '0792545701', 'sadasas', '1213123', '19-MAR-2023', 'nhan vien', '15-FEB-2001'
+    '?? Thanh Vân', '0792545701', 'sadasas', '1213123', '19-MAR-2023', 'qu?n lý', '15-FEB-2001'
 );
 insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
-    'Nguyen Van A', '0792545702', 'sadasas', '1213123', '19-MAR-2023', 'quan ly', '15-FEB-2001'
+    'Nguy?n V?n A', '0792545702', 'sadasas', '12131243', '19-MAR-2023', 'nhân viên ph?c v?', '15-FEB-2001'
 );
 /*insert cus*/
 insert into Customer(nameCustomer,numberPhone,ADDRESS, identityCard,BIRTHDAY,DAYREGISTER) values(
@@ -542,15 +543,18 @@ insert into FoodOrder(IDFOOD,IDWEDDING) values(
 insert into FoodOrder(IDFOOD,IDWEDDING) values(
     'F1', 'WED3'
 );
+insert into FoodOrder(IDFOOD,IDWEDDING) values(
+    'F3', 'WED1'
+);
 /*insert OrderWedding*/
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
-    'WED1', 'LOB1', 'ST4', 'CUS1', 20,'14-FEB-2001','16-FEB-2001'
+    'WED1', 'LOB1', 'ST1', 'CUS1', 20,'14-FEB-2001','16-FEB-2001'
 );
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
-    'WED2', 'LOB3', 'ST1', 'CUS1', 10,'14-FEB-2001','16-FEB-2001'
+    'WED2', 'LOB2', 'ST1', 'CUS1', 10,'14-FEB-2001','16-FEB-2001'
 );
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
-    'WED3', 'LOB4', 'ST4', 'CUS1', 10,'14-FEB-2001','16-FEB-2001'
+    'WED3', 'LOB4', 'ST1', 'CUS1', 10,'14-FEB-2001','17-FEB-2001'
 );
 /*insert ListWedding*/
 insert into ListWedding(idWedding) values(
@@ -565,13 +569,13 @@ insert into ListWedding(idWedding) values(
 update ListWedding set status = 'OFF' where idWedding = 'WED1';
 /*insert bill*/
 insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
-    'ST4','CUS1','WED1', '14-FEB-2020'
+    'ST1','CUS1','WED1', '14-FEB-2020'
 );
 insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
-    'ST4','CUS1','WED2', '14-FEB-2020'
+    'ST1','CUS1','WED2', '14-FEB-2020'
 );
 insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
-    'ST4','CUS1','WED3', '16-FEB-2020'
+    'ST1','CUS1','WED3', '16-FEB-2020'
 );
 /*insert report*/
 insert into Report(CLOSINGDATE) values(
