@@ -167,7 +167,7 @@ create table Staff(
     address varchar2(50),
     identityCard varchar2(9) unique,
     startWork date,
-    typeStaff varchar2(10),
+    typeStaff varchar2(30),
     birthday date,
     constraint Staff_pk primary key (idStaff)
 );
