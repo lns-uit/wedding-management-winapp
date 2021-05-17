@@ -331,19 +331,10 @@ After insert on Staff
 for each row
 declare tmp number(7);
 begin
-    if :new.typeStaff = 'quan ly' then
-        tmp := Account_stt.nextval;
-        insert into Account values(
-            tmp, concat('Acc',tmp) , :new.idStaff, :new.numberPhone, '123456', 'OFF'
-        );
-    elsif  :new.typeStaff = 'admin' then
-        tmp := Account_stt.nextval;
-        insert into Account values(
-            tmp, concat('Acc',tmp) , :new.idStaff, :new.numberPhone, '123456', 'OFF'
-        );
-    else
-        return;
-    end if;
+    tmp := Account_stt.nextval;
+    insert into Account values(
+        tmp, concat('Acc',tmp) , :new.idStaff, :new.numberPhone, '123456', 'OFF'
+    );
 end;
 
 create or replace trigger Service_stt_and_id
@@ -507,6 +498,9 @@ insert into InForWedding(nameBride, nameGroom) values(
 insert into InForWedding(nameBride, nameGroom) values(
     'C', 'D'
 );
+insert into InForWedding(nameBride, nameGroom) values(
+    'GK', 'SD'
+);
 /*insert service order*/
 insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
     'SER1', 'WED1'
@@ -519,6 +513,12 @@ insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
 );
 insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
     'SER3', 'WED2'
+);
+insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
+    'SER1', 'WED3'
+);
+insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
+    'SER3', 'WED3'
 );
 /*insert Food Order*/
 insert into FoodOrder(IDFOOD,IDWEDDING) values(
@@ -533,12 +533,21 @@ insert into FoodOrder(IDFOOD,IDWEDDING) values(
 insert into FoodOrder(IDFOOD,IDWEDDING) values(
     'F1', 'WED2'
 );
+insert into FoodOrder(IDFOOD,IDWEDDING) values(
+    'F3', 'WED3'
+);
+insert into FoodOrder(IDFOOD,IDWEDDING) values(
+    'F1', 'WED3'
+);
 /*insert OrderWedding*/
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
     'WED1', 'LOB1', 'ST4', 'CUS1', 20,'14-FEB-2001','16-FEB-2001'
 );
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
     'WED2', 'LOB3', 'ST1', 'CUS1', 10,'14-FEB-2001','16-FEB-2001'
+);
+insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
+    'WED3', 'LOB4', 'ST4', 'CUS1', 10,'14-FEB-2001','16-FEB-2001'
 );
 /*insert ListWedding*/
 insert into ListWedding(idWedding) values(
@@ -547,6 +556,9 @@ insert into ListWedding(idWedding) values(
 insert into ListWedding(idWedding) values(
     'WED2'
 );
+insert into ListWedding(idWedding) values(
+    'WED3'
+);
 update ListWedding set status = 'OFF' where idWedding = 'WED1';
 /*insert bill*/
 insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
@@ -554,6 +566,9 @@ insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
 );
 insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
     'ST4','CUS1','WED2', '14-FEB-2020'
+);
+insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
+    'ST4','CUS1','WED3', '16-FEB-2020'
 );
 /*insert report*/
 insert into Report(CLOSINGDATE) values(
