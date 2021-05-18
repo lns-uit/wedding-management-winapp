@@ -119,7 +119,6 @@ create table Service(
     idService varchar2(8),
     nameService varchar2(30),
     price number(9),
-    note varchar2(100),
     constraint Service_pk primary key (idService)
 );
 create table Food(
@@ -127,7 +126,7 @@ create table Food(
     idFood varchar2(8),
     nameFood varchar2(30),
     priceFood number(9),
-    note varchar2(100),
+    typeFood varchar(20),
     constraint Food_pk primary key (idFood)
 );
 create table InforWedding(
@@ -463,17 +462,17 @@ insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) valu
    'C? ?i?n', 'thuongef', 50, 1500000, 20000000, 'nothing' 
 );
 /*insert Food*/
-insert into Food(nameFood,priceFood) values(
-    'soul', 50000
+insert into Food(nameFood,priceFood, typeFood) values(
+    'soul', 50000, 'khai v?'
 );
-insert into Food(nameFood,priceFood) values(
-    'cua', 400000
+insert into Food(nameFood,priceFood,typeFood) values(
+    'cua', 400000, 'món chính'
 );
-insert into Food(nameFood,priceFood) values(
-    'sôi gà', 100000
+insert into Food(nameFood,priceFood,typeFood) values(
+    'sôi gà', 100000, 'món chính'
 );
-insert into Food(nameFood,priceFood) values(
-    'rau cau', 20000
+insert into Food(nameFood,priceFood,typeFood) values(
+    'rau cau', 20000, 'tráng mi?ng'
 );
 /*insert Service*/
 insert into Service(nameService,price) values(
@@ -630,13 +629,11 @@ create or replace NONEDITIONABLE procedure insert_staff(
     V_NUMBERPHONE in staff.NUMBERPHONE%type,
     V_ADDRESS in staff.ADDRESS%type,
     V_IDENTITYCARD in staff.IDENTITYCARD%type,
-    V_STARTWORK in staff.STARTWORK%type,
-    V_BIRTHDAY in staff.BIRTHDAY%type,
     V_TYPESTAFF in staff.TYPESTAFF%type
 )
 is
 begin
-   insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
-        V_nameStaff, V_NUMBERPHONE, V_ADDRESS, V_IDENTITYCARD, V_STARTWORK, V_TYPESTAFF, V_BIRTHDAY
+   insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,TYPESTAFF) values(
+        V_nameStaff, V_NUMBERPHONE, V_ADDRESS, V_IDENTITYCARD, V_TYPESTAFF
     );
 end;
