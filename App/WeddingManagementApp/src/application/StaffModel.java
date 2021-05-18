@@ -38,6 +38,7 @@ public class StaffModel {
 				a.setIdentityCard(identityCardStaff);
 				a.setStartWork(startWorkStaff);
 				a.setType(typeStaff);
+				a.setAddress(addRessStaff);
 				
 				arrStaff.add(a);
 			}
@@ -70,5 +71,23 @@ public class StaffModel {
 		
 		cStmt.close();
 		return null;
+	}
+	
+	public static void addStaff(Staff newStaff) throws SQLException {
+		String sqlString = "begin insert_staff(?,?,?,?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			cStmt.setString(1, newStaff.getName());
+			cStmt.setString(2, newStaff.getPhoneNumber());
+			cStmt.setString(3, newStaff.getAddress());
+			cStmt.setString(4, newStaff.getIdentityCard());
+			cStmt.setString(5, newStaff.getType());
+			cStmt.execute();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		cStmt.close();
 	}
 }

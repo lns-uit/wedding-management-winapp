@@ -126,6 +126,7 @@ public class indexController {
     	else if (event.getSource()==btnStaffManagement) { 
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
+    		updateStaffTView();
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 
     		currentPane = weddingOrderInfoPanel; 
@@ -216,7 +217,7 @@ public class indexController {
     
     public void viewStaff() throws SQLException {
     	
-		arrStaff = FXCollections.observableArrayList(allStaff);
+//		arrStaff = FXCollections.observableArrayList(allStaff);
 		
 		staffIdColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("id"));
 		staffNameColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("name"));
@@ -226,8 +227,16 @@ public class indexController {
 		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
 		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
 
-		staffTbView.setItems(arrStaff);
+//		staffTbView.setItems(arrStaff);
 	}
+    
+    public void updateStaffTView() throws SQLException {
+    	ArrayList<Staff> arr = StaffModel.getAllStaff();
+    	allStaff = arr;
+    	staffTbView.getItems().clear();
+    	setTbView(arr);	
+    }
+    
     
     public ArrayList<Staff> filterStaff (String inputName) {
     	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
@@ -239,6 +248,11 @@ public class indexController {
     	});
     	
     	return resultStaffs;
+    }
+    
+    public void setTbView (ArrayList<Staff> arrayStaff) {
+    	arrStaff = FXCollections.observableArrayList(arrayStaff);
+    	staffTbView.setItems(arrStaff);
     }
     
     /***********End Staff controller *************/
