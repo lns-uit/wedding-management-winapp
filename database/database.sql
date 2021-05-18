@@ -167,7 +167,6 @@ create table Staff(
     identityCard varchar2(9) unique,
     startWork date,
     typeStaff varchar2(30),
-    birthday date,
     constraint Staff_pk primary key (idStaff)
 );
 create table Bill(
@@ -281,6 +280,7 @@ begin
             :new.NUMBEROFSERVICE := numberOfServiceTmp;
             :new.money := priceLobbyTmp+(priceTableTmp+sumFood)*:new.numberOfTable + sumService;
             :new.deposit := :new.money*0.3;
+            :new.DATEORDERDATE := current_date;
         else
             DBMS_OUTPUT.PUT_LINE('so luong ban vuot qua gioi han');
             return;
@@ -306,6 +306,7 @@ begin
     tmp := Staff_stt.nextval;
     :new.stt := tmp;
     :new.idStaff := concat('ST',to_char(tmp));
+    :new.STARTWORK := current_date;
 end;
 
 create or replace trigger Customer_stt_and_id
@@ -321,6 +322,7 @@ begin
     :new.idCustomer := concat('CUS',to_char(tmp));
     :new.money := 0;
     :new.discount := 0;
+    :new.DAYREGISTER := current_date;
 end;
 
 create or replace trigger Account_stt_and_id
@@ -403,7 +405,9 @@ begin
     :new.stt := tmp;
     :new.idBill := concat('B',tmp);
     :new.money := priceLobbyTmp + numberOfTableTmp*(sumFood+priceTableTmp) + sumService;
+    :new.DATEOFPAYMENT := current_date;
     update Customer set money = money + :new.money where idCustomer = :new.idCustomer;
+    update ListWedding set status = 'OFF' where idWedding = :new.idWedding;
 end;
 
 create or replace trigger UpdateCustomer
@@ -456,7 +460,7 @@ insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) valu
    'C? ?i?n', 'vip', 70, 2000000, 50000000, 'nothing' 
 );
 insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
-   'C? ?i?n', 'th??ng', 50, 1500000, 20000000, 'nothing' 
+   'C? ?i?n', 'thuongef', 50, 1500000, 20000000, 'nothing' 
 );
 /*insert Food*/
 insert into Food(nameFood,priceFood) values(
@@ -479,21 +483,21 @@ insert into Service(nameService,price) values(
     '?o thu?t', 2000000
 );
 insert into Service(nameService,price) values(
-    'nh?c sóng', 3000000
+    'nh?t sóng', 3000000
 );
 /*insert Staff*/
-insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
-    'Tr?n ?ình Khôi', '0792545700', 'sadasdas', '3213123', '19-MAR-2025', 'admin', '14-FEB-2001'
+insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,TYPESTAFF) values(
+    'Tr?n ?ình Khôi', '0792545700', 'sadasdas', '3213123', 'admin'
 );
-insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
-    '?? Thanh Vân', '0792545701', 'sadasas', '1213123', '19-MAR-2023', 'qu?n lý', '15-FEB-2001'
+insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,TYPESTAFF) values(
+    '?? Thanh Vân', '0792545701', 'sadasas', '1213123', 'qu?n lý'
 );
-insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,STARTWORK,TYPESTAFF,birthday) values(
-    'Nguy?n V?n A', '0792545702', 'sadasas', '12131243', '19-MAR-2023', 'nhân viên ph?c v?', '15-FEB-2001'
+insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,TYPESTAFF) values(
+    'Nguy?n V?n A', '0792545702', 'sadasas', '12131243', 'nhân viên ph?c v?'
 );
 /*insert cus*/
-insert into Customer(nameCustomer,numberPhone,ADDRESS, identityCard,BIRTHDAY,DAYREGISTER) values(
-    'Tran Dinh Khoi', '0792545708', 'ádfasdfasdf','2334324' ,'14-FEB-2001', '14-MAR-2020'
+insert into Customer(nameCustomer,numberPhone,ADDRESS, identityCard,BIRTHDAY) values(
+    'Tr?n ?ình Khoi', '0792545708', 'ádfasdfasdf','2334324' ,'14-FEB-2001'
 );
 /*insert infor wedding*/
 insert into InForWedding(nameBride, nameGroom) values(
@@ -547,14 +551,14 @@ insert into FoodOrder(IDFOOD,IDWEDDING) values(
     'F3', 'WED1'
 );
 /*insert OrderWedding*/
-insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
-    'WED1', 'LOB1', 'ST1', 'CUS1', 20,'14-FEB-2001','16-FEB-2001'
+insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATESTART) values(
+    'WED1', 'LOB1', 'ST1', 'CUS1', 20,'16-FEB-2001'
 );
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
-    'WED2', 'LOB2', 'ST1', 'CUS1', 10,'14-FEB-2001','16-FEB-2001'
+    'WED2', 'LOB2', 'ST1', 'CUS1', 10,'16-FEB-2001'
 );
-insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
-    'WED3', 'LOB4', 'ST1', 'CUS1', 10,'14-FEB-2001','17-FEB-2001'
+insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATESTART) values(
+    'WED3', 'LOB4', 'ST1', 'CUS1', 10,'17-FEB-2001'
 );
 /*insert ListWedding*/
 insert into ListWedding(idWedding) values(
@@ -568,18 +572,19 @@ insert into ListWedding(idWedding) values(
 );
 update ListWedding set status = 'OFF' where idWedding = 'WED1';
 /*insert bill*/
-insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
-    'ST1','CUS1','WED1', '14-FEB-2020'
+insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING) values(
+    'ST1','CUS1','WED1'
 );
-insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
-    'ST1','CUS1','WED2', '14-FEB-2020'
+insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING) values(
+    'ST1','CUS1','WED2'
 );
-insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING,DATEOFPAYMENT) values(
-    'ST1','CUS1','WED3', '16-FEB-2020'
+insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING) values(
+    'ST1','CUS1','WED3'
 );
 /*insert report*/
-insert into Report(CLOSINGDATE) values(
-    '28-FEB-2020'
+
+insert into report(CLOSINGDATE) values(
+    '28-FEB-2001'
 );
 
 /*create produce*/
