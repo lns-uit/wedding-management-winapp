@@ -214,7 +214,7 @@
                         <TextField fx:id="tfSearchCustomer" layoutX="21.0" layoutY="74.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="weddingOrderInfoPanel" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="weddingOrderInfoPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -245,7 +245,7 @@
                                           <TableColumn fx:id="lobbyNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên sảnh" />
                                           <TableColumn fx:id="lobbyTypeColumn" prefWidth="155.0" text="Kiểu sảnh" />
                                           <TableColumn fx:id="lobbyTableColumn" prefWidth="221.0" text="Số bàn" />
-                                          <TableColumn fx:id="lobbyPriceColumn" prefWidth="221.0" text="Giá bàn" />
+                                          <TableColumn fx:id="lobbyTablePriceColumn" prefWidth="221.0" text="Giá bàn" />
                                           <TableColumn fx:id="lobbyPriceColumn" prefWidth="221.0" text="Giá sảnh" />
                                           <TableColumn fx:id="lobbyNote" prefWidth="221.0" text="Ghi chú" />
                                        </columns>
@@ -363,7 +363,7 @@
                         </LineChart>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>

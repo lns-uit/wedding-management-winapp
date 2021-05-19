@@ -3,6 +3,7 @@ package application;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.media.jfxmedia.control.VideoDataBuffer;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import javafx.collections.FXCollections;
@@ -18,15 +19,18 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sun.awt.AWTAccessor.CheckboxMenuItemAccessor;
 import sun.security.rsa.RSAUtil.KeyType;
 
 public class indexController {
@@ -139,6 +143,7 @@ public class indexController {
     	else if (event.getSource()==btnWeddingInfoManagement) { 
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
+    		ViewLobbyColumn();
     	}
     	else if (event.getSource()==btnReport) { 
     		currentPane = reportPanel; currentButton = btnReport;
@@ -166,9 +171,13 @@ public class indexController {
     	currentButtonOptionWeddingInfoManager.setDisable(false);
     	currentPanelOptionWeddingInfoManager.setVisible(false);
     	
-    	if (event.getSource()== btnLobbyManager) { currentButtonOptionWeddingInfoManager = btnLobbyManager; currentPanelOptionWeddingInfoManager = stackLobbyManager; }
+    	if (event.getSource()== btnLobbyManager) { 
+    		currentButtonOptionWeddingInfoManager = btnLobbyManager; 
+    		currentPanelOptionWeddingInfoManager = stackLobbyManager; 
+    		ViewLobbyColumn();
+    	}
     	else if (event.getSource()== btnMenuManager) { currentButtonOptionWeddingInfoManager = btnMenuManager; currentPanelOptionWeddingInfoManager = stackMenuManager;}
-    	else if (event.getSource()== btnTimeManager) { currentButtonOptionWeddingInfoManager = btnTimeManager; currentPanelOptionWeddingInfoManager = stackTimeManager;}
+
     	currentButtonOptionWeddingInfoManager.setDisable(true);
     	currentPanelOptionWeddingInfoManager.setVisible(true);
     }
@@ -207,26 +216,60 @@ public class indexController {
     		btnReport.setDisable(true);	
     	}
     }
-
+    /*********** LOBBY MANAGER CONTROLLER ********/
+    @FXML
+    private TableView<Lobby> tbViewLobbyManager;
+    @FXML
+    private TableColumn<Lobby,Number> lobbyIdColumn;
+    @FXML
+    private TableColumn<Lobby, String> lobbyNameColumn;
+    @FXML
+    private TableColumn<Lobby,String> lobbyTypeColumn;
+    @FXML
+    private TableColumn<Lobby,Number> lobbyTableColumn;
+    @FXML
+    private TableColumn<Lobby,Number> lobbyTablePriceColumn;
+    @FXML
+    private TableColumn<Lobby,Number> lobbyPriceColumn;
+    @FXML
+    private TableColumn<Lobby,String> lobbyNote;
+    
+    public void ViewLobbyColumn() {
+    	lobbyIdColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("id"));
+    	lobbyNameColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
+     	lobbyTypeColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
+     	lobbyTableColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
+     	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
+     	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
+     	lobbyNote.setCellValueFactory(new PropertyValueFactory<Lobby,String>("note"));
+     	ViewLobbyTbView();
+    }
+    
+    public void ViewLobbyTbView() {
+    	ObservableList<Lobby> arrLobby;
+    	CheckBox a = new CheckBox("check");
+    	arrLobby = FXCollections.observableArrayList(
+    			new Lobby(12,"phuc","vip",12,123,123," "),
+    			new Lobby(12,"loi","vip",12,123,123," "),
+    			new Lobby(12,"khoi","vip",12,123,123," "),
+    			new Lobby(12,"tam","vio",12,123,123," ")
+    	);
+    	tbViewLobbyManager.setItems(arrLobby);
+    }
     /***********CUSTOMER CONTROLLER*******/
     @FXML
     private TableView<?> tbViewCustomer;
-
     @FXML
     private TableColumn<?, ?> cusIDColumn;
-
     @FXML
     private TableColumn<?, ?> cusNameColumn;
-
     @FXML
     private TableColumn<?, ?> cusPhoneNumberColumn;
-
     @FXML
     private TableColumn<?, ?> cusMoneyColumn;
-
     @FXML
     private TableColumn<?, ?> cusDiscountColumn;
-
+    
    
 
    
