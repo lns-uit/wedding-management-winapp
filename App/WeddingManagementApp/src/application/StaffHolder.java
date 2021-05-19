@@ -13,4 +13,13 @@ public final class StaffHolder {
 	public Staff getStaff() {
 	    return this.staff;
 	}
+	
+	private Staff selectStaff;
+	public void setStaffSelect(Staff u) {
+		this.selectStaff = u;
+	}
+	public Staff getSelectStaff() {
+		return this.selectStaff;
+	}
+	
 }

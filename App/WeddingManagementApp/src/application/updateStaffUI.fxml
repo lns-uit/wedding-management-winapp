@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="540.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddStaffController">
+<AnchorPane prefHeight="540.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UpdateStaffController">
    <children>
-      <Label layoutX="394.0" layoutY="37.0" text="Thêm nhân viên">
+      <Label layoutX="377.0" layoutY="37.0" text="Sửa thông tin nhân viên">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -30,7 +30,7 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="phone" layoutX="346.0" layoutY="117.0" prefHeight="40.0" prefWidth="253.0" promptText="Số điện thoại">
+      <TextField fx:id="phone" disable="true" layoutX="346.0" layoutY="117.0" prefHeight="40.0" prefWidth="253.0" promptText="Số điện thoại">
          <font>
             <Font size="18.0" />
          </font>
@@ -66,7 +66,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="identityCard" layoutX="638.0" layoutY="116.0" prefHeight="40.0" prefWidth="206.0" promptText="CMND">
+      <TextField fx:id="identityCard" disable="true" layoutX="638.0" layoutY="116.0" prefHeight="40.0" prefWidth="206.0" promptText="CMND">
          <font>
             <Font size="18.0" />
          </font>

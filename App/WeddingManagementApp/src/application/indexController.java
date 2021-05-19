@@ -55,6 +55,10 @@ public class indexController {
     @FXML
     private Button btnWeddingInfoManagement;
     @FXML
+    private Button btnCustomerManagement;
+    @FXML
+    private Button btnBill;
+    @FXML
     private Button btnReport;
     @FXML
     private Button btnInfoPersonal;
@@ -79,58 +83,22 @@ public class indexController {
     @FXML
     private AnchorPane stackTimeManager;
     @FXML
+    private AnchorPane customerPanel;
+    @FXML 
+    private AnchorPane billPanel;
+    @FXML
     private AnchorPane reportPanel;
     @FXML
     private AnchorPane infoPersonalPanel;
     @FXML
-    private Label nameStaff;
-
-    @FXML
-    private Label phoneNumberStaff;
-
-    @FXML
-    private Label addressStaff;
-
-    @FXML
-    private Label identityCardStaff;
-
-    @FXML
-    private Label typeStaff;
-
-    @FXML
-    private Label startWorkStaff;
-    @FXML
-    private TableView<Staff> staffTbView;
-
-    @FXML
-    private TableColumn<Staff,String> staffIdColumn;
-
-    @FXML
-    private TableColumn<Staff,String> staffNameColumn;
-
-    @FXML
-    private TableColumn<Staff,String> staffPhoneColumn;
-
-    @FXML
-    private TableColumn<Staff,String> staffAdressColumn;
-
-    @FXML
-    private TableColumn<Staff,String> staffCMNDColumn;
-
-    @FXML
-    private TableColumn<Staff,String> staffStartWorkDateColumn;
-
-    @FXML
-    private TableColumn<Staff,String> staffTypeColumn;
-    
-    @FXML
     private Button btnName;
-    
-    private ObservableList<Staff> arrStaff;
+    private AnchorPane currentPane;
+    private Button currentButton;
     
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
 		// TODO Auto-generated method stub
+    	//gán user vào info
     	StaffHolder holder = StaffHolder.getInstance();
     	Staff staff = holder.getStaff();
     	btnName.setText(staff.getName());
@@ -140,29 +108,20 @@ public class indexController {
     	identityCardStaff.setText(staff.getIdentityCard());
     	typeStaff.setText(staff.getType());
     	startWorkStaff.setText(staff.getStartWork());
+    	// lấy tất cả dữ liệu từ data
+    	allStaff = StaffModel.getAllStaff();
+    	// xử lí tất cả các view
+		viewStaff();
+    	//
     	IndexInit(staff.getType());
-    	
+    	// tìm kiếm nhân viên
+    	tfSearchStaff.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrStaff = FXCollections.observableArrayList(
+    				filterStaff(observable.getValue())
+    		);
+    		staffTbView.setItems(arrStaff);
+    	});
 	}
-    
-    public void searchStaff() throws SQLException {
-    	
-		arrStaff = FXCollections.observableArrayList(
-				StaffModel.getAllStaff()
-		);
-		staffIdColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("id"));
-		staffNameColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("name"));
-		staffPhoneColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("phoneNumber"));
-		staffAdressColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("address"));
-		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
-		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
-		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
-
-		staffTbView.setItems(arrStaff);
-	}
-    
-
-    private AnchorPane currentPane;
-    private Button currentButton;
     
     @FXML
     public void PressIndex(ActionEvent event) throws SQLException {
@@ -175,7 +134,6 @@ public class indexController {
     	else if (event.getSource()==btnStaffManagement) { 
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
-    		searchStaff();
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 
     		currentPane = weddingOrderInfoPanel; 
@@ -187,6 +145,14 @@ public class indexController {
     		ReportTbViewShow();
     	}
     	else if (event.getSource()==btnInfoPersonal) { currentPane = infoPersonalPanel; currentButton = btnInfoPersonal;}
+    	else if (event.getSource()==btnBill) {
+    		currentPane = billPanel;
+    		currentButton = btnBill;
+    	} 
+    	else if (event.getSource()==btnCustomerManagement) {
+    		currentPane = customerPanel;
+    		currentButton = btnCustomerManagement;
+    	}
     	currentButton.setStyle("-fx-background-color:#d64d4d");
     	currentPane.setVisible(true);
     }
@@ -240,8 +206,41 @@ public class indexController {
     		btnReport.setDisable(true);	
     	}
     }
-    
-    // BÁO CÁO DOANH THU THÁNG
+    /***********CUSTOMER CONTROLLER*******/
+    @FXML
+    private TableColumn<?, ?> cusSttColumn;
+    @FXML
+    private TableColumn<?, ?> cusIDColumn;
+    @FXML
+    private TableColumn<?, ?> cusNameColumn;
+    @FXML
+    private TableColumn<?, ?> cusPhoneNumberColumn;
+    @FXML
+    private TableColumn<?, ?> cusMoneyColumn;
+    @FXML
+    private TableColumn<?, ?> cusDiscountColumn;
+   
+    /***********BILL CONTROLLER**********/
+    @FXML
+    private TextField tfSearchBill;
+    @FXML
+    private TableView<?> tbViewBill;
+    @FXML
+    private TableColumn<?, ?> billSttColumn;
+    @FXML
+    private TableColumn<?, ?> billIDColumn;
+    @FXML
+    private TableColumn<?, ?> billIDStaffColumn;
+    @FXML
+    private TableColumn<?, ?> billIDCustomerColumn;
+    @FXML
+    private TableColumn<?, ?> billIDWeddingColumn;
+    @FXML
+    private TableColumn<?, ?> billMoneyColumn;
+    @FXML
+    private TableColumn<?, ?> dateOfPayColumn;
+
+    /***********REPORT VIEW *************/
 
     @FXML
     private CategoryAxis xRevenue;
@@ -309,6 +308,93 @@ public class indexController {
 
     	tbViewReport.setItems(arrReport);
     }
+    
+    
+    /***********Staff controller *************/
+    @FXML
+    private TextField tfSearchStaff;
+    @FXML
+    private TableView<Staff> staffTbView;
+    @FXML
+    private TableColumn<Staff,String> staffIdColumn;
+    @FXML
+    private TableColumn<Staff,String> staffNameColumn;
+    @FXML
+    private TableColumn<Staff,String> staffPhoneColumn;
+    @FXML
+    private TableColumn<Staff,String> staffAdressColumn;
+    @FXML
+    private TableColumn<Staff,String> staffCMNDColumn;
+    @FXML
+    private TableColumn<Staff,String> staffStartWorkDateColumn;
+    @FXML
+    private TableColumn<Staff,String> staffTypeColumn;
+    private ObservableList<Staff> arrStaff;
+    private ArrayList<Staff> allStaff;
+    @FXML
+    private Button btnStaffUpdate;
+    @FXML
+    private Button btnStaffDelete;
+    public void viewStaff() throws SQLException {
+    	
+		arrStaff = FXCollections.observableArrayList(allStaff);
+		
+		staffIdColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("id"));
+		staffNameColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("name"));
+		staffPhoneColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("phoneNumber"));
+		staffAdressColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("address"));
+		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
+		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
+		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
+
+		staffTbView.setItems(arrStaff);
+	}
+    
+    public ArrayList<Staff> filterStaff (String inputName) {
+    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
+    	
+    	allStaff.forEach(staff -> {
+    		if (staff.getName().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			resultStaffs.add(staff);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    
+    public void OnActionButtonStaff(ActionEvent event) {
+  		Staff selectStaff = staffTbView.getSelectionModel().getSelectedItem();
+    	if (event.getSource()==btnStaffDelete) {
+  
+    	}
+    	if (event.getSource()==btnStaffUpdate) {
+    		StaffHolder holder = StaffHolder.getInstance();
+    		holder.setStaffSelect(selectStaff);
+    		UpdateStaffScene mainScene = new UpdateStaffScene();
+    		Stage stage = new Stage();
+    		mainScene.start(stage);
+    	}
+    }
+    
+    /***********End Staff controller *************/
+    
+    
+    
+    /***********Info controller *************/
+    
+    @FXML
+    private Label nameStaff;
+    @FXML
+    private Label phoneNumberStaff;
+    @FXML
+    private Label addressStaff;
+    @FXML
+    private Label identityCardStaff;
+    @FXML
+    private Label typeStaff;
+    @FXML
+    private Label startWorkStaff;
+
 }
 
 

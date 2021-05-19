@@ -21,8 +21,9 @@ public class StaffModel {
 			cStmt.executeUpdate();
 			
 			ResultSet rs = (ResultSet) cStmt.getObject(1);
-			
+
 			while (rs.next()) {
+				if (rs.getString(8).equals("admin")) break;
 				Staff a = new Staff();
 				String idStaff = rs.getString(2);
 				String nameStaff = rs.getString(3);
@@ -31,7 +32,7 @@ public class StaffModel {
 				String identityCardStaff = rs.getString(6);
 				String startWorkStaff = rs.getString(7);
 				String typeStaff = rs.getString(8);
-				
+
 				a.setId(idStaff);
 				a.setName(nameStaff);
 				a.setPhoneNumber(phoneNumberStaff);

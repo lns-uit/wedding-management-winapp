@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class AddStaffController implements Initializable {
+public class UpdateStaffController implements Initializable {
 	@FXML
     private TextField name;
 
@@ -50,30 +50,30 @@ public class AddStaffController implements Initializable {
 			list.add("Nhân viên quản lý");
 		}
         typeStaff.setItems(list);
+        phone.setText(holder.getSelectStaff().getPhoneNumber());
+        identityCard.setText(holder.getSelectStaff().getIdentityCard());
+        address.setText(holder.getSelectStaff().getAddress());
+        name.setText(holder.getSelectStaff().getName());
+        int indexSelectStaffType = 0;
+        if (holder.getSelectStaff().getType().equals("Nhân viên lao công")) indexSelectStaffType = 0;
+        else if (holder.getSelectStaff().getType().equals("Nhân viên lễ tân")) indexSelectStaffType = 1;
+        else if (holder.getSelectStaff().getType().equals("Nhân viên phục vụ")) indexSelectStaffType = 2;
+        else if (holder.getSelectStaff().getType().equals("Nhân viên quản lý ")) indexSelectStaffType = 3;
+        typeStaff.getSelectionModel().select(indexSelectStaffType);
     }
 	
 	@FXML
 	public void CommitAddStaff(ActionEvent event) throws SQLException {
 		String newPhoneString = phone.getText();
-		
-		if (StaffModel.findStaffByPhone(newPhoneString) != null) {
-			//check số điện thoại
-			System.out.print("Phone is already");
-			warningText.setText("Số điện thoại đã tồn tại");
-			warningText.setVisible(true);
+		String message = Validator();
+		if (message=="success") {
+			warningText.setVisible(false);
+			Stage currentScene = (Stage) name.getScene().getWindow();
+			currentScene.close();
+			showAlertWithoutHeaderText("Sửa thành công");
 		} else {
-			String message = Validator();
-			if (message=="success") {
-				warningText.setVisible(false);
-				Stage currentScene = (Stage) name.getScene().getWindow();
-				currentScene.close();
-				showAlertWithoutHeaderText("Thêm thành công");
-				System.out.println("Staff: " + name.getText() + " " + typeStaff.getValue());
-				System.out.print("Commit Success");
-			} else {
-				warningText.setText(message);
-				warningText.setVisible(true);
-			}
+			warningText.setText(message);
+			warningText.setVisible(true);
 		}
 	}
 	private void showAlertWithoutHeaderText(String message) {

@@ -61,6 +61,17 @@
                               <Insets left="-93.0" />
                            </padding>
                         </Button>
+                        <Button fx:id="btnCustomerManagement" mnemonicParsing="false" onAction="#PressIndex" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý khách hàng" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="-79.0" />
+                           </padding>
+                        </Button>
                         <Button fx:id="btnWeddingInfoManagement" mnemonicParsing="false" onAction="#PressIndex" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thông tin tiệc cưới" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -70,6 +81,17 @@
                            </cursor>
                            <padding>
                               <Insets left="-30.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="btnBill" mnemonicParsing="false" onAction="#PressIndex" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Hóa đơn" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="-156.0" />
                            </padding>
                         </Button>
                         <Button fx:id="btnReport" mnemonicParsing="false" onAction="#PressIndex" prefHeight="45.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="Báo cáo" textFill="WHITE">
@@ -120,7 +142,10 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <TableView layoutX="21.0" layoutY="127.0" prefHeight="426.0" prefWidth="821.0">
+                        <TextField layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                        <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                        <Button layoutX="721.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm tiệc cưới" />
+                        <TableView layoutX="20.0" layoutY="119.0" prefHeight="525.0" prefWidth="821.0">
                            <columns>
                               <TableColumn prefWidth="37.0" text="STT" />
                               <TableColumn prefWidth="87.0" text="Mã đặt tiệc" />
@@ -129,12 +154,9 @@
                               <TableColumn prefWidth="221.0" text="Ngày đặt" />
                            </columns>
                         </TableView>
-                        <TextField layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
-                        <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                        <Button layoutX="721.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm tiệc cưới" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -147,10 +169,10 @@
                         </AnchorPane>
                         <TableView fx:id="staffTbView" layoutX="21.0" layoutY="127.0" prefHeight="426.0" prefWidth="821.0">
                            <columns>
-                              <TableColumn fx:id="staffIdColumn" prefWidth="87.0" text="Mã nhân viên" />
-                              <TableColumn fx:id="staffNameColumn" minWidth="0.0" prefWidth="136.0" text="Tên nhân viên" />
-                              <TableColumn fx:id="staffPhoneColumn" prefWidth="120.0" text="Số điện thoại" />
-                              <TableColumn fx:id="staffAdressColumn" prefWidth="116.0" text="Địa chỉ" />
+                              <TableColumn fx:id="staffIdColumn" prefWidth="102.0" text="Mã nhân viên" />
+                              <TableColumn fx:id="staffNameColumn" minWidth="0.0" prefWidth="125.0" text="Tên nhân viên" />
+                              <TableColumn fx:id="staffPhoneColumn" prefWidth="113.0" text="Số điện thoại" />
+                              <TableColumn fx:id="staffAdressColumn" prefWidth="124.0" text="Địa chỉ" />
                               <TableColumn fx:id="staffCMNDColumn" prefWidth="110.0" text="CMND" />
                               <TableColumn fx:id="staffStartWorkDateColumn" prefWidth="100.0" text="Ngày bắt đầu làm việc" />
                               <TableColumn fx:id="staffTypeColumn" prefWidth="114.0" text="Loại" />
@@ -159,11 +181,37 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <TextField layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                        <TextField fx:id="tfSearchStaff" layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                         <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
                         <Button layoutX="719.0" layoutY="69.0" mnemonicParsing="false" onAction="#AddStaff" prefHeight="35.0" prefWidth="123.0" text="Thêm nhân viên" />
-                        <Button layoutX="755.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="87.0" text="Xóa" />
-                        <Button layoutX="652.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="87.0" text="Sửa" />
+                        <Button fx:id="btnStaffDelete" layoutX="755.0" layoutY="582.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Xóa" />
+                        <Button fx:id="btnStaffUpdate" layoutX="652.0" layoutY="582.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Sửa" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="customerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="7.0" prefHeight="39.0" prefWidth="202.0" text="Quản lý khách hàng" textFill="#b83737">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <TableView fx:id="tbViewCustomer" layoutX="21.0" layoutY="127.0" prefHeight="525.0" prefWidth="821.0">
+                           <columns>
+                              <TableColumn fx:id="cusIDColumn" prefWidth="206.0" text="Mã khách hàng" />
+                              <TableColumn fx:id="cusNameColumn" minWidth="0.0" prefWidth="196.0" text="Tên khách hàng" />
+                              <TableColumn fx:id="cusPhoneNumberColumn" prefWidth="322.0" text="Số điện thoại" />
+                              <TableColumn fx:id="cusMoneyColumn" prefWidth="322.0" text="Tổng tiền đặt" />
+                              <TableColumn fx:id="cusDiscountColumn" prefWidth="322.0" text="Giảm giá" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <TextField fx:id="tfSearchCustomer" layoutX="21.0" layoutY="74.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="weddingOrderInfoPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -175,17 +223,12 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnLobbyManager" disable="true" layoutX="324.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý sảnh" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Button fx:id="btnLobbyManager" disable="true" layoutX="518.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý sảnh" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnMenuManager" layoutX="504.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="35.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thực đơn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btnTimeManager" layoutX="684.0" layoutY="7.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="39.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thời gian" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Button fx:id="btnMenuManager" layoutX="687.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="35.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thực đơn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -196,16 +239,21 @@
                            <children>
                               <AnchorPane fx:id="stackLobbyManager" prefHeight="691.0" prefWidth="861.0">
                                  <children>
-                                    <TableView layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
+                                    <TableView fx:id="tbViewLobbyManager" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
                                        <columns>
-                                          <TableColumn prefWidth="37.0" text="STT" />
-                                          <TableColumn prefWidth="173.0" text="Tên Sảnh" />
-                                          <TableColumn minWidth="0.0" prefWidth="234.0" text="Số bàn" />
-                                          <TableColumn prefWidth="155.0" text="Đơn giá" />
-                                          <TableColumn prefWidth="221.0" text="Ghi chú" />
+                                          <TableColumn fx:id="lobbyIdColumn" prefWidth="173.0" text="Mã sảnh" />
+                                          <TableColumn fx:id="lobbyNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên sảnh" />
+                                          <TableColumn fx:id="lobbyTypeColumn" prefWidth="155.0" text="Kiểu sảnh" />
+                                          <TableColumn fx:id="lobbyTableColumn" prefWidth="221.0" text="Số bàn" />
+                                          <TableColumn fx:id="lobbyPriceColumn" prefWidth="221.0" text="Giá bàn" />
+                                          <TableColumn fx:id="lobbyPriceColumn" prefWidth="221.0" text="Giá sảnh" />
+                                          <TableColumn fx:id="lobbyNote" prefWidth="221.0" text="Ghi chú" />
                                        </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
                                     </TableView>
-                                    <TextField layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                                    <TextField fx:id="tfSearchLobby" layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                     <Button layoutX="209.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
                                     <Button fx:id="btnAddLobby" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm Sảnh" />
                                     <Label layoutX="380.0" layoutY="28.0" prefHeight="39.0" prefWidth="101.0" text="Quản lý sảnh">
@@ -219,14 +267,16 @@
                               </AnchorPane>
                               <AnchorPane fx:id="stackMenuManager" prefHeight="649.0" prefWidth="828.0" visible="false">
                                  <children>
-                                    <TableView layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
+                                    <TableView fx:id="tbViewMenu" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
                                        <columns>
-                                          <TableColumn prefWidth="37.0" text="STT" />
-                                          <TableColumn prefWidth="173.0" text="Tên món" />
-                                          <TableColumn minWidth="0.0" prefWidth="234.0" text="Đơn giá" />
-                                          <TableColumn prefWidth="155.0" text="Đơn vị tính" />
-                                          <TableColumn prefWidth="221.0" text="Ghi chú" />
+                                          <TableColumn fx:id="menuIdColumn" prefWidth="173.0" text="Mã món ăn" />
+                                          <TableColumn fx:id="menuNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên món ăn" />
+                                          <TableColumn fx:id="menuPriceColumn" prefWidth="188.0" text="Giá món ăn" />
+                                          <TableColumn fx:id="menuTypeColumn" prefWidth="42.0" text="Loại" />
                                        </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
                                     </TableView>
                                     <TextField layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                     <Button layoutX="209.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
@@ -240,33 +290,38 @@
                                     <Button fx:id="btnUpdateMenu" layoutX="600.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="stackTimeManager" prefHeight="649.0" prefWidth="828.0" visible="false">
-                                 <children>
-                                    <TableView layoutX="21.0" layoutY="119.0" prefHeight="426.0" prefWidth="821.0">
-                                       <columns>
-                                          <TableColumn prefWidth="37.0" text="STT" />
-                                          <TableColumn prefWidth="173.0" text="Ca" />
-                                          <TableColumn minWidth="0.0" prefWidth="376.0" text="Thời gian" />
-                                          <TableColumn prefWidth="234.0" text="Ghi chú" />
-                                       </columns>
-                                    </TableView>
-                                    <TextField layoutX="21.0" layoutY="68.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
-                                    <Button layoutX="210.0" layoutY="68.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                    <Button fx:id="btnAddTime" layoutX="728.0" layoutY="68.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm ca" />
-                                    <Label layoutX="352.0" layoutY="29.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thời gian tiệc cưới">
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="btnDeleteTime" layoutX="728.0" layoutY="561.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                    <Button fx:id="btnUpdateTime" layoutX="601.0" layoutY="561.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
-                                 </children>
-                              </AnchorPane>
                            </children>
                         </StackPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="reportPanel" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="billPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="7.0" prefHeight="39.0" prefWidth="202.0" text="Hóa đơn" textFill="#b83737">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <TextField fx:id="tfSearchBill" layoutX="21.0" layoutY="75.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                        <TableView fx:id="tbViewBill" layoutX="21.0" layoutY="127.0" prefHeight="525.0" prefWidth="821.0">
+                           <columns>
+                              <TableColumn fx:id="billIDColumn" prefWidth="54.0" text="Mã hóa đơn" />
+                              <TableColumn fx:id="billIDStaffColumn" prefWidth="360.0" text="Mã nhân viên" />
+                              <TableColumn fx:id="billIDCustomerColumn" minWidth="0.0" prefWidth="196.0" text="Mã khách hàng" />
+                              <TableColumn fx:id="billIDWeddingColumn" prefWidth="322.0" text="Mã tiệc cưới" />
+                              <TableColumn fx:id="billMoneyColumn" prefWidth="322.0" text="Tổng tiền" />
+                              <TableColumn fx:id="dateOfPayColumn" prefWidth="322.0" text="Ngày lập " />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="reportPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -277,7 +332,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <TableView fx:id="tbViewReport" layoutX="21.0" layoutY="127.0" prefHeight="287.0" prefWidth="821.0">
+                        <TableView fx:id="tbViewReport" layoutX="20.0" layoutY="69.0" prefHeight="253.0" prefWidth="821.0">
                            <columns>
                               <TableColumn fx:id="reportIDColumn" prefWidth="37.0" text="STT" />
                               <TableColumn fx:id="reportMonthColumn" prefWidth="171.0" text="Tháng" />
@@ -288,7 +343,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <LineChart fx:id="revenue" animated="false" layoutX="21.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
+                        <LineChart fx:id="revenue" animated="false" layoutX="20.0" layoutY="354.0" prefHeight="150.0" prefWidth="821.0">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" fx:id="xRevenue" />
                           </xAxis>
@@ -296,7 +351,7 @@
                             <NumberAxis fx:id="yRevenue" side="LEFT" />
                           </yAxis>
                         </LineChart>
-                        <LineChart fx:id="countWedding" animated="false" layoutX="447.0" layoutY="430.0" prefHeight="210.0" prefWidth="395.0">
+                        <LineChart fx:id="countWedding" animated="false" layoutX="20.0" layoutY="500.0" prefHeight="150.0" prefWidth="821.0">
                            <xAxis>
                               <CategoryAxis side="BOTTOM" fx:id="xCountWedding" />
                            </xAxis>
