@@ -24,7 +24,6 @@ public class StaffModel {
 			ResultSet rs = (ResultSet) cStmt.getObject(1);
 
 			while (rs.next()) {
-				if (rs.getString(8).equals("admin")) break;
 				Staff a = new Staff();
 				String idStaff = rs.getString(2);
 				String nameStaff = rs.getString(3);
@@ -41,8 +40,10 @@ public class StaffModel {
 				a.setStartWork(startWorkStaff);
 				a.setType(typeStaff);
 				a.setAddress(addRessStaff);
+				if (!typeStaff.equals("admin")) {
+					arrStaff.add(a);	
+				}
 				
-				arrStaff.add(a);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

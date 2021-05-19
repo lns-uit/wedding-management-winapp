@@ -167,7 +167,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <TableView fx:id="staffTbView" layoutX="21.0" layoutY="127.0" prefHeight="426.0" prefWidth="821.0">
+                        <TableView fx:id="staffTbView" layoutX="21.0" layoutY="127.0" prefHeight="461.0" prefWidth="822.0">
                            <columns>
                               <TableColumn fx:id="staffIdColumn" prefWidth="102.0" text="Mã nhân viên" />
                               <TableColumn fx:id="staffNameColumn" minWidth="0.0" prefWidth="125.0" text="Tên nhân viên" />
@@ -184,8 +184,8 @@
                         <TextField fx:id="tfSearchStaff" layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                         <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
                         <Button layoutX="719.0" layoutY="69.0" mnemonicParsing="false" onAction="#AddStaff" prefHeight="35.0" prefWidth="123.0" text="Thêm nhân viên" />
-                        <Button fx:id="btnStaffDelete" layoutX="755.0" layoutY="582.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Xóa" />
-                        <Button fx:id="btnStaffUpdate" layoutX="652.0" layoutY="582.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Sửa" />
+                        <Button fx:id="btnStaffDelete" layoutX="755.0" layoutY="605.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Xóa" />
+                        <Button fx:id="btnStaffUpdate" layoutX="652.0" layoutY="605.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Sửa" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="customerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
