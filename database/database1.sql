@@ -1,5 +1,7 @@
 alter table report add totalWeddingOfMonth number(5);
-
+alter table Customer drop column ADDRESS;
+alter table Customer drop column IDENTITYCARD;
+alter table Customer drop column BIRTHDAY;
 create or replace procedure sp_insert_food(
     v_nameFood in food.nameFood%type,
     v_priceFood in food.priceFood%type,
