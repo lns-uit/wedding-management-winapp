@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -33,12 +34,14 @@ public class UpdateStaffController implements Initializable {
 
     @FXML
     private TextField identityCard;
+    @FXML
+    private Button btnUpdateStaff;
     
 	@FXML
 	ComboBox<String> typeStaff;
 	
 	
-	ObservableList<String> list = FXCollections.observableArrayList("Nhân viên lao công", "Nhân viên lễ tân", "Nhân viên phục vụ");
+	ObservableList<String> list = FXCollections.observableArrayList("nhân viên lao công", "nhân viên lễ tân", "nhân viên phục vụ");
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,31 +49,41 @@ public class UpdateStaffController implements Initializable {
 		Staff staff  = holder.getStaff();
 		String typeStaffString = staff.getType();
 		if (typeStaffString.equals("admin")) {
-			System.out.print("abacasc");
-			list.add("Nhân viên quản lý");
+			list.add("quản lý");
 		}
         typeStaff.setItems(list);
+        //Đổ data cũ
         phone.setText(holder.getSelectStaff().getPhoneNumber());
         identityCard.setText(holder.getSelectStaff().getIdentityCard());
         address.setText(holder.getSelectStaff().getAddress());
         name.setText(holder.getSelectStaff().getName());
         int indexSelectStaffType = 0;
-        if (holder.getSelectStaff().getType().equals("Nhân viên lao công")) indexSelectStaffType = 0;
-        else if (holder.getSelectStaff().getType().equals("Nhân viên lễ tân")) indexSelectStaffType = 1;
-        else if (holder.getSelectStaff().getType().equals("Nhân viên phục vụ")) indexSelectStaffType = 2;
-        else if (holder.getSelectStaff().getType().equals("Nhân viên quản lý ")) indexSelectStaffType = 3;
+        if (holder.getSelectStaff().getType().equals("nhân viên lao công")) indexSelectStaffType = 0;
+        else if (holder.getSelectStaff().getType().equals("nhân viên lễ tân")) indexSelectStaffType = 1;
+        else if (holder.getSelectStaff().getType().equals("nhân viên phục vụ")) indexSelectStaffType = 2;
+        else if (holder.getSelectStaff().getType().equals("quản lý")) indexSelectStaffType = 3;
         typeStaff.getSelectionModel().select(indexSelectStaffType);
     }
 	
 	@FXML
-	public void CommitAddStaff(ActionEvent event) throws SQLException {
-		String newPhoneString = phone.getText();
+	public void CommitUpdateStaff(ActionEvent event) throws SQLException {
+		
+		StaffHolder holder = StaffHolder.getInstance();
+		String idStaff = holder.getSelectStaff().getId();
 		String message = Validator();
+		
 		if (message=="success") {
+			String messageUpdate = StaffModel.updateStaff(idStaff, name.getText(), address.getText(), typeStaff.getValue());
+			
+			if (messageUpdate.equals("true")) {
+				showAlertWithoutHeaderText("Sửa thành công");	
+			} else {
+				showAlertWithoutHeaderText("Sửa thất bại");
+			}
+			
 			warningText.setVisible(false);
 			Stage currentScene = (Stage) name.getScene().getWindow();
 			currentScene.close();
-			showAlertWithoutHeaderText("Sửa thành công");
 		} else {
 			warningText.setText(message);
 			warningText.setVisible(true);
@@ -93,15 +106,6 @@ public class UpdateStaffController implements Initializable {
 		if ((name.getText().length()==0)||(phone.getText().length()==0)||(identityCard.getText().length()==0)||(address.getText().length()==0)||(typeStaff.getValue()==null)) {
 			System.out.println("is empty");
 			return messageString="Field còn trống !";
-		}
-		
-		Pattern pattern = Pattern.compile("^\\d{10}$");
-	    Matcher matcher = pattern.matcher(phone.getText());
-	    
-	    System.out.println(matcher.matches());
-		
-		if ((matcher.matches()==false)) {
-			return messageString="Số điện thoại định dạng sai !";
 		}
 		
 		return messageString;

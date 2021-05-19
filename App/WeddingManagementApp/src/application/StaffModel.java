@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.Const;
+
 import oracle.jdbc.OracleTypes;
 
 
@@ -51,7 +53,6 @@ public class StaffModel {
 		cStmt.close();
 		return arrStaff;
 	}
-	
 	public static String findStaffByPhone(String phone) throws SQLException {
 		String sqlString = "begin sp_findStaffByPhone(?,?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
@@ -92,5 +93,42 @@ public class StaffModel {
 		}
 		
 		cStmt.close();
+	}
+	
+	public static String updateStaff(String idStaff, String newName, String newAddress, String newTypeStaff) throws SQLException {
+		String sqlString = "begin sp_update_staff(?,?,?,?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			cStmt.setString(1, idStaff);
+			cStmt.setString(2, newName);
+			cStmt.setString(3, newAddress);
+			cStmt.setString(4, newTypeStaff);
+			cStmt.registerOutParameter(5, OracleTypes.NVARCHAR);
+			
+			cStmt.execute();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println(cStmt.getString(5));
+		String result = cStmt.getString(5);
+		cStmt.close();
+		return result;
+	}
+	
+	public static String deleteStaff(String idStaff) throws SQLException {
+		String sqlString = "begin sp_deleteStaff(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			cStmt.setString(1, idStaff);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			cStmt.execute();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		String result = cStmt.getString(2);
+		cStmt.close();
+		return result;
 	}
 }

@@ -47,9 +47,11 @@ public class Lobby {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 	public void setCheckBox(CheckBox checkBox) {
 		this.checkBox = checkBox;
 	}
+
 	public String getId() {return id;}
 	public String getName() {return name;}
 	public String getType() {return type;}
