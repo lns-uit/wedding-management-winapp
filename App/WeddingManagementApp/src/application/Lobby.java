@@ -60,7 +60,7 @@ public class Lobby {
 	public Number getId() {return id;}
 	public String getName() {return name;}
 	public String getType() {return type;}
-	public Number getTabNumber() {return tableNumber;}
+	public Number getTableNumber() {return tableNumber;}
 	public Number getPriceTable() {return priceTable;}
 	public Number getPriceLobby() {return priceLobby;}
 	public String getNote() {return note;}

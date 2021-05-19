@@ -41,12 +41,6 @@ public class indexController {
     @FXML
     private Button btnUpdateTime;
     @FXML
-    private Button btnAddMenu;
-    @FXML
-    private Button btnDeleteMenu;
-    @FXML
-    private Button btnUpdateMenu;
-    @FXML
     private Button btnAddLobby;
     @FXML
     private Button btnDeleteLobby;
@@ -144,6 +138,7 @@ public class indexController {
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
     		ViewLobbyColumn();
+    		ViewMenuColumn();
     	}
     	else if (event.getSource()==btnReport) { 
     		currentPane = reportPanel; currentButton = btnReport;
@@ -174,9 +169,11 @@ public class indexController {
     	if (event.getSource()== btnLobbyManager) { 
     		currentButtonOptionWeddingInfoManager = btnLobbyManager; 
     		currentPanelOptionWeddingInfoManager = stackLobbyManager; 
-    		ViewLobbyColumn();
     	}
-    	else if (event.getSource()== btnMenuManager) { currentButtonOptionWeddingInfoManager = btnMenuManager; currentPanelOptionWeddingInfoManager = stackMenuManager;}
+    	else if (event.getSource()== btnMenuManager) { 
+    		currentButtonOptionWeddingInfoManager = btnMenuManager; 
+    		currentPanelOptionWeddingInfoManager = stackMenuManager;
+    	}
 
     	currentButtonOptionWeddingInfoManager.setDisable(true);
     	currentPanelOptionWeddingInfoManager.setVisible(true);
@@ -247,15 +244,51 @@ public class indexController {
     
     public void ViewLobbyTbView() {
     	ObservableList<Lobby> arrLobby;
-    	CheckBox a = new CheckBox("check");
     	arrLobby = FXCollections.observableArrayList(
     			new Lobby(12,"phuc","vip",12,123,123," "),
     			new Lobby(12,"loi","vip",12,123,123," "),
-    			new Lobby(12,"khoi","vip",12,123,123," "),
+    			new Lobby(12,"khoi","vip",1112,123,123," "),
     			new Lobby(12,"tam","vio",12,123,123," ")
     	);
     	tbViewLobbyManager.setItems(arrLobby);
     }
+    /***********MENU MANAGER CONTROLLER*********/
+    @FXML
+    private TableView<Menu> tbViewMenu;
+    @FXML
+    private TableColumn<Menu,Number> menuIdColumn;
+    @FXML
+    private TableColumn<Menu,String> menuNameColumn;
+    @FXML
+    private TableColumn<Menu,Number> menuPriceColumn;
+    @FXML
+    private TableColumn<Menu,String> menuTypeColumn;
+    @FXML
+    private Button btnAddMenu;
+    @FXML
+    private Button btnDeleteMenu;
+    @FXML
+    private Button btnUpdateMenu;
+    public void ViewMenuColumn() {
+    	menuIdColumn.setCellValueFactory(new PropertyValueFactory<Menu,Number>("id"));
+    	menuNameColumn.setCellValueFactory(new PropertyValueFactory<Menu,String>("name"));
+    	menuPriceColumn.setCellValueFactory(new PropertyValueFactory<Menu,Number>("price"));
+    	menuTypeColumn.setCellValueFactory(new PropertyValueFactory<Menu,String>("type"));
+    	ViewMenuTbView();
+    }
+    public void ViewMenuTbView() {
+    	ObservableList<Menu> arrMenu;
+    	arrMenu = FXCollections.observableArrayList(
+    			new Menu(12,"phuc",111,"Khai vi"),
+    			new Menu(12,"phuc",111,"Khai vi"),
+    			new Menu(12,"phuc",111,"Khai vi"),
+    			new Menu(12,"phuc",111,"Khai vi")
+    	);
+    	tbViewMenu.setItems(arrMenu);
+    }
+    
+    
+    
     /***********CUSTOMER CONTROLLER*******/
     @FXML
     private TableView<?> tbViewCustomer;

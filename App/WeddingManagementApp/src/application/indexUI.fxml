@@ -267,7 +267,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="stackMenuManager" prefHeight="649.0" prefWidth="828.0" visible="false">
                                  <children>
-                                    <TableView fx:id="tbViewMenu" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0" visible="false">
+                                    <TableView fx:id="tbViewMenu" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
                                        <columns>
                                           <TableColumn fx:id="menuIdColumn" prefWidth="173.0" text="Mã món ăn" />
                                           <TableColumn fx:id="menuNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên món ăn" />
