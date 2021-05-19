@@ -65,11 +65,15 @@ begin
     end if;
 end;
 
-create or replace trigger deleteStaff
+create or replace NONEDITIONABLE trigger deleteStaff
 before delete on Staff
 for each row
+declare idStaffNone varchar2(8);
 begin
     delete from Account where :old.idStaff = idStaff;
+    select idStaff into idStaffNone from staff where nameStaff = 'Vô Danh';
+    update Bill set idStaff = idStaffNone where idStaff = :old.idStaff;
+    update OrderWedding set idStaff = idStaffNone where idStaff = :old.idStaff;
 end;
 
 create or replace procedure sp_deleteFood (
