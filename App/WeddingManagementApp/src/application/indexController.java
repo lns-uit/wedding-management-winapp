@@ -363,6 +363,7 @@ public class indexController {
     			System.out.println(messageDelete);
     			if (messageDelete.equals("true")) {
     				updateStaffTView();
+    				tfSearchStaff.setText("");
     			}
     		}
     	}
