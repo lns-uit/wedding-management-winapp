@@ -10,74 +10,83 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="681.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddWeddingOrderController">
    <children>
       <AnchorPane fx:id="step1" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
-            <DatePicker layoutX="49.0" layoutY="64.0" prefHeight="34.0" prefWidth="193.0" />
-            <TableView layoutX="49.0" layoutY="128.0" prefHeight="237.0" prefWidth="1020.0">
+            <DatePicker fx:id="datePkStart" layoutX="49.0" layoutY="64.0" prefHeight="34.0" prefWidth="193.0" />
+            <TableView fx:id="tbViewOrderLobby" layoutX="49.0" layoutY="128.0" prefHeight="450.0" prefWidth="1020.0">
               <columns>
-                <TableColumn prefWidth="34.0" text="STT" />
-                <TableColumn prefWidth="420.0" text="Tên Sảnh" />
-                  <TableColumn prefWidth="167.0" text="Số bàn" />
-                  <TableColumn prefWidth="211.0" text="Đơn giá" />
-                  <TableColumn prefWidth="187.0" text="Ghi chú" />
+                <TableColumn fx:id="orderLobbyID" prefWidth="34.0" text="Mã sảnh" />
+                <TableColumn fx:id="orderLobbyName" prefWidth="420.0" text="Tên sảnh" />
+                  <TableColumn fx:id="orderLobbyType" prefWidth="167.0" text="Loại sảnh" />
+                  <TableColumn fx:id="orderLobbyTable" maxWidth="2000.0" prefWidth="211.0" text="Số bàn" />
+                  <TableColumn fx:id="orderLobbyPriceTable" prefWidth="148.333251953125" text="Giá bàn" />
+                  <TableColumn fx:id="orderLobbyPrice" prefWidth="148.333251953125" text="Giá sảnh" />
+                  <TableColumn fx:id="orderLobbyNote" prefWidth="148.333251953125" text="Ghi chú" />
+                  <TableColumn fx:id="orderLobbySelect" maxWidth="1500.0" prefWidth="148.333251953125" text="Chọn" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <Label layoutX="49.0" layoutY="37.0" text="Chọn ngày" />
             <Label layoutX="49.0" layoutY="104.0" text="Chọn sảnh" />
-            <TableView layoutX="49.0" layoutY="392.0" prefHeight="179.0" prefWidth="1020.0">
-              <columns>
-                <TableColumn prefWidth="35.0" text="STT" />
-                <TableColumn prefWidth="212.0" text="Ca" />
-                  <TableColumn prefWidth="492.0" text="Thời gian" />
-                  <TableColumn prefWidth="280.0" text="Ghi chú" />
-              </columns>
-            </TableView>
-            <Button layoutX="938.0" layoutY="615.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="131.0" text="Tiếp tục" />
+            <Button fx:id="btnCommit1" layoutX="938.0" layoutY="615.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="131.0" text="Tiếp tục" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="step2" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="step2" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label layoutX="49.0" layoutY="51.0" text="Chọn thực đơn" />
-            <Button layoutX="936.0" layoutY="615.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="131.0" text="Tiếp tục" />
-            <Button layoutX="49.0" layoutY="615.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="131.0" text="Trở lại" />
-            <TableView layoutX="49.0" layoutY="79.0" prefHeight="167.0" prefWidth="490.0">
+            <Label layoutX="37.0" layoutY="17.0" text="Chọn thực đơn">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button fx:id="btnCommit2" layoutX="936.0" layoutY="615.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="131.0" text="Tiếp tục" />
+            <Button fx:id="btnBack1" layoutX="49.0" layoutY="615.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="131.0" text="Trở lại" />
+            <TableView layoutX="49.0" layoutY="79.0" prefHeight="258.0" prefWidth="490.0">
                <columns>
-                  <TableColumn prefWidth="34.0" text="STT" />
-                  <TableColumn prefWidth="152.0" text="Tên món khai vị" />
-                  <TableColumn prefWidth="119.0" text="Đơn giá" />
-                  <TableColumn prefWidth="99.0" text="Đơn vị tính" />
-                  <TableColumn prefWidth="86.0" text="Ghi chú" />
+                  <TableColumn maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
+                  <TableColumn prefWidth="119.0" text="Tên món" />
+                  <TableColumn prefWidth="179.33331298828125" text="Đơn giá" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <TableView layoutX="560.0" layoutY="79.0" prefHeight="524.0" prefWidth="507.0">
+            <TableView layoutX="577.0" layoutY="79.0" prefHeight="258.0" prefWidth="490.0">
                <columns>
-                  <TableColumn prefWidth="34.0" text="STT" />
-                  <TableColumn prefWidth="152.0" text="Tên món chính" />
-                  <TableColumn prefWidth="119.0" text="Đơn giá" />
-                  <TableColumn prefWidth="99.0" text="Đơn vị tính" />
-                  <TableColumn prefWidth="86.0" text="Ghi chú" />
+                  <TableColumn maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
+                  <TableColumn prefWidth="119.0" text="Tên món" />
+                  <TableColumn prefWidth="179.33331298828125" text="Đơn giá" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <TableView layoutX="49.0" layoutY="257.0" prefHeight="167.0" prefWidth="490.0">
+            <TableView layoutX="49.0" layoutY="371.0" prefHeight="224.0" prefWidth="490.0">
                <columns>
-                  <TableColumn prefWidth="34.0" text="STT" />
-                  <TableColumn prefWidth="152.0" text="Tên món tráng miệng" />
-                  <TableColumn prefWidth="119.0" text="Đơn giá" />
-                  <TableColumn prefWidth="99.0" text="Đơn vị tính" />
-                  <TableColumn prefWidth="86.0" text="Ghi chú" />
+                  <TableColumn maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
+                  <TableColumn prefWidth="119.0" text="Tên món" />
+                  <TableColumn prefWidth="179.33331298828125" text="Đơn giá" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <TableView layoutX="49.0" layoutY="436.0" prefHeight="167.0" prefWidth="490.0">
+            <Label layoutX="49.0" layoutY="61.0" text="Món khai vị" />
+            <Label layoutX="577.0" layoutY="61.0" text="Món chính" />
+            <Label layoutX="49.0" layoutY="354.0" text="Món tráng miệng và thức uống" />
+            <TableView layoutX="577.0" layoutY="371.0" prefHeight="224.0" prefWidth="490.0">
                <columns>
-                  <TableColumn prefWidth="34.0" text="STT" />
-                  <TableColumn prefWidth="152.0" text="Thức uống" />
-                  <TableColumn prefWidth="119.0" text="Đơn giá" />
-                  <TableColumn prefWidth="99.0" text="Đơn vị tính" />
-                  <TableColumn prefWidth="86.0" text="Số lượng" />
+                  <TableColumn maxWidth="3000.0" prefWidth="152.0" text="Mã dịch vụ" />
+                  <TableColumn prefWidth="119.0" text="Tên dịch vụ" />
+                  <TableColumn prefWidth="179.33331298828125" text="Đơn giá" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
+            <Label layoutX="577.0" layoutY="354.0" text="Dịch vụ" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="step3" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -87,8 +96,8 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="936.0" layoutY="615.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="131.0" text="Xác nhận" />
-            <Button layoutX="49.0" layoutY="615.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="131.0" text="Trở lại" />
+            <Button fx:id="btnCommit3" layoutX="936.0" layoutY="615.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="131.0" text="Xác nhận" />
+            <Button fx:id="btnBack2" layoutX="49.0" layoutY="615.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="131.0" text="Trở lại" />
             <TextField layoutX="49.0" layoutY="84.0" prefHeight="34.0" prefWidth="236.0" />
             <Label layoutX="55.0" layoutY="65.0" text="Tên người đặt">
                <font>

@@ -144,7 +144,7 @@
                         </AnchorPane>
                         <TextField layoutX="21.0" layoutY="69.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                         <Button layoutX="215.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                        <Button layoutX="721.0" layoutY="69.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm tiệc cưới" />
+                        <Button fx:id="btnAddOrderWedding" layoutX="721.0" layoutY="69.0" mnemonicParsing="false" onAction="#OnActionOrderWedding" prefHeight="35.0" prefWidth="114.0" text="Thêm tiệc cưới" />
                         <TableView layoutX="20.0" layoutY="119.0" prefHeight="525.0" prefWidth="821.0">
                            <columns>
                               <TableColumn prefWidth="37.0" text="STT" />

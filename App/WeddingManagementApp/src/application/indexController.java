@@ -30,8 +30,7 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sun.awt.AWTAccessor.CheckboxMenuItemAccessor;
-import sun.security.rsa.RSAUtil.KeyType;
+
 
 public class indexController {
 	@FXML
@@ -92,7 +91,7 @@ public class indexController {
     private Button btnName;
     private AnchorPane currentPane;
     private Button currentButton;
-    
+   
     @FXML
     void initialize() throws SQLException {
 		// TODO Auto-generated method stub
@@ -214,11 +213,25 @@ public class indexController {
     		btnReport.setDisable(true);	
     	}
     }
+    /*********** ORDER LOBBY MANAGER CONTROLLER********/
+    
+    @FXML 
+    private Button btnAddOrderWedding;
+    
+    @FXML
+    public void OnActionOrderWedding(ActionEvent event) {
+    	if (event.getSource()==btnAddOrderWedding) {
+    		AddWeddingOrderScene addWeddingOrderScene = new AddWeddingOrderScene();
+    		Stage stage = new Stage();
+    		addWeddingOrderScene.start(stage);	
+    	}
+    }
+    
     /*********** LOBBY MANAGER CONTROLLER ********/
     @FXML
     private TableView<Lobby> tbViewLobbyManager;
     @FXML
-    private TableColumn<Lobby,Number> lobbyIdColumn;
+    private TableColumn<Lobby,String> lobbyIdColumn;
     @FXML
     private TableColumn<Lobby, String> lobbyNameColumn;
     @FXML
@@ -233,23 +246,22 @@ public class indexController {
     private TableColumn<Lobby,String> lobbyNote;
     
     public void ViewLobbyColumn() {
-    	lobbyIdColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("id"));
+    	lobbyIdColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("id"));
     	lobbyNameColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
      	lobbyTypeColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
      	lobbyTableColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
      	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
      	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
      	lobbyNote.setCellValueFactory(new PropertyValueFactory<Lobby,String>("note"));
-     	ViewLobbyTbView();
     }
     
     public void ViewLobbyTbView() {
     	ObservableList<Lobby> arrLobby;
     	arrLobby = FXCollections.observableArrayList(
-    			new Lobby(12,"phuc","vip",12,123,123," "),
-    			new Lobby(12,"loi","vip",12,123,123," "),
-    			new Lobby(12,"khoi","vip",1112,123,123," "),
-    			new Lobby(12,"tam","vio",12,123,123," ")
+    			new Lobby("phuc","phuc","vip",12,123,123," "),
+    			new Lobby("phuc","loi","vip",12,123,123," "),
+    			new Lobby("phuc","khoi","vip",1112,123,123," "),
+    			new Lobby("phuc","tam","vio",12,123,123," ")
     	);
     	tbViewLobbyManager.setItems(arrLobby);
     }
@@ -257,7 +269,7 @@ public class indexController {
     @FXML
     private TableView<Menu> tbViewMenu;
     @FXML
-    private TableColumn<Menu,Number> menuIdColumn;
+    private TableColumn<Menu,String> menuIdColumn;
     @FXML
     private TableColumn<Menu,String> menuNameColumn;
     @FXML
@@ -271,7 +283,7 @@ public class indexController {
     @FXML
     private Button btnUpdateMenu;
     public void ViewMenuColumn() {
-    	menuIdColumn.setCellValueFactory(new PropertyValueFactory<Menu,Number>("id"));
+    	menuIdColumn.setCellValueFactory(new PropertyValueFactory<Menu,String>("id"));
     	menuNameColumn.setCellValueFactory(new PropertyValueFactory<Menu,String>("name"));
     	menuPriceColumn.setCellValueFactory(new PropertyValueFactory<Menu,Number>("price"));
     	menuTypeColumn.setCellValueFactory(new PropertyValueFactory<Menu,String>("type"));
@@ -279,10 +291,10 @@ public class indexController {
     public void ViewMenuTbView() {
     	ObservableList<Menu> arrMenu;
     	arrMenu = FXCollections.observableArrayList(
-    			new Menu(12,"phuc",111,"Khai vi"),
-    			new Menu(12,"phuc",111,"Khai vi"),
-    			new Menu(12,"phuc",111,"Khai vi"),
-    			new Menu(12,"phuc",111,"Khai vi")
+    			new Menu("phuc","phuc",111,"Khai vi"),
+    			new Menu("phuc","phuc",111,"Khai vi"),
+    			new Menu("phuc","phuc",111,"Khai vi"),
+    			new Menu("phuc","phuc",111,"Khai vi")
     	);
     	tbViewMenu.setItems(arrMenu);
     }

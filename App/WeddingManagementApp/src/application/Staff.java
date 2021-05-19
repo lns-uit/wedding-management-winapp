@@ -22,7 +22,6 @@ public class Staff {
 	private String startWork;
 	
 	private String type;
-
 	public String getId() {
 		return id;
 	}

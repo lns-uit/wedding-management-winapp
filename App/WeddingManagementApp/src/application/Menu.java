@@ -1,18 +1,18 @@
 package application;
 
 public class Menu {
-	public Menu(Number id, String name, Number price, String type) {
+	public Menu(String id, String name, Number price, String type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.type = type;
 	}
-	private Number id;
+	private String id;
 	private String name;
 	private Number price;
 	private String type;
-	public void setId(Number id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public void setName(String name) {
@@ -25,7 +25,7 @@ public class Menu {
 		this.type = type;
 	}
 	
-	public Number getId() {return id;}
+	public String getId() {return id;}
 	public String getName() {return name;}
 	public Number getPrice() {return price;}
 	public String getType() {return type;}

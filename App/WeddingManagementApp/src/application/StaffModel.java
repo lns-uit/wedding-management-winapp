@@ -32,7 +32,7 @@ public class StaffModel {
 				String identityCardStaff = rs.getString(6);
 				String startWorkStaff = rs.getString(7);
 				String typeStaff = rs.getString(8);
-
+				
 				a.setId(idStaff);
 				a.setName(nameStaff);
 				a.setPhoneNumber(phoneNumberStaff);
