@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +39,7 @@ public class AddStaffController implements Initializable {
 	ComboBox<String> typeStaff;
 	
 	
-	ObservableList<String> list = FXCollections.observableArrayList("Nhân viên lao công", "Nhân viên lễ tân", "Nhân viên phục vụ");
+	ObservableList<String> list = FXCollections.observableArrayList("nhân viên lao công", "nhân viên lễ tân", "nhân viên phục vụ");
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,7 +48,7 @@ public class AddStaffController implements Initializable {
 		String typeStaffString = staff.getType();
 		if (typeStaffString.equals("admin")) {
 			System.out.print("abacasc");
-			list.add("Nhân viên quản lý");
+			list.add("quản lý");
 		}
         typeStaff.setItems(list);
     }
@@ -68,7 +69,9 @@ public class AddStaffController implements Initializable {
 				Stage currentScene = (Stage) name.getScene().getWindow();
 				currentScene.close();
 				showAlertWithoutHeaderText("Thêm thành công");
-				System.out.println("Staff: " + name.getText() + " " + typeStaff.getValue());
+				Staff newStaff = new Staff("", name.getText(), address.getText(), phone.getText(), identityCard.getText(), "2001-02-14", typeStaff.getValue());
+				StaffModel.addStaff(newStaff);
+//				indexController.updateStaffTView()
 				System.out.print("Commit Success");
 			} else {
 				warningText.setText(message);

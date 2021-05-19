@@ -112,7 +112,7 @@ public class indexController {
     	allStaff = StaffModel.getAllStaff();
     	// xử lí tất cả các view
 		viewStaff();
-    	//
+		
     	IndexInit(staff.getType());
     	// tìm kiếm nhân viên
     	tfSearchStaff.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -134,6 +134,7 @@ public class indexController {
     	else if (event.getSource()==btnStaffManagement) { 
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
+    		updateStaffTView();
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 
     		currentPane = weddingOrderInfoPanel; 
@@ -187,7 +188,7 @@ public class indexController {
     }
     private void IndexInit(String type) {
     	System.out.print(type);
-    	if (type.equals("nhan vien le tan")) { // Nhân viên lễ tân
+    	if (type.equals("nhân viên lễ tân")) { // Nhân viên lễ tân
     		btnStaffManagement.setDisable(true);
     		btnAddLobby.setDisable(true);
     		btnDeleteLobby.setDisable(true);
@@ -198,7 +199,7 @@ public class indexController {
     		btnAddMenu.setDisable(true);
     		btnDeleteMenu.setDisable(true);
     		btnUpdateMenu.setDisable(true);
-    	} else if (type.equals("nhan vien lao cong")|| type.equals("nhan vien phuc vu")) { // Nhân viên phục vụ - Lao công 
+    	} else if (type.equals("nhân viên lao công")|| type.equals("nhân viên phục vụ")) { // Nhân viên phục vụ - Lao công 
     		btnWeddingInfoManagement.setDisable(true);
     		btnStaffManagement.setDisable(true);
     		btnLobbyManager.setDisable(true);
@@ -206,41 +207,121 @@ public class indexController {
     		btnReport.setDisable(true);	
     	}
     }
+
     /***********CUSTOMER CONTROLLER*******/
     @FXML
-    private TableColumn<?, ?> cusSttColumn;
+    private TableView<?> tbViewCustomer;
+
     @FXML
     private TableColumn<?, ?> cusIDColumn;
+
     @FXML
     private TableColumn<?, ?> cusNameColumn;
+
     @FXML
     private TableColumn<?, ?> cusPhoneNumberColumn;
+
     @FXML
     private TableColumn<?, ?> cusMoneyColumn;
+
     @FXML
     private TableColumn<?, ?> cusDiscountColumn;
+
+   
+
    
     /***********BILL CONTROLLER**********/
+
     @FXML
     private TextField tfSearchBill;
+
     @FXML
     private TableView<?> tbViewBill;
-    @FXML
-    private TableColumn<?, ?> billSttColumn;
+
     @FXML
     private TableColumn<?, ?> billIDColumn;
+
     @FXML
     private TableColumn<?, ?> billIDStaffColumn;
+
     @FXML
     private TableColumn<?, ?> billIDCustomerColumn;
+
     @FXML
     private TableColumn<?, ?> billIDWeddingColumn;
+
     @FXML
     private TableColumn<?, ?> billMoneyColumn;
+
     @FXML
     private TableColumn<?, ?> dateOfPayColumn;
+    
+    
+    
+    
+    
+    
+    
+    /***********Staff controller *************/
+    @FXML
+    private TableColumn<Staff,String> staffTypeColumn;
+    private ObservableList<Staff> arrStaff;
+    private ArrayList<Staff> allStaff;
+    
+    public void viewStaff() throws SQLException {
+    		
+		staffIdColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("id"));
+		staffNameColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("name"));
+		staffPhoneColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("phoneNumber"));
+		staffAdressColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("address"));
+		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
+		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
+		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
+
+	}
+    
+    public void updateStaffTView() throws SQLException {
+    	ArrayList<Staff> arr = StaffModel.getAllStaff();
+    	allStaff = arr;
+    	staffTbView.getItems().clear();
+    	setTbView(arr);	
+    }
+    
+    
+    public ArrayList<Staff> filterStaff (String inputName) {
+    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
+    	
+    	allStaff.forEach(staff -> {
+    		if (staff.getName().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			resultStaffs.add(staff);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    
+    public void setTbView (ArrayList<Staff> arrayStaff) {
+    	arrStaff = FXCollections.observableArrayList(arrayStaff);
+    	staffTbView.setItems(arrStaff);
+    }
+    
+    /***********End Staff controller *************/
+    
+    
+    
+    /***********Info controller *************/
+    
 
     /***********REPORT VIEW *************/
+    @FXML
+
+    private Label startWorkStaff;
+    
+    /***********End Info controller *************/
+    
+    
+    /***********Report controller *************/
+
 
     @FXML
     private CategoryAxis xRevenue;
@@ -309,7 +390,7 @@ public class indexController {
     	tbViewReport.setItems(arrReport);
     }
     
-    
+
     /***********Staff controller *************/
     @FXML
     private TextField tfSearchStaff;
@@ -328,40 +409,10 @@ public class indexController {
     @FXML
     private TableColumn<Staff,String> staffStartWorkDateColumn;
     @FXML
-    private TableColumn<Staff,String> staffTypeColumn;
-    private ObservableList<Staff> arrStaff;
-    private ArrayList<Staff> allStaff;
-    @FXML
     private Button btnStaffUpdate;
     @FXML
     private Button btnStaffDelete;
-    public void viewStaff() throws SQLException {
-    	
-		arrStaff = FXCollections.observableArrayList(allStaff);
-		
-		staffIdColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("id"));
-		staffNameColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("name"));
-		staffPhoneColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("phoneNumber"));
-		staffAdressColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("address"));
-		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
-		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
-		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
 
-		staffTbView.setItems(arrStaff);
-	}
-    
-    public ArrayList<Staff> filterStaff (String inputName) {
-    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
-    	
-    	allStaff.forEach(staff -> {
-    		if (staff.getName().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
-    			resultStaffs.add(staff);
-    		}
-    	});
-    	
-    	return resultStaffs;
-    }
-    
     public void OnActionButtonStaff(ActionEvent event) {
   		Staff selectStaff = staffTbView.getSelectionModel().getSelectedItem();
     	if (event.getSource()==btnStaffDelete) {
@@ -392,8 +443,6 @@ public class indexController {
     private Label identityCardStaff;
     @FXML
     private Label typeStaff;
-    @FXML
-    private Label startWorkStaff;
 
 }
 

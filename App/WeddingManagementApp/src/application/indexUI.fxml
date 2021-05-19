@@ -156,7 +156,7 @@
                         </TableView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -214,7 +214,7 @@
                         <TextField fx:id="tfSearchCustomer" layoutX="21.0" layoutY="74.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="weddingOrderInfoPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="weddingOrderInfoPanel" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -267,7 +267,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="stackMenuManager" prefHeight="649.0" prefWidth="828.0" visible="false">
                                  <children>
-                                    <TableView fx:id="tbViewMenu" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
+                                    <TableView fx:id="tbViewMenu" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0" visible="false">
                                        <columns>
                                           <TableColumn fx:id="menuIdColumn" prefWidth="173.0" text="Mã món ăn" />
                                           <TableColumn fx:id="menuNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên món ăn" />
@@ -294,6 +294,7 @@
                         </StackPane>
                      </children>
                   </AnchorPane>
+
                   <AnchorPane fx:id="billPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
@@ -321,6 +322,7 @@
                         </TableView>
                      </children>
                   </AnchorPane>
+
                   <AnchorPane fx:id="reportPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
