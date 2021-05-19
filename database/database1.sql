@@ -7,7 +7,7 @@ create or replace procedure sp_insert_food(
     v_nameFood in food.nameFood%type,
     v_priceFood in food.priceFood%type,
     v_typeFood in food.typeFood%type,
-    V_return out boolean
+    V_return out varchar2
 )
 is
     FoodBeforeInsert number(2);
@@ -19,9 +19,9 @@ begin
     );
     select count(*) into FoodAfterInsert from Food;
     if FoodAfterInsert > FoodBeforeInsert then
-        V_return := true;
+        V_return := 'true';
     else
-        V_return := false;
+        V_return := 'false';
     end if;
 end;
 
@@ -31,7 +31,7 @@ create or replace NONEDITIONABLE procedure sp_insert_staff(
     V_ADDRESS in staff.ADDRESS%type,
     V_IDENTITYCARD in staff.IDENTITYCARD%type,
     V_TYPESTAFF in staff.TYPESTAFF%type,
-    V_return out boolean
+    V_return out varchar2
 )
 is 
     StaffBeforeInsert number(2);
@@ -48,8 +48,9 @@ begin
     
     /*neu nhan vien sau khi in lon hon truoc khi in la da in thanh cong*/
     if StaffAfterInsert > StaffBeforeInsert then
-        V_return := true;
-        V_return := false;
+        V_return := 'true';
+    else
+        V_return := 'false';
     end if;
 end;
 
