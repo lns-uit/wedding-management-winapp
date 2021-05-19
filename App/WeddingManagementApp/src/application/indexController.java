@@ -111,7 +111,7 @@ public class indexController {
     	// xử lí tất cả các view
 		viewStaff();
 		ViewLobbyColumn();
-		ViewMenuColumn();
+		ViewFoodColumn();
     	IndexInit(staff.getType());
     	// tìm kiếm nhân viên
     	tfSearchStaff.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -138,7 +138,7 @@ public class indexController {
     	else if (event.getSource()==btnWeddingInfoManagement) { 
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
-        	ViewMenuTbView();
+    		ViewFoodTbView();
         	ViewLobbyTbView();
     	}
     	else if (event.getSource()==btnReport) { 
@@ -203,9 +203,9 @@ public class indexController {
     		btnAddTime.setDisable(true);
     		btnDeleteTime.setDisable(true);
     		btnUpdateTime.setDisable(true);
-    		btnAddMenu.setDisable(true);
-    		btnDeleteMenu.setDisable(true);
-    		btnUpdateMenu.setDisable(true);
+    		btnAddFood.setDisable(true);
+    		btnDeleteFood.setDisable(true);
+    		btnUpdateFood.setDisable(true);
     	} else if (type.equals("nhân viên lao công")|| type.equals("nhân viên phục vụ")) { // Nhân viên phục vụ - Lao công 
     		btnWeddingInfoManagement.setDisable(true);
     		btnStaffManagement.setDisable(true);
@@ -232,7 +232,7 @@ public class indexController {
     @FXML
     private TableColumn<Lobby,String> lobbyNote;
     
-    public void ViewLobbyColumn() {
+    public void ViewLobbyColumn() throws SQLException {
     	lobbyIdColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("id"));
     	lobbyNameColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
      	lobbyTypeColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
@@ -243,49 +243,49 @@ public class indexController {
      	ViewLobbyTbView();
     }
     
-    public void ViewLobbyTbView() {
+    public void ViewLobbyTbView() throws SQLException {
+    	
+    	ArrayList<Lobby> arr = LobbyModel.getAllLobby();
+    	
     	ObservableList<Lobby> arrLobby;
-    	arrLobby = FXCollections.observableArrayList(
-    			new Lobby(12,"phuc","vip",12,123,123," "),
-    			new Lobby(12,"loi","vip",12,123,123," "),
-    			new Lobby(12,"khoi","vip",1112,123,123," "),
-    			new Lobby(12,"tam","vio",12,123,123," ")
-    	);
+    	arrLobby = FXCollections.observableArrayList(arr);
     	tbViewLobbyManager.setItems(arrLobby);
     }
-    /***********MENU MANAGER CONTROLLER*********/
+    /***********End LOBBY MANAGER CONTROLLER*********/
+    
+    /***********FOOD MANAGER CONTROLLER*********/
     @FXML
-    private TableView<Menu> tbViewMenu;
+    private TableView<Food> tbViewFood;
     @FXML
-    private TableColumn<Menu,Number> menuIdColumn;
+    private TableColumn<Food,String> foodIdColumn;
     @FXML
-    private TableColumn<Menu,String> menuNameColumn;
+    private TableColumn<Food,String> foodNameColumn;
     @FXML
-    private TableColumn<Menu,Number> menuPriceColumn;
+    private TableColumn<Food,Number> foodPriceColumn;
     @FXML
-    private TableColumn<Menu,String> menuTypeColumn;
+    private TableColumn<Food,String> foodTypeColumn;
     @FXML
-    private Button btnAddMenu;
+    private Button btnAddFood;
     @FXML
-    private Button btnDeleteMenu;
+    private Button btnDeleteFood;
     @FXML
-    private Button btnUpdateMenu;
-    public void ViewMenuColumn() {
-    	menuIdColumn.setCellValueFactory(new PropertyValueFactory<Menu,Number>("id"));
-    	menuNameColumn.setCellValueFactory(new PropertyValueFactory<Menu,String>("name"));
-    	menuPriceColumn.setCellValueFactory(new PropertyValueFactory<Menu,Number>("price"));
-    	menuTypeColumn.setCellValueFactory(new PropertyValueFactory<Menu,String>("type"));
+    private Button btnUpdateFood;
+    public void ViewFoodColumn() {
+    	foodIdColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
+    	foodNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
+    	foodPriceColumn.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
+    	foodTypeColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
     }
-    public void ViewMenuTbView() {
-    	ObservableList<Menu> arrMenu;
-    	arrMenu = FXCollections.observableArrayList(
-    			new Menu(12,"phuc",111,"Khai vi"),
-    			new Menu(12,"phuc",111,"Khai vi"),
-    			new Menu(12,"phuc",111,"Khai vi"),
-    			new Menu(12,"phuc",111,"Khai vi")
-    	);
-    	tbViewMenu.setItems(arrMenu);
+    public void ViewFoodTbView() throws SQLException {
+
+    	ArrayList<Food> arr = FoodModel.getAllFood();
+    	
+    	ObservableList<Food> arrFood;
+    	arrFood = FXCollections.observableArrayList(arr);
+    	tbViewFood.setItems(arrFood);
     }
+    
+    /***********END FOOD MANAGER CONTROLLER*********/
     
     /***********CUSTOMER CONTROLLER*******/
     @FXML
@@ -353,10 +353,18 @@ public class indexController {
     @FXML
     private Button btnStaffDelete;
 
-    public void OnActionButtonStaff(ActionEvent event) {
+    public void OnActionButtonStaff(ActionEvent event) throws SQLException {
   		Staff selectStaff = staffTbView.getSelectionModel().getSelectedItem();
     	if (event.getSource()==btnStaffDelete) {
-  
+    		if (selectStaff==null) {
+    			System.out.println("is empty");
+    		} else {
+    			String messageDelete = StaffModel.deleteStaff(selectStaff.getId());
+    			System.out.println(messageDelete);
+    			if (messageDelete.equals("true")) {
+    				updateStaffTView();
+    			}
+    		}
     	}
     	if (event.getSource()==btnStaffUpdate) {
     		if (selectStaff==null) {

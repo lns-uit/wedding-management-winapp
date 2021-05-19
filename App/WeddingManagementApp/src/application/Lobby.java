@@ -3,18 +3,7 @@ package application;
 import javafx.scene.control.CheckBox;
 
 public class Lobby {
-	public Lobby(Number id, String name, String type, Number tableNumber, Number priceTable, Number priceLobby,
-			CheckBox checkBox) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.tableNumber = tableNumber;
-		this.priceTable = priceTable;
-		this.priceLobby = priceLobby;
-		this.checkBox = checkBox;
-	}
-	public Lobby(Number id, String name, String type, Number tableNumber, Number priceTable, Number priceLobby,
+	public Lobby(String id, String name, String type, Number tableNumber, Number priceTable, Number priceLobby,
 			String note) {
 		super();
 		this.id = id;
@@ -25,7 +14,7 @@ public class Lobby {
 		this.priceLobby = priceLobby;
 		this.note = note;
 	}
-	private Number id;
+	private String id;
 	private String name;
 	private String type;
 	private Number tableNumber;
@@ -35,7 +24,7 @@ public class Lobby {
 	private CheckBox checkBox; 
 	public Lobby() {}
 	
-	public void setId(Number id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public void setName(String name) {
@@ -57,7 +46,7 @@ public class Lobby {
 		this.note = note;
 	}
 	
-	public Number getId() {return id;}
+	public String getId() {return id;}
 	public String getName() {return name;}
 	public String getType() {return type;}
 	public Number getTableNumber() {return tableNumber;}
