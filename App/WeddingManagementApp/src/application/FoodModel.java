@@ -40,4 +40,23 @@ public class FoodModel {
 		cStmt.close();
 		return arrFood;
 	}
+	
+	public static String deleteFood (String idFood) throws SQLException {
+		String sqlString = "begin sp_deletefood(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			
+			cStmt.setString(1, idFood);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		String resultString = cStmt.getString(2);
+		return resultString;
+	}
 }

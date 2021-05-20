@@ -13,6 +13,8 @@ public class Lobby {
 		this.priceTable = priceTable;
 		this.priceLobby = priceLobby;
 		this.note = note;
+		this.checkBox = new CheckBox();
+		
 	}
 	private String id;
 	private String name;
@@ -45,7 +47,11 @@ public class Lobby {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
+
+	public void setCheckBox(CheckBox checkBox) {
+		this.checkBox = checkBox;
+	}
+
 	public String getId() {return id;}
 	public String getName() {return name;}
 	public String getType() {return type;}
@@ -53,7 +59,5 @@ public class Lobby {
 	public Number getPriceTable() {return priceTable;}
 	public Number getPriceLobby() {return priceLobby;}
 	public String getNote() {return note;}
-	public void setCheckBox(CheckBox cb) {
-		checkBox = cb;
-	}
+	public CheckBox getCheckBox() {return checkBox;}
 }

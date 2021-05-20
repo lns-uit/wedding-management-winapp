@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.sun.media.jfxmedia.control.VideoDataBuffer;
+import com.sun.org.apache.bcel.internal.Const;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import javafx.collections.FXCollections;
@@ -30,8 +31,6 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sun.awt.AWTAccessor.CheckboxMenuItemAccessor;
-import sun.security.rsa.RSAUtil.KeyType;
 
 public class indexController {
 	@FXML
@@ -92,7 +91,7 @@ public class indexController {
     private Button btnName;
     private AnchorPane currentPane;
     private Button currentButton;
-    
+   
     @FXML
     void initialize() throws SQLException {
 		// TODO Auto-generated method stub
@@ -214,11 +213,25 @@ public class indexController {
     		btnReport.setDisable(true);	
     	}
     }
+    /*********** ORDER LOBBY MANAGER CONTROLLER********/
+    
+    @FXML 
+    private Button btnAddOrderWedding;
+    
+    @FXML
+    public void OnActionOrderWedding(ActionEvent event) {
+    	if (event.getSource()==btnAddOrderWedding) {
+    		AddWeddingOrderScene addWeddingOrderScene = new AddWeddingOrderScene();
+    		Stage stage = new Stage();
+    		addWeddingOrderScene.start(stage);	
+    	}
+    }
+    
     /*********** LOBBY MANAGER CONTROLLER ********/
     @FXML
     private TableView<Lobby> tbViewLobbyManager;
     @FXML
-    private TableColumn<Lobby,Number> lobbyIdColumn;
+    private TableColumn<Lobby,String> lobbyIdColumn;
     @FXML
     private TableColumn<Lobby, String> lobbyNameColumn;
     @FXML
@@ -233,14 +246,13 @@ public class indexController {
     private TableColumn<Lobby,String> lobbyNote;
     
     public void ViewLobbyColumn() throws SQLException {
-    	lobbyIdColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("id"));
+    	lobbyIdColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("id"));
     	lobbyNameColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
      	lobbyTypeColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
      	lobbyTableColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
      	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
      	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
      	lobbyNote.setCellValueFactory(new PropertyValueFactory<Lobby,String>("note"));
-     	ViewLobbyTbView();
     }
     
     public void ViewLobbyTbView() throws SQLException {
@@ -258,6 +270,7 @@ public class indexController {
     private TableView<Food> tbViewFood;
     @FXML
     private TableColumn<Food,String> foodIdColumn;
+
     @FXML
     private TableColumn<Food,String> foodNameColumn;
     @FXML
@@ -268,7 +281,7 @@ public class indexController {
     private Button btnAddFood;
     @FXML
     private Button btnDeleteFood;
-    @FXML
+    @FXML    
     private Button btnUpdateFood;
     public void ViewFoodColumn() {
     	foodIdColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
@@ -283,6 +296,26 @@ public class indexController {
     	ObservableList<Food> arrFood;
     	arrFood = FXCollections.observableArrayList(arr);
     	tbViewFood.setItems(arrFood);
+    }
+    
+    public void OnActionButtonFood(ActionEvent event) throws SQLException {
+    	Food selectedFood  = tbViewFood.getSelectionModel().getSelectedItem();
+    	if (selectedFood==null) {
+    		System.out.println("is empty");
+    	} else {
+    		if (event.getSource()==btnDeleteFood) {
+        		String messageDelete = FoodModel.deleteFood(selectedFood.getId()); 
+        		System.out.print(messageDelete);
+        		if (messageDelete.equals("true")) {
+        			System.out.println("Success");
+        			ViewFoodTbView();
+        		}
+        	}
+        	if (event.getSource()==btnUpdateFood) {
+        		System.out.println("this is update");
+        	}
+        	
+    	}
     }
     
     /***********END FOOD MANAGER CONTROLLER*********/

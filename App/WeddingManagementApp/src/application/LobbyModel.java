@@ -42,4 +42,23 @@ public class LobbyModel {
 		cStmt.close();
 		return arrLobby;
 	}
+	
+	public static String deleteLobby (String idLobby) throws SQLException {
+		String sqlString = "begin sp_deleteLobby(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			
+			cStmt.setString(1, idLobby);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		String resultString = cStmt.getString(2);
+		return resultString;
+	}
 }
