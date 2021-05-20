@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddLobbyController">
+   <children>
+      <Button layoutX="428.0" layoutY="484.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="143.0" text="Xác nhận">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextField layoutX="79.0" layoutY="77.0" prefHeight="47.0" prefWidth="381.0" promptText="Tên sảnh">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <Label layoutX="89.0" layoutY="57.0" text="Tên sảnh">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="79.0" layoutY="164.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <Label layoutX="89.0" layoutY="144.0" text="Số bàn">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="550.0" layoutY="77.0" prefHeight="47.0" prefWidth="373.0" promptText="Số bàn">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <Label layoutX="560.0" layoutY="57.0" text="Kiểu sảnh">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="550.0" layoutY="164.0" prefHeight="47.0" prefWidth="373.0" promptText="Số bàn">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <Label layoutX="560.0" layoutY="144.0" text="Giá bàn">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="79.0" layoutY="256.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <Label layoutX="89.0" layoutY="236.0" text="Giá sảnh">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="560.0" layoutY="259.0" text="Ghi chú">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="550.0" layoutY="279.0" prefHeight="113.0" prefWidth="373.0" />
+   </children>
+</AnchorPane>

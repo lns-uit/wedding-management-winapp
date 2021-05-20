@@ -263,6 +263,14 @@ public class indexController {
     	arrLobby = FXCollections.observableArrayList(arr);
     	tbViewLobbyManager.setItems(arrLobby);
     }
+    
+    @FXML
+    public void PressAddLobby(ActionEvent event) {
+    	AddLobbyUI addLobbySceneAddLobbyUI = new AddLobbyUI();
+    	Stage stage = new Stage();
+    	addLobbySceneAddLobbyUI.start(stage);
+    }
+    
     /***********End LOBBY MANAGER CONTROLLER*********/
     
     /***********FOOD MANAGER CONTROLLER*********/
@@ -312,10 +320,23 @@ public class indexController {
         		}
         	}
         	if (event.getSource()==btnUpdateFood) {
-        		System.out.println("this is update");
+        		HolderManager foodHolder = HolderManager.getInstance();
+        		foodHolder.setFood(selectedFood);
+        		PressUpdateFood();
         	}
         	
     	}
+    }
+    @FXML
+    public void PressAddFood(ActionEvent event) {
+    	AddFoodScene addFoodScene = new AddFoodScene();
+    	Stage stage = new Stage();
+    	addFoodScene.start(stage);
+    }
+    public void PressUpdateFood() {
+    	UpdateFoodScene updateFoodScene = new UpdateFoodScene();
+    	Stage stage = new Stage();
+    	updateFoodScene.start(stage);
     }
     
     /***********END FOOD MANAGER CONTROLLER*********/

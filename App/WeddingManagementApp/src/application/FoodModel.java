@@ -59,4 +59,48 @@ public class FoodModel {
 		String resultString = cStmt.getString(2);
 		return resultString;
 	}
+	
+	public static String addFood (String name, int price, String type ) throws SQLException {
+		String sqlString = "begin sp_insert_food(?,?,?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			
+			cStmt.setString(1, name);
+			cStmt.setInt(2,price);
+			cStmt.setString(3, type);
+			cStmt.registerOutParameter(4, OracleTypes.VARCHAR);
+			
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		String resultString = cStmt.getString(4);
+		cStmt.close();
+		return resultString;
+	}
+	
+	public static String updateFood (String id, String name, int price, String type ) throws SQLException {
+		String sqlString = "begin sp_update_food(?,?,?,?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			cStmt.setString(1, id);
+			cStmt.setString(2, name);
+			cStmt.setInt(3,price);
+			cStmt.setString(4, type);
+			cStmt.registerOutParameter(5, OracleTypes.VARCHAR);
+			
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		String resultString = cStmt.getString(5);
+		cStmt.close();
+		return resultString;
+	}
 }
