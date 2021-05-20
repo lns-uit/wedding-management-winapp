@@ -13,7 +13,8 @@ public class indexScene {
 		try { 
 			VBox root = (VBox)FXMLLoader.load(getClass().getResource("indexUI.fxml"));
 			Scene scene = new Scene(root,1120,681);
-			primaryStage.setTitle("HOME");
+			primaryStage.setResizable(false);
+			primaryStage.setTitle("Trang chủ");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

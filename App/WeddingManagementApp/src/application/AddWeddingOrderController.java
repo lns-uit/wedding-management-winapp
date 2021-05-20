@@ -342,7 +342,7 @@ public class AddWeddingOrderController {
     		} else {
     			System.out.print("Commit");
     
-    			//CommitFinal(); Commit Function
+    			CommitFinal();
     		}
     	} else
     	if (event.getSource()==btnBack1) {
@@ -508,6 +508,9 @@ public class AddWeddingOrderController {
 		System.out.print("Commit");
 		// Dữ liệu commit gồm 3 arrayList: currentOrderWedding ( Kiểu OrderWedding ) - currentOrderFood ( kiểu OrderFood)  - currentOrderService ( Kiểu OrderServiceWedding ) 
 		// nameCustomer; phoneNumberCus; nameGroom; nameBride; Kiểu textField
+		
+		System.out.println(currentOrderWedding.getNumberFood());
+		System.out.print(currentOrderFood.get(0).getIdFood());
 
     }
 }

@@ -13,6 +13,7 @@ public class AddServiceScene {
 			Scene scene = new Scene(root,459,311);
 			primaryStage.setTitle("Thêm dịch vụ");
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.show();
 		} catch(Exception e) {

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="681.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddWeddingOrderController">
+<StackPane prefHeight="681.0" prefWidth="1120.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddWeddingOrderController">
    <children>
       <AnchorPane fx:id="step1" prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -162,7 +162,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="lobbyFinal" layoutX="50.0" layoutY="221.0" prefHeight="49.0" prefWidth="1020.0">
+            <TableView fx:id="lobbyFinal" layoutX="50.0" layoutY="221.0" prefHeight="56.0" prefWidth="1020.0">
                <columns>
                   <TableColumn fx:id="idLobbyFinal" prefWidth="296.0" text="Mã sảnh" />
                   <TableColumn fx:id="nameLobbyFinal" prefWidth="186.0" text="Tên sảnh" />

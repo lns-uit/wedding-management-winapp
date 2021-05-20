@@ -12,6 +12,7 @@ public class UpdateFoodScene {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("updateFoodUI.fxml"));
 			Scene scene = new Scene(root,539,458);
 			primaryStage.setTitle("Sửa thông tin món ăn");
+			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.show();

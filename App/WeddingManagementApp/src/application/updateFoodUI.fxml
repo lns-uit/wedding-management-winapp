@@ -9,12 +9,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UpdateFoodController">
    <children>
-      <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="143.0" text="Xác nhận">
+      <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" onAction="#onUpdateFood" prefHeight="47.0" prefWidth="143.0" text="Xác nhận">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField layoutX="79.0" layoutY="77.0" prefHeight="47.0" prefWidth="381.0" promptText="Tên món">
+      <TextField fx:id="tfNameFood" layoutX="79.0" layoutY="77.0" prefHeight="47.0" prefWidth="381.0" promptText="Tên món">
          <font>
             <Font size="19.0" />
          </font>
@@ -29,7 +29,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="79.0" layoutY="237.0" prefHeight="47.0" prefWidth="381.0" promptText="Giá">
+      <TextField fx:id="tfPriceFood" layoutX="79.0" layoutY="237.0" prefHeight="47.0" prefWidth="381.0" promptText="Giá">
          <font>
             <Font size="19.0" />
          </font>
@@ -39,6 +39,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox layoutX="79.0" layoutY="158.0" prefHeight="47.0" prefWidth="381.0" />
+      <ComboBox fx:id="cbcTypeFood" layoutX="79.0" layoutY="158.0" prefHeight="47.0" prefWidth="381.0" />
    </children>
 </AnchorPane>

@@ -13,6 +13,7 @@ public class AddFoodScene {
 			Scene scene = new Scene(root,539,458);
 			primaryStage.setTitle("Thêm món ăn");
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.show();
 		} catch(Exception e) {

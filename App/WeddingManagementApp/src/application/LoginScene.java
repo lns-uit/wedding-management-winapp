@@ -11,7 +11,8 @@ public class LoginScene {
 		try {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("loginUI.fxml"));
 			Scene scene = new Scene(root,415,494);
-			primaryStage.setTitle("Login");
+			primaryStage.setResizable(false);
+			primaryStage.setTitle("Đăng nhập");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

@@ -12,4 +12,12 @@ public final class HolderManager {
 		this.orderWeddingCurrent = u;
 	}
 	public OrderWedding getOrderWeddingCurrent() {return this.orderWeddingCurrent;}
+	
+	private Food foodCurrent;
+	public void setFood (Food food ) {
+		this.foodCurrent = food;
+	}
+	public Food getFood() {
+		return this.foodCurrent;
+	}
 }

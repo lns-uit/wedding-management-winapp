@@ -12,8 +12,9 @@ public class AddStaffScene {
 		try {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("addStaffUI.fxml"));
 			Scene scene = new Scene(root,923,540);
-			primaryStage.setTitle("Add Staff");
+			primaryStage.setTitle("Thêm nhân viên");
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.show();
 		} catch(Exception e) {

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.sun.media.jfxmedia.control.VideoDataBuffer;
+import com.sun.org.apache.bcel.internal.Const;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import javafx.collections.FXCollections;
@@ -304,15 +305,34 @@ public class indexController {
     	tbViewFood.setItems(arrFood);
     }
     
+    public void OnActionButtonFood(ActionEvent event) throws SQLException {
+    	Food selectedFood  = tbViewFood.getSelectionModel().getSelectedItem();
+    	if (selectedFood==null) {
+    		System.out.println("is empty");
+    	} else {
+    		if (event.getSource()==btnDeleteFood) {
+        		String messageDelete = FoodModel.deleteFood(selectedFood.getId()); 
+        		System.out.print(messageDelete);
+        		if (messageDelete.equals("true")) {
+        			System.out.println("Success");
+        			ViewFoodTbView();
+        		}
+        	}
+        	if (event.getSource()==btnUpdateFood) {
+        		HolderManager foodHolder = HolderManager.getInstance();
+        		foodHolder.setFood(selectedFood);
+        		PressUpdateFood();
+        	}
+        	
+    	}
+    }
     @FXML
     public void PressAddFood(ActionEvent event) {
     	AddFoodScene addFoodScene = new AddFoodScene();
     	Stage stage = new Stage();
     	addFoodScene.start(stage);
     }
-    
-    @FXML
-    public void PressUpdateFood(ActionEvent event) {
+    public void PressUpdateFood() {
     	UpdateFoodScene updateFoodScene = new UpdateFoodScene();
     	Stage stage = new Stage();
     	updateFoodScene.start(stage);
@@ -447,6 +467,7 @@ public class indexController {
     			System.out.println(messageDelete);
     			if (messageDelete.equals("true")) {
     				updateStaffTView();
+    				tfSearchStaff.setText("");
     			}
     		}
     	}

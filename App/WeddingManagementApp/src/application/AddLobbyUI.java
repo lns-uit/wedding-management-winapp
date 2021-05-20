@@ -13,6 +13,7 @@ public class AddLobbyUI {
 			Scene scene = new Scene(root,998,567);
 			primaryStage.setTitle("Thêm Sảnh");
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.show();
 		} catch(Exception e) {
