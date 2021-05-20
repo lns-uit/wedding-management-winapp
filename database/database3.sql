@@ -248,3 +248,98 @@ begin
         V_return := 'false';
     end if;
 end;
+
+create or replace procedure sp_updateInforWedding(
+    V_idWedding in InforWedding.idWedding%type,
+    V_nameBride in InforWedding.nameBride%type,
+    V_nameGroom in InforWedding.nameGroom%type,
+    V_return out varchar2
+)
+is  InforWeddingTmp number(1);
+begin
+    update InforeWedding set
+        nameBride = V_nameBride,
+        nameGroom = V_nameGroom
+    where idWedding = V_idWedding;
+    select count(*) into InforWeddingTmp from InForWedding where idWedding = V_idWedding and nameBride = V_nameBride and nameGroom = V_nameGroom;
+    if InforWeddingTmp = 1 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
+
+create or replace procedure sp_deleteInforWedding(
+    V_idWedding in InforWedding.idWedding%type,
+    V_return out varchar2
+)
+is InforWeddingTmp number(1);
+begin
+    delete from InforWedding where idWedding = V_idWedding;
+    select count(*) into InforWeddingTmp from InforWedding where idWedding = V_idWedding;
+    if InforWeddingTmp = 0 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
+
+SET SERVEROUTPUT ON
+create or replace trigger deleteInforeWedding 
+before delete on InforWedding
+for each row
+declare BillTmp number(1);
+begin
+    select count(*) into BillTmp from Bill where idWedding = :old.idWedding;
+    if BillTmp = 1 then
+        DBMS_OUTPUT.PUT_LINE('da co hoa don khong the xoa');
+    else
+        delete from OrderWedding where idWedding = :old.idWedding;
+    end if;
+end;
+
+create or replace procedure sp_insertOrderWedding(
+    V_IDWEDDING in OrderWedding.idWedding%type,
+    V_IDLOBBY in OrderWedding.IDLOBBY%type,
+    V_IDSTAFF in OrderWedding.IDSTAFF%type,
+    V_IDCUSTOMER in OrderWedding.IDCUSTOMER%type,
+    V_NUMBEROFTABLE in OrderWedding.NUMBEROFTABLE%type,
+    V_DATESTART in OrderWedding.DATESTART%type,
+    V_return out varchar2
+)
+is OrderWeddingTmp number(1);
+begin
+    insert into OrderWedding(idWedding,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATESTART) values(
+        V_IDWEDDING,V_IDLOBBY,V_IDSTAFF,V_IDCUSTOMER,V_NUMBEROFTABLE,V_DATESTART
+    );
+    select count(*) into OrderWeddingTmp from OrderWedding where idWedding = V_IDWEDDING;
+    if OrderWeddingTmp = 1 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
+
+create or replace procedure sp_updateOrderWedding(
+    V_IDWEDDING in OrderWedding.idWedding%type,
+    V_IDLOBBY in OrderWedding.IDLOBBY%type,
+    V_IDSTAFF in OrderWedding.IDSTAFF%type,
+    V_NUMBEROFTABLE in OrderWedding.NUMBEROFTABLE%type,
+    V_DATESTART in OrderWedding.DATESTART%type,
+    V_return out varchar2
+)
+is OrderWeddingTmp number(1);
+begin
+    update OrderWedding set
+        IDLOBBY = V_IDLOBBY,
+        IDSTAFF = V_IDSTAFF,
+        NUMBEROFTABLE = V_NUMBEROFTABLE,
+        DATESTART = V_DATESTART
+    where idWedding = V_IDWEDDING;
+    select count(*) into OrderWeddingTmp from OrderWedding where IDLOBBY = V_IDLOBBY and  IDSTAFF = V_IDSTAFF and NUMBEROFTABLE = V_NUMBEROFTABLE and DATESTART = V_DATESTAR and idWedding = V_IDWEDDING;
+    if OrderWedding = 1 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
