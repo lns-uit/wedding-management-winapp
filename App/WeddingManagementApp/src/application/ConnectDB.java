@@ -7,11 +7,16 @@ import java.sql.SQLException;
 public class ConnectDB {
 
 	public static Connection getOracleConnection() throws SQLException, ClassNotFoundException {
+//		String hostName = "103.116.104.148";
+//		String sid = "xe";
+//		String userName = "my_user";
+//		String password = "my_user";
+		
 		String hostName = "localhost";
 		String sid = "orcl";
 		String userName = "phuc";
 		String password = "phuc";
-
+		
 		return getOracleConnection(hostName, sid, userName, password);
 	}
 
@@ -19,6 +24,7 @@ public class ConnectDB {
     String userName, String password) throws ClassNotFoundException,
     SQLException {
 
+	//	String connectionURL = "jdbc:oracle:thin:@" + hostName + ":49161:" + sid;
 		String connectionURL = "jdbc:oracle:thin:@" + hostName + ":1521:" + sid;
 
 		Connection conn = DriverManager.getConnection(connectionURL, userName, password);

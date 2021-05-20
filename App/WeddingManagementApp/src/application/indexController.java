@@ -32,12 +32,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class indexController {
-	@FXML
-    private Button btnAddTime;
-    @FXML
-    private Button btnDeleteTime;
-    @FXML
-    private Button btnUpdateTime;
     @FXML
     private Button btnAddLobby;
     @FXML
@@ -110,6 +104,7 @@ public class indexController {
 		viewStaff();
 		ViewLobbyColumn();
 		ViewFoodColumn();
+		ViewServiceColumn();
     	IndexInit(staff.getType());
     	// tìm kiếm nhân viên
     	tfSearchStaff.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -138,6 +133,7 @@ public class indexController {
     		currentButton = btnWeddingInfoManagement;
     		ViewFoodTbView();
         	ViewLobbyTbView();
+        	ViewServiceTbView();
     	}
     	else if (event.getSource()==btnReport) { 
     		currentPane = reportPanel; currentButton = btnReport;
@@ -172,6 +168,9 @@ public class indexController {
     	else if (event.getSource()== btnMenuManager) { 
     		currentButtonOptionWeddingInfoManager = btnMenuManager; 
     		currentPanelOptionWeddingInfoManager = stackMenuManager;
+    	} else if (event.getSource()==btnServiceManger) {
+    		currentButtonOptionWeddingInfoManager = btnServiceManger;
+    		currentPanelOptionWeddingInfoManager = stackServiceManger;
     	}
 
     	currentButtonOptionWeddingInfoManager.setDisable(true);
@@ -198,9 +197,9 @@ public class indexController {
     		btnAddLobby.setDisable(true);
     		btnDeleteLobby.setDisable(true);
     		btnUpdateLobby.setDisable(true);	
-    		btnAddTime.setDisable(true);
-    		btnDeleteTime.setDisable(true);
-    		btnUpdateTime.setDisable(true);
+    		btnAddService.setDisable(true);
+    		btnDeleteService.setDisable(true);
+    		btnUpdateService.setDisable(true);
     		btnAddFood.setDisable(true);
     		btnDeleteFood.setDisable(true);
     		btnUpdateFood.setDisable(true);
@@ -320,6 +319,57 @@ public class indexController {
     }
     
     /***********END FOOD MANAGER CONTROLLER*********/
+    
+    /*********** SERVICE MANAGER CONTROLLER **********/
+    @FXML
+    private Button btnServiceManger;
+    @FXML
+    private AnchorPane stackServiceManger;
+    @FXML
+    private TableView<ServiceWedding> tbViewService;
+    @FXML
+    private TableColumn<ServiceWedding,String> serviceIdColumn;
+    @FXML
+    private TableColumn<ServiceWedding,String> serviceNameColumn;
+    @FXML
+    private TableColumn<ServiceWedding,Number> servicePriceColumn;
+    @FXML
+    private Button btnAddService;
+    @FXML
+    private Button btnDeleteService;
+    @FXML
+    private Button btnUpdateService;
+    
+    private void ViewServiceColumn() {
+    	serviceIdColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("id"));
+    	serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
+    	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
+    }
+    private void ViewServiceTbView() {
+    //	ArrayList<ServiceWedding> arr = FoodModel.getAllFood();
+    	
+    //	ObservableList<ServiceWedding> arrService;
+    //	arrService = FXCollections.observableArrayList(arr);
+    //	tbViewService.setItems(arrService);
+    }
+    @FXML
+    public void OnPressServiceBtn(ActionEvent event) {
+    	if (event.getSource()==btnAddService) {
+    		AddServiceScene addServiceScene = new AddServiceScene();
+        	Stage stage = new Stage();
+        	addServiceScene.start(stage);
+    	}
+    	else if (event.getSource()==btnUpdateService) {
+    		UpdateServiceScene updateServiceScene = new UpdateServiceScene();
+        	Stage stage = new Stage();
+        	updateServiceScene.start(stage);
+    	}
+    	else if (event.getSource()==btnDeleteService) {
+    		
+    	}
+    }
+    
+    /*********** END SERVICE MANAGER CONTROLLER *********/
     
     /***********CUSTOMER CONTROLLER*******/
     @FXML

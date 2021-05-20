@@ -214,7 +214,7 @@
                         <TextField fx:id="tfSearchCustomer" layoutX="21.0" layoutY="74.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="weddingOrderInfoPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <AnchorPane fx:id="weddingOrderInfoPanel" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
@@ -223,12 +223,17 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnLobbyManager" disable="true" layoutX="518.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý sảnh" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Button fx:id="btnLobbyManager" disable="true" layoutX="349.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý sảnh" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnMenuManager" layoutX="687.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="35.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thực đơn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Button fx:id="btnMenuManager" layoutX="518.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="35.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý thực đơn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnServiceManger" layoutX="687.0" layoutY="9.0" mnemonicParsing="false" onAction="#PressInfoWeddingManagerOption" prefHeight="35.0" prefWidth="160.0" style="-fx-background-color: rgb(184, 55, 55);" text="Quản lý dịch vụ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -237,7 +242,7 @@
                         </AnchorPane>
                         <StackPane layoutY="50.0" prefHeight="614.0" prefWidth="861.0">
                            <children>
-                              <AnchorPane fx:id="stackLobbyManager" prefHeight="691.0" prefWidth="861.0">
+                              <AnchorPane fx:id="stackLobbyManager" prefHeight="691.0" prefWidth="861.0" visible="false">
                                  <children>
                                     <TableView fx:id="tbViewLobbyManager" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
                                        <columns>
@@ -288,6 +293,30 @@
                                     </Label>
                                     <Button fx:id="btnDeleteFood" layoutX="727.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
                                     <Button fx:id="btnUpdateFood" layoutX="600.0" layoutY="560.0" mnemonicParsing="false" onAction="#PressUpdateFood" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="stackServiceManger" prefHeight="649.0" prefWidth="828.0">
+                                 <children>
+                                    <TableView fx:id="tbViewService" layoutX="20.0" layoutY="118.0" prefHeight="426.0" prefWidth="821.0">
+                                       <columns>
+                                          <TableColumn fx:id="serviceIdColumn" prefWidth="173.0" text="Mã dịch vụ" />
+                                          <TableColumn fx:id="serviceNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên dịch vụ" />
+                                          <TableColumn fx:id="servicePriceColumn" prefWidth="188.0" text="Giá dịch vụ" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                    <TextField layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
+                                    <Button layoutX="209.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                                    <Button fx:id="btnAddService" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Thêm dịch vụ" />
+                                    <Label layoutX="371.0" layoutY="28.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý dịch vụ">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="btnDeleteService" layoutX="727.0" layoutY="560.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                    <Button fx:id="btnUpdateService" layoutX="600.0" layoutY="560.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -363,7 +392,7 @@
                         </LineChart>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="infoPersonalPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <AnchorPane prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #e3e3e3;">
                            <children>
