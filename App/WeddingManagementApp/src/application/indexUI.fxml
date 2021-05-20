@@ -255,7 +255,7 @@
                                     </TableView>
                                     <TextField fx:id="tfSearchLobby" layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                     <Button layoutX="209.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                    <Button fx:id="btnAddLobby" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm Sảnh" />
+                                    <Button fx:id="btnAddLobby" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" onAction="#PressAddLobby" prefHeight="35.0" prefWidth="114.0" text="Thêm Sảnh" />
                                     <Label layoutX="380.0" layoutY="28.0" prefHeight="39.0" prefWidth="101.0" text="Quản lý sảnh">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
@@ -280,14 +280,14 @@
                                     </TableView>
                                     <TextField layoutX="20.0" layoutY="67.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                     <Button layoutX="209.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                    <Button fx:id="btnAddFood" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Thêm món" />
+                                    <Button fx:id="btnAddFood" layoutX="727.0" layoutY="67.0" mnemonicParsing="false" onAction="#PressAddFood" prefHeight="35.0" prefWidth="114.0" text="Thêm món" />
                                     <Label layoutX="371.0" layoutY="28.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thực đơn">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Label>
                                     <Button fx:id="btnDeleteFood" layoutX="727.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                    <Button fx:id="btnUpdateFood" layoutX="600.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                    <Button fx:id="btnUpdateFood" layoutX="600.0" layoutY="560.0" mnemonicParsing="false" onAction="#PressUpdateFood" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                  </children>
                               </AnchorPane>
                            </children>

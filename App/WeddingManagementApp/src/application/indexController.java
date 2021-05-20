@@ -262,6 +262,14 @@ public class indexController {
     	arrLobby = FXCollections.observableArrayList(arr);
     	tbViewLobbyManager.setItems(arrLobby);
     }
+    
+    @FXML
+    public void PressAddLobby(ActionEvent event) {
+    	AddLobbyUI addLobbySceneAddLobbyUI = new AddLobbyUI();
+    	Stage stage = new Stage();
+    	addLobbySceneAddLobbyUI.start(stage);
+    }
+    
     /***********End LOBBY MANAGER CONTROLLER*********/
     
     /***********FOOD MANAGER CONTROLLER*********/
@@ -295,6 +303,20 @@ public class indexController {
     	ObservableList<Food> arrFood;
     	arrFood = FXCollections.observableArrayList(arr);
     	tbViewFood.setItems(arrFood);
+    }
+    
+    @FXML
+    public void PressAddFood(ActionEvent event) {
+    	AddFoodScene addFoodScene = new AddFoodScene();
+    	Stage stage = new Stage();
+    	addFoodScene.start(stage);
+    }
+    
+    @FXML
+    public void PressUpdateFood(ActionEvent event) {
+    	UpdateFoodScene updateFoodScene = new UpdateFoodScene();
+    	Stage stage = new Stage();
+    	updateFoodScene.start(stage);
     }
     
     /***********END FOOD MANAGER CONTROLLER*********/

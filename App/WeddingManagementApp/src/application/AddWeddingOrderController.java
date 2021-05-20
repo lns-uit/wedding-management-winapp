@@ -337,7 +337,7 @@ public class AddWeddingOrderController {
 		
     	} else
     	if (event.getSource()==btnCommit3) {
-    		if (nameCustomer.getText().isEmpty() || phoneNumberCus.getText().isEmpty() || nameGroom.getText().isEmpty() ||nameBride.getText().isEmpty() || depositTf.getText().isEmpty()){
+    		if (nameCustomer.getText().isEmpty() || phoneNumberCus.getText().isEmpty() || nameGroom.getText().isEmpty() ||nameBride.getText().isEmpty() || depositTF.getText().isEmpty()){
     			showAlertWithoutHeaderText("Vui lòng điền đầy đủ thông tin");
     		} else {
     			System.out.print("Commit");
@@ -471,7 +471,7 @@ public class AddWeddingOrderController {
 	@FXML
 	private Label moneySumLb;
 	@FXML
-	private TextField depositTf;
+	private TextField depositTF;
 	@FXML
 	private Label moneyRestLb;
 	
@@ -479,7 +479,7 @@ public class AddWeddingOrderController {
 	
     public void CalculateMoney() {
     	priceSum =  Integer.parseInt(moneySumLb.getText());
-    	depositOrder = Integer.parseInt(depositTf.getText());
+    	depositOrder = Integer.parseInt(depositTF.getText());
     	restMoney = Integer.parseInt(moneyRestLb.getText());
     	
     	long tmp = priceSum-depositOrder;
