@@ -259,7 +259,9 @@ declare
     numberOfFoodTmp number(3);
     numberOfServiceTmp number(3);
     orderLobby number(2);
+    activeLobby varchar2(5);
 begin
+    select count(*) into activeLobby from Lobby where idLobby = :new.idLobby;
     select count(*) into numberOfFoodTmp from FoodOrder where idWedding = :new.idWedding;
     select count(*) into numberOfServiceTmp from ServiceOrder where idWedding = :new.idWedding;
     select maxTable into maxTableTmp from Lobby where idLobby = :new.idLobby;
@@ -268,6 +270,10 @@ begin
     select Sum(price) into sumService from Service, ServiceOrder where Service.idService = ServiceOrder.idService and ServiceOrder.idWedding = :new.idWedding;
     select Sum(priceFood) into sumFood from Food, FoodOrder where Food.idFood = FoodOrder.idFood and FoodOrder.idWedding = :new.idWedding;
     select count(*) into orderLobby from OrderWedding where :new.idLobby = idLobby and :new.DATESTART = DATESTART;
+    if activeLobby = 'false' then
+        DBMS_OUTPUT.PUT_LINE('sanh nay da xoa');
+        return;
+    end if;
     if orderLobby > 0 then
         DBMS_OUTPUT.PUT_LINE('sanh nay da co nguoi dat');
         return;

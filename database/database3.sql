@@ -132,11 +132,22 @@ create or replace procedure sp_deleteLobby(
 )
 is lobbyTmp number(1);
 begin
-    update Lobby set note = V_note  where V_idLobby = idLobby;
-    select count(*) into lobbyTmp from Lobby where V_idLobby = idLobby and note = V_note  ;
+    update Lobby set ACTIVCE = 'false'  where V_idLobby = idLobby;
+    select count(*) into lobbyTmp from Lobby where V_idLobby = idLobby and ACTIVCE = 'false'  ;
     if lobbyTmp = 1 then
         V_return := 'true';
     else
         V_return := 'false';
     end if;
+end;
+
+create or replace trigger Lobby_stt_and_id
+before insert on Lobby
+for each row
+declare tmp number(7);
+begin
+    tmp := Lobby_stt.nextval;
+    :new.stt := tmp;
+    :new.idLobby := concat('LOB',to_char(tmp));
+    :new.ACTIVCE := 'true';
 end;
