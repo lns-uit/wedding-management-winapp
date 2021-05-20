@@ -151,3 +151,100 @@ begin
     :new.idLobby := concat('LOB',to_char(tmp));
     :new.ACTIVCE := 'true';
 end;
+
+create or replace NONEDITIONABLE procedure sp_getAllLobby(cur_lobbyOut OUT SYS_REFCURSOR)
+is
+begin
+    open cur_lobbyOut for
+    select * 
+    from  lobby;
+end;
+
+create or replace procedure sp_insertFoodOrder(
+    V_idFood in FoodOrder.idFood%type,
+    V_idWedding in FoodOrder.idWedding%type,
+    V_return out varchar2
+)
+is  foodOrderTmp number(1);
+begin
+    insert into FoodOrder(idFood,idWedding) values(
+        V_idFood,V_idWedding
+    );
+    select count(*) into foodOrderTmp from FoodOrder where idFood = V_idFood and idWedding = V_idWedding;
+    if foodOrderTmp = 1 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
+
+create or replace procedure sp_deleteFoodOrder(
+    V_idFood in FoodOrder.idFood%type,
+    V_idWedding in FoodOrder.idWedding%type,
+    V_return out varchar2
+)
+is foodOrderTmp number(1);
+begin
+    delete from FoodOrder where idFood = V_idFood and V_idWedding = idWedding;
+    select count(*) into foodOrderTmp from FoodOrder where idFood = V_idFood and V_idWedding = idWedding;
+    if foodOrderTmp = 0 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
+
+create or replace procedure sp_insertServiceOrder(
+    V_idService in FoodOrder.idService%type,
+    V_idWedding in FoodOrder.idWedding%type,
+    V_return out varchar2
+)
+is  ServiceOrderTmp number(1);
+begin
+    insert into FoodOrder(idService,idWedding) values(
+        V_idService,V_idWedding
+    );
+    select count(*) into ServiceOrderTmp from FoodOrder where idService = V_idService and idWedding = V_idWedding;
+    if ServiceOrderTmp = 1 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
+
+create or replace procedure sp_deleteServiceOrder(
+    V_idService in FoodOrder.idService%type,
+    V_idWedding in FoodOrder.idWedding%type,
+    V_return out varchar2
+)
+is ServiceOrderTmp number(1);
+begin
+    delete from FoodOrder where idService = V_idService and V_idWedding = idWedding;
+    select count(*) into ServiceOrderTmp from FoodOrder where idService = V_idService and V_idWedding = idWedding;
+    if ServiceOrderTmp = 0 then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
+
+create or replace procedure sp_insertInforWedding(
+    V_nameBride in InforWedding.nameBride%type,
+    V_nameGroom in InforWedding.nameGroom%type,
+    V_return out varchar2
+)
+is  
+    InforWeddingBeforeInsert number(4);
+    InforWeddingAfterInsert number(4);
+begin
+    select count(*) into InforWeddingBeforeInsert from InforWedding;
+    insert into InForWedding(nameBride,nameGroom) values(
+        nameBride,nameGroom
+    );
+    select count(*) into InforWeddingAfterInsert from InforWedding;
+    if InforWeddingAfterInsert > InforWeddingBeforeInsert then
+        V_return := 'true';
+    else
+        V_return := 'false';
+    end if;
+end;
