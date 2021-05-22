@@ -29,6 +29,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -85,10 +86,38 @@ public class indexController {
     private Button btnName;
     private AnchorPane currentPane;
     private Button currentButton;
-   
+    
+    /*************** WINDOW CONTROLLER ************/
+    private Stage primaryStage =  new Stage();
+    private double X,Y;
+    @FXML
+    protected void onRectanglePressed(MouseEvent event) {
+    	primaryStage = (Stage) btnName.getScene().getWindow();
+        X = primaryStage.getX() - event.getScreenX();
+        Y = primaryStage.getY() - event.getScreenY();
+    }
+
+    @FXML
+    protected void onRectangleDragged(MouseEvent event) {
+    	primaryStage = (Stage) btnName.getScene().getWindow();
+        primaryStage.setX(event.getScreenX() + X);
+        primaryStage.setY(event.getScreenY() + Y);
+    }
+    @FXML
+    private void onPressExitWindow(ActionEvent event) {
+    	primaryStage = (Stage) btnName.getScene().getWindow();
+    	primaryStage.close();
+    }
+    @FXML
+    private void onPressMinimizeWindow(ActionEvent event) {
+    	primaryStage = (Stage) btnName.getScene().getWindow();
+    	primaryStage.setIconified(true);
+    }
+    /*************** END WINDOW CONTROLLER *************/
     @FXML
     void initialize() throws SQLException {
-		// TODO Auto-generated method stub
+    	
+    	// TODO Auto-generated method stub
     	//gán user vào info
     	StaffHolder holder = StaffHolder.getInstance();
     	Staff staff = holder.getStaff();
@@ -114,22 +143,35 @@ public class indexController {
     		);
     		staffTbView.setItems(arrStaff);
     	});
+    	if (currentPane==null) currentPane = infoPersonalPanel;
+    	if (currentButton==null) currentButton = btnInfoPersonal;
+    	currentButton.setStyle("-fx-background-color: #cf4848");
+    	currentPane.setVisible(true);
 	}
-    
+    @FXML
+    private Label LbNameIndex;
     @FXML
     public void PressIndex(ActionEvent event) throws SQLException {
     	
     	if (currentPane==null) currentPane = infoPersonalPanel;
     	currentPane.setVisible(false);
     	if (currentButton==null) currentButton = btnInfoPersonal;
-    	currentButton.setStyle("-fx-background-color: rgb(184, 55, 55)");
-    	if (event.getSource()==btnWeddingOrderManagement) { currentPane = weddingOrderPanel; currentButton = btnWeddingOrderManagement;}
+    	currentButton.setStyle("-fx-background-color: #b83737");
+    	if (event.getSource()==btnWeddingOrderManagement) { 
+    		LbNameIndex.setText("QUẢN LÝ THÔNG TIN ĐẶT TIỆC");
+    		currentPane = weddingOrderPanel; 
+    		currentButton = btnWeddingOrderManagement;
+    
+    	}
     	else if (event.getSource()==btnStaffManagement) { 
+    		LbNameIndex.setText("QUẢN LÝ THÔNG TIN NHÂN VIÊN");
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
     		updateStaffTView();
+    		
     	}
     	else if (event.getSource()==btnWeddingInfoManagement) { 
+    		LbNameIndex.setText("QUẢN LÝ THÔNG TIN TIỆC CƯỚI");
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
     		ViewFoodTbView();
@@ -137,20 +179,27 @@ public class indexController {
         	ViewServiceTbView();
     	}
     	else if (event.getSource()==btnReport) { 
+    		LbNameIndex.setText("BÁO CÁO");
     		currentPane = reportPanel; currentButton = btnReport;
     		ReportChartShow();    		
     		ReportTbViewShow();
     	}
-    	else if (event.getSource()==btnInfoPersonal) { currentPane = infoPersonalPanel; currentButton = btnInfoPersonal;}
+    	else if (event.getSource()==btnInfoPersonal) { 
+    		LbNameIndex.setText("THÔNG TIN CÁ NHÂN");
+    		currentPane = infoPersonalPanel; 
+    		currentButton = btnInfoPersonal;
+    		}
     	else if (event.getSource()==btnBill) {
+    		LbNameIndex.setText("QUẢN LÝ HÓA ĐƠN");
     		currentPane = billPanel;
     		currentButton = btnBill;
     	} 
     	else if (event.getSource()==btnCustomerManagement) {
+    		LbNameIndex.setText("QUẢN LÝ THÔNG TIN KHÁCH HÀNG");
     		currentPane = customerPanel;
     		currentButton = btnCustomerManagement;
     	}
-    	currentButton.setStyle("-fx-background-color:#d64d4d");
+    	currentButton.setStyle("-fx-background-color:#cf4848");
     	currentPane.setVisible(true);
     }
     private Button currentButtonOptionWeddingInfoManager;

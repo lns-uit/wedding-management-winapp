@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class AddFoodController {
@@ -70,4 +71,31 @@ public class AddFoodController {
         alert.setContentText(message);
         alert.showAndWait();
 	}
+    /*************** WINDOW CONTROLLER ************/
+    private Stage primaryStage =  new Stage();
+    private double X,Y;
+    @FXML
+    protected void onRectanglePressed(MouseEvent event) {
+    	primaryStage = (Stage) btnAddFood.getScene().getWindow();
+        X = primaryStage.getX() - event.getScreenX();
+        Y = primaryStage.getY() - event.getScreenY();
+    }
+
+    @FXML
+    protected void onRectangleDragged(MouseEvent event) {
+    	primaryStage = (Stage) btnAddFood.getScene().getWindow();
+        primaryStage.setX(event.getScreenX() + X);
+        primaryStage.setY(event.getScreenY() + Y);
+    }
+    @FXML
+    private void onPressExitWindow(ActionEvent event) {
+    	primaryStage = (Stage) btnAddFood.getScene().getWindow();
+    	primaryStage.close();
+    }
+    @FXML
+    private void onPressMinimizeWindow(ActionEvent event) {
+    	primaryStage = (Stage) btnAddFood.getScene().getWindow();
+    	primaryStage.setIconified(true);
+    }
+    /*************** END WINDOW CONTROLLER *************/
 }

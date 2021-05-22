@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -27,7 +28,7 @@ public class AddStaffController implements Initializable {
     private TextField phone;
 
     @FXML
-    private TextArea address;
+    private TextField address;
 
     @FXML
     private Label warningText;
@@ -109,4 +110,27 @@ public class AddStaffController implements Initializable {
 		
 		return messageString;
 	}
+	
+	 /*************** WINDOW CONTROLLER ************/
+    private Stage primaryStage =  new Stage();
+    private double X,Y;
+    @FXML
+    protected void onRectanglePressed(MouseEvent event) {
+    	primaryStage = (Stage) name.getScene().getWindow();
+        X = primaryStage.getX() - event.getScreenX();
+        Y = primaryStage.getY() - event.getScreenY();
+    }
+
+    @FXML
+    protected void onRectangleDragged(MouseEvent event) {
+    	primaryStage = (Stage) name.getScene().getWindow();
+        primaryStage.setX(event.getScreenX() + X);
+        primaryStage.setY(event.getScreenY() + Y);
+    }
+    @FXML
+    private void onPressExitWindow(ActionEvent event) {
+    	primaryStage = (Stage) name.getScene().getWindow();
+    	primaryStage.close();
+    }
+    /*************** END WINDOW CONTROLLER *************/
 }

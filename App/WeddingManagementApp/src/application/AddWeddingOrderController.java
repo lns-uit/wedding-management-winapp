@@ -28,7 +28,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import oracle.security.o3logon.a;
@@ -513,6 +515,33 @@ public class AddWeddingOrderController {
 		System.out.print(currentOrderFood.get(0).getIdFood());
 
     }
+    /*************** WINDOW CONTROLLER ************/
+    private Stage primaryStage =  new Stage();
+    private double X,Y;
+    @FXML
+    protected void onRectanglePressed(MouseEvent event) {
+    	primaryStage = (Stage) step1.getScene().getWindow();
+        X = primaryStage.getX() - event.getScreenX();
+        Y = primaryStage.getY() - event.getScreenY();
+    }
+
+    @FXML
+    protected void onRectangleDragged(MouseEvent event) {
+    	primaryStage = (Stage) step1.getScene().getWindow();
+        primaryStage.setX(event.getScreenX() + X);
+        primaryStage.setY(event.getScreenY() + Y);
+    }
+    @FXML
+    private void onPressExitWindow(ActionEvent event) {
+    	primaryStage = (Stage) step1.getScene().getWindow();
+    	primaryStage.close();
+    }
+    @FXML
+    private void onPressMinimizeWindow(ActionEvent event) {
+    	primaryStage = (Stage) step1.getScene().getWindow();
+    	primaryStage.setIconified(true);
+    }
+    /*************** END WINDOW CONTROLLER *************/
 }
 
 
