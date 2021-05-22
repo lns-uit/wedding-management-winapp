@@ -10,12 +10,12 @@
    <children>
       <AnchorPane layoutX="18.0" layoutY="18.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="873.0" style="-fx-background-color: white;">
          <children>
-            <TextField layoutX="470.0" layoutY="294.0" prefHeight="47.0" prefWidth="381.0" promptText="Ghi chú">
+            <TextField fx:id="tfNote" layoutX="470.0" layoutY="294.0" prefHeight="47.0" prefWidth="381.0" promptText="Ghi chú">
                <font>
                   <Font size="19.0" />
                </font>
             </TextField>
-            <TextField layoutX="470.0" layoutY="115.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+            <TextField fx:id="tfTypeLobby" layoutX="470.0" layoutY="115.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
                <font>
                   <Font size="19.0" />
                </font>
@@ -25,7 +25,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="470.0" layoutY="202.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+            <TextField fx:id="tfPriceTable" layoutX="470.0" layoutY="202.0" prefHeight="47.0" prefWidth="381.0" promptText="Giá bàn">
                <font>
                   <Font size="19.0" />
                </font>
@@ -35,12 +35,12 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btnCommit" layoutX="365.0" layoutY="419.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="143.0" text="Xác nhận">
+            <Button layoutX="365.0" layoutY="419.0" mnemonicParsing="false" onAction="#onAddLobby" prefHeight="47.0" prefWidth="143.0" text="Xác nhận">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <TextField fx:id="name" layoutX="25.0" layoutY="115.0" prefHeight="47.0" prefWidth="381.0" promptText="Tên sảnh">
+            <TextField fx:id="tfName" layoutX="25.0" layoutY="115.0" prefHeight="47.0" prefWidth="381.0" promptText="Tên sảnh">
                <font>
                   <Font size="19.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="25.0" layoutY="202.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+            <TextField fx:id="tfNumberTable" layoutX="25.0" layoutY="202.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
                <font>
                   <Font size="19.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="25.0" layoutY="294.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+            <TextField fx:id="tfPriceLobby" layoutX="25.0" layoutY="294.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
                <font>
                   <Font size="19.0" />
                </font>
@@ -87,5 +87,5 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-   </children>
+    </children>
 </AnchorPane>

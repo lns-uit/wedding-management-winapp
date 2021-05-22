@@ -78,7 +78,7 @@ public class StaffModel {
 	}
 	
 	public static void addStaff(Staff newStaff) throws SQLException {
-		String sqlString = "begin insert_staff(?,?,?,?,?); end;" ;
+		String sqlString = "begin sp_insert_staff(?,?,?,?,?,?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
 		
 		try {
@@ -87,11 +87,15 @@ public class StaffModel {
 			cStmt.setString(3, newStaff.getAddress());
 			cStmt.setString(4, newStaff.getIdentityCard());
 			cStmt.setString(5, newStaff.getType());
+			cStmt.registerOutParameter(6, OracleTypes.VARCHAR);
+			
 			cStmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
+		String message = cStmt.getString(6);
+		System.out.println(message);
 		cStmt.close();
 	}
 	

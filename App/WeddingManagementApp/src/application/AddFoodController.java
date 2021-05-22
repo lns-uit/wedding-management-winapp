@@ -27,7 +27,7 @@ public class AddFoodController {
     @FXML
     private TextField tfPriceFood;
 
-    ObservableList<String> list = FXCollections.observableArrayList("khai vị","tráng miệng","món chính", "thức uống");
+    ObservableList<String> list = FXCollections.observableArrayList("khai vị","tráng miệng","món chính", "nước uống");
     
     public void initialize() {
     	tfTypeFood.setItems(list);

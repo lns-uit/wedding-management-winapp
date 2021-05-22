@@ -64,6 +64,8 @@ public class UpdateStaffController implements Initializable {
         else if (holder.getSelectStaff().getType().equals("nhân viên phục vụ")) indexSelectStaffType = 2;
         else if (holder.getSelectStaff().getType().equals("quản lý")) indexSelectStaffType = 3;
         typeStaff.getSelectionModel().select(indexSelectStaffType);
+        phone.setDisable(true);
+        identityCard.setDisable(true);
     }
 	
 	@FXML

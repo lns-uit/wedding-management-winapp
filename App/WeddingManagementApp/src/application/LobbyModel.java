@@ -43,22 +43,26 @@ public class LobbyModel {
 		return arrLobby;
 	}
 	
-	public static String deleteLobby (String idLobby) throws SQLException {
-		String sqlString = "begin sp_deleteLobby(?,?); end;" ;
+	public static String addLobby (String name, String type, int numberTable, int priceTable, int priceLobby) throws SQLException {
+		String sqlString = "begin sp_insertLobby(?,?,?,?,?,?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
 		
 		try {
 			
-			cStmt.setString(1, idLobby);
-			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
-			
+			cStmt.setString(1, name);
+			cStmt.setString(2, type);
+			cStmt.setInt(3, numberTable);
+			cStmt.setInt(4, priceTable);
+			cStmt.setInt(5, priceLobby);
+			cStmt.registerOutParameter(6, OracleTypes.VARCHAR);
 			cStmt.execute();
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
-		String resultString = cStmt.getString(2);
+		String resultString = cStmt.getString(6);
+		cStmt.close();
 		return resultString;
 	}
 }
