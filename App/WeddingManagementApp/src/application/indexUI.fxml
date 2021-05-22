@@ -288,8 +288,8 @@
                                                 <Font name="System Bold" size="16.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnDeleteLobby" layoutX="789.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                          <Button fx:id="btnUpdateLobby" layoutX="662.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                          <Button fx:id="btnDeleteLobby" layoutX="789.0" layoutY="555.0" mnemonicParsing="false" onAction="#onActionButtonLobby" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                          <Button fx:id="btnUpdateLobby" layoutX="662.0" layoutY="555.0" mnemonicParsing="false" onAction="#onActionButtonLobby" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane fx:id="stackMenuManager" prefHeight="649.0" prefWidth="828.0" visible="false">
