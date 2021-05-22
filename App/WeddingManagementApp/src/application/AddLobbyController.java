@@ -1,11 +1,17 @@
 package application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,7 +57,7 @@ public class AddLobbyController {
     private TextField tfNumberTable;
 
     @FXML
-    private TextField tfTypeLobby;
+    private ComboBox<String> cbbTypeLobby;
 
     @FXML
     private TextField tfPriceTable;
@@ -61,7 +67,12 @@ public class AddLobbyController {
 
     @FXML
     private TextField tfNote;
-
+    
+    ObservableList<String> listType = FXCollections.observableArrayList("Thường", "Vip");
+    @FXML
+    public void initialize() {
+		cbbTypeLobby.setItems(listType);
+    }
     @FXML
     void onAddLobby(ActionEvent event) throws NumberFormatException, SQLException {
     	System.out.println("Press");
@@ -71,7 +82,7 @@ public class AddLobbyController {
     		
     		String messageAddLobby = LobbyModel.addLobby(
     				tfName.getText(), 
-    				tfTypeLobby.getText(), 
+    				cbbTypeLobby.getValue(), 
     				Integer.parseInt(tfNumberTable.getText()), 
     				Integer.parseInt(tfPriceTable.getText()), 
     				Integer.parseInt(tfPriceLobby.getText())
@@ -94,7 +105,7 @@ public class AddLobbyController {
     public String Validator() {
 		String messageString="success";
 		
-		if ((tfName.getText().equals("")) || (tfTypeLobby.getText().equals("")) ||(tfNumberTable.getText().equals("")) || (tfPriceTable.getText().equals("")) || (tfPriceLobby.getText().equals(""))) {
+		if ((tfName.getText().equals("")) || (cbbTypeLobby.getValue().equals("")) ||(tfNumberTable.getText().equals("")) || (tfPriceTable.getText().equals("")) || (tfPriceLobby.getText().equals(""))) {
 			return messageString = "Feild còn trống !";
 		}
 		
