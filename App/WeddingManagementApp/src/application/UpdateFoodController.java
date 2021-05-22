@@ -23,7 +23,7 @@ public class UpdateFoodController {
     @FXML
     private ComboBox<String> cbcTypeFood;
     
-    ObservableList<String> list = FXCollections.observableArrayList("khai vị","tráng miệng","món chính", "thức uống");
+    ObservableList<String> list = FXCollections.observableArrayList("khai vị","tráng miệng","món chính", "nước uống");
     String idFood = null;
     
     public void initialize() {
@@ -35,7 +35,7 @@ public class UpdateFoodController {
         int indexSelectFoodType = 0;
     	if (foodSelect.getType().equals("tráng miệng")) indexSelectFoodType = 1;
     	else if (foodSelect.getType().equals("món chính")) indexSelectFoodType =2;
-    	else if (foodSelect.getType().equals("thức uống")) indexSelectFoodType = 3;
+    	else if (foodSelect.getType().equals("nước uống")) indexSelectFoodType = 3;
     	cbcTypeFood.getSelectionModel().select(indexSelectFoodType);
     	idFood = foodSelect.getId();
     }
