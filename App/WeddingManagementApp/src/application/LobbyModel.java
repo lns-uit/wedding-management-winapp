@@ -30,10 +30,13 @@ public class LobbyModel {
 				Number maxTable  = rs.getInt(5);
 				Number priceTable = rs.getInt(6);
 				Number priceLobby = rs.getInt(7);
-				String noteLobby = rs.getString(8);
+				String acctiveLobby = rs.getString(8);
 				
-				Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTable, priceTable, priceLobby, noteLobby);
-				arrLobby.add(a);	
+				if (acctiveLobby.equals("ON")) {
+					Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTable, priceTable, priceLobby, "");
+					arrLobby.add(a);		
+				}
+				
 				
 			}
 		} catch (Exception e) {
@@ -62,6 +65,25 @@ public class LobbyModel {
 		}
 		
 		String resultString = cStmt.getString(6);
+		cStmt.close();
+		return resultString;
+	}
+	
+	public static String deleteLobby (String id) throws SQLException {
+		String sqlString = "begin sp_deleteLobby(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			
+			cStmt.setString(1, id);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		String resultString = cStmt.getString(2);
 		cStmt.close();
 		return resultString;
 	}

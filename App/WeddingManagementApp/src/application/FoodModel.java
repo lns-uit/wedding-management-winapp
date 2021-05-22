@@ -83,7 +83,7 @@ public class FoodModel {
 	}
 	
 	public static String updateFood (String id, String name, int price, String type ) throws SQLException {
-		String sqlString = "begin sp_update_food(?,?,?,?,?); end;" ;
+		String sqlString = "begin sp_updatefood(?,?,?,?,?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
 		
 		try {

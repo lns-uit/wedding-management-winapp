@@ -20,4 +20,12 @@ public final class HolderManager {
 	public Food getFood() {
 		return this.foodCurrent;
 	}
+	
+	private Lobby lobbyCurrent;
+	public void setLobby (Lobby lobby ) {
+		this.lobbyCurrent = lobby;
+	}
+	public Lobby getLobby() {
+		return this.lobbyCurrent;
+	}
 }

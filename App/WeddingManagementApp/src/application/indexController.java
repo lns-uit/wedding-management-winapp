@@ -319,6 +319,30 @@ public class indexController {
     	addLobbySceneAddLobbyUI.start(stage);
     }
     
+    @FXML
+    void onActionButtonLobby(ActionEvent event) throws SQLException {
+    	
+    	Lobby selectedLobby  = tbViewLobbyManager.getSelectionModel().getSelectedItem();
+    	if (selectedLobby==null) {
+    		System.out.println("is empty");
+    	} else {
+    		if (event.getSource()==btnDeleteLobby) {
+        		String messageDelete = LobbyModel.deleteLobby(selectedLobby.getId()); 
+        		System.out.print(messageDelete);
+        		if (messageDelete.equals("true")) {
+        			System.out.println("Success");
+        			ViewLobbyTbView();
+        		}
+        	}
+        	if (event.getSource()==btnUpdateLobby) {
+        		HolderManager lobbyHolder = HolderManager.getInstance();
+        		lobbyHolder.setLobby(selectedLobby);
+        		System.out.println("open update lobby");
+        	}
+        	
+    	}
+    }
+    
     /***********End LOBBY MANAGER CONTROLLER*********/
     
     /***********FOOD MANAGER CONTROLLER*********/
