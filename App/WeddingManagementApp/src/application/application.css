@@ -1,1 +1,163 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color:   #c93e3e; 
+}
+.table-view .column-header .label{
+   -fx-text-fill: white;
+   -fx-font-weight: bold; 
+   -fx-alignment: CENTER;
+}
+
+
+
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.table-view .increment-button ,.table-view .decrement-button {
+    -fx-background-color:transparent;
+	-fx-background-radius: 2em;
+
+}
+
+/* The main scrollbar **track** CSS class  */
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track{
+	-fx-background-color: transparent;
+	-fx-border-color:derive( white,80%);
+
+	-fx-background-radius: 2em;
+	-fx-border-radius:2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color:derive( white,90%);
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
+}
+
+/* chart properties */
+
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-legend-visible: false;
+}
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
+
+.chart-pie {
+    -fx-border-color: derive(-fx-pie-color, 1%);
+    -fx-border-width: 0px;
+}
+
+.date-picker-popup .calendar-grid {
+    -fx-pref-width: 500;
+    -fx-pref-height: 180;
+}
+.date-picker-popup .spinner-label {
+    -fx-font-size: 14.0;
+}
+
+.button:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #cf4848;
+    -fx-border-color: #cf4848;
+    -fx-border-width: 0.5;
+}
+
+.button {
+	-fx-background-color:#c93e3e;
+	-fx-text-fill: white;
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+
+#index .button {
+	-fx-background-color:#b83737;
+}
+
+#index .button:hover {
+
+	-fx-text-fill: white;
+	-fx-border-color: white;
+    -fx-border-width: 0.5;
+}
+.text-field {
+	-fx-font-size: 14px;
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 0 -1 0, 0 0 0 0, 0 0 0 0;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 0 -1 0, 0 0 0 0, 0 0 0 0;
+}
+
+.text-area {
+	-fx-font-size: 14px;
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 0 0 0;
+}
+
+
+#exit {
+	-fx-background-color: #b83737;
+	-fx-border-width: 0;
+	-fx-border-color: #b83737;
+	-fx-background-radius:21px;
+	-fx-border-radius:21px;
+}
+
+#exit:hover {
+	-fx-background-color: white;
+	-fx-border-width: 2;
+}
+
+#minimize{
+	-fx-background-color: #474747;
+	-fx-border-width: 0;
+	-fx-border-color: #474747;
+	-fx-background-radius:21px;
+	-fx-border-radius:21px;
+}
+
+#minimize:hover{
+	-fx-background-color: white;
+	-fx-border-width: 2;
+}
+
+.combo-box{
+	-fx-background-color: #e0e0e0;
+	-fx-font-size: 14px;
+}
+
+#btnExit{
+	-fx-background-color: #b83737;
+	-fx-text-fill: white;
+	-fx-font-size: 16px;
+	-fx-border-width: 0;
+}
+
+#btnExit:hover{
+	-fx-background-color: white;
+	-fx-text-fill: #b83737;
+	-fx-font-size: 16px;
+	-fx-border-width: 0;
+}
+
+#box{
+
+}
+.root {
+		-fx-background-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0, 0, 0);
+    -fx-background-insets: 10;
+    -fx-padding: 10;
+}
+
+

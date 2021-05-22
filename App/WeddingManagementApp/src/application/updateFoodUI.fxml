@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="539.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UpdateFoodController">
+   <children>
+      <AnchorPane layoutX="24.0" layoutY="17.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="500.0" style="-fx-background-color: white;">
+         <children>
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="73.0" prefWidth="500.0" style="-fx-background-color: #b83737;">
+               <children>
+                  <Label layoutX="118.0" layoutY="16.0" prefHeight="41.0" prefWidth="284.0" text="Chỉnh sửa thông tin món ăn" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnExit" layoutX="446.0" layoutY="14.0" mnemonicParsing="false" onAction="#onPressExitWindow" prefHeight="35.0" prefWidth="40.0" text="X" />
+               </children>
+            </AnchorPane>
+            <Button fx:id="btnAddFood" layoutX="179.0" layoutY="403.0" mnemonicParsing="false" onAction="#onUpdateFood" prefHeight="47.0" prefWidth="143.0" text="Xác nhận">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="tfNameFood" layoutX="60.0" layoutY="131.0" prefHeight="47.0" prefWidth="381.0" promptText="Tên món">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Label layoutX="70.0" layoutY="111.0" text="Tên món">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="71.0" layoutY="192.0" text="Loại">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfPriceFood" layoutX="60.0" layoutY="291.0" prefHeight="47.0" prefWidth="381.0" promptText="Giá">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Label layoutX="70.0" layoutY="271.0" text="Giá món ăn">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbcTypeFood" layoutX="60.0" layoutY="212.0" prefHeight="47.0" prefWidth="381.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
