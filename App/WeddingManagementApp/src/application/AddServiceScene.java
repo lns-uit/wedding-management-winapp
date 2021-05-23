@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 public class AddServiceScene {
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("updateServiceUI.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("addServiceUI.fxml"));
 			Scene scene = new Scene(root,459,311);
 			scene.setFill(Color.TRANSPARENT);
 			primaryStage.setResizable(false);

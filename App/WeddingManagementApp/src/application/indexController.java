@@ -438,28 +438,45 @@ public class indexController {
     	serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
     	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
     }
-    private void ViewServiceTbView() {
-    //	ArrayList<ServiceWedding> arr = FoodModel.getAllFood();
+    private void ViewServiceTbView() throws SQLException {
+    	ArrayList<ServiceWedding> arr = ServiceModel.getAllService();
     	
-    //	ObservableList<ServiceWedding> arrService;
-    //	arrService = FXCollections.observableArrayList(arr);
-    //	tbViewService.setItems(arrService);
+    	ObservableList<ServiceWedding> arrService;
+    	arrService = FXCollections.observableArrayList(arr);
+    	tbViewService.setItems(arrService);
     }
     @FXML
-    public void OnPressServiceBtn(ActionEvent event) {
+    public void OnPressServiceBtn(ActionEvent event) throws SQLException {
+  		
+    	
     	if (event.getSource()==btnAddService) {
     		AddServiceScene addServiceScene = new AddServiceScene();
         	Stage stage = new Stage();
         	addServiceScene.start(stage);
     	}
-    	else if (event.getSource()==btnUpdateService) {
-    		UpdateServiceScene updateServiceScene = new UpdateServiceScene();
-        	Stage stage = new Stage();
-        	updateServiceScene.start(stage);
-    	}
-    	else if (event.getSource()==btnDeleteService) {
-    		
-    	}
+    	else {
+    		ServiceWedding selectService = tbViewService.getSelectionModel().getSelectedItem();
+        	HolderManager serviceHolder = HolderManager.getInstance();
+        	if (selectService==null) {
+        		System.out.println("Vui lòng select");
+        	} else {
+        		if (event.getSource()==btnUpdateService) {
+            		serviceHolder.setService(selectService);
+            		UpdateServiceScene updateServiceScene = new UpdateServiceScene();
+                	Stage stage = new Stage();
+                	updateServiceScene.start(stage);
+            	} 
+            	if (event.getSource()==btnDeleteService) {
+            		String messageDelete = ServiceModel.deleteService(selectService.getId());
+            		if (messageDelete.equals("true")) {
+            			ViewServiceTbView();
+            			System.out.println("Delete success");
+            		} else {
+            			System.out.println("delete faild");
+            		}
+            	}
+        	}
+    	} 
     }
     
     /*********** END SERVICE MANAGER CONTROLLER *********/

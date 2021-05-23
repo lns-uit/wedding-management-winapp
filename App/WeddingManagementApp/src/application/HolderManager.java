@@ -28,4 +28,12 @@ public final class HolderManager {
 	public Lobby getLobby() {
 		return this.lobbyCurrent;
 	}
+	
+	private ServiceWedding serviceCurrent;
+	public void setService (ServiceWedding service ) {
+		this.serviceCurrent = service;
+	}
+	public ServiceWedding getService() {
+		return this.serviceCurrent;
+	}
 }
