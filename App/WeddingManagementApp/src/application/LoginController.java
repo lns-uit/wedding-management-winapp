@@ -1,9 +1,8 @@
 package application;
 import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
 
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 
@@ -41,7 +39,8 @@ public class LoginController {
     		LoginVeritify(); 
     	}     	
     }
-    void LoginVeritify() throws SQLException {
+
+    void LoginVeritify() throws SQLException,InterruptedException {
        	String usernameString = tfUsername.getText() ;
     	String passwordString	 = tfPassword.getText() ;
     	Staff staffLogin = AccountModel.Login(usernameString, passwordString);
@@ -49,12 +48,22 @@ public class LoginController {
 			
 			StaffHolder holder = StaffHolder.getInstance();
 			holder.setStaff(staffLogin);
-			indexScene mainScene = new indexScene();
-			Stage stage = new Stage();
-			mainScene.start(stage);
-		
 			Stage currentScene = (Stage) btnLogin.getScene().getWindow();
-			currentScene.close();
+			Task<Void> task = new Task<Void>() {
+			    @Override
+			    public Void call() throws Exception {
+			    	Thread.sleep(1000);
+			        return null ;
+			    }
+			};
+			task.setOnSucceeded(e -> {
+				indexScene mainScene = new indexScene();
+				Stage stage = new Stage();
+				mainScene.start(stage);
+				currentScene.close();
+			});
+			new Thread(task).start();
+
 			
 		} else {
 			loginWarningTxt.setText("Tên đăng nhập hoặc mật khẩu sai!");
