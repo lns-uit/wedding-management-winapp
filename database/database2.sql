@@ -1,5 +1,5 @@
 SET SERVEROUTPUT ON 
-create or replace NONEDITIONABLE procedure sp_update_staff(
+create or replace procedure sp_update_staff(
     v_idStaff in staff.idStaff%type,
     V_nameStaff in staff.nameStaff%type,
     V_ADDRESS in staff.ADDRESS%type,
@@ -65,7 +65,7 @@ begin
     end if;
 end;
 
-create or replace NONEDITIONABLE trigger deleteStaff
+create or replace trigger trg_deleteStaff
 before delete on Staff
 for each row
 declare idStaffNone varchar2(8);
@@ -91,7 +91,7 @@ begin
     end if;
 end;
 
-create or replace trigger deleteFood
+create or replace trigger trg_deleteFood
 before delete on Food
 for each row
 begin
@@ -154,7 +154,7 @@ begin
     end if;
 end;
 
-create or replace trigger deleteService 
+create or replace trigger trg_deleteService 
 before delete on Service
 for each row
 begin

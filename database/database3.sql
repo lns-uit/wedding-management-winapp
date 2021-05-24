@@ -1,7 +1,3 @@
-insert into staff(nameStaff) values(
-    'Vô Danh'
-);
-
 create or replace procedure sp_insertCustomer(
     V_nameCus in customer.namecustomer%type,
     V_NUMBERPHONE in customer.NUMBERPHONE%type,
@@ -25,7 +21,7 @@ end;
 
 create or replace procedure sp_updateCustomer (
     V_idCus in customer.idCustomer%type,
-    V_nameCus in customer.idNameCustomer%type,
+    V_nameCus in customer.NameCustomer%type,
     V_numberPhone in customer.numberPhone%type,
     V_return out varchar2
 )
@@ -58,25 +54,21 @@ begin
     end if;
 end;
 
-insert into customer (nameCustomer) values(
-    'Vô Danh'
-);
 
 create or replace trigger deleteCustomer
 before delete ON Customer
 for each row
 begin
-    update OrderWedding set idCustomer = 'Cus2' where idcustomer = :old.idcustomer;
-    update Bill set idCustomer = 'CUS2' where idcustomer = :old.idcustomer;
+    update OrderWedding set idCustomer = 'Cus1' where idcustomer = :old.idcustomer;
+    update Bill set idCustomer = 'CUS1' where idcustomer = :old.idcustomer;
 end;
 
 create or replace procedure sp_insertLobby(
     V_NAMELOBBY in Lobby.NAMELOBBY%type,
+    V_LOBBYTYPE in Lobby.LOBBYTYPE%type,
     V_MAXTABLE in Lobby.MAXTABLE%type,
     V_PRICETABLE in Lobby.PRICETABLE%type,
     V_PRICELOBBY in Lobby.PRICELOBBY%type,
-    V_NOTE in Lobby.NOTE%type,
-    V_LOBBYTYPE in Lobby.LOBBYTYPE%type,
     V_return out varchar2
 )
 is  
@@ -84,8 +76,8 @@ is
     lobbyAfterInsert number(4);
 begin
     select count(*) into lobbyBeforeInsert from Lobby;
-    insert into Lobby(NAMELOBBY,MAXTABLE,PRICETABLE,PRICELOBBY,NOTE,LOBBYTYPE) values(
-        V_NAMELOBBY,V_MAXTABLE,V_PRICETABLE,V_PRICELOBBY,V_NOTE,V_LOBBYTYPE
+    insert into Lobby(NAMELOBBY,LOBBYTYPE,MAXTABLE,PRICETABLE,PRICELOBBY) values(
+        V_NAMELOBBY,V_LOBBYTYPE,V_MAXTABLE,V_PRICETABLE,V_PRICELOBBY
     );
     select count(*) into lobbyAfterInsert from Lobby;
     if lobbyAfterInsert > lobbyBeforeInsert then
@@ -101,7 +93,6 @@ create or replace procedure sp_UpdateLobby(
     V_MAXTABLE in Lobby.MAXTABLE%type,
     V_PRICETABLE in Lobby.PRICETABLE%type,
     V_PRICELOBBY in Lobby.PRICELOBBY%type,
-    V_NOTE in Lobby.NOTE%type,
     V_LOBBYTYPE in Lobby.LOBBYTYPE%type,
     V_return out varchar2
 )
@@ -112,12 +103,11 @@ begin
         MAXTABLE = V_MAXTABLE,
         PRICETABLE = V_PRICETABLE,
         PRICELOBBY = V_PRICELOBBY,
-        NOTE = V_NOTE,
         LOBBYTYPE = V_LOBBYTYPE
     where idLobby = V_idLobby;
     select count(*) into LobbyTmp from Lobby
     where idLobby = V_idLobby and NAMELOBBY = V_NAMELOBBY and MAXTABLE = V_MAXTABLE and PRICETABLE = V_PRICETABLE 
-    and PRICELOBBY = V_PRICELOBBY and NOTE = V_NOTE and LOBBYTYPE = V_LOBBYTYPE;
+    and PRICELOBBY = V_PRICELOBBY and LOBBYTYPE = V_LOBBYTYPE;
     if LobbyTmp = 1 then
         V_return := 'true';
     else
@@ -127,37 +117,17 @@ end;
 
 create or replace procedure sp_deleteLobby(
     V_idLobby in Lobby.idLobby%type,
-    V_note in Lobby.note%type,
     V_return out varchar2
 )
 is lobbyTmp number(1);
 begin
-    update Lobby set ACTIVCE = 'false'  where V_idLobby = idLobby;
-    select count(*) into lobbyTmp from Lobby where V_idLobby = idLobby and ACTIVCE = 'false'  ;
+    update Lobby set ACTIVE = 'OFF'  where V_idLobby = idLobby;
+    select count(*) into lobbyTmp from Lobby where V_idLobby = idLobby and ACTIVE = 'OFF'  ;
     if lobbyTmp = 1 then
         V_return := 'true';
     else
         V_return := 'false';
     end if;
-end;
-
-create or replace trigger Lobby_stt_and_id
-before insert on Lobby
-for each row
-declare tmp number(7);
-begin
-    tmp := Lobby_stt.nextval;
-    :new.stt := tmp;
-    :new.idLobby := concat('LOB',to_char(tmp));
-    :new.ACTIVCE := 'true';
-end;
-
-create or replace NONEDITIONABLE procedure sp_getAllLobby(cur_lobbyOut OUT SYS_REFCURSOR)
-is
-begin
-    open cur_lobbyOut for
-    select * 
-    from  lobby;
 end;
 
 create or replace procedure sp_insertFoodOrder(
@@ -195,16 +165,16 @@ begin
 end;
 
 create or replace procedure sp_insertServiceOrder(
-    V_idService in FoodOrder.idService%type,
-    V_idWedding in FoodOrder.idWedding%type,
+    V_idService in ServiceOrder.idService%type,
+    V_idWedding in ServiceOrder.idWedding%type,
     V_return out varchar2
 )
 is  ServiceOrderTmp number(1);
 begin
-    insert into FoodOrder(idService,idWedding) values(
+    insert into ServiceOrder(idService,idWedding) values(
         V_idService,V_idWedding
     );
-    select count(*) into ServiceOrderTmp from FoodOrder where idService = V_idService and idWedding = V_idWedding;
+    select count(*) into ServiceOrderTmp from ServiceOrder where idService = V_idService and idWedding = V_idWedding;
     if ServiceOrderTmp = 1 then
         V_return := 'true';
     else
@@ -213,14 +183,14 @@ begin
 end;
 
 create or replace procedure sp_deleteServiceOrder(
-    V_idService in FoodOrder.idService%type,
-    V_idWedding in FoodOrder.idWedding%type,
+    V_idService in ServiceOrder.idService%type,
+    V_idWedding in ServiceOrder.idWedding%type,
     V_return out varchar2
 )
 is ServiceOrderTmp number(1);
 begin
-    delete from FoodOrder where idService = V_idService and V_idWedding = idWedding;
-    select count(*) into ServiceOrderTmp from FoodOrder where idService = V_idService and V_idWedding = idWedding;
+    delete from ServiceOrder where idService = V_idService and V_idWedding = idWedding;
+    select count(*) into ServiceOrderTmp from ServiceOrder where idService = V_idService and V_idWedding = idWedding;
     if ServiceOrderTmp = 0 then
         V_return := 'true';
     else
@@ -229,7 +199,7 @@ begin
 end;
 
 create or replace procedure sp_insertInforWedding(
-    V_nameBride in InforWedding.nameBride%type,
+    V_nameBride in InforWedding.NAMEBRIDE%type,
     V_nameGroom in InforWedding.nameGroom%type,
     V_return out varchar2
 )
@@ -238,8 +208,8 @@ is
     InforWeddingAfterInsert number(4);
 begin
     select count(*) into InforWeddingBeforeInsert from InforWedding;
-    insert into InForWedding(nameBride,nameGroom) values(
-        nameBride,nameGroom
+    insert into InforWedding(NAMEBRIDE,NAMEGROOM) values(
+        V_nameBride,V_NAMEGROOM
     );
     select count(*) into InforWeddingAfterInsert from InforWedding;
     if InforWeddingAfterInsert > InforWeddingBeforeInsert then
@@ -257,7 +227,7 @@ create or replace procedure sp_updateInforWedding(
 )
 is  InforWeddingTmp number(1);
 begin
-    update InforeWedding set
+    update InforWedding set
         nameBride = V_nameBride,
         nameGroom = V_nameGroom
     where idWedding = V_idWedding;
@@ -285,7 +255,7 @@ begin
 end;
 
 SET SERVEROUTPUT ON
-create or replace trigger deleteInforeWedding 
+create or replace trigger trg_deleteInforeWedding 
 before delete on InforWedding
 for each row
 declare BillTmp number(1);
@@ -336,8 +306,8 @@ begin
         NUMBEROFTABLE = V_NUMBEROFTABLE,
         DATESTART = V_DATESTART
     where idWedding = V_IDWEDDING;
-    select count(*) into OrderWeddingTmp from OrderWedding where IDLOBBY = V_IDLOBBY and  IDSTAFF = V_IDSTAFF and NUMBEROFTABLE = V_NUMBEROFTABLE and DATESTART = V_DATESTAR and idWedding = V_IDWEDDING;
-    if OrderWedding = 1 then
+    select count(*) into OrderWeddingTmp from OrderWedding where IDLOBBY = V_IDLOBBY and  IDSTAFF = V_IDSTAFF and NUMBEROFTABLE = V_NUMBEROFTABLE and idWedding = V_IDWEDDING;
+    if OrderWeddingTmp = 1 then
         V_return := 'true';
     else
         V_return := 'false';

@@ -107,11 +107,11 @@ create table Lobby(
     stt number(7) not null,
     idLobby varchar(8),
     nameLobby varchar(30),
-    lobbyType varchar(20),
+    lobbyType varchar(20)check(lobbyType='Vip' or lobbyType='Th??ng' or lobbyType='??c Bi?t'),
     maxTable number(4),
     priceTable number(9),
     priceLobby number(9),
-    note varchar(100),
+    Active varchar(100),
     constraint Lobby_pk primary key (idLobby)
 );
 create table Service(
@@ -126,7 +126,7 @@ create table Food(
     idFood varchar2(8),
     nameFood varchar2(30),
     priceFood number(9),
-    typeFood varchar(20),
+    typeFood varchar(20) check(typeFood='n??c u?ng' or typeFood='món chính' or typeFood = 'khai v?' or typeFood='tráng mi?ng'),
     constraint Food_pk primary key (idFood)
 );
 create table InforWedding(
@@ -165,7 +165,8 @@ create table Staff(
     address varchar2(50),
     identityCard varchar2(9) unique,
     startWork date,
-    typeStaff varchar2(30),
+    typeStaff varchar2(30) check(typeStaff = 'admin' or typeStaff = 'qu?n lý' or typeStaff = 'nhân viên lao công' or typeStaff = 'nhân viên ph?c v?' or typeStaff = 'nhân viên l? tân'),
+    Active varchar(10) check(Active = 'ON' or Active = 'OFF'),
     constraint Staff_pk primary key (idStaff)
 );
 create table Bill(
@@ -204,6 +205,7 @@ create table Report(
     stt number(7) not null,
     idReport varchar2(9),
     totalBillOfMonth number(12),
+    TOTALWEDDINGOFMONTH number(4),
     closingDate date,
     constraint Reports_pk primary key (idReport)
 );  
@@ -235,7 +237,7 @@ alter table FoodOrder add constraint FoodOrder_Service_fk foreign key (idFood) r
 alter table Account add constraint Account_Staff_fk foreign key (idStaff) references Staff(idStaff);
 /*create trigger*/
 /*trigger Lobby*/
-create or replace trigger Lobby_stt_and_id
+create or replace trigger trg_insertLobby
 before insert on Lobby
 for each row
 declare tmp number(7);
@@ -243,10 +245,11 @@ begin
     tmp := Lobby_stt.nextval;
     :new.stt := tmp;
     :new.idLobby := concat('LOB',to_char(tmp));
+    :new.active := 'ON';
 end;
 
 SET SERVEROUTPUT ON
-create or replace trigger Order_Wedding
+create or replace trigger trg_insetOrderWedding
 before insert on OrderWedding
 for each row
 declare 
@@ -293,7 +296,7 @@ begin
     end if;
 end;
 
-create or replace trigger InforWedding_stt_and_id
+create or replace trigger trg_insertInforWedding
 before insert on InforWedding
 for each row
 declare tmp number(7);
@@ -303,7 +306,7 @@ begin
     :new.idWedding := concat('WED',to_char(tmp));
 end;
 
-create or replace trigger Staff_stt_and_id
+create or replace trigger trg_insertStaff
 before insert on Staff
 for each row
 declare tmp number(7);
@@ -312,9 +315,10 @@ begin
     :new.stt := tmp;
     :new.idStaff := concat('ST',to_char(tmp));
     :new.STARTWORK := current_date;
+    :new.ACTIVE := 'ON';
 end;
 
-create or replace trigger Customer_stt_and_id
+create or replace trigger trg_insertCustomer
 before insert on Customer
 for each row
 declare 
@@ -330,7 +334,7 @@ begin
     :new.DAYREGISTER := current_date;
 end;
 
-create or replace trigger Account_stt_and_id
+create or replace trigger trg_insertAccountAuto
 After insert on Staff
 for each row
 declare tmp number(7);
@@ -341,7 +345,7 @@ begin
     );
 end;
 
-create or replace trigger Service_stt_and_id
+create or replace trigger  trg_inserService
 before insert on Service
 for each row
 declare tmp number(7);
@@ -351,7 +355,7 @@ begin
     :new.idService := concat('SER',to_char(tmp));
 end;
 
-create or replace trigger Food_stt_and_id
+create or replace trigger trg_insertFood
 before insert on Food
 for each row
 declare tmp number(7);
@@ -361,26 +365,36 @@ begin
     :new.idFood := concat('F',to_char(tmp));
 end;
 
-create or replace trigger ServiceOrder_stt_and_id
+create or replace trigger trg_insertServiceOrder
 before insert on ServiceOrder
 for each row
-declare tmp number(7);
+declare 
+    tmp number(7);
+    serviceTmp number(1);
 begin
-    tmp := Service_Order_stt.nextval;
-    :new.stt := tmp;
+    select count(*) into serviceTmp from Service where idService = :new.idService and active = 'OFF';
+    if serviceTmp = 0 then 
+        tmp := Service_Order_stt.nextval;
+        :new.stt := tmp;
+    end if;
 end;
 
-create or replace trigger FoodOrder_stt_and_id
+create or replace trigger trg_insertFoodOrder
 before insert on FoodOrder
 for each row
-declare tmp number(7);
+declare 
+    tmp number(7);
+    FoodTmp number(1);
 begin
-    tmp := Food_Order_stt.nextval;
-    :new.stt := tmp;
+    select count(*) into FoodTmp from Food where idFood = :new.idFood and active = 'OFF';
+    if FoodTmp = 0 then
+        tmp := Food_Order_stt.nextval;
+        :new.stt := tmp;
+    end if;
 end;
 
 
-create or replace trigger ListWeddings
+create or replace trigger trg_insertListWedding
 before insert on ListWedding
 for each row
 declare tmp number(7);
@@ -390,7 +404,7 @@ begin
     :new.status := 'ON';
 end;
 
-create or replace trigger Bill
+create or replace trigger trg_insertBill
 before insert on Bill
 for each row
 declare 
@@ -415,7 +429,7 @@ begin
     update ListWedding set status = 'OFF' where idWedding = :new.idWedding;
 end;
 
-create or replace trigger UpdateCustomer
+create or replace trigger trg_updateCustomer
 before update on Customer
 for each row
 begin
@@ -428,7 +442,7 @@ begin
     end if;
 end;
 
-create or replace trigger Reports
+create or replace trigger trg_insertReports
 before insert on Report
 for each row
 declare
@@ -445,7 +459,7 @@ begin
     :new.TOTALBILLOFMONTH := sumReport;
 end;
 
-create or replace trigger Update_Bill
+create or replace trigger trg_updateBill
 before update on Bill
 for each row
 begin
@@ -455,17 +469,17 @@ begin
     end if;
 end;
 /*insert Lobby*/
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
-   'Thiên ???ng', 'vip', 40, 1000000, 10000000, 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby) values(
+   'Thiên ???ng', 'Vip', 40, 1000000, 10000000
 );
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
-   'Thiên ???ng', 'th??ng', 30, 500000, 5000000, 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby) values(
+   'Thiên ???ng', 'Th??ng', 30, 500000, 5000000
 );
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
-   'C? ?i?n', 'vip', 70, 2000000, 50000000, 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby) values(
+   'C? ?i?n', 'Vip', 70, 2000000, 50000000
 );
-insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby,note) values(
-   'C? ?i?n', 'thuongef', 50, 1500000, 20000000, 'nothing' 
+insert into Lobby (nameLobby,lobbyType,maxTable,priceTable,priceLobby) values(
+   'C? ?i?n', 'Th??ng', 50, 1500000, 20000000 
 );
 /*insert Food*/
 insert into Food(nameFood,priceFood, typeFood) values(
@@ -488,7 +502,7 @@ insert into Service(nameService,price) values(
     '?o thu?t', 2000000
 );
 insert into Service(nameService,price) values(
-    'nh?t sóng', 3000000
+    'nh?c sóng', 3000000
 );
 /*insert Staff*/
 insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,TYPESTAFF) values(
@@ -501,13 +515,13 @@ insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,TYPESTAFF) valu
     'Nguy?n V?n A', '0792545702', 'sadasas', '12131243', 'nhân viên ph?c v?'
 );
 /*insert cus*/
+insert into Customer(nameCustomer) values(
+    'None'
+);
 insert into Customer(nameCustomer,numberPhone,ADDRESS, identityCard,BIRTHDAY) values(
-    'Tr?n ?ình Khoi', '0792545708', 'ádfasdfasdf','2334324' ,'14-FEB-2001'
+    'Tr?n ?ình Khôi', '0792545708', 'ádfasdfasdf','2334324' ,'14-FEB-2001'
 );
 /*insert infor wedding*/
-insert into InForWedding(nameBride, nameGroom) values(
-    'A', 'B'
-);
 insert into InForWedding(nameBride, nameGroom) values(
     'C', 'D'
 );
@@ -527,12 +541,6 @@ insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
 insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
     'SER3', 'WED2'
 );
-insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
-    'SER1', 'WED3'
-);
-insert into ServiceOrder(IDSERVICE,IDWEDDING) values(
-    'SER3', 'WED3'
-);
 /*insert Food Order*/
 insert into FoodOrder(IDFOOD,IDWEDDING) values(
     'F1', 'WED1'
@@ -547,23 +555,14 @@ insert into FoodOrder(IDFOOD,IDWEDDING) values(
     'F1', 'WED2'
 );
 insert into FoodOrder(IDFOOD,IDWEDDING) values(
-    'F3', 'WED3'
-);
-insert into FoodOrder(IDFOOD,IDWEDDING) values(
-    'F1', 'WED3'
-);
-insert into FoodOrder(IDFOOD,IDWEDDING) values(
     'F3', 'WED1'
 );
 /*insert OrderWedding*/
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATESTART) values(
     'WED1', 'LOB1', 'ST1', 'CUS1', 20,'16-FEB-2001'
 );
-insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATEORDERDATE,DATESTART) values(
-    'WED2', 'LOB2', 'ST1', 'CUS1', 10,'16-FEB-2001'
-);
 insert into OrderWedding(IDWEDDING,IDLOBBY,IDSTAFF,IDCUSTOMER,NUMBEROFTABLE,DATESTART) values(
-    'WED3', 'LOB4', 'ST1', 'CUS1', 10,'17-FEB-2001'
+    'WED2', 'LOB3', 'ST1', 'CUS1', 10,'16-FEB-2001'
 );
 /*insert ListWedding*/
 insert into ListWedding(idWedding) values(
@@ -571,9 +570,6 @@ insert into ListWedding(idWedding) values(
 );
 insert into ListWedding(idWedding) values(
     'WED2'
-);
-insert into ListWedding(idWedding) values(
-    'WED3'
 );
 update ListWedding set status = 'OFF' where idWedding = 'WED1';
 /*insert bill*/
@@ -583,17 +579,13 @@ insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING) values(
 insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING) values(
     'ST1','CUS1','WED2'
 );
-insert into Bill(IDSTAFF,IDCUSTOMER,IDWEDDING) values(
-    'ST1','CUS1','WED3'
-);
 /*insert report*/
 
 insert into report(CLOSINGDATE) values(
-    '28-FEB-2001'
+    '28-MAY-2021'
 );
-
 /*create produce*/
-create or replace NONEDITIONABLE procedure sp_findStaffByPhone 
+create or replace procedure sp_findStaffByPhone 
 (v_numberPhone in staff.numberPhone%type, v_typeStaff out staff.typestaff%type) 
 is 
 begin
@@ -605,7 +597,7 @@ begin
     then v_typeStaff := '';
 end;
 
-create or replace NONEDITIONABLE procedure sp_getAllStaff(cur_userOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllStaff(cur_userOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_userOut for
@@ -613,7 +605,7 @@ begin
     from staff;
 end;
 
-create or replace NONEDITIONABLE procedure sp_Login (
+create or replace procedure sp_Login (
     v_username in  account.username%type, 
     v_password in account.password%type,
     v_typestaff out staff.TYPESTAFF%type,
@@ -628,18 +620,4 @@ begin
         WHEN NO_DATA_FOUND THEN
         v_typestaff := '' ;
         v_idStaff :='';
-end;
-
-create or replace NONEDITIONABLE procedure insert_staff(
-    V_nameStaff in staff.nameStaff%type,
-    V_NUMBERPHONE in staff.NUMBERPHONE%type,
-    V_ADDRESS in staff.ADDRESS%type,
-    V_IDENTITYCARD in staff.IDENTITYCARD%type,
-    V_TYPESTAFF in staff.TYPESTAFF%type
-)
-is
-begin
-   insert into Staff (nameStaff, numberPhone, address, IDENTITYCARD,TYPESTAFF) values(
-        V_nameStaff, V_NUMBERPHONE, V_ADDRESS, V_IDENTITYCARD, V_TYPESTAFF
-    );
 end;

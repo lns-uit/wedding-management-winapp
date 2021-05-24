@@ -25,7 +25,7 @@ begin
     end if;
 end;
 
-create or replace NONEDITIONABLE procedure sp_insert_staff(
+create or replace procedure sp_insert_staff(
     V_nameStaff in staff.nameStaff%type,
     V_NUMBERPHONE in staff.NUMBERPHONE%type,
     V_ADDRESS in staff.ADDRESS%type,
@@ -54,7 +54,7 @@ begin
     end if;
 end;
 
-create or replace NONEDITIONABLE procedure sp_getAllFood(cur_foodOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllFood(cur_foodOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_foodout for
@@ -62,7 +62,7 @@ begin
     from  food;
 end;
 
-create or replace NONEDITIONABLE procedure sp_getAllLobby(cur_lobbyOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllLobby(cur_lobbyOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_lobbyOut for
@@ -70,7 +70,7 @@ begin
     from  lobby;
 end;
 
-create or replace NONEDITIONABLE procedure sp_getAllService(cur_serviceOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllService(cur_serviceOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_serviceOut for
@@ -78,7 +78,7 @@ begin
     from  service;
 end;
 
-create or replace NONEDITIONABLE procedure sp_getAllCustomer(cur_customerOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllCustomer(cur_customerOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_customerOut for
@@ -87,7 +87,7 @@ begin
 end;
 
 
-create or replace NONEDITIONABLE procedure sp_getAllFoodOrder(cur_foodOrderOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllFoodOrder(cur_foodOrderOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_foodOrderOut for
@@ -96,7 +96,7 @@ begin
 end;
 
 
-create or replace NONEDITIONABLE procedure sp_getAllInFoWed(cur_infoWedOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllInFoWed(cur_infoWedOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_infoWedOut for
@@ -104,7 +104,7 @@ begin
     from  inforWedding;
 end;
 
-create or replace NONEDITIONABLE procedure sp_getAllWedding (cur_WeddingOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllWedding (cur_WeddingOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_WeddingOut for
@@ -113,7 +113,7 @@ begin
 end;
 
 
-create or replace NONEDITIONABLE procedure sp_getAllOrderWed (cur_orderWedOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getAllOrderWed (cur_orderWedOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_orderWedOut for
@@ -121,7 +121,7 @@ begin
     from  orderwedding;
 end;
 
-create or replace NONEDITIONABLE procedure sp_getReport (cur_reportOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getReport (cur_reportOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_reportOut for
@@ -129,7 +129,7 @@ begin
     from  report;
 end;
 
-create or replace NONEDITIONABLE procedure sp_getServiceOrder (cur_setviceOrderOut OUT SYS_REFCURSOR)
+create or replace procedure sp_getServiceOrder (cur_setviceOrderOut OUT SYS_REFCURSOR)
 is
 begin
     open cur_setviceOrderOut for
