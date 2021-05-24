@@ -70,9 +70,9 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="warningText" layoutX="379.0" layoutY="210.0" prefHeight="39.0" prefWidth="277.0" text="Vui lòng nhập đầy đủ thông tin!" textFill="RED" visible="false">
+                        <Label fx:id="warningText" layoutX="412.0" layoutY="209.0" prefHeight="39.0" prefWidth="224.0" text="Vui lòng nhập đầy đủ thông tin!" textFill="RED" visible="false">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <TextField fx:id="identityCard" layoutX="636.0" layoutY="42.0" prefHeight="40.0" prefWidth="250.0" promptText="CMND">

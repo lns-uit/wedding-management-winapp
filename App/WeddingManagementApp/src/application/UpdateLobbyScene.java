@@ -11,17 +11,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-public class UpdateStaffScene {
-
+public class UpdateLobbyScene {
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("updateStaffUI.fxml"));
-			Scene scene = new Scene(root,951,391);
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("UpdateLobbyUI.fxml"));
+			Scene scene = new Scene(root,902,524);
 			scene.setFill(Color.TRANSPARENT);
 			primaryStage.setResizable(false);
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
-			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.setScene(scene);
+			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.show();
 			ScaleTransition trans = new ScaleTransition(Duration.seconds(0.2), root);
 			FadeTransition transfade = new FadeTransition(Duration.seconds(0.2), root);

@@ -11,18 +11,19 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-public class UpdateStaffScene {
-
+public class ChangePassScene {
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("updateStaffUI.fxml"));
-			Scene scene = new Scene(root,951,391);
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("changePasswordUI.fxml"));
+			Scene scene = new Scene(root,456,461);
 			scene.setFill(Color.TRANSPARENT);
+
 			primaryStage.setResizable(false);
-			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
+			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 			ScaleTransition trans = new ScaleTransition(Duration.seconds(0.2), root);
 			FadeTransition transfade = new FadeTransition(Duration.seconds(0.2), root);
 			

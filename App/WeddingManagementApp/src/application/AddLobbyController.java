@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -73,11 +74,14 @@ public class AddLobbyController {
     public void initialize() {
 		cbbTypeLobby.setItems(listType);
     }
+
+    @FXML
+    private Label warningLb;
     @FXML
     void onAddLobby(ActionEvent event) throws NumberFormatException, SQLException {
-    	System.out.println("Press");
     	String message = Validator();
-    	System.out.println(message);
+    	HolderManager holderManager = HolderManager.getInstance();
+    	warningLb.setVisible(false);
     	if (message.equals("success")) {
     		
     		String messageAddLobby = LobbyModel.addLobby(
@@ -89,19 +93,19 @@ public class AddLobbyController {
     			);
     		
     		if (messageAddLobby.equals("true")) {
-    			System.out.println("Thêm thành công");
+    			
+    			holderManager.AlertNotification("addLobby","Thêm sảnh thành công !", 1);
+    			holderManager.getIndexController().ViewLobbyTbView();
     			Stage currentScene = (Stage) tfName.getScene().getWindow();
-    			showAlertWithoutHeaderText("Thêm thành công");
 				currentScene.close();
     		} else  {
-    			System.out.println("thêm không thành công");
+    			holderManager.AlertNotification("addLobby","Thêm sảnh thất bại !", 1);
     		}
     	}
     	else {
-    		System.out.println(message);
+    		warningLb.setVisible(true);
     	}
     }
-    
     public String Validator() {
 		String messageString="success";
 		
@@ -112,12 +116,4 @@ public class AddLobbyController {
 		return messageString;
 	}
     
-    private void showAlertWithoutHeaderText(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-	}
-
 }

@@ -79,7 +79,7 @@ public class StaffModel {
 		return null;
 	}
 	
-	public static void addStaff(Staff newStaff) throws SQLException {
+	public static String addStaff(Staff newStaff) throws SQLException {
 		String sqlString = "begin sp_insert_staff(?,?,?,?,?,?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
 		
@@ -97,8 +97,8 @@ public class StaffModel {
 		}
 		
 		String message = cStmt.getString(6);
-		System.out.println(message);
 		cStmt.close();
+		return message;
 	}
 	
 	public static String updateStaff(String idStaff, String newName, String newAddress, String newTypeStaff) throws SQLException {
@@ -116,7 +116,6 @@ public class StaffModel {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println(cStmt.getString(5));
 		String result = cStmt.getString(5);
 		cStmt.close();
 		return result;

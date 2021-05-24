@@ -57,38 +57,40 @@ public class AddStaffController implements Initializable {
 	@FXML
 	public void CommitAddStaff(ActionEvent event) throws SQLException {
 		String newPhoneString = phone.getText();
-		
+		warningText.setVisible(false);
 		if (StaffModel.findStaffByPhone(newPhoneString) != null) {
 			//check số điện thoại
-			System.out.print("Phone is already");
 			warningText.setText("Số điện thoại đã tồn tại");
 			warningText.setVisible(true);
 		} else {
 			String message = Validator();
 			if (message=="success") {
 				warningText.setVisible(false);
-				Stage currentScene = (Stage) name.getScene().getWindow();
-				currentScene.close();
-				showAlertWithoutHeaderText("Thêm thành công");
 				Staff newStaff = new Staff("", name.getText(), address.getText(), phone.getText(), identityCard.getText(), "2001-02-14", typeStaff.getValue());
-				StaffModel.addStaff(newStaff);
-//				indexController.updateStaffTView()
-				System.out.print("Commit Success");
+				String messageAddString = StaffModel.addStaff(newStaff);
+    			if (messageAddString.equals("true")) {
+    				AlertNotification("Thêm nhân viên thành công");
+    				Stage currentScene = (Stage) name.getScene().getWindow();
+    				currentScene.close();
+    			}
+    			else {
+    				AlertNotification("Thêm nhân viên thất bại, vui lòng thử lại");
+    			}
+		
 			} else {
-				warningText.setText(message);
+				warningText.setText("Thông tin còn thiếu");
 				warningText.setVisible(true);
 			}
 		}
 	}
-	private void showAlertWithoutHeaderText(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
- 
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(message);
- 
-        alert.showAndWait();
+	
+	public void AlertNotification(String content) throws SQLException {
+		HolderManager holderManager = HolderManager.getInstance();
+		holderManager.getIndexController().updateStaffTView();
+		holderManager.setAlertInit("addStaff",content, 1);
+		AlertScene alertScene = new AlertScene();
+		Stage stage = new Stage();
+		alertScene.start(stage);
 	}
 	
 	public String Validator() {

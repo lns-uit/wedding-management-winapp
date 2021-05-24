@@ -1,7 +1,12 @@
 package application;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -11,18 +16,18 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-public class UpdateStaffScene {
-
+public class AlertScene {
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("updateStaffUI.fxml"));
-			Scene scene = new Scene(root,951,391);
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("alertUI.fxml"));
+			Scene scene = new Scene(root,428,262);
 			scene.setFill(Color.TRANSPARENT);
 			primaryStage.setResizable(false);
-			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
+			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 			ScaleTransition trans = new ScaleTransition(Duration.seconds(0.2), root);
 			FadeTransition transfade = new FadeTransition(Duration.seconds(0.2), root);
 			
@@ -38,6 +43,8 @@ public class UpdateStaffScene {
 	        trans.setAutoReverse(false);
 	        trans.play();
 	        transfade.play();
+			
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

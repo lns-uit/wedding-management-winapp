@@ -7,6 +7,8 @@ import com.sun.media.jfxmedia.control.VideoDataBuffer;
 import com.sun.org.apache.bcel.internal.Const;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,8 +34,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class indexController {
+
     @FXML
     private Button btnAddLobby;
     @FXML
@@ -147,7 +151,9 @@ public class indexController {
     	if (currentButton==null) currentButton = btnInfoPersonal;
     	currentButton.setStyle("-fx-background-color: #cf4848");
     	currentPane.setVisible(true);
+    	
 	}
+ 
     @FXML
     private Label LbNameIndex;
     @FXML
@@ -175,8 +181,9 @@ public class indexController {
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
     		ViewFoodTbView();
+    	 	ViewServiceTbView();
         	ViewLobbyTbView();
-        	ViewServiceTbView();
+       
     	}
     	else if (event.getSource()==btnReport) { 
     		LbNameIndex.setText("BÁO CÁO");
@@ -198,10 +205,23 @@ public class indexController {
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN KHÁCH HÀNG");
     		currentPane = customerPanel;
     		currentButton = btnCustomerManagement;
+    
     	}
     	currentButton.setStyle("-fx-background-color:#cf4848");
     	currentPane.setVisible(true);
+    	TransitionAnimate(currentPane);
     }
+    
+    void TransitionAnimate(AnchorPane x) {
+		FadeTransition transfade = new FadeTransition(Duration.seconds(0.2), x);
+	
+		transfade.setFromValue(.5);
+        transfade.setToValue(1.0);
+        transfade.setCycleCount(1);
+        transfade.setAutoReverse(false);
+        transfade.play();
+    }
+    
     private Button currentButtonOptionWeddingInfoManager;
     private AnchorPane currentPanelOptionWeddingInfoManager;
     @FXML 
@@ -323,21 +343,21 @@ public class indexController {
     void onActionButtonLobby(ActionEvent event) throws SQLException {
     	
     	Lobby selectedLobby  = tbViewLobbyManager.getSelectionModel().getSelectedItem();
+    	HolderManager holderManager = HolderManager.getInstance();
+    	holderManager.setLobby(selectedLobby);
     	if (selectedLobby==null) {
-    		System.out.println("is empty");
+    		holderManager.AlertNotification(" ", "Chọn một sảnh để thực hiện hành động ", 1);
     	} else {
     		if (event.getSource()==btnDeleteLobby) {
-        		String messageDelete = LobbyModel.deleteLobby(selectedLobby.getId()); 
-        		System.out.print(messageDelete);
-        		if (messageDelete.equals("true")) {
-        			System.out.println("Success");
-        			ViewLobbyTbView();
-        		}
+    			holderManager.AlertNotification("deleteLobby","Bạn chắc chắn muốn xóa sảnh này ?", 0);
         	}
         	if (event.getSource()==btnUpdateLobby) {
         		HolderManager lobbyHolder = HolderManager.getInstance();
         		lobbyHolder.setLobby(selectedLobby);
-        		System.out.println("open update lobby");
+        		
+        		UpdateLobbyScene updateLobbyScene = new UpdateLobbyScene();
+        		Stage stage = new Stage();
+        		updateLobbyScene.start(stage);
         	}
         	
     	}
@@ -380,20 +400,15 @@ public class indexController {
     
     public void OnActionButtonFood(ActionEvent event) throws SQLException {
     	Food selectedFood  = tbViewFood.getSelectionModel().getSelectedItem();
+		HolderManager holderManager = HolderManager.getInstance();
+		holderManager.setFood(selectedFood);
     	if (selectedFood==null) {
-    		System.out.println("is empty");
+    		holderManager.AlertNotification(" ", "Chọn một món ăn để thực hiện hành động ", 1);
     	} else {
     		if (event.getSource()==btnDeleteFood) {
-        		String messageDelete = FoodModel.deleteFood(selectedFood.getId()); 
-        		System.out.print(messageDelete);
-        		if (messageDelete.equals("true")) {
-        			System.out.println("Success");
-        			ViewFoodTbView();
-        		}
+    			holderManager.AlertNotification("deleteFood","Bạn có chắc chắn xóa món ăn này ?", 0);
         	}
         	if (event.getSource()==btnUpdateFood) {
-        		HolderManager foodHolder = HolderManager.getInstance();
-        		foodHolder.setFood(selectedFood);
         		PressUpdateFood();
         	}
         	
@@ -438,28 +453,40 @@ public class indexController {
     	serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
     	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
     }
-    private void ViewServiceTbView() {
-    //	ArrayList<ServiceWedding> arr = FoodModel.getAllFood();
+    public void ViewServiceTbView() throws SQLException {
+    	ArrayList<ServiceWedding> arr = ServiceModel.getAllService();
     	
-    //	ObservableList<ServiceWedding> arrService;
-    //	arrService = FXCollections.observableArrayList(arr);
-    //	tbViewService.setItems(arrService);
+    	ObservableList<ServiceWedding> arrService;
+    	arrService = FXCollections.observableArrayList(arr);
+    	tbViewService.setItems(arrService);
     }
     @FXML
-    public void OnPressServiceBtn(ActionEvent event) {
+    public void OnPressServiceBtn(ActionEvent event) throws SQLException {
+  		
+  		HolderManager holderManager = HolderManager.getInstance();
     	if (event.getSource()==btnAddService) {
     		AddServiceScene addServiceScene = new AddServiceScene();
         	Stage stage = new Stage();
         	addServiceScene.start(stage);
     	}
-    	else if (event.getSource()==btnUpdateService) {
-    		UpdateServiceScene updateServiceScene = new UpdateServiceScene();
-        	Stage stage = new Stage();
-        	updateServiceScene.start(stage);
-    	}
-    	else if (event.getSource()==btnDeleteService) {
-    		
-    	}
+    	else {
+    		ServiceWedding selectService = tbViewService.getSelectionModel().getSelectedItem();
+        	HolderManager serviceHolder = HolderManager.getInstance();
+        	serviceHolder.setService(selectService);
+        	if (selectService==null) {
+        		holderManager.AlertNotification(" ", "Chọn một dịch vụ để thực hiện hành động ", 1);
+        	} else {
+        		if (event.getSource()==btnUpdateService) {
+            		
+            		UpdateServiceScene updateServiceScene = new UpdateServiceScene();
+                	Stage stage = new Stage();
+                	updateServiceScene.start(stage);
+            	} 
+            	if (event.getSource()==btnDeleteService) {
+            		holderManager.AlertNotification("deleteService","Bạn có chắc chắn xóa dịch vụ này ?", 0);
+            	}
+        	}
+    	} 
     }
     
     /*********** END SERVICE MANAGER CONTROLLER *********/
@@ -532,21 +559,19 @@ public class indexController {
 
     public void OnActionButtonStaff(ActionEvent event) throws SQLException {
   		Staff selectStaff = staffTbView.getSelectionModel().getSelectedItem();
+  		HolderManager holderManager = HolderManager.getInstance();
     	if (event.getSource()==btnStaffDelete) {
     		if (selectStaff==null) {
-    			System.out.println("is empty");
+    			holderManager.AlertNotification(" ", "Chọn một nhân viên để thực hiện hành động ", 1);
     		} else {
-    			String messageDelete = StaffModel.deleteStaff(selectStaff.getId());
-    			System.out.println(messageDelete);
-    			if (messageDelete.equals("true")) {
-    				updateStaffTView();
-    				tfSearchStaff.setText("");
-    			}
+    			StaffHolder holder = StaffHolder.getInstance();
+    	   		holder.setStaffSelect(selectStaff);
+    	   		holderManager.AlertNotification("deleteStaff","Bạn có chắc chắn với hành động dại dột này khong",0);    			
     		}
-    	}
+    	} else
     	if (event.getSource()==btnStaffUpdate) {
     		if (selectStaff==null) {
-    			System.out.println("is empty");
+    			holderManager.AlertNotification(" ", "Chọn một nhân viên để thực hiện hành động ", 1);
     		} else {
     			StaffHolder holder = StaffHolder.getInstance();
         		holder.setStaffSelect(selectStaff);
@@ -569,7 +594,7 @@ public class indexController {
 		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
 
 	}
-    
+
     public void updateStaffTView() throws SQLException {
     	ArrayList<Staff> arr = StaffModel.getAllStaff();
     	allStaff = arr;
@@ -593,6 +618,19 @@ public class indexController {
     public void setTbView (ArrayList<Staff> arrayStaff) {
     	arrStaff = FXCollections.observableArrayList(arrayStaff);
     	staffTbView.setItems(arrStaff);
+    }
+    
+    @FXML
+    void resetPassword() throws SQLException {
+    	Staff selectStaff = staffTbView.getSelectionModel().getSelectedItem();
+    	HolderManager holderManager = HolderManager.getInstance();
+    	if (selectStaff==null) {
+    		holderManager.AlertNotification(" ", "Chọn một nhân viên để thực hiện hành động ", 1);
+		} else {
+			StaffHolder holder = StaffHolder.getInstance();
+    		holder.setStaffSelect(selectStaff);
+    		holderManager.AlertNotification("resetPassword", "Bạn có chắc chắn với hành động dại dột này không ?",0);
+		}
     }
     
     /***********End Staff controller *************/
@@ -679,7 +717,17 @@ public class indexController {
     private Label typeStaff;
     @FXML
     private Label startWorkStaff;
+    
+    @FXML
+    void onChangePassword(ActionEvent event) {
+    	ChangePassScene changePassScene = new ChangePassScene();
+    	Stage stage = new Stage();
+    	changePassScene.start(stage);
+    }
+    
     /***********End Info controller *************/
+    
+
 }
 
 
