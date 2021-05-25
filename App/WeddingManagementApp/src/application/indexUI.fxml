@@ -275,7 +275,7 @@
                                                 <TableColumn fx:id="lobbyTableColumn" prefWidth="221.0" text="Số bàn" />
                                                 <TableColumn fx:id="lobbyTablePriceColumn" prefWidth="221.0" text="Giá bàn" />
                                                 <TableColumn fx:id="lobbyPriceColumn" prefWidth="221.0" text="Giá sảnh" />
-                                                <TableColumn fx:id="lobbyNote" prefWidth="221.0" text="Ghi chú" />
+                                                <TableColumn fx:id="lobbyNote" prefWidth="221.0" text="Ghi chú" visible="false" />
                                              </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

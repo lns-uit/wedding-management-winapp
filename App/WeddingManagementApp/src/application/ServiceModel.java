@@ -3,9 +3,6 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.sun.org.apache.bcel.internal.Const;
-
 import oracle.jdbc.OracleTypes;
 
 public class ServiceModel {

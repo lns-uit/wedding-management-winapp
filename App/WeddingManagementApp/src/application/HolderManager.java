@@ -1,7 +1,5 @@
 package application;
 
-import java.sql.SQLException;
-
 import javafx.stage.Stage;
 
 public final class HolderManager {

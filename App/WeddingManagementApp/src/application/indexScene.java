@@ -31,7 +31,7 @@ public class indexScene {
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-	
+
 			ScaleTransition trans = new ScaleTransition(Duration.seconds(0.2), root);
 			FadeTransition transfade = new FadeTransition(Duration.seconds(0.2), root);
 			

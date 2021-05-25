@@ -1,17 +1,14 @@
 package application;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
-import javafx.animation.Transition;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -26,8 +23,10 @@ public class AlertScene {
 			primaryStage.initModality(Modality.APPLICATION_MODAL); 
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setScene(scene);
-			primaryStage.show();
-			
+		    primaryStage.show();
+			Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+			primaryStage.setX((bounds.getWidth() - primaryStage.getWidth()) / 1.8);
+
 			ScaleTransition trans = new ScaleTransition(Duration.seconds(0.2), root);
 			FadeTransition transfade = new FadeTransition(Duration.seconds(0.2), root);
 			

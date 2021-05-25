@@ -131,6 +131,8 @@ public class indexController {
 		ViewLobbyColumn();
 		ViewFoodColumn();
 		ViewServiceColumn();
+		ViewBillColumn();
+		ViewCustomerColumn();
     	IndexInit(staff.getType());
     	// tìm kiếm nhân viên
     	tfSearchStaff.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -312,7 +314,6 @@ public class indexController {
      	lobbyTableColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
      	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
      	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
-     	lobbyNote.setCellValueFactory(new PropertyValueFactory<Lobby,String>("note"));
     }
     
     public void ViewLobbyTbView() throws SQLException {
@@ -485,43 +486,60 @@ public class indexController {
     
     /***********CUSTOMER CONTROLLER*******/
     @FXML
-    private TableView<?> tbViewCustomer;
+    private TableView<Customer> tbViewCustomer;
     @FXML
-    private TableColumn<?, ?> cusIDColumn;
+    private TableColumn<Customer,String> cusIDColumn;
     @FXML
-    private TableColumn<?, ?> cusNameColumn;
+    private TableColumn<Customer,String> cusNameColumn;
     @FXML
-    private TableColumn<?, ?> cusPhoneNumberColumn;
+    private TableColumn<Customer,String> cusPhoneNumberColumn;
     @FXML
-    private TableColumn<?, ?> cusMoneyColumn;
+    private TableColumn<Customer,Number> cusMoneyColumn;
     @FXML
-    private TableColumn<?, ?> cusDiscountColumn;
+    private TableColumn<Customer,Number> cusDiscountColumn;
+    
+    void ViewCustomerColumn() {
+    	cusIDColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("id"));
+    	cusNameColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("name"));
+    	cusPhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("phone"));
+    	cusMoneyColumn.setCellValueFactory(new PropertyValueFactory<Customer,Number>("money"));
+    	cusDiscountColumn.setCellValueFactory(new PropertyValueFactory<Customer,Number>("discount"));
+    }
+    
+    public void ViewCustomerTbView() {
+    	
+    }
     
     /***********BILL CONTROLLER**********/
 
     @FXML
     private TextField tfSearchBill;
-
     @FXML
-    private TableView<?> tbViewBill;
-
+    private TableView<Bill> tbViewBill;
     @FXML
-    private TableColumn<?, ?> billIDColumn;
-
+    private TableColumn<Bill,String> billIDColumn;
     @FXML
-    private TableColumn<?, ?> billIDStaffColumn;
-
+    private TableColumn<Bill,String> billIDStaffColumn;
     @FXML
-    private TableColumn<?, ?> billIDCustomerColumn;
-
+    private TableColumn<Bill,String> billIDCustomerColumn;
     @FXML
-    private TableColumn<?, ?> billIDWeddingColumn;
-
+    private TableColumn<Bill,String> billIDWeddingColumn;
     @FXML
-    private TableColumn<?, ?> billMoneyColumn;
-
+    private TableColumn<Bill,Number> billMoneyColumn;
     @FXML
-    private TableColumn<?, ?> dateOfPayColumn;
+    private TableColumn<Bill,String> dateOfPayColumn;
+    
+    void ViewBillColumn() {
+    	billIDColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idBill"));
+    	billIDStaffColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idStaff"));
+    	billIDCustomerColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idCustomer"));
+    	billIDWeddingColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idWedding"));
+    	billMoneyColumn.setCellValueFactory(new PropertyValueFactory<Bill,Number>("money"));
+    	dateOfPayColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("dateOfPay"));
+    }
+    public void ViewBillTbView() {
+    	
+    }
     
     /***********Staff controller *************/
     @FXML

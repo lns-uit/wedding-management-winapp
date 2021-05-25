@@ -1,16 +1,8 @@
 package application;
 
-import java.awt.print.Printable;
-import java.net.SecureCacheResponse;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.chrono.HijrahChronology;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-import javax.xml.ws.Holder;
-
-import com.sun.corba.se.pept.transport.EventHandler;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,7 +25,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import oracle.security.o3logon.a;
 
 
 public class AddWeddingOrderController {
