@@ -117,6 +117,8 @@ public class indexController {
     	//gán user vào info
     	StaffHolder holder = StaffHolder.getInstance();
     	Staff staff = holder.getStaff();
+    	HolderManager holderCurrentStaff = HolderManager.getInstance();
+    	holderCurrentStaff.setCurrentStaff(staff);
     	btnName.setText(staff.getName());
     	nameStaff.setText(staff.getName());
     	phoneNumberStaff.setText(staff.getPhoneNumber());

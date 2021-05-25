@@ -59,6 +59,23 @@ public class AlertController {
     		}
     	} else 
     	if (holderManager.getAction()=="resetPassword") {
+    		StaffHolder staffSelected = StaffHolder.getInstance();
+    		try {
+    			String messageReset = AccountModel.resetPassword(staffSelected.getSelectStaff().getPhoneNumber());
+    			if (messageReset.equals("true")) {
+    				AlertNotification("Reset thành công");
+    				closeScene();
+    			} else {
+    				AlertNotification("Đã có lỗi xảy ra!");
+    			}
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e.getMessage());
+				AlertNotification("Đã có lỗi xảy ra!");
+			}
+    		
+    				
+    				
     		
     	} else
     	if (holderManager.getAction()=="deleteService") {
