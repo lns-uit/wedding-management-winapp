@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -29,7 +31,7 @@ public class LoginController {
     @FXML
     private AnchorPane box;
     @FXML
-    void LoginToApp(ActionEvent event) throws SQLException, InterruptedException {
+    void LoginToApp() throws SQLException, InterruptedException {
        	String usernameString = tfUsername.getText() ;
     	String passwordString	 = tfPassword.getText() ;
     	loginWarningTxt.setVisible(false);
@@ -71,6 +73,12 @@ public class LoginController {
 			btnLogin.setDisable(false);
     		process.setVisible(false);
 		}
+    }
+    
+    @FXML
+    void onPressLoginEnter(KeyEvent event) throws SQLException, InterruptedException {
+    	if (event.getCode()==KeyCode.ENTER) LoginToApp();
+
     }
     boolean ValiDateForm(String username,String password) {
     	if (username.length()== 0 ) {

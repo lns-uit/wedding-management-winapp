@@ -1,5 +1,6 @@
 package application;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class AddWeddingOrderController {
     private TableColumn<Lobby,CheckBox> orderLobbySelect;
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
 		ViewLobbyColumn();
 		ViewLobbyTbView();
 		datePkStart.setValue(LocalDate.now().plusDays(2));
@@ -124,12 +125,9 @@ public class AddWeddingOrderController {
     }
     private ObservableList<Lobby> arrLobby;
     
-    public void ViewLobbyTbView() {    	
+    public void ViewLobbyTbView() throws SQLException {    	
     	arrLobby = FXCollections.observableArrayList(
-    			new Lobby("phuc","phuc","vip",12,123,123," "),
-    			new Lobby("phuc","loi","vip",12,123,123," "),
-    			new Lobby("phuc","khoi","vip",1112,123,123," "),
-    			new Lobby("phuc","tam","vio",12,123,123," ")
+    			LobbyModel.getAllLobby()
     	);
     	for (Lobby lobby : arrLobby) {
     		lobby.getCheckBox().selectedProperty().addListener(
@@ -203,41 +201,20 @@ public class AddWeddingOrderController {
     private ObservableList<Food> arrDrink;
 
     private ArrayList<Food> arrFoods = new ArrayList<Food>();
-    public void UpdateFoodTbView() {
+    public void UpdateFoodTbView() throws SQLException {
     	// Mon Khai Vi
     	arrAptFood = FXCollections.observableArrayList(
-       			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi")
- 
-    			
-    	);
+       			FoodModel.getTypeFood("khai vị")
+     	);
     	tbViewAppetizer.setItems(arrAptFood);
     	// Mon Chinh
     	arrMainFood = FXCollections.observableArrayList(
-       			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi")
- 
-    			
+    			FoodModel.getTypeFood("món chính")   			
     	);
     	tbViewMainFood.setItems(arrMainFood);
     	// Trang mieng
     	arrDrink = FXCollections.observableArrayList(
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi"),
-    			new Food("phuc","phuc",12,"Khaivi")
- 
-    			
+    			FoodModel.getTypeFood("tráng miệng")    			
     	);
     	tbViewDrink.setItems(arrDrink);
 
@@ -264,12 +241,9 @@ public class AddWeddingOrderController {
     	svMoneyColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
     	svCheckBox.setCellValueFactory(new PropertyValueFactory<ServiceWedding,CheckBox>("checkBox"));
     }
-    public void UpdateServiceTbView() {
+    public void UpdateServiceTbView() throws SQLException {
     	arrService = FXCollections.observableArrayList(
-    				new ServiceWedding("234", "Hmakdf", 10000),
-    				new ServiceWedding("34", "Hmakdf", 10000),
-    				new ServiceWedding("56", "Hmakdf", 10000),
-    				new ServiceWedding("64", "Hmakdf", 10000)
+    				ServiceModel.getAllService()
     			);
     	tbViewService.setItems(arrService);
     }
@@ -427,7 +401,7 @@ public class AddWeddingOrderController {
     	idFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	nameFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
     	priceFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
-    	typeFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
+    	typeFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
     	
     	// Service
     	

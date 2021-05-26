@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="262.0" prefWidth="428.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AlertController">
    <children>
       <AnchorPane id="alertPane" fx:id="window" layoutX="14.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="403.0" style="-fx-background-color: white;">
@@ -19,7 +18,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Label fx:id="alertContent" layoutX="91.0" layoutY="52.0" prefHeight="99.0" prefWidth="221.0" text="Thêm nhân viên thành công !" textAlignment="CENTER" textFill="#656565" wrapText="true">
+            <Label fx:id="alertContent" layoutX="116.0" layoutY="52.0" prefHeight="117.0" prefWidth="171.0" text="Xóa dịch vụ thất bại, Vui lòng thử lại !" textAlignment="CENTER" textFill="#656565" wrapText="true">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

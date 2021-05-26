@@ -3,9 +3,12 @@ package application;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -17,6 +20,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -27,9 +31,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sun.net.www.content.audio.aiff;
 
 public class indexController {
 
+    @FXML
+    private ProgressIndicator processTbView;
     @FXML
     private Button btnAddLobby;
     @FXML
@@ -112,11 +119,13 @@ public class indexController {
     /*************** END WINDOW CONTROLLER *************/
     @FXML
     void initialize() throws SQLException {
-    	
+    	processTbView.setVisible(false);
     	// TODO Auto-generated method stub
     	//gán user vào info
     	StaffHolder holder = StaffHolder.getInstance();
     	Staff staff = holder.getStaff();
+    	HolderManager holderCurrentStaff = HolderManager.getInstance();
+    	holderCurrentStaff.setCurrentStaff(staff);
     	btnName.setText(staff.getName());
     	nameStaff.setText(staff.getName());
     	phoneNumberStaff.setText(staff.getPhoneNumber());
@@ -147,12 +156,12 @@ public class indexController {
     	currentPane.setVisible(true);
     	
 	}
- 
+    private boolean isFist = false;
     @FXML
     private Label LbNameIndex;
     @FXML
     public void PressIndex(ActionEvent event) throws SQLException {
-    	
+
     	if (currentPane==null) currentPane = infoPersonalPanel;
     	currentPane.setVisible(false);
     	if (currentButton==null) currentButton = btnInfoPersonal;
@@ -174,10 +183,9 @@ public class indexController {
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN TIỆC CƯỚI");
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
+    		ViewLobbyTbView();
     		ViewFoodTbView();
-    	 	ViewServiceTbView();
-        	ViewLobbyTbView();
-       
+    		ViewServiceTbView();
     	}
     	else if (event.getSource()==btnReport) { 
     		LbNameIndex.setText("BÁO CÁO");
@@ -204,6 +212,7 @@ public class indexController {
     	currentButton.setStyle("-fx-background-color:#cf4848");
     	currentPane.setVisible(true);
     	TransitionAnimate(currentPane);
+    	isFist = true;
     }
     
     void TransitionAnimate(AnchorPane x) {
@@ -215,11 +224,12 @@ public class indexController {
         transfade.setAutoReverse(false);
         transfade.play();
     }
+
     
     private Button currentButtonOptionWeddingInfoManager;
     private AnchorPane currentPanelOptionWeddingInfoManager;
     @FXML 
-    public void PressInfoWeddingManagerOption(ActionEvent event) {
+    public void PressInfoWeddingManagerOption(ActionEvent event) throws SQLException {
     	if (currentButtonOptionWeddingInfoManager==null) currentButtonOptionWeddingInfoManager = btnLobbyManager;
     	if (currentPanelOptionWeddingInfoManager==null) currentPanelOptionWeddingInfoManager = stackLobbyManager;
     	currentButtonOptionWeddingInfoManager.setDisable(false);
@@ -228,13 +238,16 @@ public class indexController {
     	if (event.getSource()== btnLobbyManager) { 
     		currentButtonOptionWeddingInfoManager = btnLobbyManager; 
     		currentPanelOptionWeddingInfoManager = stackLobbyManager; 
+      
     	}
     	else if (event.getSource()== btnMenuManager) { 
     		currentButtonOptionWeddingInfoManager = btnMenuManager; 
     		currentPanelOptionWeddingInfoManager = stackMenuManager;
+    	
     	} else if (event.getSource()==btnServiceManger) {
     		currentButtonOptionWeddingInfoManager = btnServiceManger;
     		currentPanelOptionWeddingInfoManager = stackServiceManger;
+  
     	}
 
     	currentButtonOptionWeddingInfoManager.setDisable(true);
@@ -255,7 +268,6 @@ public class indexController {
 		currentScene.close();
     }
     private void IndexInit(String type) {
-    	System.out.print(type);
     	if (type.equals("nhân viên lễ tân")) { // Nhân viên lễ tân
     		btnStaffManagement.setDisable(true);
     		btnAddLobby.setDisable(true);
@@ -279,14 +291,30 @@ public class indexController {
     
     @FXML 
     private Button btnAddOrderWedding;
-    
+    @FXML
+    private ProgressIndicator LoadingAddOrder;
     @FXML
     public void OnActionOrderWedding(ActionEvent event) {
-    	if (event.getSource()==btnAddOrderWedding) {
-    		AddWeddingOrderScene addWeddingOrderScene = new AddWeddingOrderScene();
+    	
+		Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	LoadingOrderWedding(true);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			AddWeddingOrderScene addWeddingOrderScene = new AddWeddingOrderScene();
     		Stage stage = new Stage();
     		addWeddingOrderScene.start(stage);	
-    	}
+		});
+		new Thread(task).start();
+
+    }
+    
+    public void LoadingOrderWedding(boolean x) {
+    	btnAddOrderWedding.setDisable(x);
+    	LoadingAddOrder.setVisible(x);
     }
     
     /*********** LOBBY MANAGER CONTROLLER ********/
@@ -315,14 +343,33 @@ public class indexController {
      	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
      	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
     }
-    
+    private ObservableList<Lobby> arrLobby;
     public void ViewLobbyTbView() throws SQLException {
-    	
-    	ArrayList<Lobby> arr = LobbyModel.getAllLobby();
-    	
-    	ObservableList<Lobby> arrLobby;
-    	arrLobby = FXCollections.observableArrayList(arr);
-    	tbViewLobbyManager.setItems(arrLobby);
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewLobbyManager);
+    	if (tbViewLobbyManager.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+    
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	ArrayList<Lobby> arr = LobbyModel.getAllLobby();
+		    	arrLobby = FXCollections.observableArrayList(arr);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+		  	tbViewLobbyManager.setItems(arrLobby);
+		  	transfade.stop();
+		  	tbViewLobbyManager.setOpacity(1);
+		});
+		new Thread(task).start();
+
+  
     }
     
     @FXML
@@ -382,13 +429,33 @@ public class indexController {
     	foodPriceColumn.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
     	foodTypeColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
     }
+    private ObservableList<Food> arrFood;
     public void ViewFoodTbView() throws SQLException {
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewFood);
+    	if (tbViewFood.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	ArrayList<Food> arr = FoodModel.getAllFood();	    	
+		    	arrFood = FXCollections.observableArrayList(arr);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+    	 	tbViewFood.setItems(arrFood);
+    		transfade.stop();
+        	tbViewFood.setOpacity(1);
+        	
+		});
+		new Thread(task).start();
 
-    	ArrayList<Food> arr = FoodModel.getAllFood();
     	
-    	ObservableList<Food> arrFood;
-    	arrFood = FXCollections.observableArrayList(arr);
-    	tbViewFood.setItems(arrFood);
     }
     
     public void OnActionButtonFood(ActionEvent event) throws SQLException {
@@ -446,12 +513,32 @@ public class indexController {
     	serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
     	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
     }
+    private ObservableList<ServiceWedding> arrService;
     public void ViewServiceTbView() throws SQLException {
-    	ArrayList<ServiceWedding> arr = ServiceModel.getAllService();
-    	
-    	ObservableList<ServiceWedding> arrService;
-    	arrService = FXCollections.observableArrayList(arr);
-    	tbViewService.setItems(arrService);
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewService);
+    	if (tbViewService.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+ 
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	ArrayList<ServiceWedding> arr = ServiceModel.getAllService();
+		    	arrService = FXCollections.observableArrayList(arr);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+	    	tbViewService.setItems(arrService);
+	    	tbViewService.setOpacity(1);
+	    	transfade.stop();
+		});
+		new Thread(task).start();
+
     }
     @FXML
     public void OnPressServiceBtn(ActionEvent event) throws SQLException {
@@ -538,6 +625,7 @@ public class indexController {
     	dateOfPayColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("dateOfPay"));
     }
     public void ViewBillTbView() {
+
     	
     }
     
@@ -604,12 +692,30 @@ public class indexController {
 		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
 
 	}
-
+    ArrayList<Staff> arr;
     public void updateStaffTView() throws SQLException {
-    	ArrayList<Staff> arr = StaffModel.getAllStaff();
-    	allStaff = arr;
-    	staffTbView.getItems().clear();
-    	setTbView(arr);	
+    	if (staffTbView.getSelectionModel().isEmpty()) {
+           	processTbView.setVisible(true);
+           	staffTbView.setOpacity(.5);
+    	}
+
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	arr = StaffModel.getAllStaff();
+		    	allStaff = arr;
+		    	staffTbView.getItems().clear();
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			setTbView(arr);	
+			processTbView.setVisible(false);
+           	staffTbView.setOpacity(1);
+		});
+		new Thread(task).start();
+    	
+    	
     }
     
     
@@ -628,6 +734,7 @@ public class indexController {
     public void setTbView (ArrayList<Staff> arrayStaff) {
     	arrStaff = FXCollections.observableArrayList(arrayStaff);
     	staffTbView.setItems(arrStaff);
+    	
     }
     
     @FXML
@@ -736,8 +843,6 @@ public class indexController {
     }
     
     /***********End Info controller *************/
-    
-
 }
 
 

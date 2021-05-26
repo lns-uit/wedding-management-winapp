@@ -23,6 +23,14 @@ public final class HolderManager {
 		return this.foodCurrent;
 	}
 	
+	private  Staff staffCurrent;
+	public void setCurrentStaff (Staff staff ) {
+		this.staffCurrent = staff;
+	}
+	public Staff getCurrentStaff() {
+		return this.staffCurrent;
+	}
+	
 	private Lobby lobbyCurrent;
 	public void setLobby (Lobby lobby ) {
 		this.lobbyCurrent = lobby;

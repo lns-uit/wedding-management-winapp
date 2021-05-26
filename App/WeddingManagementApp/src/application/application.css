@@ -177,4 +177,7 @@
 #process{
 	-fx-progress-color: white;
 }
+#processTbView{
+	-fx-progress-color: #b83737;
+}
 

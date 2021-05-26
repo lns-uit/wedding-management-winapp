@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -215,6 +216,7 @@
                                     <TableColumn prefWidth="221.0" text="Ngày đặt" />
                                  </columns>
                               </TableView>
+                              <ProgressIndicator id="processTbView" fx:id="LoadingAddOrder" layoutX="727.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="37.0" visible="false" />
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -295,7 +297,7 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="stackMenuManager" prefHeight="649.0" prefWidth="828.0" visible="false">
                                        <children>
-                                          <TableView fx:id="tbViewFood" layoutX="20.0" layoutY="67.0" prefHeight="477.0" prefWidth="883.0">
+                                          <TableView fx:id="tbViewFood" layoutX="20.0" layoutY="67.0" prefHeight="477.0" prefWidth="897.0">
                                              <columns>
                                                 <TableColumn fx:id="foodIdColumn" prefWidth="173.0" text="Mã món ăn" />
                                                 <TableColumn fx:id="foodNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên món ăn" />
@@ -308,19 +310,19 @@
                                           </TableView>
                                           <TextField layoutX="20.0" layoutY="21.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                           <Button layoutX="209.0" layoutY="21.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                          <Button fx:id="btnAddFood" layoutX="790.0" layoutY="21.0" mnemonicParsing="false" onAction="#PressAddFood" prefHeight="35.0" prefWidth="114.0" text="Thêm món" />
+                                          <Button fx:id="btnAddFood" layoutX="803.0" layoutY="21.0" mnemonicParsing="false" onAction="#PressAddFood" prefHeight="35.0" prefWidth="114.0" text="Thêm món" />
                                           <Label layoutX="367.0" layoutY="19.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý thực đơn">
                                              <font>
                                                 <Font name="System Bold" size="16.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnDeleteFood" layoutX="789.0" layoutY="555.0" mnemonicParsing="false" onAction="#OnActionButtonFood" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                          <Button fx:id="btnUpdateFood" layoutX="662.0" layoutY="555.0" mnemonicParsing="false" onAction="#OnActionButtonFood" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                          <Button fx:id="btnDeleteFood" layoutX="803.0" layoutY="555.0" mnemonicParsing="false" onAction="#OnActionButtonFood" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                          <Button fx:id="btnUpdateFood" layoutX="677.0" layoutY="555.0" mnemonicParsing="false" onAction="#OnActionButtonFood" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane fx:id="stackServiceManger" prefHeight="649.0" prefWidth="828.0" visible="false">
                                        <children>
-                                          <TableView fx:id="tbViewService" layoutX="20.0" layoutY="67.0" prefHeight="477.0" prefWidth="883.0">
+                                          <TableView fx:id="tbViewService" layoutX="20.0" layoutY="67.0" prefHeight="477.0" prefWidth="897.0">
                                              <columns>
                                                 <TableColumn fx:id="serviceIdColumn" prefWidth="173.0" text="Mã dịch vụ" />
                                                 <TableColumn fx:id="serviceNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên dịch vụ" />
@@ -332,14 +334,14 @@
                                           </TableView>
                                           <TextField layoutX="20.0" layoutY="21.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                                           <Button layoutX="209.0" layoutY="21.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
-                                          <Button fx:id="btnAddService" layoutX="790.0" layoutY="21.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Thêm dịch vụ" />
+                                          <Button fx:id="btnAddService" layoutX="803.0" layoutY="21.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Thêm dịch vụ" />
                                           <Label layoutX="387.0" layoutY="19.0" prefHeight="39.0" prefWidth="215.0" text="Quản lý dịch vụ">
                                              <font>
                                                 <Font name="System Bold" size="16.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnDeleteService" layoutX="789.0" layoutY="554.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
-                                          <Button fx:id="btnUpdateService" layoutX="662.0" layoutY="554.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
+                                          <Button fx:id="btnDeleteService" layoutX="803.0" layoutY="554.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Xóa" />
+                                          <Button fx:id="btnUpdateService" layoutX="676.0" layoutY="554.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -497,6 +499,7 @@
                               <Button layoutX="798.0" layoutY="14.0" mnemonicParsing="false" onAction="#onChangePassword" prefHeight="35.0" prefWidth="114.0" text="Đổi mật khẩu" />
                            </children>
                         </AnchorPane>
+                        <ProgressIndicator id="processTbView" fx:id="processTbView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="53.0" />
                      </children>
                   </StackPane>
                </children>

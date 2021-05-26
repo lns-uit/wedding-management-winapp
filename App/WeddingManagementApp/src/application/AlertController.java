@@ -50,13 +50,30 @@ public class AlertController {
         	String messageDelete = StaffModel.deleteStaff(holder.getSelectStaff().getId());
     		if (messageDelete.equals("true")) {
     			holderManager.getIndexController().updateStaffTView();
-    			AlertNotification("Xóa nhân viên thành công");
+    			AlertNotification("Xóa nhân viên thành công !");
     			closeScene();
     		} else {
-    			AlertNotification("Xóa nhân viên thất bại, Vui lòng thử lại");
+    			AlertNotification("Xóa nhân viên thất bại, Vui lòng thử lại sau !");
     		}
     	} else 
     	if (holderManager.getAction()=="resetPassword") {
+    		StaffHolder staffSelected = StaffHolder.getInstance();
+    		try {
+    			String messageReset = AccountModel.resetPassword(staffSelected.getSelectStaff().getPhoneNumber());
+    			if (messageReset.equals("true")) {
+    				AlertNotification("Đặt lại mật khẩu thành công !");
+    				closeScene();
+    			} else {
+    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    			}
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e.getMessage());
+				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+			}
+    		
+    				
+    				
     		
     	} else
     	if (holderManager.getAction()=="deleteService") {
@@ -74,10 +91,10 @@ public class AlertController {
     		System.out.print(messageDelete);
     		if (messageDelete.equals("true")) {
     			holderManager.getIndexController().ViewFoodTbView();
-    			AlertNotification("Xóa món ăn thành công");
+    			AlertNotification("Xóa món ăn thành công !");
     			closeScene();
     		}else {
-    			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại");
+    			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại !");
     		}
     	}else 
     	if (holderManager.getAction()=="deleteLobby") {
@@ -85,10 +102,10 @@ public class AlertController {
     		System.out.print(messageDelete);
     		if (messageDelete.equals("true")) {
     			holderManager.getIndexController().ViewLobbyTbView();
-    			AlertNotification("Xóa sảnh thành công");
+    			AlertNotification("Xóa sảnh thành công !");
     			closeScene();
     		}else {
-    			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại");
+    			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại !");
     		}
     	}
     
