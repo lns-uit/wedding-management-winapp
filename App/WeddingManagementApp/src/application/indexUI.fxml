@@ -17,6 +17,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="712.0" prefWidth="1112.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.indexController">
@@ -236,11 +238,13 @@
                                  </columnResizePolicy>
                               </TableView>
                               <TextField fx:id="tfSearchStaff" layoutX="22.0" layoutY="23.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
-                              <Button layoutX="216.0" layoutY="23.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
+                              <Button id="SearchIcon" layoutX="216.0" layoutY="23.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
                               <Button layoutX="751.0" layoutY="23.0" mnemonicParsing="false" onAction="#AddStaff" prefHeight="35.0" prefWidth="160.0" text="Thêm nhân viên" />
                               <Button fx:id="btnStaffDelete" layoutX="824.0" layoutY="587.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Xóa" />
                               <Button fx:id="btnStaffUpdate" layoutX="724.0" layoutY="587.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="87.0" text="Sửa" />
                               <Button layoutX="22.0" layoutY="587.0" mnemonicParsing="false" onAction="#resetPassword" prefHeight="39.0" prefWidth="160.0" text="Đặt lại mật khẩu" />
+                              <Circle fill="#ffffff00" layoutX="234.0" layoutY="39.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="5.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="7.0" layoutX="239.0" layoutY="46.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="6.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="customerPanel" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false">

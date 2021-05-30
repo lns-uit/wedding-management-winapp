@@ -180,4 +180,7 @@
 #processTbView{
 	-fx-progress-color: #b83737;
 }
+#SearchIcon:hover{
+	-fx-background-color:#b83737;
+}
 

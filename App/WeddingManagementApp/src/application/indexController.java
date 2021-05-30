@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -144,12 +145,9 @@ public class indexController {
 		ViewCustomerColumn();
     	IndexInit(staff.getType());
     	// tìm kiếm nhân viên
-    	tfSearchStaff.textProperty().addListener((observable, oldValue, newValue) -> {
-    		arrStaff = FXCollections.observableArrayList(
-    				filterStaff(observable.getValue())
-    		);
-    		staffTbView.setItems(arrStaff);
-    	});
+    	InitSearchStaff();
+    	
+    	
     	if (currentPane==null) currentPane = infoPersonalPanel;
     	if (currentButton==null) currentButton = btnInfoPersonal;
     	currentButton.setStyle("-fx-background-color: #cf4848");
@@ -285,6 +283,8 @@ public class indexController {
     		btnLobbyManager.setDisable(true);
     		btnWeddingOrderManagement.setDisable(true);
     		btnReport.setDisable(true);	
+    		btnCustomerManagement.setDisable(true);
+    		btnBill.setDisable(true);
     	}
     }
     /*********** ORDER LOBBY MANAGER CONTROLLER********/
@@ -717,7 +717,21 @@ public class indexController {
     	
     	
     }
-    
+    public void InitSearchStaff() {
+    	tfSearchStaff.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrStaff = FXCollections.observableArrayList(
+    				filterStaff(observable.getValue())
+    				
+    		);
+    		if (!observable.getValue().equals("")) {
+        		arrStaff.addAll(filterIDStaff(observable.getValue()));
+        		arrStaff.addAll(filterPhoneStaff(observable.getValue()));
+        		arrStaff.addAll(filterIdentityCardStaff(observable.getValue()));
+    		}
+
+    		staffTbView.setItems(arrStaff);
+    	});
+    }
     
     public ArrayList<Staff> filterStaff (String inputName) {
     	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
@@ -731,6 +745,60 @@ public class indexController {
     	return resultStaffs;
     }
     
+    public ArrayList<Staff> filterIDStaff (String inputID) {
+    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
+    	
+    	allStaff.forEach(staff -> {
+    		if (staff.getId().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Staff stff : arrStaff) {
+					if (staff.getId().equals(stff.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(staff);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    public ArrayList<Staff> filterPhoneStaff (String input) {
+    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
+    	
+    	allStaff.forEach(staff -> {
+    		if (staff.getPhoneNumber().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Staff stff : arrStaff) {
+					if (staff.getId().equals(stff.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(staff);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    public ArrayList<Staff> filterIdentityCardStaff (String input) {
+    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
+    	
+    	allStaff.forEach(staff -> {
+    		if (staff.getIdentityCard().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Staff stff : arrStaff) {
+					if (staff.getId().equals(stff.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(staff);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
     public void setTbView (ArrayList<Staff> arrayStaff) {
     	arrStaff = FXCollections.observableArrayList(arrayStaff);
     	staffTbView.setItems(arrStaff);

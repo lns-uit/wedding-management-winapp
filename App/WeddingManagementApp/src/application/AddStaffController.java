@@ -74,7 +74,7 @@ public class AddStaffController implements Initializable {
     			}
 		
 			} else {
-				warningText.setText("Thông tin còn thiếu");
+				warningText.setText(message);
 				warningText.setVisible(true);
 			}
 		}
@@ -94,18 +94,17 @@ public class AddStaffController implements Initializable {
 	    
 		if ((name.getText().length()==0)||(phone.getText().length()==0)||(identityCard.getText().length()==0)||(address.getText().length()==0)||(typeStaff.getValue()==null)) {
 			System.out.println("is empty");
-			return messageString="Field còn trống !";
+			return messageString="Vui lòng nhập đầy đủ thông tin !";
 		}
 		
 		Pattern pattern = Pattern.compile("^\\d{10}$");
 	    Matcher matcher = pattern.matcher(phone.getText());
-	    
-	    System.out.println(matcher.matches());
-		
+	    Pattern patternIdentityCard = Pattern.compile("^\\d{12}$");
+	    Matcher matcherIdentityCard = patternIdentityCard.matcher(identityCard.getText());
 		if ((matcher.matches()==false)) {
 			return messageString="Số điện thoại định dạng sai !";
 		}
-		
+		if ((!matcherIdentityCard.matches())) return messageString = "Chứng minh thư sai định dạng";
 		return messageString;
 	}
 	
