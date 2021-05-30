@@ -268,7 +268,7 @@ public class AddWeddingOrderController {
     private ArrayList<OrderFood> currentOrderFood = new ArrayList<OrderFood>();
     private ArrayList<OrderServiceWedding> currentOrderService = new ArrayList<OrderServiceWedding>();
     @FXML
-    public void CommitStep(ActionEvent event) {
+    public void CommitStep(ActionEvent event) throws SQLException {
     	if (currentPane==null) currentPane = step1;
     	if (event.getSource()==btnCommit1) {
     		
@@ -307,8 +307,7 @@ public class AddWeddingOrderController {
     		if (nameCustomer.getText().isEmpty() || phoneNumberCus.getText().isEmpty() || nameGroom.getText().isEmpty() ||nameBride.getText().isEmpty() || depositTF.getText().isEmpty()){
     			showAlertWithoutHeaderText("Vui lòng điền đầy đủ thông tin");
     		} else {
-    			System.out.print("Commit");
-    
+    			System.out.print("Commit Step 3");
     			CommitFinal();
     		}
     	} else
@@ -453,8 +452,9 @@ public class AddWeddingOrderController {
     	moneyRestLb.setText(Long.toString(tmp));
     }
     
-    /************* FINAL COMMIT ******************/
-    public void CommitFinal() {
+    /************* FINAL COMMIT 
+     * @throws SQLException ******************/
+    public void CommitFinal() throws SQLException {
     	StaffHolder holder = StaffHolder.getInstance();
 		currentOrderWedding.setIdStaff(holder.getStaff().getId());
 		currentOrderWedding.setNumberFood(arrFoods.size());
@@ -472,12 +472,58 @@ public class AddWeddingOrderController {
 			currentOrderService.add(new OrderServiceWedding(sv.getId(),currentOrderWedding.getIdWedding()));
 		}
 		
-		System.out.print("Commit");
+		System.out.println("Commit final");
 		// Dữ liệu commit gồm 3 arrayList: currentOrderWedding ( Kiểu OrderWedding ) - currentOrderFood ( kiểu OrderFood)  - currentOrderService ( Kiểu OrderServiceWedding ) 
 		// nameCustomer; phoneNumberCus; nameGroom; nameBride; Kiểu textField
 		
-		System.out.println(currentOrderWedding.getNumberFood());
-		System.out.print(currentOrderFood.get(0).getIdFood());
+		System.out.println(nameCustomer.getText() + " "+ phoneNumberCus.getText() + " "+ nameGroom.getText()+ " "+nameBride.getText());
+	
+		try {
+			//String statusOrder = "true";
+			String idInfoWedding = OrderWeddingModel.CreateInfoWedding(nameBride.getText(), nameGroom.getText());
+			if (idInfoWedding != null) {
+				
+				System.out.println("Info wedding created" + idInfoWedding);
+				currentOrderFood.forEach((itemOrderFood) -> {
+					try {
+						String message = OrderWeddingModel.CreateFoodOrder(idInfoWedding, itemOrderFood.getIdFood());
+						if (message.equals("false")) {
+							System.out.println("Create orderFood faild");
+							//statusOrder = "false";
+							return;
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						System.out.println(e.getMessage());
+						e.printStackTrace();
+					}
+				});
+						
+				
+				currentOrderService.forEach((itemOrderService) -> {
+					try {
+						String message = OrderWeddingModel.CreateServiceOrder(idInfoWedding, itemOrderService.getIdService());
+						if (message.equals("false")) {
+							System.out.println("Create orderService faild");
+							//statusOrder = "false";
+							return;
+						}
+						
+					} catch (Exception e2) {
+						// TODO: handle exception
+						System.out.println(e2.getMessage());
+						e2.printStackTrace();
+					}
+				});
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
+//		System.out.println(currentOrderWedding.getNumberFood()+ "a");
+//		System.out.println(currentOrderFood.get(0).getIdFood());
 
     }
     /*************** WINDOW CONTROLLER ************/
