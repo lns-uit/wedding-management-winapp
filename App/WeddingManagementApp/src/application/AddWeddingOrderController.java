@@ -516,6 +516,25 @@ public class AddWeddingOrderController {
 					}
 				});
 				
+				try {
+					OrderWedding resultOrder = OrderWeddingModel.callOrderWedding(
+							idInfoWedding, 
+							nameCustomer.getText(),
+							phoneNumberCus.getText(), 
+							currentOrderWedding.getIdLobby(), 
+							currentOrderWedding.getIdStaff(), 
+							currentOrderWedding.getNumberOfTable(), 
+							currentOrderWedding.getDateStart()
+					);
+					
+					System.out.println(resultOrder.getMoney());
+					System.out.println(resultOrder.getDeposit());
+				} catch (Exception e3) {
+					// TODO: handle exception
+					System.out.println(e3.getMessage());
+					e3.printStackTrace();
+				}
+				
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
