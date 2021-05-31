@@ -71,9 +71,7 @@ public class AlertController {
 				System.out.println(e.getMessage());
 				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
 			}
-    		
-    				
-    				
+    					
     		
     	} else
     	if (holderManager.getAction()=="deleteService") {
@@ -107,6 +105,12 @@ public class AlertController {
     		}else {
     			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại !");
     		}
+    	} else 
+    	if (holderManager.getAction()=="payOrderWedding") {
+    		
+    	} else 
+    	if (holderManager.getAction()=="exitOrderWedding") {
+    		
     	}
     
     }

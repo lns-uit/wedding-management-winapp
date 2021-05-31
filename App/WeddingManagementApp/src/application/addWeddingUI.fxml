@@ -35,6 +35,8 @@
                   <Label layoutX="40.0" layoutY="63.0" text="Chọn ngày" />
                   <Label layoutX="49.0" layoutY="132.0" text="Chọn sảnh" />
                   <Button fx:id="btnCommit1" layoutX="929.0" layoutY="613.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="131.0" text="Tiếp tục" />
+                  <TextField fx:id="numberTable" layoutX="283.0" layoutY="90.0" prefHeight="34.0" prefWidth="174.0" promptText="Số bàn" />
+                  <Label layoutX="289.0" layoutY="63.0" text="Số bàn muốn đặt" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="step2" prefHeight="661.0" prefWidth="1100.0" visible="false">
@@ -209,12 +211,47 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="dateFinal" disable="true" layoutX="37.0" layoutY="147.0" prefHeight="39.0" prefWidth="174.0" />
-                  <Label layoutX="42.0" layoutY="128.0" text="Thời gian">
+                  <Label fx:id="dateFinal" layoutX="40.0" layoutY="143.0" text="2001-08-15">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
+                  <Label fx:id="numberTableFinal" layoutX="304.0" layoutY="143.0" text="Số bàn đã đặt:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="step4" layoutY="5.0" prefHeight="661.0" prefWidth="1100.0" visible="false">
+               <children>
+                  <Label fx:id="moneySum" layoutX="431.0" layoutY="216.0" text="Tổng tiền: 1.000.000 VNĐ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="moneyRest" layoutX="431.0" layoutY="293.0" text="Còn lại: 1.000.000 VNĐ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="deposit" layoutX="431.0" layoutY="254.0" text="Tiền cọc: 10000000">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="836.0" layoutY="20.0" text="Mã đặt tiệc: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="943.0" layoutY="20.0" prefHeight="27.0" prefWidth="121.0" text="12321323" textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnCommitFinal" layoutX="768.0" layoutY="574.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="39.0" prefWidth="174.0" text="Xác nhận thanh toán" />
+                  <Button id="btnNO" fx:id="btnExitOrder" layoutX="257.0" layoutY="574.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="39.0" prefWidth="174.0" text="Hủy đặt tiệc" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="48.0" prefWidth="1100.0" style="-fx-background-color: #b83737;">

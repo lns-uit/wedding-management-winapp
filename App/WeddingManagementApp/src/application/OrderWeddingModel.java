@@ -1,5 +1,6 @@
 package application;
 import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import oracle.jdbc.internal.OracleTypes;
@@ -83,7 +84,7 @@ public class OrderWeddingModel {
 			cStmt.setString(4, idLobby);
 			cStmt.setString(5, idStaff);
 			cStmt.setInt(6, (int) number);
-			cStmt.setString(7, "10-JUL-20");
+			cStmt.setString(7, dateStart);
 			
 			cStmt.registerOutParameter(8, OracleTypes.VARCHAR);
 			cStmt.registerOutParameter(9, OracleTypes.INTEGER);

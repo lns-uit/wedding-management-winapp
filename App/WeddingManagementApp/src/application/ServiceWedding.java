@@ -1,5 +1,7 @@
 package application;
 
+import java.text.DecimalFormat;
+
 import javafx.scene.control.CheckBox;
 
 public class ServiceWedding {
@@ -7,7 +9,7 @@ public class ServiceWedding {
 		super();
 		this.id = id;
 		this.name = name;
-		this.price = price;
+		this.price = price.toString();
 		this.checkBox = new CheckBox();
 	}
 	public ServiceWedding() {
@@ -21,7 +23,7 @@ public class ServiceWedding {
 	}
 	private String id;
 	private String name;
-	private Number price;
+	private String price;
 	private CheckBox checkBox;
 	public String getId() {
 		return id;
@@ -35,11 +37,13 @@ public class ServiceWedding {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Number getPrice() {
-		return price;
+	public String getPrice() {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format(Long.parseLong(price));
+		return tmpString;
 	}
 	public void setPrice(Number price) {
-		this.price = price;
+		this.price = price.toString();
 	}
 	
 }

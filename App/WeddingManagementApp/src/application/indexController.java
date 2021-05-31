@@ -1,12 +1,13 @@
 package application;
 
-import java.awt.event.ItemEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -32,7 +33,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sun.net.www.content.audio.aiff;
 
 public class indexController {
 
@@ -152,6 +152,8 @@ public class indexController {
     	if (currentButton==null) currentButton = btnInfoPersonal;
     	currentButton.setStyle("-fx-background-color: #cf4848");
     	currentPane.setVisible(true);
+    	
+    	
     	
 	}
     private boolean isFist = false;
@@ -329,9 +331,9 @@ public class indexController {
     @FXML
     private TableColumn<Lobby,Number> lobbyTableColumn;
     @FXML
-    private TableColumn<Lobby,Number> lobbyTablePriceColumn;
+    private TableColumn<Lobby,String> lobbyTablePriceColumn;
     @FXML
-    private TableColumn<Lobby,Number> lobbyPriceColumn;
+    private TableColumn<Lobby,String> lobbyPriceColumn;
     @FXML
     private TableColumn<Lobby,String> lobbyNote;
     
@@ -340,8 +342,8 @@ public class indexController {
     	lobbyNameColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
      	lobbyTypeColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
      	lobbyTableColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
-     	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
-     	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
+     	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceTable"));
+     	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceLobby"));
     }
     private ObservableList<Lobby> arrLobby;
     public void ViewLobbyTbView() throws SQLException {
@@ -414,7 +416,7 @@ public class indexController {
     @FXML
     private TableColumn<Food,String> foodNameColumn;
     @FXML
-    private TableColumn<Food,Number> foodPriceColumn;
+    private TableColumn<Food,String> foodPriceColumn;
     @FXML
     private TableColumn<Food,String> foodTypeColumn;
     @FXML
@@ -426,7 +428,7 @@ public class indexController {
     public void ViewFoodColumn() {
     	foodIdColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	foodNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	foodPriceColumn.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
+    	foodPriceColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
     	foodTypeColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
     }
     private ObservableList<Food> arrFood;
@@ -500,7 +502,7 @@ public class indexController {
     @FXML
     private TableColumn<ServiceWedding,String> serviceNameColumn;
     @FXML
-    private TableColumn<ServiceWedding,Number> servicePriceColumn;
+    private TableColumn<ServiceWedding,String> servicePriceColumn;
     @FXML
     private Button btnAddService;
     @FXML
@@ -511,7 +513,7 @@ public class indexController {
     private void ViewServiceColumn() {
     	serviceIdColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("id"));
     	serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
-    	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
+    	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("price"));
     }
     private ObservableList<ServiceWedding> arrService;
     public void ViewServiceTbView() throws SQLException {

@@ -1,5 +1,7 @@
 package application;
 
+import java.text.DecimalFormat;
+
 import javafx.stage.Stage;
 
 public final class HolderManager {
@@ -91,5 +93,5 @@ public final class HolderManager {
   		Stage stage = new Stage();
   		alertScene.start(stage);
   	}
- 
+
 }

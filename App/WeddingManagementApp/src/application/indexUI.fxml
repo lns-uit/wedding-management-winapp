@@ -209,7 +209,7 @@
                               <TextField layoutX="24.0" layoutY="23.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                               <Button layoutX="218.0" layoutY="23.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="37.0" />
                               <Button fx:id="btnAddOrderWedding" layoutX="770.0" layoutY="23.0" mnemonicParsing="false" onAction="#OnActionOrderWedding" prefHeight="35.0" prefWidth="143.0" text="Thêm tiệc cưới" />
-                              <TableView layoutX="24.0" layoutY="75.0" prefHeight="563.0" prefWidth="889.0">
+                              <TableView layoutX="24.0" layoutY="75.0" prefHeight="509.0" prefWidth="889.0">
                                  <columns>
                                     <TableColumn prefWidth="37.0" text="STT" />
                                     <TableColumn prefWidth="87.0" text="Mã đặt tiệc" />
@@ -219,6 +219,7 @@
                                  </columns>
                               </TableView>
                               <ProgressIndicator id="processTbView" fx:id="LoadingAddOrder" layoutX="727.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="37.0" visible="false" />
+                              <Button layoutX="770.0" layoutY="600.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="143.0" text="Chi tiết" />
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -503,7 +504,7 @@
                               <Button layoutX="798.0" layoutY="14.0" mnemonicParsing="false" onAction="#onChangePassword" prefHeight="35.0" prefWidth="114.0" text="Đổi mật khẩu" />
                            </children>
                         </AnchorPane>
-                        <ProgressIndicator id="processTbView" fx:id="processTbView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="53.0" />
+                        <ProgressIndicator id="processTbView" fx:id="processTbView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="53.0" visible="false" />
                      </children>
                   </StackPane>
                </children>

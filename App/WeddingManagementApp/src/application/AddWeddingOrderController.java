@@ -1,6 +1,8 @@
 package application;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -10,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DateCell;
@@ -19,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -48,9 +48,9 @@ public class AddWeddingOrderController {
     @FXML
     private TableColumn<Lobby,Number> orderLobbyTable;
     @FXML
-    private TableColumn<Lobby,Number> orderLobbyPriceTable;
+    private TableColumn<Lobby,String> orderLobbyPriceTable;
     @FXML
-    private TableColumn<Lobby,Number> orderLobbyPrice;
+    private TableColumn<Lobby,String> orderLobbyPrice;
     @FXML
     private TableColumn<Lobby,String> orderLobbyNote;
     @FXML
@@ -118,8 +118,8 @@ public class AddWeddingOrderController {
     	orderLobbyName.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
     	orderLobbyType.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
     	orderLobbyTable.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
-    	orderLobbyPriceTable.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
-    	orderLobbyPrice.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
+    	orderLobbyPriceTable.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceTable"));
+    	orderLobbyPrice.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceLobby"));
     	orderLobbyNote.setCellValueFactory(new PropertyValueFactory<Lobby,String>("note"));
     	orderLobbySelect.setCellValueFactory(new PropertyValueFactory<Lobby,CheckBox>("checkBox"));
     }
@@ -155,7 +155,7 @@ public class AddWeddingOrderController {
     @FXML
     private TableColumn<Food, String> aptNameColumn;
     @FXML
-    private TableColumn<Food, Number> aptMoneyColumn;
+    private TableColumn<Food, String> aptMoneyColumn;
     @FXML
     private TableView<Food> tbViewMainFood;
     @FXML
@@ -163,7 +163,7 @@ public class AddWeddingOrderController {
     @FXML
     private TableColumn<Food, String> mFoodNameColumn;
     @FXML
-    private TableColumn<Food, Number> mFoodMoney;
+    private TableColumn<Food, String> mFoodMoney;
     @FXML
     private TableView<Food> tbViewDrink;
     @FXML
@@ -171,7 +171,7 @@ public class AddWeddingOrderController {
     @FXML
     private TableColumn<Food, String> drinkNameColumn;
     @FXML
-    private TableColumn<Food, Number> drinkMoneyColumn;
+    private TableColumn<Food, String> drinkMoneyColumn;
     @FXML
     private TableColumn<Food, CheckBox> aptCheckBox;
     @FXML
@@ -182,18 +182,18 @@ public class AddWeddingOrderController {
     public void ViewFoodTbView() {
     	aptIDColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	aptNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	aptMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
+    	aptMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
     	aptCheckBox.setCellValueFactory(new PropertyValueFactory<Food,CheckBox>("checkBox"));
     	
     	
     	mFoodIDColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	mFoodNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	mFoodMoney.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
+    	mFoodMoney.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
     	mFoodCheckBox.setCellValueFactory(new PropertyValueFactory<Food,CheckBox>("checkBox"));
     	
     	drinkIDColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	drinkNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	drinkMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
+    	drinkMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
     	drinkCheckBox.setCellValueFactory(new PropertyValueFactory<Food,CheckBox>("checkBox"));
     }
     private ObservableList<Food> arrAptFood;
@@ -261,6 +261,19 @@ public class AddWeddingOrderController {
     @FXML
     private Button btnBack2;
     @FXML
+    private AnchorPane step4;
+    @FXML
+    private Label moneySum;
+    @FXML
+    private Label moneyRest;
+    @FXML
+    private Label deposit;
+    @FXML
+    private Button btnCommitFinal;
+
+    @FXML
+    private Button btnExitOrder;
+    @FXML
     private DatePicker datePkStart;
     private AnchorPane currentPane;
     private OrderWedding currentOrderWedding = new OrderWedding();
@@ -270,6 +283,7 @@ public class AddWeddingOrderController {
     @FXML
     public void CommitStep(ActionEvent event) throws SQLException {
     	if (currentPane==null) currentPane = step1;
+    	HolderManager holderManager = HolderManager.getInstance();
     	if (event.getSource()==btnCommit1) {
     		
     		boolean isCheckBoxLobby=false;
@@ -281,13 +295,12 @@ public class AddWeddingOrderController {
 				}
 			}
     		if (!isCheckBoxLobby || datePkStart.getValue()==null) {
-    			showAlertWithoutHeaderText("Vui lòng nhập đầy đủ thông tin");
+    			holderManager.AlertNotification(" ", "Vui lòng nhập đầy đủ thông tin",1);
     		} else {
 
     			currentOrderWedding.setIdLobby(currentOrderLobby.getId());
-    			currentOrderWedding.setNumberOfTable(currentOrderLobby.getTableNumber());
-    			currentOrderWedding.setDateStart(datePkStart.getValue().toString());
-    			currentOrderWedding.setDateOrder(LocalDate.now().toString());
+//    			currentOrderWedding.setDateStart(java.sql.Date.valueOf(datePkStart.getValue()));
+//    			currentOrderWedding.setDateOrder(java.sql.Date.valueOf(LocalDate.now()));
     			currentPane.setVisible(false);
     			currentPane = step2;
     			currentPane.setVisible(true);
@@ -305,9 +318,8 @@ public class AddWeddingOrderController {
     	} else
     	if (event.getSource()==btnCommit3) {
     		if (nameCustomer.getText().isEmpty() || phoneNumberCus.getText().isEmpty() || nameGroom.getText().isEmpty() ||nameBride.getText().isEmpty() || depositTF.getText().isEmpty()){
-    			showAlertWithoutHeaderText("Vui lòng điền đầy đủ thông tin");
+    			holderManager.AlertNotification(" ", "Vui lòng nhập đầy đủ thông tin", 1);
     		} else {
-    			System.out.print("Commit Step 3");
     			CommitFinal();
     		}
     	} else
@@ -320,9 +332,33 @@ public class AddWeddingOrderController {
     		currentPane.setVisible(false);
 			currentPane = step2;
 			currentPane.setVisible(true);
-    	}
+    	} else 
+    	if (event.getSource()==btnCommitFinal) {
+    		
+    		holderManager.AlertNotification("payOrderWedding","Xác nhận thanh toán ?", 0);
+    	} else 
+    	if (event.getSource()==btnExitOrder){
+			holderManager.AlertNotification("exitOrderWedding", "Xác nhận hủy đặt tiệc ?", 0);
+		}
+    	
     }
+    @FXML
+    private Label numberTableFinal;
     public void GetStep2() {
+    	
+    	
+    	numberTableFinal.setText("Số bàn đã đặt: "+numberTable.getText());
+
+    	// DATE FORMATTER
+    	SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
+    	SimpleDateFormat formatter1 = new SimpleDateFormat("dd-MM-yyyy");
+    	
+    	dateFinal.setText("Ngày diễn ra: "+ formatter1.format(java.sql.Date.valueOf(datePkStart.getValue())));
+    	
+		String dateStartConvert = formatter.format(java.sql.Date.valueOf(datePkStart.getValue()));
+        currentOrderWedding.setDateStart(dateStartConvert);
+        
+        // FOOD AND SERVICE SUMMARY
     	arrFoods.clear();
     	for (Food food : tbViewAppetizer.getItems()) {
     		if (food.getCheckBox().isSelected()) arrFoods.add(food);
@@ -355,7 +391,7 @@ public class AddWeddingOrderController {
     @FXML
     private TableColumn<Food, String> nameFoodFinal;
     @FXML
-    private TableColumn<Food, Number> priceFoodFinal;
+    private TableColumn<Food, String> priceFoodFinal;
     @FXML
     private TableColumn<Food, String> typeFoodFinal;
     @FXML
@@ -383,7 +419,7 @@ public class AddWeddingOrderController {
     @FXML
     private TableColumn<ServiceWedding,Number> priceServiceFinal;
     @FXML
-    private DatePicker dateFinal;
+    private Label dateFinal;
     
     public void ViewFinalTbViewAll() {
     	// Lobby
@@ -399,7 +435,7 @@ public class AddWeddingOrderController {
     	// Food
     	idFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	nameFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	priceFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,Number>("price"));
+    	priceFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
     	typeFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
     	
     	// Service
@@ -408,7 +444,7 @@ public class AddWeddingOrderController {
     	nameServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
     	priceServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
     	
-    	dateFinal.setValue(datePkStart.getValue());
+
     	
     	
     }
@@ -422,17 +458,7 @@ public class AddWeddingOrderController {
     	ObservableList<ServiceWedding> svList = FXCollections.observableArrayList(arrServices);
     	serviceFinal.setItems(svList);
     }
-    /*********** ALERT NOTIFICATION **************/
-    private void showAlertWithoutHeaderText(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
- 
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(message);
- 
-        alert.showAndWait();
-	}
+
     /************* CALCULATE MONEY *************************/
 	@FXML
 	private Label moneySumLb;
@@ -440,7 +466,8 @@ public class AddWeddingOrderController {
 	private TextField depositTF;
 	@FXML
 	private Label moneyRestLb;
-	
+	@FXML
+	private TextField numberTable;
 	private long priceSum, depositOrder, restMoney;
 	
     public void CalculateMoney() {
@@ -455,9 +482,11 @@ public class AddWeddingOrderController {
     /************* FINAL COMMIT 
      * @throws SQLException ******************/
     public void CommitFinal() throws SQLException {
+    	HolderManager holderManager = HolderManager.getInstance();
     	StaffHolder holder = StaffHolder.getInstance();
 		currentOrderWedding.setIdStaff(holder.getStaff().getId());
 		currentOrderWedding.setNumberFood(arrFoods.size());
+		currentOrderWedding.setNumberOfTable(Integer.parseInt(numberTable.getText()));
 		// Cai duoi nay chua co thong tin
 		currentOrderWedding.setIdCustomer(null);
 		currentOrderWedding.setIdWedding(null);
@@ -472,23 +501,18 @@ public class AddWeddingOrderController {
 			currentOrderService.add(new OrderServiceWedding(sv.getId(),currentOrderWedding.getIdWedding()));
 		}
 		
-		System.out.println("Commit final");
 		// Dữ liệu commit gồm 3 arrayList: currentOrderWedding ( Kiểu OrderWedding ) - currentOrderFood ( kiểu OrderFood)  - currentOrderService ( Kiểu OrderServiceWedding ) 
 		// nameCustomer; phoneNumberCus; nameGroom; nameBride; Kiểu textField
-		
-		System.out.println(nameCustomer.getText() + " "+ phoneNumberCus.getText() + " "+ nameGroom.getText()+ " "+nameBride.getText());
 	
 		try {
 			//String statusOrder = "true";
 			String idInfoWedding = OrderWeddingModel.CreateInfoWedding(nameBride.getText(), nameGroom.getText());
 			if (idInfoWedding != null) {
-				
-				System.out.println("Info wedding created" + idInfoWedding);
 				currentOrderFood.forEach((itemOrderFood) -> {
 					try {
 						String message = OrderWeddingModel.CreateFoodOrder(idInfoWedding, itemOrderFood.getIdFood());
 						if (message.equals("false")) {
-							System.out.println("Create orderFood faild");
+							holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau", 1);
 							//statusOrder = "false";
 							return;
 						}
@@ -504,7 +528,7 @@ public class AddWeddingOrderController {
 					try {
 						String message = OrderWeddingModel.CreateServiceOrder(idInfoWedding, itemOrderService.getIdService());
 						if (message.equals("false")) {
-							System.out.println("Create orderService faild");
+							holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau", 1);
 							//statusOrder = "false";
 							return;
 						}
@@ -517,6 +541,7 @@ public class AddWeddingOrderController {
 				});
 				
 				try {
+					
 					OrderWedding resultOrder = OrderWeddingModel.callOrderWedding(
 							idInfoWedding, 
 							nameCustomer.getText(),
@@ -525,10 +550,17 @@ public class AddWeddingOrderController {
 							currentOrderWedding.getIdStaff(), 
 							currentOrderWedding.getNumberOfTable(), 
 							currentOrderWedding.getDateStart()
+							
 					);
 					
-					System.out.println(resultOrder.getMoney());
-					System.out.println(resultOrder.getDeposit());
+					DecimalFormat formatter = new DecimalFormat("###,###,###");
+					moneySum.setText ("Tổng tiền:"+ formatter.format(resultOrder.getMoney())+ " VNĐ");
+					deposit.setText  ("Tiền cọc :"+ formatter.format(resultOrder.getDeposit())+ " VNĐ");
+					moneyRest.setText("Còn lại :"+ formatter.format(Long.parseLong(resultOrder.getMoney().toString())-Long.parseLong(resultOrder.getDeposit().toString()))+ " VNĐ");
+					currentPane.setVisible(false);
+					
+					currentPane = step4;
+					currentPane.setVisible(true);
 				} catch (Exception e3) {
 					// TODO: handle exception
 					System.out.println(e3.getMessage());
@@ -540,9 +572,6 @@ public class AddWeddingOrderController {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		
-//		System.out.println(currentOrderWedding.getNumberFood()+ "a");
-//		System.out.println(currentOrderFood.get(0).getIdFood());
 
     }
     /*************** WINDOW CONTROLLER ************/

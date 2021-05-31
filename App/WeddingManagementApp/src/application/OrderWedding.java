@@ -1,5 +1,7 @@
 package application;
 
+import java.sql.Date;
+
 public class OrderWedding {    
     public OrderWedding(String idWedding, String idLobby, String idStaff, String idCustomer, Number numberFood,
 			Number numberService, Number deposit, Number money, Number numberOfTable, String dateOrder,

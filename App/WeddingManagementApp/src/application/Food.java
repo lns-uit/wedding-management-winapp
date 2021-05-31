@@ -1,5 +1,7 @@
 package application;
 
+import java.text.DecimalFormat;
+
 import javafx.scene.control.CheckBox;
 
 public class Food {
@@ -8,7 +10,7 @@ public class Food {
 		super();
 		this.id = id;
 		this.name = name;
-		this.price = price;
+		this.price = price.toString();
 		this.type = type;
 		this.checkBox = new CheckBox();
 	}
@@ -17,7 +19,7 @@ public class Food {
 
 	private String id;
 	private String name;
-	private Number price;
+	private String price;
 	private String type;
 	private CheckBox checkBox;
 	public void setId(String id) {
@@ -27,7 +29,7 @@ public class Food {
 		this.name = name;
 	}
 	public void setPrice(Number price) {
-		this.price = price;
+		this.price = price.toString();
 	}
 	public void setType(String type) {
 		this.type = type;
@@ -38,7 +40,11 @@ public class Food {
 	
 	public String getId() {return id;}
 	public String getName() {return name;}
-	public Number getPrice() {return price;}
+	public String getPrice() {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format(Long.parseLong(price));
+		return tmpString;
+	}
 	public String getType() {return type;}
 	public CheckBox getCheckBox() {return checkBox;}
 
