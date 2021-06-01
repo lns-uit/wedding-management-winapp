@@ -126,17 +126,21 @@ public class OrderWeddingModel {
 			ResultSet rs = (ResultSet) cStmt.getObject(1);
 			
 			while (rs.next()) {
-				String idWedding = rs.getString(2);
-				String idLobby = rs.getString(3);
-				String idStaff = rs.getString(4);
-				String idCustomer = rs.getString(5);
-				int numberFood = rs.getInt(6);
-				int numberService = rs.getInt(7);
-				long deposit = rs.getLong(8);
-				long money = rs.getLong(9);
-				int numberTable = rs.getInt(10);
-				String dateOrder = rs.getString(11);
-				String dateStart = rs.getString(12);
+				String idWedding = rs.getString(1);
+				String idLobby = rs.getString(2);
+				String idStaff = rs.getString(3);
+				String idCustomer = rs.getString(4);
+				int numberFood = rs.getInt(5);
+				int numberService = rs.getInt(6);
+				long deposit = rs.getLong(7);
+				long money = rs.getLong(8);
+				int numberTable = rs.getInt(9);
+				String dateOrder = rs.getString(10);
+				String dateStart = rs.getString(11);
+			
+				String cusName = rs.getString(13);
+				String cusPhoneNumber = rs.getString(14);
+				System.out.println(cusName + " " +cusPhoneNumber);
 				
 				OrderWedding a = new OrderWedding(idWedding, idLobby, idStaff, idCustomer, numberFood, numberService, deposit, money, numberTable, dateOrder, dateStart);
 				arrOrderWedding.add(a);
@@ -169,5 +173,98 @@ public class OrderWeddingModel {
 		
 		String message = cStmt.getString(2);
 		return message;
+	}
+	
+	public static void getDetailWedding (String idWedding) throws SQLException {
+		String sqlString = "begin sp_getOrderWeddingById(?,?,?,?,?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		ArrayList<Food> arrFoodOrder = new ArrayList<Food>();
+		ArrayList<ServiceWedding> arrServiceOrder = new ArrayList<ServiceWedding>();
+		HolderManager holderManager = HolderManager.getInstance();
+		
+		try {
+			
+			cStmt.setString(1, idWedding);
+			cStmt.registerOutParameter(2, OracleTypes.CURSOR);
+			cStmt.registerOutParameter(3, OracleTypes.CURSOR);
+			cStmt.registerOutParameter(4, OracleTypes.CURSOR);
+			cStmt.registerOutParameter(5, OracleTypes.CURSOR);
+			cStmt.registerOutParameter(6, OracleTypes.CURSOR);
+			
+			cStmt.executeUpdate();
+
+			ResultSet rs2 = (ResultSet) cStmt.getObject(2);
+			ResultSet rs3 = (ResultSet) cStmt.getObject(3);
+			ResultSet rs4 = (ResultSet) cStmt.getObject(4);
+			ResultSet rs5 = (ResultSet) cStmt.getObject(5);
+			ResultSet rs6 = (ResultSet) cStmt.getObject(6);
+			
+			while (rs2.next()) {
+				String idWeddingOrder = rs2.getString(2);
+				String idLobby = rs2.getString(3);
+				String idStaff = rs2.getString(4);
+				String idCustomer = rs2.getString(5);
+				int numberFood = rs2.getInt(6);
+				int numberService = rs2.getInt(7);
+				long deposit = rs2.getLong(8);
+				long money = rs2.getLong(9);
+				int numberTable = rs2.getInt(10);
+				String dateOrder = rs2.getString(11);
+				String dateStart = rs2.getString(12);
+				
+				OrderWedding a = new OrderWedding(idWeddingOrder, idLobby, idStaff, idCustomer, numberFood, numberService, deposit, money, numberTable, dateOrder, dateStart);
+				holderManager.setDetailOrderWedding(a);
+			}
+			
+			while (rs3.next()) {
+				String idFood = rs3.getString(1);
+				String nameFood = rs3.getString(2);
+				long priceFood = rs3.getLong(3);
+				String typeFood = rs3.getString(4);
+				
+				Food a = new Food(idFood, nameFood, priceFood, typeFood);
+				arrFoodOrder.add(a);
+			}
+			holderManager.setArrFoodOrder(arrFoodOrder);
+			
+			while (rs4.next()) {
+				String idService = rs4.getString(1);
+				String nameService = rs4.getString(2);
+				long priceService = rs4.getLong(3);
+				
+				ServiceWedding a = new ServiceWedding(idService, nameService, priceService);
+				arrServiceOrder.add(a);
+			}
+			holderManager.setArrServiceOrder(arrServiceOrder);
+			
+			while (rs5.next()) {
+				String idInfoWedding = rs5.getString(1);
+				String nameBride = rs5.getString(2);
+				String nameGroom = rs5.getString(3);
+				
+				InfoWedding a = new InfoWedding(idInfoWedding, nameGroom, nameBride);
+				
+				holderManager.setInfoOrder(a);
+			}
+			
+			while (rs6.next()) {
+				String idCus= rs6.getString(1);
+				String nameCus = rs6.getString(2);
+				String numberPhoneCus = rs6.getString(3);
+				String dayRegisterCus = rs6.getString(4);
+				long money = rs6.getLong(5);
+				int discount = rs6.getInt(6);
+				
+				Customer a = new Customer(idCus, nameCus, numberPhoneCus, money, discount);
+				holderManager.setCusOrder(a);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
+		cStmt.close();
 	}
 }

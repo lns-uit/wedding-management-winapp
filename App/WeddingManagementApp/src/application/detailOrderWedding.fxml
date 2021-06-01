@@ -63,7 +63,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="44.0" layoutY="531.0" text="Tổng tiền:">
+                  <Label fx:id="money" layoutX="44.0" layoutY="531.0" text="Tổng tiền:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -78,33 +78,33 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="44.0" layoutY="558.0" text="Đã trả:">
+                  <Label fx:id="deposit" layoutX="44.0" layoutY="558.0" text="Đã trả:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="45.0" layoutY="585.0" text="Còn lại:">
+                  <Label fx:id="remain" layoutX="45.0" layoutY="585.0" text="Còn lại:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                   <Button layoutX="942.0" layoutY="605.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="118.0" text="Thanh toán" />
-                  <Label layoutX="761.0" layoutY="63.0" text="Người đặt:">
+                  <Label fx:id="nameCus" layoutX="761.0" layoutY="63.0" text="Người đặt:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="106.0" text="Tên cô dâu:">
+                  <Label fx:id="nameBride" layoutX="761.0" layoutY="106.0" text="Tên cô dâu:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="412.0" layoutY="106.0" text="Tên chú rể:">
+                  <Label fx:id="nameGroom" layoutX="412.0" layoutY="106.0" text="Tên chú rể:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="49.0" layoutY="106.0" text="SĐT:">
+                  <Label fx:id="phoneCus" layoutX="49.0" layoutY="106.0" text="SĐT:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
