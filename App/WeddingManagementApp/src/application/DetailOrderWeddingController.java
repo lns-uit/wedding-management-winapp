@@ -146,7 +146,8 @@ public class DetailOrderWeddingController {
 		HolderManager holderManager = HolderManager.getInstance();
 		OrderWeddingModel.getDetailWedding(holderManager.getOrderWeddingCurrent().getIdWedding());
 		OrderWedding detailOrderWedding = holderManager.getDetailOrderWedding();
-		System.out.print("Thanh toan tiec cuoi "+ detailOrderWedding.getIdWedding());
+		holderManager.setStageNeedClose((Stage) orderDetail.getScene().getWindow());
+		holderManager.AlertNotification("payAndBill", "Xác nhận thanh toán và lập hóa đơn ?", 0);
 	}
 	
     /*************** WINDOW CONTROLLER ************/

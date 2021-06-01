@@ -115,7 +115,14 @@ public class AlertController {
     		OrderWeddingModel.DeleteOrderWedding(holderManager.getIdWeddingCommitPayment());
     		holderManager.getStageNeedClose().close();
     		closeScene();
-    	}
+    	} else {
+			if (holderManager.getAction()=="payAndBill") {
+				// Hàm Call Update Deposit vs Lập Bill chỗ này
+			
+				holderManager.getStageNeedClose().close();
+				closeScene();
+			}
+		}
     
     }
     private void closeScene() {
