@@ -60,12 +60,12 @@ public class Lobby {
 	public Number getTableNumber() {return tableNumber;}
 	public String getPriceTable() {
 		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(priceTable));
+		String tmpString = formatter.format(Long.parseLong(priceTable))+" VNĐ";
 		return tmpString;
 	}
 	public String getPriceLobby() {
 		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(priceLobby));
+		String tmpString = formatter.format(Long.parseLong(priceLobby))+" VNĐ";
 		return tmpString;
 	}
 	public String getNote() {return note;}

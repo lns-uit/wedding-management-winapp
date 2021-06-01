@@ -22,8 +22,6 @@
                         <TableColumn fx:id="orderLobbyTable" maxWidth="2000.0" prefWidth="211.0" text="Số bàn" />
                         <TableColumn fx:id="orderLobbyPriceTable" prefWidth="148.333251953125" text="Giá bàn" />
                         <TableColumn fx:id="orderLobbyPrice" prefWidth="148.333251953125" text="Giá sảnh" />
-                        <TableColumn fx:id="orderLobbyNote" prefWidth="148.333251953125" text="Ghi chú" />
-                        <TableColumn fx:id="orderLobbySelect" maxWidth="1500.0" prefWidth="148.333251953125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

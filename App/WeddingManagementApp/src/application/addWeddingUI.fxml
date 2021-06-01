@@ -21,12 +21,11 @@
                     <columns>
                       <TableColumn fx:id="orderLobbyID" prefWidth="34.0" text="Mã sảnh" />
                       <TableColumn fx:id="orderLobbyName" prefWidth="420.0" text="Tên sảnh" />
-                        <TableColumn fx:id="orderLobbyType" prefWidth="167.0" text="Loại sảnh" />
-                        <TableColumn fx:id="orderLobbyTable" maxWidth="2000.0" prefWidth="211.0" text="Số bàn" />
-                        <TableColumn fx:id="orderLobbyPriceTable" prefWidth="148.333251953125" text="Giá bàn" />
-                        <TableColumn fx:id="orderLobbyPrice" prefWidth="148.333251953125" text="Giá sảnh" />
-                        <TableColumn fx:id="orderLobbyNote" prefWidth="148.333251953125" text="Ghi chú" />
-                        <TableColumn fx:id="orderLobbySelect" maxWidth="1500.0" prefWidth="148.333251953125" text="Chọn" />
+                        <TableColumn id="ColumnCenter" fx:id="orderLobbyType" prefWidth="167.0" text="Loại sảnh" />
+                        <TableColumn id="ColumnCenter" fx:id="orderLobbyTable" maxWidth="2000.0" prefWidth="211.0" text="Số bàn" />
+                        <TableColumn id="ColumnRight" fx:id="orderLobbyPriceTable" prefWidth="148.333251953125" text="Giá bàn" />
+                        <TableColumn id="ColumnRight" fx:id="orderLobbyPrice" prefWidth="148.333251953125" text="Giá sảnh" />
+                        <TableColumn id="ColumnCenter" fx:id="orderLobbySelect" maxWidth="1500.0" prefWidth="148.333251953125" text="Chọn" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -52,8 +51,8 @@
                      <columns>
                         <TableColumn fx:id="aptIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
                         <TableColumn fx:id="aptNameColumn" prefWidth="119.0" text="Tên món" />
-                        <TableColumn fx:id="aptMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="aptCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="aptMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="aptCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -63,8 +62,8 @@
                      <columns>
                         <TableColumn fx:id="mFoodIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
                         <TableColumn fx:id="mFoodNameColumn" prefWidth="119.0" text="Tên món" />
-                        <TableColumn fx:id="mFoodMoney" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="mFoodCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="mFoodMoney" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="mFoodCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -74,8 +73,8 @@
                      <columns>
                         <TableColumn fx:id="drinkIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
                         <TableColumn fx:id="drinkNameColumn" prefWidth="119.0" text="Tên món" />
-                        <TableColumn fx:id="drinkMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="drinkCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="drinkMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="drinkCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -88,8 +87,8 @@
                      <columns>
                         <TableColumn fx:id="svIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã dịch vụ" />
                         <TableColumn fx:id="svNameColumn" prefWidth="119.0" text="Tên dịch vụ" />
-                        <TableColumn fx:id="svMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="svCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="svMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="svCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -135,8 +134,8 @@
                      <columns>
                         <TableColumn fx:id="idFoodFinal" prefWidth="329.0" text="Mã món ăn" />
                         <TableColumn fx:id="nameFoodFinal" prefWidth="188.0" text="Tên món ăn" />
-                        <TableColumn fx:id="priceFoodFinal" prefWidth="120.0" text="Đơn giá" />
-                        <TableColumn fx:id="typeFoodFinal" prefWidth="120.0" text="Loại" />
+                        <TableColumn id="ColumnRight" fx:id="priceFoodFinal" prefWidth="120.0" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="typeFoodFinal" prefWidth="120.0" text="Loại" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -171,11 +170,10 @@
                      <columns>
                         <TableColumn fx:id="idLobbyFinal" prefWidth="296.0" text="Mã sảnh" />
                         <TableColumn fx:id="nameLobbyFinal" prefWidth="186.0" text="Tên sảnh" />
-                        <TableColumn fx:id="typeLobbyFinal" prefWidth="195.0" text="Loại sảnh" />
-                        <TableColumn fx:id="numberTableLobbyFinal" prefWidth="152.0" text="Số bàn" />
-                        <TableColumn fx:id="priceLobbyTableFinal" prefWidth="156.0" text="Giá bàn" />
-                        <TableColumn fx:id="priceLobbyFinal" prefWidth="137.0" text="Giá sảnh" />
-                        <TableColumn fx:id="noteFinal" prefWidth="137.0" text="Ghi chú" />
+                        <TableColumn id="ColumnCenter" fx:id="typeLobbyFinal" prefWidth="195.0" text="Loại sảnh" />
+                        <TableColumn id="ColumnCenter" fx:id="numberTableLobbyFinal" prefWidth="152.0" text="Số bàn" />
+                        <TableColumn id="ColumnRight" fx:id="priceLobbyTableFinal" prefWidth="156.0" text="Giá bàn" />
+                        <TableColumn id="ColumnRight" fx:id="priceLobbyFinal" prefWidth="137.0" text="Giá sảnh" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -200,7 +198,7 @@
                      <columns>
                         <TableColumn fx:id="idServiceFinal" prefWidth="329.0" text="Mã món ăn" />
                         <TableColumn fx:id="nameServiceFinal" prefWidth="188.0" text="Tên món ăn" />
-                        <TableColumn fx:id="priceServiceFinal" prefWidth="120.0" text="Đơn giá" />
+                        <TableColumn id="ColumnRight" fx:id="priceServiceFinal" prefWidth="120.0" text="Đơn giá" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -52,8 +52,6 @@ public class AddWeddingOrderController {
     @FXML
     private TableColumn<Lobby,String> orderLobbyPrice;
     @FXML
-    private TableColumn<Lobby,String> orderLobbyNote;
-    @FXML
     private TableColumn<Lobby,CheckBox> orderLobbySelect;
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     @FXML
@@ -120,7 +118,6 @@ public class AddWeddingOrderController {
     	orderLobbyTable.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
     	orderLobbyPriceTable.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceTable"));
     	orderLobbyPrice.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceLobby"));
-    	orderLobbyNote.setCellValueFactory(new PropertyValueFactory<Lobby,String>("note"));
     	orderLobbySelect.setCellValueFactory(new PropertyValueFactory<Lobby,CheckBox>("checkBox"));
     }
     private ObservableList<Lobby> arrLobby;
@@ -430,7 +427,6 @@ public class AddWeddingOrderController {
     	numberTableLobbyFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
     	priceLobbyTableFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
     	priceLobbyFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
-    	noteFinal.setCellValueFactory(new PropertyValueFactory<Lobby,String>("note"));
 
     	// Food
     	idFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));

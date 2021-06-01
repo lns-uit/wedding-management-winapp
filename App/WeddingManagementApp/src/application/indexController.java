@@ -400,8 +400,6 @@ public class indexController {
     private TableColumn<Lobby,String> lobbyTablePriceColumn;
     @FXML
     private TableColumn<Lobby,String> lobbyPriceColumn;
-    @FXML
-    private TableColumn<Lobby,String> lobbyNote;
     
     public void ViewLobbyColumn() throws SQLException {
     	lobbyIdColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("id"));

@@ -183,4 +183,10 @@
 #SearchIcon:hover{
 	-fx-background-color:#b83737;
 }
+#ColumnRight {
+  -fx-alignment: CENTER-RIGHT;
+}
 
+#ColumnCenter{
+  -fx-alignment: CENTER;
+}

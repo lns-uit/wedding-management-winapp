@@ -213,10 +213,10 @@
                                  <columns>
                                     <TableColumn fx:id="idOrderSummary" prefWidth="87.0" text="Mã đặt tiệc" />
                                     <TableColumn fx:id="nameOrderSummary" minWidth="0.0" prefWidth="248.0" text="Tên người đặt" />
-                                    <TableColumn fx:id="phoneOrderSummary" prefWidth="227.0" text="Số điện thoại" />
+                                    <TableColumn id="ColumnRight" fx:id="phoneOrderSummary" prefWidth="227.0" text="Số điện thoại" />
                                     <TableColumn fx:id="dateOrderSummary" prefWidth="221.0" text="Ngày đặt" />
                                     <TableColumn fx:id="dateStartSummary" prefWidth="98.0" text="Ngày diễn ra" />
-                                    <TableColumn fx:id="statusOrderSummary" prefWidth="98.0" text="Trạng thái" />
+                                    <TableColumn id="ColumnCenter" fx:id="statusOrderSummary" prefWidth="98.0" text="Trạng thái" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -232,11 +232,11 @@
                                  <columns>
                                     <TableColumn fx:id="staffIdColumn" prefWidth="102.0" text="Mã nhân viên" />
                                     <TableColumn fx:id="staffNameColumn" minWidth="0.0" prefWidth="125.0" text="Tên nhân viên" />
-                                    <TableColumn fx:id="staffPhoneColumn" prefWidth="113.0" text="Số điện thoại" />
+                                    <TableColumn id="ColumnCenter" fx:id="staffPhoneColumn" prefWidth="113.0" text="Số điện thoại" />
                                     <TableColumn fx:id="staffAdressColumn" prefWidth="124.0" text="Địa chỉ" />
-                                    <TableColumn fx:id="staffCMNDColumn" prefWidth="110.0" text="CMND" />
+                                    <TableColumn id="ColumnCenter" fx:id="staffCMNDColumn" prefWidth="110.0" text="CMND" />
                                     <TableColumn fx:id="staffStartWorkDateColumn" prefWidth="100.0" text="Ngày bắt đầu làm việc" />
-                                    <TableColumn fx:id="staffTypeColumn" prefWidth="114.0" text="Loại" />
+                                    <TableColumn id="ColumnCenter" fx:id="staffTypeColumn" prefWidth="114.0" text="Loại" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -258,9 +258,9 @@
                                  <columns>
                                     <TableColumn fx:id="cusIDColumn" prefWidth="206.0" text="Mã khách hàng" />
                                     <TableColumn fx:id="cusNameColumn" minWidth="0.0" prefWidth="196.0" text="Tên khách hàng" />
-                                    <TableColumn fx:id="cusPhoneNumberColumn" prefWidth="322.0" text="Số điện thoại" />
-                                    <TableColumn fx:id="cusMoneyColumn" prefWidth="322.0" text="Tổng tiền đặt" />
-                                    <TableColumn fx:id="cusDiscountColumn" prefWidth="322.0" text="Giảm giá" />
+                                    <TableColumn id="ColumnCenter" fx:id="cusPhoneNumberColumn" prefWidth="322.0" text="Số điện thoại" />
+                                    <TableColumn id="ColumnRight" fx:id="cusMoneyColumn" prefWidth="322.0" text="Tổng tiền đặt" />
+                                    <TableColumn id="ColumnRight" fx:id="cusDiscountColumn" prefWidth="322.0" text="Giảm giá" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -282,11 +282,10 @@
                                              <columns>
                                                 <TableColumn fx:id="lobbyIdColumn" prefWidth="173.0" text="Mã sảnh" />
                                                 <TableColumn fx:id="lobbyNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên sảnh" />
-                                                <TableColumn fx:id="lobbyTypeColumn" prefWidth="155.0" text="Kiểu sảnh" />
-                                                <TableColumn fx:id="lobbyTableColumn" prefWidth="221.0" text="Số bàn" />
-                                                <TableColumn fx:id="lobbyTablePriceColumn" prefWidth="221.0" text="Giá bàn" />
-                                                <TableColumn fx:id="lobbyPriceColumn" prefWidth="221.0" text="Giá sảnh" />
-                                                <TableColumn fx:id="lobbyNote" prefWidth="221.0" text="Ghi chú" visible="false" />
+                                                <TableColumn id="ColumnCenter" fx:id="lobbyTypeColumn" prefWidth="155.0" text="Kiểu sảnh" />
+                                                <TableColumn id="ColumnCenter" fx:id="lobbyTableColumn" prefWidth="221.0" text="Số bàn" />
+                                                <TableColumn id="ColumnRight" fx:id="lobbyTablePriceColumn" prefWidth="221.0" text="Giá bàn" />
+                                                <TableColumn id="ColumnRight" fx:id="lobbyPriceColumn" prefWidth="221.0" text="Giá sảnh" />
                                              </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -310,8 +309,8 @@
                                              <columns>
                                                 <TableColumn fx:id="foodIdColumn" prefWidth="173.0" text="Mã món ăn" />
                                                 <TableColumn fx:id="foodNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên món ăn" />
-                                                <TableColumn fx:id="foodPriceColumn" prefWidth="188.0" text="Giá món ăn" />
-                                                <TableColumn fx:id="foodTypeColumn" prefWidth="42.0" text="Loại" />
+                                                <TableColumn id="ColumnRight" fx:id="foodPriceColumn" prefWidth="188.0" text="Giá món ăn" />
+                                                <TableColumn id="ColumnCenter" fx:id="foodTypeColumn" prefWidth="42.0" text="Loại" />
                                              </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -335,7 +334,7 @@
                                              <columns>
                                                 <TableColumn fx:id="serviceIdColumn" prefWidth="173.0" text="Mã dịch vụ" />
                                                 <TableColumn fx:id="serviceNameColumn" minWidth="0.0" prefWidth="234.0" text="Tên dịch vụ" />
-                                                <TableColumn fx:id="servicePriceColumn" prefWidth="188.0" text="Giá dịch vụ" />
+                                                <TableColumn id="ColumnRight" fx:id="servicePriceColumn" prefWidth="188.0" text="Giá dịch vụ" />
                                              </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -386,7 +385,7 @@
                                     <TableColumn fx:id="billIDStaffColumn" prefWidth="360.0" text="Mã nhân viên" />
                                     <TableColumn fx:id="billIDCustomerColumn" minWidth="0.0" prefWidth="196.0" text="Mã khách hàng" />
                                     <TableColumn fx:id="billIDWeddingColumn" prefWidth="322.0" text="Mã tiệc cưới" />
-                                    <TableColumn fx:id="billMoneyColumn" prefWidth="322.0" text="Tổng tiền" />
+                                    <TableColumn id="ColumnRight" fx:id="billMoneyColumn" prefWidth="322.0" text="Tổng tiền" />
                                     <TableColumn fx:id="dateOfPayColumn" prefWidth="322.0" text="Ngày lập " />
                                  </columns>
                                  <columnResizePolicy>

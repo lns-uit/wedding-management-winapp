@@ -39,7 +39,7 @@ public class ServiceWedding {
 	}
 	public String getPrice() {
 		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(price));
+		String tmpString = formatter.format(Long.parseLong(price))+" VNĐ";
 		return tmpString;
 	}
 	public void setPrice(Number price) {

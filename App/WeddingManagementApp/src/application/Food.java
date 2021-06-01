@@ -42,7 +42,7 @@ public class Food {
 	public String getName() {return name;}
 	public String getPrice() {
 		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(price));
+		String tmpString = formatter.format(Long.parseLong(price))+" VNĐ";
 		return tmpString;
 	}
 	public String getType() {return type;}
