@@ -149,7 +149,25 @@ public class OrderWeddingModel {
 		
 		cStmt.close();
 		return arrOrderWedding;
+	}
+	
+	public static String DeleteOrderWedding (String idWedding) throws SQLException {
+		String sqlString = "begin sp_deleteInforWedding(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
 		
+		try {
+			
+			cStmt.setString(1, idWedding);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			
+			cStmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
 		
+		String message = cStmt.getString(2);
+		return message;
 	}
 }
