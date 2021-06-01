@@ -10,9 +10,9 @@
 
 <StackPane prefHeight="681.0" prefWidth="1120.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DetailOrderWeddingController">
    <children>
-      <AnchorPane prefHeight="649.0" prefWidth="1081.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="orderDetail" prefHeight="649.0" prefWidth="1081.0" style="-fx-background-color: white;">
          <children>
-            <AnchorPane fx:id="step1" prefHeight="661.0" prefWidth="1100.0">
+            <AnchorPane prefHeight="661.0" prefWidth="1100.0">
                <children>
                   <TableView fx:id="tbViewOrderLobby" layoutX="40.0" layoutY="179.0" prefHeight="48.0" prefWidth="1020.0">
                      <columns>

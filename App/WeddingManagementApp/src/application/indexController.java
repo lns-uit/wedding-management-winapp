@@ -143,6 +143,7 @@ public class indexController {
 		ViewServiceColumn();
 		ViewBillColumn();
 		ViewCustomerColumn();
+		ViewOrderSummaryColumn();
     	IndexInit(staff.getType());
     	// tìm kiếm nhân viên
     	InitSearchStaff();
@@ -173,7 +174,7 @@ public class indexController {
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN ĐẶT TIỆC");
     		currentPane = weddingOrderPanel; 
     		currentButton = btnWeddingOrderManagement;
-    
+    		ViewOrderSummanryTbView();
     	}
     	else if (event.getSource()==btnStaffManagement) { 
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN NHÂN VIÊN");
@@ -292,8 +293,21 @@ public class indexController {
     		btnBill.setDisable(true);
     	}
     }
-    /*********** ORDER LOBBY MANAGER CONTROLLER********/
-    
+    /*********** ORDER WEDDING MANAGER CONTROLLER********/
+    @FXML
+    private TableView<OrderWedding> tbViewOrderSummary;
+    @FXML
+    private TableColumn<OrderWedding,String> idOrderSummary;
+    @FXML
+    private TableColumn<OrderWedding,String> nameOrderSummary;
+    @FXML
+    private TableColumn<OrderWedding,String> phoneOrderSummary;
+    @FXML
+    private TableColumn<OrderWedding,String> dateOrderSummary;
+    @FXML
+    private TableColumn<OrderWedding,String> dateStartSummary;
+    @FXML
+    private TableColumn<OrderWedding,String> statusOrderSummary;
     @FXML 
     private Button btnAddOrderWedding;
     @FXML
@@ -320,6 +334,55 @@ public class indexController {
     public void LoadingOrderWedding(boolean x) {
     	btnAddOrderWedding.setDisable(x);
     	LoadingAddOrder.setVisible(x);
+    }
+    
+    void ViewOrderSummaryColumn() {
+    	idOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("idWedding"));
+    	nameOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("idCustomer"));
+    	phoneOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("idCustomer"));
+    	dateOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("dateOrder"));
+    	dateStartSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("dateStart"));
+    	statusOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("money"));
+    	
+    }
+    private ObservableList<OrderWedding> arrOrder;
+    void ViewOrderSummanryTbView() {
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewLobbyManager);
+    	if (tbViewOrderSummary.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+    
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	ArrayList<OrderWedding> arr = OrderWeddingModel.getAllOrderWedding();
+		    	arrOrder = FXCollections.observableArrayList(arr);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			tbViewOrderSummary.setItems(arrOrder);
+		  	transfade.stop();
+		  	tbViewOrderSummary.setOpacity(1);
+		});
+		new Thread(task).start();
+    }
+    
+    @FXML
+    void ShowDetailOrder(ActionEvent event) {
+    	HolderManager holderManager = HolderManager.getInstance();
+    	if (tbViewOrderSummary.getSelectionModel().getSelectedItem()!=null) {
+    		holderManager.setOrderWedding(tbViewOrderSummary.getSelectionModel().getSelectedItem());
+    		DetailOrderWeddingScene detailOrderWeddingScene = new DetailOrderWeddingScene();
+    		Stage stage = new Stage();
+    		detailOrderWeddingScene.start(stage);
+    	} else {
+    		holderManager.AlertNotification("", "Vui lòng chọn dòng muốn xem thông tin !", 1);
+    	}
     }
     
     /*********** LOBBY MANAGER CONTROLLER ********/

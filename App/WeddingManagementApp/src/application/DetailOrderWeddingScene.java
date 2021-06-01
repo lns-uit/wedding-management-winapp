@@ -4,7 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,7 +14,7 @@ import javafx.util.Duration;
 public class DetailOrderWeddingScene {
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("detailOrderWedding.fxml"));
+			StackPane root = (StackPane)FXMLLoader.load(getClass().getResource("detailOrderWedding.fxml"));
 			Scene scene = new Scene(root,1120,681);
 			scene.setFill(Color.TRANSPARENT);
 			primaryStage.setResizable(false);
