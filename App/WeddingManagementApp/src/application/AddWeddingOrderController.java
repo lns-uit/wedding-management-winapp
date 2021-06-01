@@ -2,14 +2,18 @@ package application;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TreeMap;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import oracle.net.aso.c;
 
 
 public class AddWeddingOrderController {
@@ -65,8 +70,31 @@ public class AddWeddingOrderController {
 		ViewServiceTbView();
 		UpdateServiceTbView();
 		ViewFinalTbViewAll();
+		NumberTableListener();
 	}
-    void InitDatePicker() {
+    private long NumberTableMax = 1000000;
+    void NumberTableListener() {
+    	numberTable.textProperty().addListener((observable, oldValue, newValue) -> {
+    		long value;
+    		try {
+				value = Long.parseLong(newValue);
+				if (NumberTableMax<value) {
+					numberTable.setText(oldValue);
+				}
+				
+			} catch (Exception e) {
+				numberTable.setText(oldValue);
+			}
+    	});
+    }
+    
+    ArrayList<OrderWedding> arrOrderFilter;
+
+    void InitDatePicker() throws SQLException {
+    	arrOrderFilter = OrderWeddingModel.getAllOrderWedding();
+    	for (OrderWedding item : arrOrderFilter) {
+    		System.out.println(item.getIdLobby()+" "+item.getDateStart().substring(0, 10));
+		}
     	Callback<DatePicker, DateCell> dayCellFactory = dp -> new DateCell()
         {
             @Override
@@ -106,7 +134,19 @@ public class AddWeddingOrderController {
                 return null;
             }
         };
+        datePkStart.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            for (int i=0; i<arrLobby.size(); i++) {
+            	tbViewOrderLobby.getItems().get(i).getCheckBox().setDisable(false);
+            	for (OrderWedding item : arrOrderFilter) {
+            		if (arrLobby.get(i).getId().equals(item.getIdLobby()) && item.getDateStart().substring(0,10).equals(datePkStart.getValue().toString())){
+            			tbViewOrderLobby.getItems().get(i).getCheckBox().setDisable(true);
+            			break;
+            		}
+        		}
+             }
+        });
 
+        System.out.println((datePkStart.getValue().toString()).equals( arrOrderFilter.get(2).getDateStart().substring(0,10)));
         datePkStart.setDayCellFactory(dayCellFactory);
         datePkStart.setConverter(converter);
         datePkStart.setPromptText("dd/MM/yyyy");
@@ -121,7 +161,7 @@ public class AddWeddingOrderController {
     	orderLobbySelect.setCellValueFactory(new PropertyValueFactory<Lobby,CheckBox>("checkBox"));
     }
     private ObservableList<Lobby> arrLobby;
-    
+
     public void ViewLobbyTbView() throws SQLException {    	
     	arrLobby = FXCollections.observableArrayList(
     			LobbyModel.getAllLobby()
@@ -133,6 +173,8 @@ public class AddWeddingOrderController {
 	       	  		    	  for (Lobby item : arrLobby) {
 	       	  		        	  if (item==lobby) {
 	       	  		        		  item.getCheckBox().setSelected(true); 
+	       	  		        		  NumberTableMax = item.getTableNumber().longValue();
+	       	  		        		  numberTable.setText(item.getTableNumber().toString());
 	       	  		        	  }
 	       	  		        	  else {
 	       	  		        		  item.getCheckBox().setSelected(false);
@@ -307,14 +349,11 @@ public class AddWeddingOrderController {
     	} else
     	if (event.getSource()==btnCommit2) {
     		GetStep2();
-    		currentPane.setVisible(false);
-			currentPane = step3;
-			currentPane.setVisible(true);
-			UpdateFinalTbView();
+    
 		
     	} else
     	if (event.getSource()==btnCommit3) {
-    		if (nameCustomer.getText().isEmpty() || phoneNumberCus.getText().isEmpty() || nameGroom.getText().isEmpty() ||nameBride.getText().isEmpty() || depositTF.getText().isEmpty()){
+    		if (nameCustomer.getText().isEmpty() || phoneNumberCus.getText().isEmpty() || nameGroom.getText().isEmpty() ||nameBride.getText().isEmpty()){
     			holderManager.AlertNotification(" ", "Vui lòng nhập đầy đủ thông tin", 1);
     		} else {
     			CommitFinal();
@@ -332,10 +371,10 @@ public class AddWeddingOrderController {
     	} else 
     	if (event.getSource()==btnCommitFinal) {
     		
-    		holderManager.AlertNotification("payOrderWedding","Xác nhận thanh toán ?", 0);
+    		holderManager.AlertNotification("payOrderWedding","Xác nhận thanh toán tiền cọc ?", 0);
     	} else 
     	if (event.getSource()==btnExitOrder){
-			holderManager.AlertNotification("exitOrderWedding", "Xác nhận hủy đặt tiệc ?", 0);
+			holderManager.AlertNotification("exitOrderWedding", "Xác nhận hủy đặt tiệc này ?", 0);
 		}
     	
     }
@@ -371,6 +410,20 @@ public class AddWeddingOrderController {
     		if (sv.getCheckBox().isSelected()) arrServices.add(sv);
 			
 		}
+    	HolderManager holderManager = HolderManager.getInstance();
+		
+    	if (arrFoods.size()==0) {
+    		holderManager.AlertNotification(" ", "Vui lòng chọn ít nhất 1 món ăn ", 1);
+    	} else if (arrServices.size()==0) {
+    		holderManager.AlertNotification(" ", "Vui lòng chọn ít nhất 1 dịch vụ ", 1);
+    	}
+    	else {
+    		currentPane.setVisible(false);
+    		currentPane = step3;
+    		currentPane.setVisible(true);
+    		UpdateFinalTbView();
+    	}
+    	
     }
     /************ Summary TableView ***********/
     @FXML
@@ -497,8 +550,6 @@ public class AddWeddingOrderController {
 			currentOrderService.add(new OrderServiceWedding(sv.getId(),currentOrderWedding.getIdWedding()));
 		}
 		
-		// Dữ liệu commit gồm 3 arrayList: currentOrderWedding ( Kiểu OrderWedding ) - currentOrderFood ( kiểu OrderFood)  - currentOrderService ( Kiểu OrderServiceWedding ) 
-		// nameCustomer; phoneNumberCus; nameGroom; nameBride; Kiểu textField
 	
 		try {
 			//String statusOrder = "true";
@@ -537,7 +588,6 @@ public class AddWeddingOrderController {
 				});
 				
 				try {
-					
 					OrderWedding resultOrder = OrderWeddingModel.callOrderWedding(
 							idInfoWedding, 
 							nameCustomer.getText(),
@@ -550,11 +600,11 @@ public class AddWeddingOrderController {
 					);
 					
 					DecimalFormat formatter = new DecimalFormat("###,###,###");
-					moneySum.setText ("Tổng tiền:"+ formatter.format(resultOrder.getMoney())+ " VNĐ");
-					deposit.setText  ("Tiền cọc :"+ formatter.format(resultOrder.getDeposit())+ " VNĐ");
-					moneyRest.setText("Còn lại :"+ formatter.format(Long.parseLong(resultOrder.getMoney().toString())-Long.parseLong(resultOrder.getDeposit().toString()))+ " VNĐ");
-					currentPane.setVisible(false);
-					
+					moneySum.setText ("Tổng tiền: "+ formatter.format(resultOrder.getMoney())+ " VNĐ");
+					deposit.setText  ("Tiền cọc: "+ formatter.format(resultOrder.getDeposit())+ " VNĐ");
+					moneyRest.setText("Còn lại: "+ formatter.format(Long.parseLong(resultOrder.getMoney().toString())-Long.parseLong(resultOrder.getDeposit().toString()))+ " VNĐ");
+					holderManager.setStageNeedClose((Stage)step1.getScene().getWindow());
+					holderManager.setIdWeddingCommitPayment(idInfoWedding);
 					currentPane = step4;
 					currentPane.setVisible(true);
 				} catch (Exception e3) {

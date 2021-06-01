@@ -130,7 +130,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="foodFinal" layoutX="38.0" layoutY="302.0" prefHeight="249.0" prefWidth="573.0">
+                  <TableView fx:id="foodFinal" layoutX="38.0" layoutY="302.0" prefHeight="257.0" prefWidth="573.0">
                      <columns>
                         <TableColumn fx:id="idFoodFinal" prefWidth="329.0" text="Mã món ăn" />
                         <TableColumn fx:id="nameFoodFinal" prefWidth="188.0" text="Tên món ăn" />
@@ -141,29 +141,9 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Label layoutX="42.0" layoutY="276.0" text="Danh sách thực đơn">
+                  <Label layoutX="42.0" layoutY="279.0" text="Danh sách thực đơn">
                      <font>
                         <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="moneySumLb" layoutX="46.0" layoutY="568.0" text="Tổng tiền: 1.000.000 VNĐ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="depositTF" layoutX="448.0" layoutY="562.0" prefHeight="39.0" prefWidth="331.0" promptText="Tiền Cọc">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="moneyRestLb" layoutX="860.0" layoutY="568.0" text="Còn lại: 1.000.000 VNĐ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="361.0" layoutY="569.0" text="Tiền cọc:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                   <TableView fx:id="lobbyFinal" layoutX="38.0" layoutY="219.0" prefHeight="56.0" prefWidth="1020.0">
@@ -194,7 +174,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="serviceFinal" layoutX="643.0" layoutY="302.0" prefHeight="249.0" prefWidth="412.0">
+                  <TableView fx:id="serviceFinal" layoutX="643.0" layoutY="302.0" prefHeight="257.0" prefWidth="412.0">
                      <columns>
                         <TableColumn fx:id="idServiceFinal" prefWidth="329.0" text="Mã món ăn" />
                         <TableColumn fx:id="nameServiceFinal" prefWidth="188.0" text="Tên món ăn" />
@@ -204,7 +184,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Label layoutX="652.0" layoutY="276.0" text="Dịch vụ">
+                  <Label layoutX="652.0" layoutY="279.0" text="Dịch vụ">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -221,35 +201,29 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="step4" layoutY="5.0" prefHeight="661.0" prefWidth="1100.0" visible="false">
+            <AnchorPane fx:id="step4" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="1100.0" style="-fx-background-color: rgba(0,0,0,0.5);" visible="false">
                <children>
-                  <Label fx:id="moneySum" layoutX="431.0" layoutY="216.0" text="Tổng tiền: 1.000.000 VNĐ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="moneyRest" layoutX="431.0" layoutY="293.0" text="Còn lại: 1.000.000 VNĐ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="deposit" layoutX="431.0" layoutY="254.0" text="Tiền cọc: 10000000">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="836.0" layoutY="20.0" text="Mã đặt tiệc: ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="943.0" layoutY="20.0" prefHeight="27.0" prefWidth="121.0" text="12321323" textAlignment="RIGHT">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="btnCommitFinal" layoutX="768.0" layoutY="574.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="39.0" prefWidth="174.0" text="Xác nhận thanh toán" />
-                  <Button id="btnNO" fx:id="btnExitOrder" layoutX="257.0" layoutY="574.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="39.0" prefWidth="174.0" text="Hủy đặt tiệc" />
+                  <AnchorPane layoutY="524.0" prefHeight="89.0" prefWidth="1100.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="moneySum" layoutX="34.0" layoutY="17.0" text="Tổng tiền: 1.000.000 VNĐ" textFill="#2c2c2c">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="moneyRest" layoutX="350.0" layoutY="51.0" text="Còn lại: 1.000.000 VNĐ" textFill="#2c2c2c">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="deposit" layoutX="34.0" layoutY="51.0" text="Tiền cọc: 10000000" textFill="#2c2c2c">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button id="btnNO" fx:id="btnExitOrder" layoutX="765.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="145.0" text="Hủy đặt tiệc" />
+                        <Button fx:id="btnCommitFinal" layoutX="926.0" layoutY="40.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="154.0" text="Xác nhận đặt cọc" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="48.0" prefWidth="1100.0" style="-fx-background-color: #b83737;">

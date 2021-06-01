@@ -338,11 +338,11 @@ public class indexController {
     
     void ViewOrderSummaryColumn() {
     	idOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("idWedding"));
-    	nameOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("idCustomer"));
-    	phoneOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("idCustomer"));
+    	nameOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("nameCus"));
+    	phoneOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("phoneCus"));
     	dateOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("dateOrder"));
     	dateStartSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("dateStart"));
-    	statusOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("money"));
+    	statusOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("statusPay"));
     	
     }
     private ObservableList<OrderWedding> arrOrder;

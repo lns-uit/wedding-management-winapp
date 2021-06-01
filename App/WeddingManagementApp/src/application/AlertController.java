@@ -107,10 +107,14 @@ public class AlertController {
     		}
     	} else 
     	if (holderManager.getAction()=="payOrderWedding") {
-    		
+    		holderManager.getStageNeedClose().close();
+    		holderManager.getIndexController().ViewOrderSummanryTbView();
+    		closeScene();
     	} else 
     	if (holderManager.getAction()=="exitOrderWedding") {
-    		
+    		OrderWeddingModel.DeleteOrderWedding(holderManager.getIdWeddingCommitPayment());
+    		holderManager.getStageNeedClose().close();
+    		closeScene();
     	}
     
     }

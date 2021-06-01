@@ -213,7 +213,7 @@
                                  <columns>
                                     <TableColumn fx:id="idOrderSummary" prefWidth="87.0" text="Mã đặt tiệc" />
                                     <TableColumn fx:id="nameOrderSummary" minWidth="0.0" prefWidth="248.0" text="Tên người đặt" />
-                                    <TableColumn id="ColumnRight" fx:id="phoneOrderSummary" prefWidth="227.0" text="Số điện thoại" />
+                                    <TableColumn id="ColumnCenter" fx:id="phoneOrderSummary" prefWidth="227.0" text="Số điện thoại" />
                                     <TableColumn fx:id="dateOrderSummary" prefWidth="221.0" text="Ngày đặt" />
                                     <TableColumn fx:id="dateStartSummary" prefWidth="98.0" text="Ngày diễn ra" />
                                     <TableColumn id="ColumnCenter" fx:id="statusOrderSummary" prefWidth="98.0" text="Trạng thái" />

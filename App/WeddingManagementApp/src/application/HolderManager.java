@@ -1,7 +1,9 @@
 package application;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public final class HolderManager {
@@ -93,5 +95,60 @@ public final class HolderManager {
   		Stage stage = new Stage();
   		alertScene.start(stage);
   	}
-
+    
+    // Detail order Wedding
+    
+    private OrderWedding detailOrderWedding;
+    private ArrayList<Food> arrFoodOrder;
+    private ArrayList<ServiceWedding> arrSerivceOrder;
+    private InfoWedding infoOrder;
+    private Customer cusOrder;
+    
+    public void setDetailOrderWedding (OrderWedding newVar) {
+    	this.detailOrderWedding = newVar;
+    }
+    public void setArrFoodOrder (ArrayList<Food> newArr) {
+    	this.arrFoodOrder = newArr;
+    }
+    public void setArrServiceOrder( ArrayList<ServiceWedding> newArr) {
+		this.arrSerivceOrder = newArr;
+	}
+    public void setInfoOrder (InfoWedding newVar) {
+    	this.infoOrder = newVar;
+    }
+    public void setCusOrder (Customer newVar) {
+    	this.cusOrder = newVar;
+    }
+    public OrderWedding getDetailOrderWedding () {
+    	return this.detailOrderWedding;
+    }
+    public ArrayList<Food> getArrFoodOrder () {
+    	return this.arrFoodOrder;
+    }
+    public ArrayList<ServiceWedding> getArrServiceOrder () {
+    	return this.arrSerivceOrder;
+    }
+    public InfoWedding getInfoOrder () {
+    	return this.infoOrder;
+    }
+    
+    public Customer getCusOrder() {
+    	return this.cusOrder;
+    }
+    
+    private Stage stageNeedClose;
+	public Stage getStageNeedClose() {
+		return stageNeedClose;
+	}
+	public void setStageNeedClose(Stage stageNeedClose) {
+		this.stageNeedClose = stageNeedClose;
+	}
+    private String idWeddingCommitPayment;
+	public String getIdWeddingCommitPayment() {
+		return idWeddingCommitPayment;
+	}
+	public void setIdWeddingCommitPayment(String idWeddingCommitPayment) {
+		this.idWeddingCommitPayment = idWeddingCommitPayment;
+	}
+    
 }
