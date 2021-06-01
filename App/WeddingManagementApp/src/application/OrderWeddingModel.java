@@ -1,7 +1,9 @@
 package application;
 import java.sql.CallableStatement;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import oracle.jdbc.internal.OracleTypes;
 
@@ -108,5 +110,46 @@ public class OrderWeddingModel {
 		
 		cStmt.close();
 		return null;
+	}
+	
+	public static ArrayList<OrderWedding> getAllOrderWedding() throws SQLException {
+		String sqlString = "begin sp_getAllOrderWed(?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		ArrayList<OrderWedding> arrOrderWedding = new ArrayList<OrderWedding>();
+		
+		try {
+			
+			cStmt.registerOutParameter(1, OracleTypes.CURSOR);
+			cStmt.executeUpdate();
+			
+			ResultSet rs = (ResultSet) cStmt.getObject(1);
+			
+			while (rs.next()) {
+				String idWedding = rs.getString(2);
+				String idLobby = rs.getString(3);
+				String idStaff = rs.getString(4);
+				String idCustomer = rs.getString(5);
+				int numberFood = rs.getInt(6);
+				int numberService = rs.getInt(7);
+				long deposit = rs.getLong(8);
+				long money = rs.getLong(9);
+				int numberTable = rs.getInt(10);
+				String dateOrder = rs.getString(11);
+				String dateStart = rs.getString(12);
+				
+				OrderWedding a = new OrderWedding(idWedding, idLobby, idStaff, idCustomer, numberFood, numberService, deposit, money, numberTable, dateOrder, dateStart);
+				arrOrderWedding.add(a);
+ 			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
+		cStmt.close();
+		return arrOrderWedding;
+		
+		
 	}
 }

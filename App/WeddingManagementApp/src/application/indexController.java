@@ -147,6 +147,9 @@ public class indexController {
     	// tìm kiếm nhân viên
     	InitSearchStaff();
     	
+    	//Call all order wedding để render view table
+    	ArrayList<OrderWedding> getAllOrderWedding = OrderWeddingModel.getAllOrderWedding();
+    	
     	
     	if (currentPane==null) currentPane = infoPersonalPanel;
     	if (currentButton==null) currentButton = btnInfoPersonal;
