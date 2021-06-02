@@ -103,6 +103,7 @@ public final class HolderManager {
     private ArrayList<ServiceWedding> arrSerivceOrder;
     private InfoWedding infoOrder;
     private Customer cusOrder;
+    private Lobby lobbyOrder;
     
     public void setDetailOrderWedding (OrderWedding newVar) {
     	this.detailOrderWedding = newVar;
@@ -119,6 +120,9 @@ public final class HolderManager {
     public void setCusOrder (Customer newVar) {
     	this.cusOrder = newVar;
     }
+    public void setLobbyOrder (Lobby newVar) {
+    	this.lobbyOrder = newVar;
+    }
     public OrderWedding getDetailOrderWedding () {
     	return this.detailOrderWedding;
     }
@@ -131,9 +135,11 @@ public final class HolderManager {
     public InfoWedding getInfoOrder () {
     	return this.infoOrder;
     }
-    
     public Customer getCusOrder() {
     	return this.cusOrder;
+    }
+    public Lobby getLobbyOrder() {
+    	return this.lobbyOrder;
     }
     
     private Stage stageNeedClose;

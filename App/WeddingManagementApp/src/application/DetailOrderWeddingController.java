@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import oracle.net.aso.f;
 
 public class DetailOrderWeddingController {
 	@FXML
@@ -70,6 +72,8 @@ public class DetailOrderWeddingController {
     private TableColumn<ServiceWedding,String> nameServiceFinal;
     @FXML
     private TableColumn<ServiceWedding,String> priceServiceFinal;
+    @FXML
+    private Button btnPay;
 
     ArrayList<Food> arrFoodOrder;
 	ArrayList<ServiceWedding> arrServiceOrder;
@@ -101,8 +105,9 @@ public class DetailOrderWeddingController {
 		
 		long a = detailOrderWedding.getMoney().longValue(); 
 		long b = detailOrderWedding.getDeposit().longValue();
-		
-	
+		if (a-b==0) {
+			btnPay.setVisible(false);
+		}
 		
 		remain.setText("Số tiền còn lại phải trả: "+ formatter.format(a-b)+ " VNĐ");
 		//nameCus

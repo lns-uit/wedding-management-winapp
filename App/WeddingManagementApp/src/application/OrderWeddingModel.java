@@ -179,7 +179,7 @@ public class OrderWeddingModel {
 	}
 	
 	public static void getDetailWedding (String idWedding) throws SQLException {
-		String sqlString = "begin sp_getOrderWeddingById(?,?,?,?,?,?); end;" ;
+		String sqlString = "begin sp_getOrderWeddingById(?,?,?,?,?,?,?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
 		
 		ArrayList<Food> arrFoodOrder = new ArrayList<Food>();
@@ -194,6 +194,7 @@ public class OrderWeddingModel {
 			cStmt.registerOutParameter(4, OracleTypes.CURSOR);
 			cStmt.registerOutParameter(5, OracleTypes.CURSOR);
 			cStmt.registerOutParameter(6, OracleTypes.CURSOR);
+			cStmt.registerOutParameter(7, OracleTypes.CURSOR);
 			
 			cStmt.executeUpdate();
 
@@ -202,6 +203,7 @@ public class OrderWeddingModel {
 			ResultSet rs4 = (ResultSet) cStmt.getObject(4);
 			ResultSet rs5 = (ResultSet) cStmt.getObject(5);
 			ResultSet rs6 = (ResultSet) cStmt.getObject(6);
+			ResultSet rs7 = (ResultSet) cStmt.getObject(7);
 			
 			while (rs2.next()) {
 				String idWeddingOrder = rs2.getString(2);
@@ -261,6 +263,20 @@ public class OrderWeddingModel {
 				
 				Customer a = new Customer(idCus, nameCus, numberPhoneCus, money, discount);
 				holderManager.setCusOrder(a);
+			}
+			
+			while (rs7.next()) {
+				String idLobby = rs7.getString(1);
+				String nameLobby = rs7.getString(2);
+				String typeLobby = rs7.getString(3);
+				int maxTableLobby = rs7.getInt(4);
+				long priceTable = rs7.getLong(5);
+				long priceLobby = rs7.getLong(6);
+				
+				System.out.println("get details Lobby "+ idLobby+ " "+ nameLobby);
+				
+				Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTableLobby, priceTable, priceLobby, "");
+				holderManager.setLobbyOrder(a);
 			}
 			
 		} catch (Exception e) {

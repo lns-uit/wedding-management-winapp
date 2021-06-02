@@ -151,13 +151,14 @@ public class indexController {
     	//Call all order wedding để render view table
     	ArrayList<OrderWedding> getAllOrderWedding = OrderWeddingModel.getAllOrderWedding();
     	
-    	
     	if (currentPane==null) currentPane = infoPersonalPanel;
     	if (currentButton==null) currentButton = btnInfoPersonal;
     	currentButton.setStyle("-fx-background-color: #cf4848");
     	currentPane.setVisible(true);
     	
+    	//Call all bill để render viewTalbe
     	
+    	ArrayList<Bill> getAllBill  = BillModel.getAllBill();
     	
 	}
     private boolean isFist = false;

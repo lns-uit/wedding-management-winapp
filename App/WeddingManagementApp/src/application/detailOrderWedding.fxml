@@ -86,7 +86,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="942.0" layoutY="605.0" mnemonicParsing="false" onAction="#OnPressPay" prefHeight="34.0" prefWidth="118.0" text="Thanh toán" />
+                  <Button fx:id="btnPay" layoutX="942.0" layoutY="605.0" mnemonicParsing="false" onAction="#OnPressPay" prefHeight="34.0" prefWidth="118.0" text="Thanh toán" />
                   <Label fx:id="nameCus" layoutX="761.0" layoutY="83.0" text="Người đặt:">
                      <font>
                         <Font size="14.0" />

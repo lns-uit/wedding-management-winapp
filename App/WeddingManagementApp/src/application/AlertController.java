@@ -118,9 +118,23 @@ public class AlertController {
     	} else {
 			if (holderManager.getAction()=="payAndBill") {
 				// Hàm Call Update Deposit vs Lập Bill chỗ này
-			
-				holderManager.getStageNeedClose().close();
-				closeScene();
+				try {
+					String idCus = holderManager.getCusOrder().getId();
+					String idStaff = StaffHolder.getInstance().getStaff().getId();
+					String idWedding = holderManager.getDetailOrderWedding().getIdWedding();
+					String message = BillModel.createBill(idStaff, idCus, idWedding);
+					if (message.equals("true")) {
+						holderManager.getStageNeedClose().close();
+						closeScene();		
+					} else {
+						AlertNotification("Thanh toán thất bại !");
+					}
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+					System.out.println(e2.getMessage());
+					AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+				}
 			}
 		}
     
