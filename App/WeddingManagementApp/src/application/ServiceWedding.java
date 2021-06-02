@@ -9,8 +9,9 @@ public class ServiceWedding {
 		super();
 		this.id = id;
 		this.name = name;
-		this.price = price.toString();
+		this.price = price;
 		this.checkBox = new CheckBox();
+		setPriceShow(price);
 	}
 	public ServiceWedding() {
 		
@@ -23,7 +24,7 @@ public class ServiceWedding {
 	}
 	private String id;
 	private String name;
-	private String price;
+	private Number price;
 	private CheckBox checkBox;
 	public String getId() {
 		return id;
@@ -37,13 +38,20 @@ public class ServiceWedding {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPrice() {
-		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(price))+" VNĐ";
-		return tmpString;
+	public Number getPrice() {
+		return price;
 	}
 	public void setPrice(Number price) {
-		this.price = price.toString();
+		this.price = price;
 	}
-	
+	private String priceShow;
+	public String getPriceShow() {
+		return priceShow;
+	}
+
+	public void setPriceShow(Number priceShow) {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format((priceShow).longValue())+" VNĐ";
+		this.priceShow = tmpString;
+	}
 }

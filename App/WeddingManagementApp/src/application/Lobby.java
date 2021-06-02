@@ -12,22 +12,45 @@ public class Lobby {
 		this.name = name;
 		this.type = type;
 		this.tableNumber = tableNumber;
-		this.priceTable = priceTable.toString();
-		this.priceLobby = priceLobby.toString();
+		this.priceTable = priceTable;
+		this.priceLobby = priceLobby;
 		this.note = note;
 		this.checkBox = new CheckBox();
-		
+		setPriceShowTable(priceTable);
+		setPriceShowLobby(priceLobby);
 	}
 	private String id;
 	private String name;
 	private String type;
 	private Number tableNumber;
-	private String priceTable;
-	private String priceLobby;
+	private Number priceTable;
+	private Number priceLobby;
 	private String note;
 	private CheckBox checkBox; 
 	public Lobby() {}
+	private String priceShowTable;
+	public String getPriceShowTable() {
+		return priceShowTable;
+	}
+
+	public void setPriceShowTable(Number priceShow) {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format((priceShow).longValue())+" VNĐ";
+		this.priceShowTable = tmpString;
+	}
 	
+	private String priceShowLobby;
+	public String getPriceShowLobby() {
+		return priceShowLobby;
+	}
+
+	public void setPriceShowLobby(Number priceShow) {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format((priceShow).longValue())+" VNĐ";
+		this.priceShowLobby = tmpString;
+	}
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -41,10 +64,10 @@ public class Lobby {
 		this.tableNumber = tableNumber;
 	}
 	public void setPriceTable(Number priceTable) {
-		this.priceTable = priceTable.toString();
+		this.priceTable = priceTable;
 	}
 	public void setPriceLobby(Number priceLobby) {
-		this.priceLobby = priceLobby.toString();
+		this.priceLobby = priceLobby;
 	}
 	public void setNote(String note) {
 		this.note = note;
@@ -58,15 +81,11 @@ public class Lobby {
 	public String getName() {return name;}
 	public String getType() {return type;}
 	public Number getTableNumber() {return tableNumber;}
-	public String getPriceTable() {
-		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(priceTable))+" VNĐ";
-		return tmpString;
+	public Number getPriceTable() {
+		return priceTable;
 	}
-	public String getPriceLobby() {
-		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(priceLobby))+" VNĐ";
-		return tmpString;
+	public Number getPriceLobby() {
+		return priceLobby;
 	}
 	public String getNote() {return note;}
 	public CheckBox getCheckBox() {return checkBox;}

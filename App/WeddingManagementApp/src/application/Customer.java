@@ -1,11 +1,13 @@
 package application;
 
+import java.text.DecimalFormat;
+
 public class Customer {
 	private String id;
 	private String name;
 	private String phone;
-	private Number money;
-	private Number discount;
+	private String money;
+	private String discount;
 	public String getId() {
 		return id;
 	}
@@ -24,25 +26,30 @@ public class Customer {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Number getMoney() {
-		return money;
+	public String getMoney() {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format(Long.parseLong(money))+" VNĐ";
+		return tmpString;
 	}
 	public void setMoney(Number money) {
-		this.money = money;
+		this.money = money.toString();
+		
 	}
-	public Number getDiscount() {
-		return discount;
+	public String getDiscount() {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format(Long.parseLong(discount))+" %";
+		return tmpString;
 	}
 	public void setDiscount(Number discount) {
-		this.discount = discount;
+		this.discount = discount.toString();
 	}
 	public Customer(String id, String name, String phone, Number money, Number discount) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
-		this.money = money;
-		this.discount = discount;
+		this.money = money.toString();
+		this.discount = discount.toString();
 	}
 	public Customer() {};
 	

@@ -53,7 +53,13 @@ public class AlertController {
     			AlertNotification("Xóa nhân viên thành công !");
     			closeScene();
     		} else {
-    			AlertNotification("Xóa nhân viên thất bại, Vui lòng thử lại sau !");
+    			if (messageDelete.equals("false")) {
+    				AlertNotification("Nhân viên không tồn tại !");
+    			} else {
+    				AlertNotification("Xóa nhân viên thất bại, Vui lòng thử lại sau !");
+    			}
+
+    			closeScene();
     		}
     	} else 
     	if (holderManager.getAction()=="resetPassword") {
@@ -64,7 +70,12 @@ public class AlertController {
     				AlertNotification("Đặt lại mật khẩu thành công !");
     				closeScene();
     			} else {
-    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    				if (messageReset.equals("false")) {
+        				AlertNotification("Nhân viên không tồn tại !");
+        			} else {
+        				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+        			}
+    				closeScene();
     			}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -81,7 +92,12 @@ public class AlertController {
     			AlertNotification("Xóa dịch vụ thành công");
     			closeScene();
     		} else {
-    			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại");
+    			if (messageDelete.equals("false")) {
+    				AlertNotification("Dịch vụ không tồn tại !");
+    			} else {
+    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    			}
+    			closeScene();
     		}
     	} else 
     	if (holderManager.getAction()=="deleteFood") {
@@ -92,7 +108,12 @@ public class AlertController {
     			AlertNotification("Xóa món ăn thành công !");
     			closeScene();
     		}else {
-    			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại !");
+    			if (messageDelete.equals("false")) {
+    				AlertNotification("Món ăn không tồn tại !");
+    			} else {
+    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    			}
+    			closeScene();
     		}
     	}else 
     	if (holderManager.getAction()=="deleteLobby") {
@@ -103,7 +124,12 @@ public class AlertController {
     			AlertNotification("Xóa sảnh thành công !");
     			closeScene();
     		}else {
-    			AlertNotification("Xóa dịch vụ thất bại, Vui lòng thử lại !");
+    			if (messageDelete.equals("false")) {
+    				AlertNotification("Sảnh không tồn tại !");
+    			} else {
+    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    			}
+    			closeScene();
     		}
     	} else 
     	if (holderManager.getAction()=="payOrderWedding") {
@@ -126,6 +152,8 @@ public class AlertController {
 					if (message.equals("true")) {
 						holderManager.getStageNeedClose().close();
 						closeScene();		
+						AlertNotification("Thanh toán thành công !");
+						holderManager.getIndexController().ViewOrderSummanryTbView();
 					} else {
 						AlertNotification("Thanh toán thất bại !");
 					}
@@ -134,6 +162,7 @@ public class AlertController {
 					// TODO: handle exception
 					System.out.println(e2.getMessage());
 					AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+					closeScene();
 				}
 			}
 		}

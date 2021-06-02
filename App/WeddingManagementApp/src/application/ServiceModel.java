@@ -48,7 +48,8 @@ public class ServiceModel {
 			
 			cStmt.execute();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		
 		String message = cStmt.getString(3);
@@ -69,7 +70,8 @@ public class ServiceModel {
 			
 			cStmt.execute();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		
 		String result = cStmt.getString(4);
@@ -87,7 +89,8 @@ public class ServiceModel {
 			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
 			cStmt.execute();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		String result = cStmt.getString(2);
 		cStmt.close();

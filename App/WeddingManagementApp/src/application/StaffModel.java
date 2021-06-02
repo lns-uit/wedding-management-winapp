@@ -67,6 +67,8 @@ public class StaffModel {
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		String resultString = cStmt.getString(2);
 		System.out.print(resultString);
@@ -94,6 +96,8 @@ public class StaffModel {
 			cStmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		
 		String message = cStmt.getString(6);
@@ -115,6 +119,8 @@ public class StaffModel {
 			cStmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		String result = cStmt.getString(5);
 		cStmt.close();
@@ -131,6 +137,8 @@ public class StaffModel {
 			cStmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		String result = cStmt.getString(2);
 		cStmt.close();

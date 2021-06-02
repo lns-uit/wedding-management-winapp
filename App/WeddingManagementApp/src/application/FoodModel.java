@@ -53,7 +53,9 @@ public class FoodModel {
 			cStmt.execute();
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage().toString());
+			cStmt.close();
+			return "error";
 		}
 		
 		String resultString = cStmt.getString(2);
@@ -75,6 +77,8 @@ public class FoodModel {
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		
 		String resultString = cStmt.getString(4);
@@ -97,6 +101,8 @@ public class FoodModel {
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		
 		String resultString = cStmt.getString(5);

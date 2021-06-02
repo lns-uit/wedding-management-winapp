@@ -140,7 +140,6 @@ public class OrderWeddingModel {
 			
 				String cusName = rs.getString(13);
 				String cusPhoneNumber = rs.getString(14);
-				System.out.println(cusName + " " +cusPhoneNumber);
 				
 				OrderWedding a = new OrderWedding(idWedding, idLobby, idStaff, idCustomer, numberFood, numberService, deposit, money, numberTable, dateOrder, dateStart);
 				a.setNameCus(cusName);
@@ -272,8 +271,6 @@ public class OrderWeddingModel {
 				int maxTableLobby = rs7.getInt(4);
 				long priceTable = rs7.getLong(5);
 				long priceLobby = rs7.getLong(6);
-				
-				System.out.println("get details Lobby "+ idLobby+ " "+ nameLobby);
 				
 				Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTableLobby, priceTable, priceLobby, "");
 				holderManager.setLobbyOrder(a);

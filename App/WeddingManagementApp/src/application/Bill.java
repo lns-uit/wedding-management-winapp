@@ -1,5 +1,7 @@
 package application;
 
+import java.text.DecimalFormat;
+
 public class Bill {
 	public String getIdBill() {
 		return idBill;
@@ -25,11 +27,13 @@ public class Bill {
 	public void setIdWedding(String idWedding) {
 		this.idWedding = idWedding;
 	}
-	public Number getMoney() {
-		return money;
+	public String getMoney() {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format(Long.parseLong(money))+" VNĐ";
+		return tmpString;
 	}
 	public void setMoney(Number money) {
-		this.money = money;
+		this.money = money.toString();
 	}
 	public String getDateOfPay() {
 		return dateOfPay;
@@ -41,7 +45,7 @@ public class Bill {
 	private String idStaff;
 	private String idCustomer;
 	private String idWedding;
-	private Number money;
+	private String money;
 	private String dateOfPay;
 	public Bill(String idBill, String idStaff, String idCustomer, String idWedding, Number money, String dateOfPay) {
 		super();
@@ -49,7 +53,7 @@ public class Bill {
 		this.idStaff = idStaff;
 		this.idCustomer = idCustomer;
 		this.idWedding = idWedding;
-		this.money = money;
+		this.money = money.toString();
 		this.dateOfPay = dateOfPay;
 	}
 	

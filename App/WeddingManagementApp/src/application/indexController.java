@@ -156,9 +156,7 @@ public class indexController {
     	currentButton.setStyle("-fx-background-color: #cf4848");
     	currentPane.setVisible(true);
     	
-    	//Call all bill để render viewTalbe
-    	
-    	ArrayList<Bill> getAllBill  = BillModel.getAllBill();
+
     	
 	}
     private boolean isFist = false;
@@ -175,12 +173,14 @@ public class indexController {
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN ĐẶT TIỆC");
     		currentPane = weddingOrderPanel; 
     		currentButton = btnWeddingOrderManagement;
+    		tfSearchOrderWedding.setText("");
     		ViewOrderSummanryTbView();
     	}
     	else if (event.getSource()==btnStaffManagement) { 
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN NHÂN VIÊN");
     		currentPane = staffManagerPanel; 
     		currentButton = btnStaffManagement;
+    		tfSearchStaff.setText("");
     		updateStaffTView();
     		
     	}
@@ -188,12 +188,15 @@ public class indexController {
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN TIỆC CƯỚI");
     		currentPane = weddingOrderInfoPanel; 
     		currentButton = btnWeddingInfoManagement;
+    		tfSearchLobby.setText("");
+    		tfSearchFood.setText("");
+    		tfSearchService.setText("");
     		ViewLobbyTbView();
     		ViewFoodTbView();
     		ViewServiceTbView();
     	}
     	else if (event.getSource()==btnReport) { 
-    		LbNameIndex.setText("BÁO CÁO");
+    		LbNameIndex.setText("THỐNG KÊ - BÁO CÁO");
     		currentPane = reportPanel; currentButton = btnReport;
     		ReportChartShow();    		
     		ReportTbViewShow();
@@ -207,11 +210,13 @@ public class indexController {
     		LbNameIndex.setText("QUẢN LÝ HÓA ĐƠN");
     		currentPane = billPanel;
     		currentButton = btnBill;
+    		ViewBillTbView() ;
     	} 
     	else if (event.getSource()==btnCustomerManagement) {
     		LbNameIndex.setText("QUẢN LÝ THÔNG TIN KHÁCH HÀNG");
     		currentPane = customerPanel;
     		currentButton = btnCustomerManagement;
+    		tfSearchCustomer.setText("");
     
     	}
     	currentButton.setStyle("-fx-background-color:#cf4848");
@@ -344,10 +349,25 @@ public class indexController {
     	dateOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("dateOrder"));
     	dateStartSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("dateStart"));
     	statusOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("statusPay"));
-    	
+    	InitSearchOrderWedding();
+    	btnDetailOrder.setDisable(true);
+    	tbViewOrderSummary.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+    		btnDetailOrder.setDisable(false);
+    	    if (newSelection.getStatusPay().equals("Đã thanh toán")) {
+    	    	btnDetailOrder.setDisable(true);
+    	    	//tbViewOrderSummary.getSelectionModel().clearSelection();
+    	    } else {
+    	    	btnDetailOrder.setDisable(false);
+    	    }
+    	});
+
     }
+    @FXML
+    private Button btnDetailOrder;
     private ObservableList<OrderWedding> arrOrder;
     void ViewOrderSummanryTbView() {
+    	tbViewOrderSummary.getSelectionModel().clearSelection();
+    	btnDetailOrder.setDisable(true);
     	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewLobbyManager);
     	if (tbViewOrderSummary.getSelectionModel().isEmpty()) {
     		transfade.setFromValue(.5);
@@ -369,6 +389,7 @@ public class indexController {
 			tbViewOrderSummary.setItems(arrOrder);
 		  	transfade.stop();
 		  	tbViewOrderSummary.setOpacity(1);
+		  
 		});
 		new Thread(task).start();
     }
@@ -385,7 +406,70 @@ public class indexController {
     		holderManager.AlertNotification("", "Vui lòng chọn dòng muốn xem thông tin !", 1);
     	}
     }
+    private ObservableList<OrderWedding> arrOrderFilter;
+    public void InitSearchOrderWedding() {
+    	tfSearchOrderWedding.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrOrderFilter = FXCollections.observableArrayList(
+    				filterNameCus(observable.getValue())
+    				
+    		);
+    		if (!observable.getValue().equals("")) {
+    			arrOrderFilter.addAll(filterPhoneCus(observable.getValue()));
+    			arrOrderFilter.addAll(filterIdWedding(observable.getValue()));
+    		}
+
+    		tbViewOrderSummary.setItems(arrOrderFilter);
+    	});
+    }
+    @FXML TextField tfSearchOrderWedding;
+    public ArrayList<OrderWedding> filterNameCus (String inputName) {
+    	ArrayList<OrderWedding> result = new ArrayList<OrderWedding>();
+    	
+    	arrOrder.forEach(item -> {
+    		if (item.getNameCus().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
     
+    public ArrayList<OrderWedding> filterPhoneCus (String inputID) {
+    	ArrayList<OrderWedding> result = new ArrayList<OrderWedding>();
+    	
+    	arrOrder.forEach(item -> {
+    		if (item.getPhoneCus().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (OrderWedding item1 : arrOrderFilter) {
+					if (item1.getPhoneCus().equals(item.getPhoneCus())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
+    public ArrayList<OrderWedding> filterIdWedding (String inputID) {
+    	ArrayList<OrderWedding> result = new ArrayList<OrderWedding>();
+    	
+    	arrOrder.forEach(item -> {
+    		if (item.getIdWedding().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (OrderWedding item1 : arrOrderFilter) {
+					if (item1.getIdWedding().equals(item.getIdWedding())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
     /*********** LOBBY MANAGER CONTROLLER ********/
     @FXML
     private TableView<Lobby> tbViewLobbyManager;
@@ -407,11 +491,19 @@ public class indexController {
     	lobbyNameColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
      	lobbyTypeColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
      	lobbyTableColumn.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
-     	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceTable"));
-     	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceLobby"));
+     	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceShowTable"));
+     	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceShowLobby"));
+     	InitSearchLobby() ;
+     	tbViewLobbyManager.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+     		btnUpdateLobby.setDisable(false);
+     		btnDeleteLobby.setDisable(false);
+    	});
     }
     private ObservableList<Lobby> arrLobby;
     public void ViewLobbyTbView() throws SQLException {
+    	tbViewLobbyManager.getSelectionModel().clearSelection();
+    	btnUpdateLobby.setDisable(true);
+ 		btnDeleteLobby.setDisable(true);
     	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewLobbyManager);
     	if (tbViewLobbyManager.getSelectionModel().isEmpty()) {
     		transfade.setFromValue(.5);
@@ -436,7 +528,7 @@ public class indexController {
 		});
 		new Thread(task).start();
 
-  
+	
     }
     
     @FXML
@@ -469,7 +561,68 @@ public class indexController {
         	
     	}
     }
-    
+    private ObservableList<Lobby> arrLobbyFilter;
+    public void InitSearchLobby() {
+    	tfSearchLobby.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrLobbyFilter = FXCollections.observableArrayList(
+    				filterNameLobby(observable.getValue())
+    				
+    		);
+    		if (!observable.getValue().equals("")) {
+    			arrLobbyFilter.addAll(filterIDLobby(observable.getValue()));
+    		}
+
+    		tbViewLobbyManager.setItems(arrLobbyFilter);
+    	});
+    }
+    @FXML TextField tfSearchLobby;
+    public ArrayList<Lobby> filterNameLobby (String inputName) {
+    	ArrayList<Lobby> result = new ArrayList<Lobby>();
+    	
+    	arrLobby.forEach(item -> {
+    		if (item.getName().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
+    public ArrayList<Lobby> filterIDLobby (String inputID) {
+    	ArrayList<Lobby> result = new ArrayList<Lobby>();
+    	
+    	arrLobby.forEach(item -> {
+    		if (item.getId().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Lobby item1 : arrLobbyFilter) {
+					if (item1.getId().equals(item.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
+    public ArrayList<Lobby> filterTypeLobby (String inputID) {
+    	ArrayList<Lobby> result = new ArrayList<Lobby>();
+    	
+    	arrLobby.forEach(item -> {
+    		if (item.getType().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Lobby item1 : arrLobbyFilter) {
+					if (item1.getType().equals(item.getType())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
     /***********End LOBBY MANAGER CONTROLLER*********/
     
     /***********FOOD MANAGER CONTROLLER*********/
@@ -493,11 +646,20 @@ public class indexController {
     public void ViewFoodColumn() {
     	foodIdColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	foodNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	foodPriceColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
+    	foodPriceColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("priceShow"));
     	foodTypeColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
+    	InitSearchFood() ;
+    	tbViewFood.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+     		btnUpdateFood.setDisable(false);
+     		btnDeleteFood.setDisable(false);
+    	});
     }
     private ObservableList<Food> arrFood;
     public void ViewFoodTbView() throws SQLException {
+    	tbViewFood.getSelectionModel().clearSelection();
+    	btnUpdateFood.setDisable(true);
+    	btnDeleteFood.setDisable(true);
+    	
     	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewFood);
     	if (tbViewFood.getSelectionModel().isEmpty()) {
     		transfade.setFromValue(.5);
@@ -552,6 +714,70 @@ public class indexController {
     	Stage stage = new Stage();
     	updateFoodScene.start(stage);
     }
+    private ObservableList<Food> arrFoodFilter;
+    public void InitSearchFood() {
+    	tfSearchFood.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrFoodFilter = FXCollections.observableArrayList(
+    				filterNameFood(observable.getValue())
+    				
+    		);
+    		if (!observable.getValue().equals("")) {
+    			arrFoodFilter.addAll(filterIDFood(observable.getValue()));
+    			arrFoodFilter.addAll(filterType(observable.getValue()));
+    		}
+
+    		tbViewFood.setItems(arrFoodFilter);
+    	});
+    }
+    @FXML TextField tfSearchFood;
+    public ArrayList<Food> filterNameFood (String inputName) {
+    	ArrayList<Food> resultFoods = new ArrayList<Food>();
+    	
+    	arrFood.forEach(food -> {
+    		if (food.getName().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			resultFoods.add(food);
+    		}
+    	});
+    	
+    	return resultFoods;
+    }
+    
+    public ArrayList<Food> filterIDFood (String inputID) {
+    	ArrayList<Food> resultFoods = new ArrayList<Food>();
+    	
+    	arrFood.forEach(food -> {
+    		if (food.getId().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Food item : arrFoodFilter) {
+					if (food.getId().equals(item.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultFoods.add(food);
+    		}
+    	});
+    	
+    	return resultFoods;
+    }
+    public ArrayList<Food> filterType (String input) {
+    	ArrayList<Food> resultFoods = new ArrayList<Food>();
+    	
+    	arrFood.forEach(food -> {
+    		if (food.getType().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Food stff : arrFoodFilter) {
+					if (food.getType().equals(stff.getType())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultFoods.add(food);
+    		}
+    	});
+    	
+    	return resultFoods;
+    }
     
     /***********END FOOD MANAGER CONTROLLER*********/
     
@@ -578,10 +804,18 @@ public class indexController {
     private void ViewServiceColumn() {
     	serviceIdColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("id"));
     	serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
-    	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("price"));
+    	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("priceShow"));
+    	InitSearchService();
+    	tbViewService.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+     		btnUpdateService.setDisable(false);
+     		btnDeleteService.setDisable(false);
+    	});
     }
     private ObservableList<ServiceWedding> arrService;
     public void ViewServiceTbView() throws SQLException {
+    	tbViewService.getSelectionModel().clearSelection();
+    	btnUpdateService.setDisable(true);
+    	btnDeleteService.setDisable(true);
     	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewService);
     	if (tbViewService.getSelectionModel().isEmpty()) {
     		transfade.setFromValue(.5);
@@ -635,7 +869,52 @@ public class indexController {
         	}
     	} 
     }
+    private ObservableList<ServiceWedding> arrServiceFilter;
+    public void InitSearchService() {
+    	tfSearchService.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrServiceFilter = FXCollections.observableArrayList(
+    				filterNameService(observable.getValue())
+    				
+    		);
+    		if (!observable.getValue().equals("")) {
+    			arrServiceFilter.addAll(filterIDService(observable.getValue()));
+    		}
+
+    		tbViewService.setItems(arrServiceFilter);
+    	});
+    }
+    @FXML TextField tfSearchService;
+    public ArrayList<ServiceWedding> filterNameService (String inputName) {
+    	ArrayList<ServiceWedding> result = new ArrayList<ServiceWedding>();
+    	
+    	arrService.forEach(item -> {
+    		if (item.getName().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
     
+    public ArrayList<ServiceWedding> filterIDService (String inputID) {
+    	ArrayList<ServiceWedding> result = new ArrayList<ServiceWedding>();
+    	
+    	arrService.forEach(item -> {
+    		if (item.getId().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (ServiceWedding item1 : arrServiceFilter) {
+					if (item1.getId().equals(item.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
+  
     /*********** END SERVICE MANAGER CONTROLLER *********/
     
     /***********CUSTOMER CONTROLLER*******/
@@ -648,22 +927,90 @@ public class indexController {
     @FXML
     private TableColumn<Customer,String> cusPhoneNumberColumn;
     @FXML
-    private TableColumn<Customer,Number> cusMoneyColumn;
+    private TableColumn<Customer,String> cusMoneyColumn;
     @FXML
-    private TableColumn<Customer,Number> cusDiscountColumn;
+    private TableColumn<Customer,String> cusDiscountColumn;
     
     void ViewCustomerColumn() {
     	cusIDColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("id"));
     	cusNameColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("name"));
     	cusPhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("phone"));
-    	cusMoneyColumn.setCellValueFactory(new PropertyValueFactory<Customer,Number>("money"));
-    	cusDiscountColumn.setCellValueFactory(new PropertyValueFactory<Customer,Number>("discount"));
+    	cusMoneyColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("money"));
+    	cusDiscountColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("discount"));
+    	InitSearchCustomer();
+    	tbViewCustomer.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+     	
+    	});
     }
-    
+    private ObservableList<Customer> arrCustomer;
     public void ViewCustomerTbView() {
     	
     }
     
+    private ObservableList<Customer> arrCusFilter;
+    public void InitSearchCustomer() {
+    	tfSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrCusFilter = FXCollections.observableArrayList(
+    				filterNameCustomer(observable.getValue())
+    				
+    		);
+    		if (!observable.getValue().equals("")) {
+    			arrCusFilter.addAll(filterPhoneCustomer(observable.getValue()));
+    			arrCusFilter.addAll(filterIdCustomer(observable.getValue()));
+    		}
+
+    		tbViewCustomer.setItems(arrCusFilter);
+    	});
+    }
+    @FXML TextField tfSearchCustomer;
+    public ArrayList<Customer> filterNameCustomer (String inputName) {
+    	ArrayList<Customer> result = new ArrayList<Customer>();
+    	
+    	arrCustomer.forEach(item -> {
+    		if (item.getName().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
+    
+    public ArrayList<Customer> filterPhoneCustomer (String inputID) {
+    	ArrayList<Customer> result = new ArrayList<Customer>();
+    	
+    	arrCustomer.forEach(item -> {
+    		if (item.getPhone().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Customer item1 : arrCusFilter) {
+					if (item1.getPhone().equals(item.getPhone())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
+    public ArrayList<Customer> filterIdCustomer (String inputID) {
+    	ArrayList<Customer> result = new ArrayList<Customer>();
+    	
+    	arrCustomer.forEach(item -> {
+    		if (item.getId().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Customer item1 : arrCusFilter) {
+					if (item1.getId().equals(item.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) result.add(item);
+    		}
+    	});
+    	
+    	return result;
+    }
     /***********BILL CONTROLLER**********/
 
     @FXML
@@ -690,10 +1037,15 @@ public class indexController {
     	billIDWeddingColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idWedding"));
     	billMoneyColumn.setCellValueFactory(new PropertyValueFactory<Bill,Number>("money"));
     	dateOfPayColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("dateOfPay"));
-    }
-    public void ViewBillTbView() {
 
-    	
+    	tbViewBill.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+     	
+    	});
+    }
+    public void ViewBillTbView() throws SQLException {
+    	//Call all bill để render viewTalbe
+    	ObservableList<Bill> arrBills = FXCollections.observableArrayList(BillModel.getAllBill());
+    	tbViewBill.setItems(arrBills);
     }
     
     /***********Staff controller *************/
@@ -757,10 +1109,23 @@ public class indexController {
 		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
 		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
 		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
+		
+
+		staffTbView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			btnStaffUpdate.setDisable(false);
+			btnStaffDelete.setDisable(false);
+			btnChangePass.setDisable(false);
+    	});
 
 	}
     ArrayList<Staff> arr;
+    @FXML
+    private Button btnChangePass;
     public void updateStaffTView() throws SQLException {
+    	staffTbView.getSelectionModel().clearSelection();
+    	btnStaffUpdate.setDisable(true);
+		btnStaffDelete.setDisable(true);
+		btnChangePass.setDisable(true);
     	if (staffTbView.getSelectionModel().isEmpty()) {
            	processTbView.setVisible(true);
            	staffTbView.setOpacity(.5);

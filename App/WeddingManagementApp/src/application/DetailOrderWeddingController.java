@@ -102,7 +102,7 @@ public class DetailOrderWeddingController {
 		dayOrder.setText("Ngày đặt: "+detailOrderWedding.getDateOrder());
 		money.setText("Tổng tiền: "+ formatter.format(detailOrderWedding.getMoney().longValue())+ " VNĐ");
 		deposit.setText("Tiền đã trả: "+ formatter.format(detailOrderWedding.getDeposit().longValue())+ " VNĐ");
-		
+		numberTable.setText("Số bàn đã đặt: "+ detailOrderWedding.getNumberOfTable().toString());
 		long a = detailOrderWedding.getMoney().longValue(); 
 		long b = detailOrderWedding.getDeposit().longValue();
 		if (a-b==0) {
@@ -123,7 +123,11 @@ public class DetailOrderWeddingController {
 		foodFinal.setItems(aFoods);
 		ObservableList<ServiceWedding> serviceWeddings = FXCollections.observableArrayList(arrServiceOrder);
 		serviceFinal.setItems(serviceWeddings);
-		ObservableList<Lobby> lobbyList = FXCollections.observableArrayList(); 
+		HolderManager holderManager = HolderManager.getInstance();
+		ObservableList<Lobby> lobbyList = FXCollections.observableArrayList(
+					holderManager.getLobbyOrder()
+				); 
+		tbViewOrderLobby.setItems(lobbyList);
 	}
 	void ViewTbColumnAll() {
 		orderLobbyID.setCellValueFactory(new PropertyValueFactory<Lobby,String>("id"));
@@ -145,6 +149,8 @@ public class DetailOrderWeddingController {
 	
 	@FXML
 	AnchorPane orderDetail;
+    @FXML
+    private Label numberTable;
 	@FXML
     private	void OnPressPay(ActionEvent event) throws SQLException {
 

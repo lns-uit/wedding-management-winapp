@@ -10,18 +10,30 @@ public class Food {
 		super();
 		this.id = id;
 		this.name = name;
-		this.price = price.toString();
+		this.price = price;
 		this.type = type;
 		this.checkBox = new CheckBox();
+		setPriceShow(price);
 	}
 
 	public Food() {};
 
 	private String id;
 	private String name;
-	private String price;
+	private Number price;
 	private String type;
 	private CheckBox checkBox;
+	private String priceShow;
+	public String getPriceShow() {
+		return priceShow;
+	}
+
+	public void setPriceShow(Number priceShow) {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format((priceShow).longValue())+" VNĐ";
+		this.priceShow = tmpString;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -29,7 +41,8 @@ public class Food {
 		this.name = name;
 	}
 	public void setPrice(Number price) {
-		this.price = price.toString();
+		setPriceShow(price);
+		this.price = price;
 	}
 	public void setType(String type) {
 		this.type = type;
@@ -40,10 +53,8 @@ public class Food {
 	
 	public String getId() {return id;}
 	public String getName() {return name;}
-	public String getPrice() {
-		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(Long.parseLong(price))+" VNĐ";
-		return tmpString;
+	public Number getPrice() {
+		return this.price;
 	}
 	public String getType() {return type;}
 	public CheckBox getCheckBox() {return checkBox;}

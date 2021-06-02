@@ -26,6 +26,8 @@ public class BillModel {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		
 		String message  = cStmt.getString(4);
@@ -54,14 +56,13 @@ public class BillModel {
 				long money  = rs.getLong(5);
 				String dateOfPayment  = rs.getString(6);
 				
-				System.out.println("test call bills "+ idBill+ " "+money);
-				
 				Bill a = new Bill(idBill, idStaff, idCus, idWedding, money, dateOfPayment);
 				arrBill.add(a);
 			}
  			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 		}
 		
 		cStmt.close();
