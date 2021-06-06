@@ -1,11 +1,18 @@
 package application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,7 +58,7 @@ public class AddLobbyController {
     private TextField tfNumberTable;
 
     @FXML
-    private TextField tfTypeLobby;
+    private ComboBox<String> cbbTypeLobby;
 
     @FXML
     private TextField tfPriceTable;
@@ -61,52 +68,52 @@ public class AddLobbyController {
 
     @FXML
     private TextField tfNote;
+    
+    ObservableList<String> listType = FXCollections.observableArrayList("Thường", "Vip");
+    @FXML
+    public void initialize() {
+		cbbTypeLobby.setItems(listType);
+    }
 
     @FXML
+    private Label warningLb;
+    @FXML
     void onAddLobby(ActionEvent event) throws NumberFormatException, SQLException {
-    	System.out.println("Press");
     	String message = Validator();
-    	System.out.println(message);
+    	HolderManager holderManager = HolderManager.getInstance();
+    	warningLb.setVisible(false);
     	if (message.equals("success")) {
     		
     		String messageAddLobby = LobbyModel.addLobby(
     				tfName.getText(), 
-    				tfTypeLobby.getText(), 
+    				cbbTypeLobby.getValue(), 
     				Integer.parseInt(tfNumberTable.getText()), 
     				Integer.parseInt(tfPriceTable.getText()), 
     				Integer.parseInt(tfPriceLobby.getText())
     			);
     		
     		if (messageAddLobby.equals("true")) {
-    			System.out.println("Thêm thành công");
+    			
+    			holderManager.AlertNotification("addLobby","Thêm sảnh thành công !", 1);
+    			holderManager.getIndexController().ViewLobbyTbView();
     			Stage currentScene = (Stage) tfName.getScene().getWindow();
-    			showAlertWithoutHeaderText("Thêm thành công");
 				currentScene.close();
     		} else  {
-    			System.out.println("thêm không thành công");
+    			holderManager.AlertNotification("addLobby","Thêm sảnh thất bại !", 1);
     		}
     	}
     	else {
-    		System.out.println(message);
+    		warningLb.setVisible(true);
     	}
     }
-    
     public String Validator() {
 		String messageString="success";
 		
-		if ((tfName.getText().equals("")) || (tfTypeLobby.getText().equals("")) ||(tfNumberTable.getText().equals("")) || (tfPriceTable.getText().equals("")) || (tfPriceLobby.getText().equals(""))) {
+		if ((tfName.getText().equals("")) || (cbbTypeLobby.getValue().equals("")) ||(tfNumberTable.getText().equals("")) || (tfPriceTable.getText().equals("")) || (tfPriceLobby.getText().equals(""))) {
 			return messageString = "Feild còn trống !";
 		}
 		
 		return messageString;
 	}
     
-    private void showAlertWithoutHeaderText(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-	}
-
 }

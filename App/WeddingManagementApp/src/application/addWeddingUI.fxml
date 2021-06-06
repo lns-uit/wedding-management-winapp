@@ -21,12 +21,11 @@
                     <columns>
                       <TableColumn fx:id="orderLobbyID" prefWidth="34.0" text="Mã sảnh" />
                       <TableColumn fx:id="orderLobbyName" prefWidth="420.0" text="Tên sảnh" />
-                        <TableColumn fx:id="orderLobbyType" prefWidth="167.0" text="Loại sảnh" />
-                        <TableColumn fx:id="orderLobbyTable" maxWidth="2000.0" prefWidth="211.0" text="Số bàn" />
-                        <TableColumn fx:id="orderLobbyPriceTable" prefWidth="148.333251953125" text="Giá bàn" />
-                        <TableColumn fx:id="orderLobbyPrice" prefWidth="148.333251953125" text="Giá sảnh" />
-                        <TableColumn fx:id="orderLobbyNote" prefWidth="148.333251953125" text="Ghi chú" />
-                        <TableColumn fx:id="orderLobbySelect" maxWidth="1500.0" prefWidth="148.333251953125" text="Chọn" />
+                        <TableColumn id="ColumnCenter" fx:id="orderLobbyType" prefWidth="167.0" text="Loại sảnh" />
+                        <TableColumn id="ColumnCenter" fx:id="orderLobbyTable" maxWidth="2000.0" prefWidth="211.0" text="Số bàn" />
+                        <TableColumn id="ColumnRight" fx:id="orderLobbyPriceTable" prefWidth="148.333251953125" text="Giá bàn" />
+                        <TableColumn id="ColumnRight" fx:id="orderLobbyPrice" prefWidth="148.333251953125" text="Giá sảnh" />
+                        <TableColumn id="ColumnCenter" fx:id="orderLobbySelect" maxWidth="1500.0" prefWidth="148.333251953125" text="Chọn" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -35,6 +34,8 @@
                   <Label layoutX="40.0" layoutY="63.0" text="Chọn ngày" />
                   <Label layoutX="49.0" layoutY="132.0" text="Chọn sảnh" />
                   <Button fx:id="btnCommit1" layoutX="929.0" layoutY="613.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="131.0" text="Tiếp tục" />
+                  <TextField fx:id="numberTable" layoutX="283.0" layoutY="90.0" prefHeight="34.0" prefWidth="174.0" promptText="Số bàn" />
+                  <Label layoutX="289.0" layoutY="63.0" text="Số bàn muốn đặt" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="step2" prefHeight="661.0" prefWidth="1100.0" visible="false">
@@ -50,8 +51,8 @@
                      <columns>
                         <TableColumn fx:id="aptIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
                         <TableColumn fx:id="aptNameColumn" prefWidth="119.0" text="Tên món" />
-                        <TableColumn fx:id="aptMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="aptCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="aptMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="aptCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -61,8 +62,8 @@
                      <columns>
                         <TableColumn fx:id="mFoodIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
                         <TableColumn fx:id="mFoodNameColumn" prefWidth="119.0" text="Tên món" />
-                        <TableColumn fx:id="mFoodMoney" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="mFoodCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="mFoodMoney" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="mFoodCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -72,8 +73,8 @@
                      <columns>
                         <TableColumn fx:id="drinkIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã món" />
                         <TableColumn fx:id="drinkNameColumn" prefWidth="119.0" text="Tên món" />
-                        <TableColumn fx:id="drinkMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="drinkCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="drinkMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="drinkCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -86,8 +87,8 @@
                      <columns>
                         <TableColumn fx:id="svIDColumn" maxWidth="3000.0" prefWidth="152.0" text="Mã dịch vụ" />
                         <TableColumn fx:id="svNameColumn" prefWidth="119.0" text="Tên dịch vụ" />
-                        <TableColumn fx:id="svMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
-                        <TableColumn fx:id="svCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
+                        <TableColumn id="ColumnRight" fx:id="svMoneyColumn" prefWidth="179.33331298828125" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="svCheckBox" maxWidth="1500.0" prefWidth="179.33331298828125" text="Chọn" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -129,51 +130,30 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="foodFinal" layoutX="38.0" layoutY="302.0" prefHeight="249.0" prefWidth="573.0">
+                  <TableView fx:id="foodFinal" layoutX="38.0" layoutY="302.0" prefHeight="257.0" prefWidth="573.0">
                      <columns>
                         <TableColumn fx:id="idFoodFinal" prefWidth="329.0" text="Mã món ăn" />
                         <TableColumn fx:id="nameFoodFinal" prefWidth="188.0" text="Tên món ăn" />
-                        <TableColumn fx:id="priceFoodFinal" prefWidth="120.0" text="Đơn giá" />
-                        <TableColumn fx:id="typeFoodFinal" prefWidth="120.0" text="Loại" />
+                        <TableColumn id="ColumnRight" fx:id="priceFoodFinal" prefWidth="120.0" text="Đơn giá" />
+                        <TableColumn id="ColumnCenter" fx:id="typeFoodFinal" prefWidth="120.0" text="Loại" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Label layoutX="42.0" layoutY="276.0" text="Danh sách thực đơn">
+                  <Label layoutX="42.0" layoutY="279.0" text="Danh sách thực đơn">
                      <font>
                         <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="moneySumLb" layoutX="46.0" layoutY="568.0" text="Tổng tiền: 1.000.000 VNĐ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="depositTF" layoutX="448.0" layoutY="562.0" prefHeight="39.0" prefWidth="331.0" promptText="Tiền Cọc">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="moneyRestLb" layoutX="860.0" layoutY="568.0" text="Còn lại: 1.000.000 VNĐ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="361.0" layoutY="569.0" text="Tiền cọc:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                   <TableView fx:id="lobbyFinal" layoutX="38.0" layoutY="219.0" prefHeight="56.0" prefWidth="1020.0">
                      <columns>
                         <TableColumn fx:id="idLobbyFinal" prefWidth="296.0" text="Mã sảnh" />
                         <TableColumn fx:id="nameLobbyFinal" prefWidth="186.0" text="Tên sảnh" />
-                        <TableColumn fx:id="typeLobbyFinal" prefWidth="195.0" text="Loại sảnh" />
-                        <TableColumn fx:id="numberTableLobbyFinal" prefWidth="152.0" text="Số bàn" />
-                        <TableColumn fx:id="priceLobbyTableFinal" prefWidth="156.0" text="Giá bàn" />
-                        <TableColumn fx:id="priceLobbyFinal" prefWidth="137.0" text="Giá sảnh" />
-                        <TableColumn fx:id="noteFinal" prefWidth="137.0" text="Ghi chú" />
+                        <TableColumn id="ColumnCenter" fx:id="typeLobbyFinal" prefWidth="195.0" text="Loại sảnh" />
+                        <TableColumn id="ColumnCenter" fx:id="numberTableLobbyFinal" prefWidth="152.0" text="Số bàn" />
+                        <TableColumn id="ColumnRight" fx:id="priceLobbyTableFinal" prefWidth="156.0" text="Giá bàn" />
+                        <TableColumn id="ColumnRight" fx:id="priceLobbyFinal" prefWidth="137.0" text="Giá sảnh" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -194,27 +174,56 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="serviceFinal" layoutX="643.0" layoutY="302.0" prefHeight="249.0" prefWidth="412.0">
+                  <TableView fx:id="serviceFinal" layoutX="643.0" layoutY="302.0" prefHeight="257.0" prefWidth="412.0">
                      <columns>
                         <TableColumn fx:id="idServiceFinal" prefWidth="329.0" text="Mã món ăn" />
                         <TableColumn fx:id="nameServiceFinal" prefWidth="188.0" text="Tên món ăn" />
-                        <TableColumn fx:id="priceServiceFinal" prefWidth="120.0" text="Đơn giá" />
+                        <TableColumn id="ColumnRight" fx:id="priceServiceFinal" prefWidth="120.0" text="Đơn giá" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Label layoutX="652.0" layoutY="276.0" text="Dịch vụ">
+                  <Label layoutX="652.0" layoutY="279.0" text="Dịch vụ">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="dateFinal" disable="true" layoutX="37.0" layoutY="147.0" prefHeight="39.0" prefWidth="174.0" />
-                  <Label layoutX="42.0" layoutY="128.0" text="Thời gian">
+                  <Label fx:id="dateFinal" layoutX="40.0" layoutY="143.0" text="2001-08-15">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
+                  <Label fx:id="numberTableFinal" layoutX="304.0" layoutY="143.0" text="Số bàn đã đặt:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="step4" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="1100.0" style="-fx-background-color: rgba(0,0,0,0.5);" visible="false">
+               <children>
+                  <AnchorPane layoutY="524.0" prefHeight="89.0" prefWidth="1100.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="moneySum" layoutX="34.0" layoutY="17.0" text="Tổng tiền: 1.000.000 VNĐ" textFill="#2c2c2c">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="moneyRest" layoutX="350.0" layoutY="51.0" text="Còn lại: 1.000.000 VNĐ" textFill="#2c2c2c">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="deposit" layoutX="34.0" layoutY="51.0" text="Tiền cọc: 10000000" textFill="#2c2c2c">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button id="btnNO" fx:id="btnExitOrder" layoutX="765.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="145.0" text="Hủy đặt tiệc" />
+                        <Button fx:id="btnCommitFinal" layoutX="926.0" layoutY="40.0" mnemonicParsing="false" onAction="#CommitStep" prefHeight="34.0" prefWidth="154.0" text="Xác nhận đặt cọc" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="48.0" prefWidth="1100.0" style="-fx-background-color: #b83737;">

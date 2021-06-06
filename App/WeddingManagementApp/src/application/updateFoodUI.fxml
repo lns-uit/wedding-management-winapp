@@ -52,6 +52,11 @@
                </font>
             </Label>
             <ComboBox fx:id="cbcTypeFood" layoutX="60.0" layoutY="212.0" prefHeight="47.0" prefWidth="381.0" />
+            <Label fx:id="warningLb" layoutX="155.0" layoutY="362.0" prefHeight="19.0" prefWidth="190.0" text="Vui lòng điền đầy đủ thông tin" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

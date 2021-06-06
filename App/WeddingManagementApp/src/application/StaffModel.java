@@ -34,18 +34,20 @@ public class StaffModel {
 				String identityCardStaff = rs.getString(6);
 				String startWorkStaff = rs.getString(7);
 				String typeStaff = rs.getString(8);
+				String acctiveStaff = rs.getString(9);
 				
-				a.setId(idStaff);
-				a.setName(nameStaff);
-				a.setPhoneNumber(phoneNumberStaff);
-				a.setIdentityCard(identityCardStaff);
-				a.setStartWork(startWorkStaff);
-				a.setType(typeStaff);
-				a.setAddress(addRessStaff);
-				if (!typeStaff.equals("admin")) {
-					arrStaff.add(a);	
+				if (acctiveStaff.equals("ON")) {
+					a.setId(idStaff);
+					a.setName(nameStaff);
+					a.setPhoneNumber(phoneNumberStaff);
+					a.setIdentityCard(identityCardStaff);
+					a.setStartWork(startWorkStaff);
+					a.setType(typeStaff);
+					a.setAddress(addRessStaff);
+					if (!typeStaff.equals("admin")) {
+						arrStaff.add(a);	
+					}
 				}
-				
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -65,6 +67,8 @@ public class StaffModel {
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		String resultString = cStmt.getString(2);
 		System.out.print(resultString);
@@ -77,7 +81,7 @@ public class StaffModel {
 		return null;
 	}
 	
-	public static void addStaff(Staff newStaff) throws SQLException {
+	public static String addStaff(Staff newStaff) throws SQLException {
 		String sqlString = "begin sp_insert_staff(?,?,?,?,?,?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
 		
@@ -92,11 +96,13 @@ public class StaffModel {
 			cStmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		
 		String message = cStmt.getString(6);
-		System.out.println(message);
 		cStmt.close();
+		return message;
 	}
 	
 	public static String updateStaff(String idStaff, String newName, String newAddress, String newTypeStaff) throws SQLException {
@@ -113,8 +119,9 @@ public class StaffModel {
 			cStmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
-		System.out.println(cStmt.getString(5));
 		String result = cStmt.getString(5);
 		cStmt.close();
 		return result;
@@ -130,6 +137,8 @@ public class StaffModel {
 			cStmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "error";
 		}
 		String result = cStmt.getString(2);
 		cStmt.close();

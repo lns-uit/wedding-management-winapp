@@ -1,5 +1,7 @@
 package application;
 
+import java.text.DecimalFormat;
+
 import javafx.scene.control.CheckBox;
 
 public class ServiceWedding {
@@ -9,6 +11,7 @@ public class ServiceWedding {
 		this.name = name;
 		this.price = price;
 		this.checkBox = new CheckBox();
+		setPriceShow(price);
 	}
 	public ServiceWedding() {
 		
@@ -41,5 +44,14 @@ public class ServiceWedding {
 	public void setPrice(Number price) {
 		this.price = price;
 	}
-	
+	private String priceShow;
+	public String getPriceShow() {
+		return priceShow;
+	}
+
+	public void setPriceShow(Number priceShow) {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format((priceShow).longValue())+" VNĐ";
+		this.priceShow = tmpString;
+	}
 }

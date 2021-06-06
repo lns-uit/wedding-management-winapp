@@ -21,5 +21,5 @@ public final class StaffHolder {
 	public Staff getSelectStaff() {
 		return this.selectStaff;
 	}
-	
+
 }

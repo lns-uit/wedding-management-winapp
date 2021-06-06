@@ -5,18 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,38 +53,40 @@ public class AddStaffController implements Initializable {
 	@FXML
 	public void CommitAddStaff(ActionEvent event) throws SQLException {
 		String newPhoneString = phone.getText();
-		
+		warningText.setVisible(false);
 		if (StaffModel.findStaffByPhone(newPhoneString) != null) {
 			//check số điện thoại
-			System.out.print("Phone is already");
 			warningText.setText("Số điện thoại đã tồn tại");
 			warningText.setVisible(true);
 		} else {
 			String message = Validator();
 			if (message=="success") {
 				warningText.setVisible(false);
-				Stage currentScene = (Stage) name.getScene().getWindow();
-				currentScene.close();
-				showAlertWithoutHeaderText("Thêm thành công");
 				Staff newStaff = new Staff("", name.getText(), address.getText(), phone.getText(), identityCard.getText(), "2001-02-14", typeStaff.getValue());
-				StaffModel.addStaff(newStaff);
-//				indexController.updateStaffTView()
-				System.out.print("Commit Success");
+				String messageAddString = StaffModel.addStaff(newStaff);
+    			if (messageAddString.equals("true")) {
+    				AlertNotification("Thêm nhân viên thành công");
+    				Stage currentScene = (Stage) name.getScene().getWindow();
+    				currentScene.close();
+    			}
+    			else {
+    				AlertNotification("Thêm nhân viên thất bại, vui lòng thử lại");
+    			}
+		
 			} else {
 				warningText.setText(message);
 				warningText.setVisible(true);
 			}
 		}
 	}
-	private void showAlertWithoutHeaderText(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
- 
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(message);
- 
-        alert.showAndWait();
+	
+	public void AlertNotification(String content) throws SQLException {
+		HolderManager holderManager = HolderManager.getInstance();
+		holderManager.getIndexController().updateStaffTView();
+		holderManager.setAlertInit("addStaff",content, 1);
+		AlertScene alertScene = new AlertScene();
+		Stage stage = new Stage();
+		alertScene.start(stage);
 	}
 	
 	public String Validator() {
@@ -96,18 +94,17 @@ public class AddStaffController implements Initializable {
 	    
 		if ((name.getText().length()==0)||(phone.getText().length()==0)||(identityCard.getText().length()==0)||(address.getText().length()==0)||(typeStaff.getValue()==null)) {
 			System.out.println("is empty");
-			return messageString="Field còn trống !";
+			return messageString="Vui lòng nhập đầy đủ thông tin !";
 		}
 		
 		Pattern pattern = Pattern.compile("^\\d{10}$");
 	    Matcher matcher = pattern.matcher(phone.getText());
-	    
-	    System.out.println(matcher.matches());
-		
+	    Pattern patternIdentityCard = Pattern.compile("^\\d{9}$");
+	    Matcher matcherIdentityCard = patternIdentityCard.matcher(identityCard.getText());
 		if ((matcher.matches()==false)) {
 			return messageString="Số điện thoại định dạng sai !";
 		}
-		
+		if ((!matcherIdentityCard.matches())) return messageString = "Chứng minh thư sai định dạng";
 		return messageString;
 	}
 	

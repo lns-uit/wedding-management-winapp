@@ -6,25 +6,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="311.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddServiceController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="484.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddServiceController">
    <children>
-      <Button layoutX="173.0" layoutY="247.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="114.0" text="Xác nhận">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <TextField layoutX="96.0" layoutY="77.0" prefHeight="44.0" prefWidth="268.0" promptText="Tên dịch vụ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <Label layoutX="103.0" layoutY="53.0" text="Tên dịch vụ" />
-      <TextField layoutX="96.0" layoutY="160.0" prefHeight="44.0" prefWidth="268.0" promptText="Giá dịch vụ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <Label layoutX="103.0" layoutY="136.0" text="Tên dịch vụ" />
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="397.0" prefWidth="426.0" style="-fx-background-color: white;">
+         <children>
+            <AnchorPane onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="76.0" prefWidth="459.0" style="-fx-background-color: #b83737;">
+               <children>
+                  <Label layoutX="166.0" layoutY="23.0" text="Thêm dịch vụ" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnExit" layoutX="405.0" layoutY="21.0" mnemonicParsing="false" onAction="#onPressExitWindow" prefHeight="35.0" prefWidth="40.0" text="X" />
+               </children>
+            </AnchorPane>
+            <Button layoutX="173.0" layoutY="326.0" mnemonicParsing="false" onAction="#onAddService" prefHeight="44.0" prefWidth="114.0" text="Xác nhận">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <TextField fx:id="tfNameService" layoutX="96.0" layoutY="143.0" prefHeight="44.0" prefWidth="268.0" promptText="Tên dịch vụ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label layoutX="103.0" layoutY="119.0" text="Tên dịch vụ" />
+            <TextField fx:id="tfPriceService" layoutX="96.0" layoutY="226.0" prefHeight="44.0" prefWidth="268.0" promptText="Giá dịch vụ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label layoutX="103.0" layoutY="202.0" text="Giá dịch vụ" />
+            <Label fx:id="warningLb" layoutX="129.0" layoutY="289.0" text="Vui lòng điền đầy đủ thông tin" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

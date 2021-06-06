@@ -5,21 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 public class UpdateStaffController implements Initializable {
 	@FXML
     private TextField name;
@@ -74,41 +70,32 @@ public class UpdateStaffController implements Initializable {
 		StaffHolder holder = StaffHolder.getInstance();
 		String idStaff = holder.getSelectStaff().getId();
 		String message = Validator();
-		
+		HolderManager holderManager = HolderManager.getInstance();
+		warningText.setVisible(false);
 		if (message=="success") {
 			String messageUpdate = StaffModel.updateStaff(idStaff, name.getText(), address.getText(), typeStaff.getValue());
 			
 			if (messageUpdate.equals("true")) {
-				showAlertWithoutHeaderText("Sửa thành công");	
+				
+				holderManager.getIndexController().updateStaffTView();
+				warningText.setVisible(false);
+				Stage currentScene = (Stage) name.getScene().getWindow();
+				currentScene.close();
+				holderManager.AlertNotification(" ","Sửa thông tin nhân viên thành công !",1);	
 			} else {
-				showAlertWithoutHeaderText("Sửa thất bại");
-			}
-			
-			warningText.setVisible(false);
-			Stage currentScene = (Stage) name.getScene().getWindow();
-			currentScene.close();
+				holderManager.AlertNotification(" ","Đã có lỗi xảy ra. Vui lòng thử lai sau",1);
+			}		
 		} else {
-			warningText.setText(message);
 			warningText.setVisible(true);
 		}
 	}
-	private void showAlertWithoutHeaderText(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
- 
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(message);
- 
-        alert.showAndWait();
-	}
-	
+
 	public String Validator() {
 		String messageString="success";
 	    
 		if ((name.getText().length()==0)||(phone.getText().length()==0)||(identityCard.getText().length()==0)||(address.getText().length()==0)||(typeStaff.getValue()==null)) {
 			System.out.println("is empty");
-			return messageString="Field còn trống !";
+			return messageString="error";
 		}
 		
 		return messageString;

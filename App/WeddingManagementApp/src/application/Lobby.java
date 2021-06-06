@@ -1,5 +1,7 @@
 package application;
 
+import java.text.DecimalFormat;
+
 import javafx.scene.control.CheckBox;
 
 public class Lobby {
@@ -14,7 +16,8 @@ public class Lobby {
 		this.priceLobby = priceLobby;
 		this.note = note;
 		this.checkBox = new CheckBox();
-		
+		setPriceShowTable(priceTable);
+		setPriceShowLobby(priceLobby);
 	}
 	private String id;
 	private String name;
@@ -25,7 +28,29 @@ public class Lobby {
 	private String note;
 	private CheckBox checkBox; 
 	public Lobby() {}
+	private String priceShowTable;
+	public String getPriceShowTable() {
+		return priceShowTable;
+	}
+
+	public void setPriceShowTable(Number priceShow) {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format((priceShow).longValue())+" VNĐ";
+		this.priceShowTable = tmpString;
+	}
 	
+	private String priceShowLobby;
+	public String getPriceShowLobby() {
+		return priceShowLobby;
+	}
+
+	public void setPriceShowLobby(Number priceShow) {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format((priceShow).longValue())+" VNĐ";
+		this.priceShowLobby = tmpString;
+	}
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -56,8 +81,12 @@ public class Lobby {
 	public String getName() {return name;}
 	public String getType() {return type;}
 	public Number getTableNumber() {return tableNumber;}
-	public Number getPriceTable() {return priceTable;}
-	public Number getPriceLobby() {return priceLobby;}
+	public Number getPriceTable() {
+		return priceTable;
+	}
+	public Number getPriceLobby() {
+		return priceLobby;
+	}
 	public String getNote() {return note;}
 	public CheckBox getCheckBox() {return checkBox;}
 }

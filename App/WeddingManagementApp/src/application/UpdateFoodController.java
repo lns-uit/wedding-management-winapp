@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -40,22 +41,28 @@ public class UpdateFoodController {
     	cbcTypeFood.getSelectionModel().select(indexSelectFoodType);
     	idFood = foodSelect.getId();
     }
-
+    @FXML
+    private Label warningLb;
     @FXML
     void onUpdateFood(ActionEvent event) throws NumberFormatException, SQLException {
+    	HolderManager holderManager = HolderManager.getInstance();
     	String message = Validator();
+    	warningLb.setVisible(false);
     	if (message.equals("success")) {
+    	
     		String messageUpdateFood = FoodModel.updateFood(idFood ,tfNameFood.getText(), Integer.parseInt(tfPriceFood.getText()), cbcTypeFood.getValue());
     		if (messageUpdateFood.equals("true")) {
+    			
+				holderManager.getIndexController().ViewFoodTbView();
+				holderManager.AlertNotification(" ","Sửa thông tin món ăn thành công !",1);	
     			Stage currentScene = (Stage) tfNameFood.getScene().getWindow();
-    			showAlertWithoutHeaderText("Chỉnh sửa thành công");
 				currentScene.close();
     		} else  {
-    			System.out.println("thêm không thành công");
+    			holderManager.AlertNotification(" ","Đã có lỗi xảy ra. Vui lòng thử lại sau",1);
     		}
     	}
     	else {
-    		System.out.println(message);
+    		warningLb.setVisible(true);
     	}
     }
     
@@ -67,14 +74,6 @@ public class UpdateFoodController {
 		}
 		
 		return messageString;
-	}
-    
-    private void showAlertWithoutHeaderText(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
 	}
     /*************** WINDOW CONTROLLER ************/
     private Stage primaryStage =  new Stage();

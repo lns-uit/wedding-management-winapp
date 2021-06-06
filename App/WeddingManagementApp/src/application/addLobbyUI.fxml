@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,11 +16,7 @@
                   <Font size="19.0" />
                </font>
             </TextField>
-            <TextField fx:id="tfTypeLobby" layoutX="470.0" layoutY="115.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </TextField>
+            <ComboBox fx:id="cbbTypeLobby" layoutX="470.0" layoutY="118.0" prefHeight="41.0" prefWidth="381.0" />
             <Label layoutX="480.0" layoutY="95.0" text="Kiểu sảnh">
                <font>
                   <Font size="14.0" />
@@ -85,6 +82,11 @@
                   <Button id="btnExit" layoutX="819.0" layoutY="15.0" mnemonicParsing="false" onAction="#onPressExitWindow" prefHeight="35.0" prefWidth="40.0" text="X" />
                </children>
             </AnchorPane>
+            <Label fx:id="warningLb" layoutX="335.0" layoutY="379.0" text="Vui lòng điền đầy đủ thông tin" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
     </children>

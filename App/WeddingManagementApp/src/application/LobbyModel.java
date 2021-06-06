@@ -30,10 +30,13 @@ public class LobbyModel {
 				Number maxTable  = rs.getInt(5);
 				Number priceTable = rs.getInt(6);
 				Number priceLobby = rs.getInt(7);
-				String noteLobby = rs.getString(8);
+				String acctiveLobby = rs.getString(8);
 				
-				Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTable, priceTable, priceLobby, noteLobby);
-				arrLobby.add(a);	
+				if (acctiveLobby.equals("ON")) {
+					Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTable, priceTable, priceLobby, "");
+					arrLobby.add(a);		
+				}
+				
 				
 			}
 		} catch (Exception e) {
@@ -59,9 +62,56 @@ public class LobbyModel {
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			cStmt.close();
+			return "false";
 		}
 		
 		String resultString = cStmt.getString(6);
+		cStmt.close();
+		return resultString;
+	}
+	public static String updateLobby (String id,String name, String type, int numberTable, int priceTable, int priceLobby) throws SQLException {
+		String sqlString = "begin sp_updateLobby(?,?,?,?,?,?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			cStmt.setString(1, id);
+			cStmt.setString(2, name);
+			cStmt.setInt(3, numberTable);
+			cStmt.setInt(4, priceTable);
+			cStmt.setInt(5, priceLobby);
+			cStmt.setString(6, type);
+			cStmt.registerOutParameter(7, OracleTypes.VARCHAR);
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			cStmt.close();
+			return "false";
+		}
+		
+		String resultString = cStmt.getString(7);
+		cStmt.close();
+		return resultString;
+	}
+	
+	public static String deleteLobby (String id) throws SQLException {
+		String sqlString = "begin sp_deleteLobby(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			
+			cStmt.setString(1, id);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			cStmt.close();
+			return "false";
+		}
+		
+		String resultString = cStmt.getString(2);
 		cStmt.close();
 		return resultString;
 	}

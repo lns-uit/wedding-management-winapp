@@ -52,7 +52,8 @@ public class AccountModel {
 				
 			} catch (Exception e) {
 				// TODO: handle exception
-				System.out.println(e.getMessage());
+				HolderManager holderManager = HolderManager.getInstance();
+				holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
 			}
 			staffCStmt.close();
 		}
@@ -61,6 +62,53 @@ public class AccountModel {
 		cStmt.close();
 		System.out.print(type);
 		return null;
+	}
+	
+	public static String changePassword (String phoneNumber, String currentPassword, String newPassword) throws SQLException {
+		String sqlString = "begin sp_changePasswordStaff(?,?,?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			cStmt.setString(1, phoneNumber);
+			cStmt.setString(2, currentPassword);
+			cStmt.setString(3, newPassword);
+			cStmt.registerOutParameter(4, OracleTypes.VARCHAR);
+			
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+    		HolderManager holder = HolderManager.getInstance();
+			System.out.println(e.getMessage());
+			holder.AlertNotification("", "Đã có lỗi xảy ra", 1);
+		}
+		
+		String message = cStmt.getString(4);
+		System.out.println(message);
+		cStmt.close();
+		return message;
+	}
+	
+	public static String resetPassword (String phoneNumber) throws SQLException {
+		String sqlString = "begin sp_resetPasswordStaff(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+		
+		try {
+			cStmt.setString(1, phoneNumber);
+			cStmt.registerOutParameter(2, OracleTypes.VARCHAR);
+			
+			cStmt.execute();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+    		HolderManager holder = HolderManager.getInstance();
+			System.out.println(e.getMessage());
+			holder.AlertNotification("", "Đã có lỗi xảy ra", 1);
+		}
+		
+		String message = cStmt.getString(2);
+		cStmt.close();
+		return message;
 	}
 
 }

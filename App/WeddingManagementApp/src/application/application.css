@@ -68,6 +68,7 @@
     -fx-text-fill: #cf4848;
     -fx-border-color: #cf4848;
     -fx-border-width: 0.5;
+    -fx-border-radius: 5px;
 }
 
 .button {
@@ -150,8 +151,19 @@
 	-fx-border-width: 0;
 }
 
-#box{
+#btnNO {
+	-fx-background-color: #969696;
+	-fx-text-fill: white;
+	-fx-font-size: 16px;
+	-fx-border-width: 0;
+}
 
+#btnNO:hover {
+	-fx-background-color: white;
+	-fx-text-fill: #969696;
+	-fx-font-size: 16px;
+	-fx-border-color: #969696;
+    -fx-border-width: 0.5;
 }
 .root {
 		-fx-background-color: transparent;
@@ -159,5 +171,22 @@
     -fx-background-insets: 10;
     -fx-padding: 10;
 }
+#alertPane{
+	-fx-background-radius: 5px;
+}
+#process{
+	-fx-progress-color: white;
+}
+#processTbView{
+	-fx-progress-color: #b83737;
+}
+#SearchIcon:hover{
+	-fx-background-color:#b83737;
+}
+#ColumnRight {
+  -fx-alignment: CENTER-RIGHT;
+}
 
-
+#ColumnCenter{
+  -fx-alignment: CENTER;
+}

@@ -9,6 +9,8 @@ public class ConnectDB {
 	public static Connection getOracleConnection() throws SQLException, ClassNotFoundException {
 
 
+
+		
 		String hostName = "103.116.104.148";
 		String sid = "xe";
 		String userName = "my_user";

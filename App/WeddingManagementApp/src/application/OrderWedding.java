@@ -1,5 +1,7 @@
 package application;
 
+import java.sql.Date;
+
 public class OrderWedding {    
     public OrderWedding(String idWedding, String idLobby, String idStaff, String idCustomer, Number numberFood,
 			Number numberService, Number deposit, Number money, Number numberOfTable, String dateOrder,
@@ -30,6 +32,27 @@ public class OrderWedding {
 	private String dateOrder;
 	private String dateStart;
 
+	private String nameCus;
+	private String phoneCus;
+	private String statusPay;
+	public String getStatusPay() {
+		return statusPay;
+	}
+	public void setStatusPay(String statusPay) {
+		this.statusPay = statusPay;
+	}
+	public String getNameCus() {
+		return nameCus;
+	}
+	public void setNameCus(String nameCus) {
+		this.nameCus = nameCus;
+	}
+	public String getPhoneCus() {
+		return phoneCus;
+	}
+	public void setPhoneCus(String phoneCus) {
+		this.phoneCus = phoneCus;
+	}
 	public String getIdWedding() {return idWedding;}
 	public String getIdLobby() {return idLobby;}
 	public String getIdStaff() {return idStaff;}
