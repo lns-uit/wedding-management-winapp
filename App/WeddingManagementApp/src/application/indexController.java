@@ -1,9 +1,6 @@
 package application;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javafx.animation.Animation;
@@ -277,6 +274,7 @@ public class indexController {
 		Stage currentScene = (Stage) btnInfoPersonal.getScene().getWindow();
 		currentScene.close();
     }
+    private boolean pow = true;
     private void IndexInit(String type) {
     	if (type.equals("nhân viên lễ tân")) { // Nhân viên lễ tân
     		btnStaffManagement.setDisable(true);
@@ -289,6 +287,7 @@ public class indexController {
     		btnAddFood.setDisable(true);
     		btnDeleteFood.setDisable(true);
     		btnUpdateFood.setDisable(true);
+    		pow = false;
     	} else if (type.equals("nhân viên lao công")|| type.equals("nhân viên phục vụ")) { // Nhân viên phục vụ - Lao công 
     		btnWeddingInfoManagement.setDisable(true);
     		btnStaffManagement.setDisable(true);
@@ -297,6 +296,7 @@ public class indexController {
     		btnReport.setDisable(true);	
     		btnCustomerManagement.setDisable(true);
     		btnBill.setDisable(true);
+    		pow = false;
     	}
     }
     /*********** ORDER WEDDING MANAGER CONTROLLER********/
@@ -350,15 +350,11 @@ public class indexController {
     	dateStartSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("dateStart"));
     	statusOrderSummary.setCellValueFactory(new PropertyValueFactory<OrderWedding,String>("statusPay"));
     	InitSearchOrderWedding();
-    	btnDetailOrder.setDisable(true);
     	tbViewOrderSummary.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
     		btnDetailOrder.setDisable(false);
     	    if (newSelection.getStatusPay().equals("Đã thanh toán")) {
     	    	btnDetailOrder.setDisable(true);
-    	    	//tbViewOrderSummary.getSelectionModel().clearSelection();
-    	    } else {
-    	    	btnDetailOrder.setDisable(false);
-    	    }
+    	    } 
     	});
 
     }
@@ -494,6 +490,7 @@ public class indexController {
      	lobbyTablePriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceShowTable"));
      	lobbyPriceColumn.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceShowLobby"));
      	InitSearchLobby() ;
+     	if (pow)
      	tbViewLobbyManager.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
      		btnUpdateLobby.setDisable(false);
      		btnDeleteLobby.setDisable(false);
@@ -649,6 +646,7 @@ public class indexController {
     	foodPriceColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("priceShow"));
     	foodTypeColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
     	InitSearchFood() ;
+    	if (pow)
     	tbViewFood.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
      		btnUpdateFood.setDisable(false);
      		btnDeleteFood.setDisable(false);
@@ -806,6 +804,7 @@ public class indexController {
     	serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
     	servicePriceColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("priceShow"));
     	InitSearchService();
+    	if (pow)
     	tbViewService.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
      		btnUpdateService.setDisable(false);
      		btnDeleteService.setDisable(false);
@@ -944,7 +943,7 @@ public class indexController {
     }
     private ObservableList<Customer> arrCustomer;
     public void ViewCustomerTbView() {
-    	
+    	tbViewCustomer.setItems(arrCustomer);
     }
     
     private ObservableList<Customer> arrCusFilter;
@@ -1029,7 +1028,10 @@ public class indexController {
     private TableColumn<Bill,Number> billMoneyColumn;
     @FXML
     private TableColumn<Bill,String> dateOfPayColumn;
-    
+    @FXML
+    private Label numberOrderSum;
+    @FXML
+    private Label moneyOrderSum;
     void ViewBillColumn() {
     	billIDColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idBill"));
     	billIDStaffColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idStaff"));
@@ -1046,6 +1048,8 @@ public class indexController {
     	//Call all bill để render viewTalbe
     	ObservableList<Bill> arrBills = FXCollections.observableArrayList(BillModel.getAllBill());
     	tbViewBill.setItems(arrBills);
+    	moneyOrderSum.setText("1,000,000 VNĐ");
+    	numberOrderSum.setText(Long.toString(arrBills.size()));
     }
     
     /***********Staff controller *************/

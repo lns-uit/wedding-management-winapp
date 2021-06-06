@@ -639,7 +639,10 @@ public class AddWeddingOrderController {
     @FXML
     private void onPressExitWindow(ActionEvent event) {
     	primaryStage = (Stage) step1.getScene().getWindow();
-    	primaryStage.close();
+    	if (currentPane==step4) {
+    		HolderManager holderManager = HolderManager.getInstance();
+    		holderManager.AlertNotification("exitOrderWedding","Bạn đang hủy đặt tiệc !", 0);
+    	} else 	primaryStage.close();
     }
     @FXML
     private void onPressMinimizeWindow(ActionEvent event) {

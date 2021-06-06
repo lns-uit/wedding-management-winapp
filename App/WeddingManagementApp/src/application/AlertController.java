@@ -125,7 +125,7 @@ public class AlertController {
     			closeScene();
     		}else {
     			if (messageDelete.equals("false")) {
-    				AlertNotification("Sảnh không tồn tại !");
+    				AlertNotification("Sảnh không tồn tại hoặc đang được đặt !");
     			} else {
     				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
     			}

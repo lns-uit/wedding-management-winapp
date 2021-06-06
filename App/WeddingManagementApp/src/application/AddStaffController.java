@@ -99,7 +99,7 @@ public class AddStaffController implements Initializable {
 		
 		Pattern pattern = Pattern.compile("^\\d{10}$");
 	    Matcher matcher = pattern.matcher(phone.getText());
-	    Pattern patternIdentityCard = Pattern.compile("^\\d{12}$");
+	    Pattern patternIdentityCard = Pattern.compile("^\\d{9}$");
 	    Matcher matcherIdentityCard = patternIdentityCard.matcher(identityCard.getText());
 		if ((matcher.matches()==false)) {
 			return messageString="Số điện thoại định dạng sai !";

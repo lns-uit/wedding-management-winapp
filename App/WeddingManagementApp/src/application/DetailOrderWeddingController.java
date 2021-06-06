@@ -1,12 +1,9 @@
 package application;
 
-import java.util.Date;  
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import oracle.net.aso.f;
+import javafx.print.*;
 
 public class DetailOrderWeddingController {
 	@FXML
@@ -146,21 +143,20 @@ public class DetailOrderWeddingController {
 		nameServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
 		priceServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("price"));
 	}
-	
+
 	@FXML
 	AnchorPane orderDetail;
     @FXML
     private Label numberTable;
 	@FXML
     private	void OnPressPay(ActionEvent event) throws SQLException {
-
 		HolderManager holderManager = HolderManager.getInstance();
 		OrderWeddingModel.getDetailWedding(holderManager.getOrderWeddingCurrent().getIdWedding());
 		OrderWedding detailOrderWedding = holderManager.getDetailOrderWedding();
 		holderManager.setStageNeedClose((Stage) orderDetail.getScene().getWindow());
 		holderManager.AlertNotification("payAndBill", "Xác nhận thanh toán và lập hóa đơn ?", 0);
 	}
-	
+
     /*************** WINDOW CONTROLLER ************/
     private Stage primaryStage =  new Stage();
     private double X,Y;

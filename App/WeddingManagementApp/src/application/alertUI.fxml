@@ -9,16 +9,16 @@
    <children>
       <AnchorPane id="alertPane" fx:id="window" layoutX="14.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="403.0" style="-fx-background-color: white;">
          <children>
-            <AnchorPane layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="38.0" prefWidth="403.0" style="-fx-background-color: #b83737;">
+            <AnchorPane layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="53.0" prefWidth="403.0" style="-fx-background-color: #b83737;">
                <children>
-                  <Label layoutX="154.0" layoutY="7.0" prefWidth="96.0" text="THÔNG BÁO" textFill="WHITE">
+                  <Label layoutX="154.0" layoutY="14.0" prefWidth="96.0" text="THÔNG BÁO" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <Label fx:id="alertContent" layoutX="116.0" layoutY="52.0" prefHeight="117.0" prefWidth="171.0" text="Xóa dịch vụ thất bại, Vui lòng thử lại !" textAlignment="CENTER" textFill="#656565" wrapText="true">
+            <Label id="ColumnCenter" fx:id="alertContent" layoutX="32.0" layoutY="52.0" prefHeight="117.0" prefWidth="339.0" text="Xóa dịch vụ thất bại, Vui lòng thử lại !" textAlignment="CENTER" textFill="#656565" wrapText="true">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
