@@ -6,4 +6,3 @@
 #### Thư viện tích hợp:  JavaFX - [JDK 8](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
 #### Môi trường phát triển:      [Eclipse IDE](https://www.eclipse.org/downloads/) for Enterprise Java and Web Developers
 #### Phần mềm thiết kế giao diện: [SceneBuilder](https://gluonhq.com/products/scene-builder/) - FXML
-#### Công cụ lập trình báo biểu: BIRT 4.4 - [Hướng dẫn cài đặt]  (https://openplanning.net/10215/cai-dat-cong-cu-lap-trinh-bao-cao-birt-cho-eclipse)
