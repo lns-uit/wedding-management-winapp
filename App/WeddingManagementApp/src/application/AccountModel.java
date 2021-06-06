@@ -52,7 +52,8 @@ public class AccountModel {
 				
 			} catch (Exception e) {
 				// TODO: handle exception
-				System.out.println(e.getMessage());
+				HolderManager holderManager = HolderManager.getInstance();
+				holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
 			}
 			staffCStmt.close();
 		}

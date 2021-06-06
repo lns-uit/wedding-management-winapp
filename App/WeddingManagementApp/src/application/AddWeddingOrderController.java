@@ -92,9 +92,6 @@ public class AddWeddingOrderController {
 
     void InitDatePicker() throws SQLException {
     	arrOrderFilter = OrderWeddingModel.getAllOrderWedding();
-    	for (OrderWedding item : arrOrderFilter) {
-    		System.out.println(item.getIdLobby()+" "+item.getDateStart().substring(0, 10));
-		}
     	Callback<DatePicker, DateCell> dayCellFactory = dp -> new DateCell()
         {
             @Override
@@ -145,8 +142,6 @@ public class AddWeddingOrderController {
         		}
              }
         });
-
-        System.out.println((datePkStart.getValue().toString()).equals( arrOrderFilter.get(2).getDateStart().substring(0,10)));
         datePkStart.setDayCellFactory(dayCellFactory);
         datePkStart.setConverter(converter);
         datePkStart.setPromptText("dd/MM/yyyy");
@@ -564,9 +559,7 @@ public class AddWeddingOrderController {
 							return;
 						}
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						System.out.println(e.getMessage());
-						e.printStackTrace();
+						holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
 					}
 				});
 						
@@ -581,9 +574,7 @@ public class AddWeddingOrderController {
 						}
 						
 					} catch (Exception e2) {
-						// TODO: handle exception
-						System.out.println(e2.getMessage());
-						e2.printStackTrace();
+						holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
 					}
 				});
 				
@@ -608,15 +599,12 @@ public class AddWeddingOrderController {
 					currentPane = step4;
 					currentPane.setVisible(true);
 				} catch (Exception e3) {
-					// TODO: handle exception
-					System.out.println(e3.getMessage());
-					e3.printStackTrace();
+					holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
 				}
 				
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+			holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
 		}
 
     }
