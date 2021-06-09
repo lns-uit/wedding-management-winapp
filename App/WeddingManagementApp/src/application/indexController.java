@@ -133,6 +133,8 @@ public class indexController {
     	startWorkStaff.setText(staff.getStartWork());
     	// lấy tất cả dữ liệu từ data
     	allStaff = StaffModel.getAllStaff();
+    	ArrayList<Customer> allCustomer = CustomerModel.getAllCus();
+    	Bill test = BillModel.getBillById("B32");
     	// xử lí tất cả các view
 		viewStaff();
 		ViewLobbyColumn();

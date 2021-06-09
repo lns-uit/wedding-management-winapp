@@ -56,5 +56,8 @@ public class Bill {
 		this.money = money.toString();
 		this.dateOfPay = dateOfPay;
 	}
+	public Bill() {
+		
+	}
 	
 }
