@@ -68,4 +68,45 @@ public class BillModel {
 		cStmt.close();
 		return arrBill;
 	}
+	public static Bill getBillById(String idBill) throws SQLException {
+		String sqlString = "begin sp_getBillById(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+
+		Bill resultBill = new Bill();
+
+		try {
+			cStmt.setString(1, idBill);
+			cStmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+			cStmt.executeUpdate();
+			ResultSet rs = (ResultSet) cStmt.getObject(2);
+
+			while (rs.next()) {
+				String idBillRs  = rs.getString(2);
+				String idStaff  = rs.getString(3);
+				String idCus  = rs.getString(4);
+				String idWed  = rs.getString(5);
+				long money  = rs.getLong(6);
+				String dateOfPayment  = rs.getString(7);
+
+				Bill a = new Bill(idBillRs, idStaff, idCus, idWed, money, dateOfPayment);
+				System.out.println(idBill + " "+ dateOfPayment);
+				resultBill = a;
+			}
+
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+
+		if (resultBill.getIdBill().equals("")==true) {
+			cStmt.close();
+			return null;
+		}
+
+		cStmt.close();
+		return resultBill;
+
+	}
 }

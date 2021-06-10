@@ -42,6 +42,9 @@ public class Bill {
 	public void setDateOfPay(String dateOfPay) {
 		this.dateOfPay = dateOfPay;
 	}
+	public Bill() {
+
+	}
 	private String idBill;
 	private String idStaff;
 	private String idCustomer;

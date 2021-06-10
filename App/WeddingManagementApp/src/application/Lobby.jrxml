@@ -59,9 +59,7 @@
 		</queryString>
 	</subDataset>
 	<queryString>
-		<![CDATA[select Lobb.idLobby, Lobb.nameLobby, count(*) as SO_LUONG_DA_TUNG_DAT 
-from OrderWedding Ord, Lobby Lobb 
-where Ord.idLobby = Lobb.idLobby group by Lobb.idLobby, Lobb.nameLobby]]>
+		<![CDATA[select Lobb.idLobby, Lobb.nameLobby, count(*) as SO_LUONG_DA_TUNG_DAT from OrderWedding Ord, Lobby Lobb where Ord.idLobby = Lobb.idLobby group by Lobb.idLobby, Lobb.nameLobby order by SO_LUONG_DA_TUNG_DAT desc]]>
 	</queryString>
 	<field name="IDLOBBY" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="IDLOBBY"/>
@@ -84,13 +82,13 @@ where Ord.idLobby = Lobb.idLobby group by Lobb.idLobby, Lobb.nameLobby]]>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="410" y="10" width="40" height="20" uuid="bc11a031-1e0d-45c3-b71c-a317c562e407"/>
+				<reportElement x="420" y="10" width="40" height="20" uuid="bc11a031-1e0d-45c3-b71c-a317c562e407"/>
 				<box rightPadding="4"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<text><![CDATA[Ngày:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="440" y="10" width="109" height="20" uuid="31963eda-6a97-409b-b472-f6f5e163b14a"/>
+				<reportElement x="450" y="10" width="99" height="20" uuid="31963eda-6a97-409b-b472-f6f5e163b14a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
@@ -121,7 +119,7 @@ where Ord.idLobby = Lobb.idLobby group by Lobb.idLobby, Lobb.nameLobby]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Thống kê số lượng các sảnh tiệc được đặt]]></text>
+				<text><![CDATA[Thống kê các sảnh tiệc được đặt nhiều nhất]]></text>
 			</staticText>
 		</band>
 	</title>

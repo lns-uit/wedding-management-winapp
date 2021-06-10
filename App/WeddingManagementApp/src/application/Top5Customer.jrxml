@@ -59,8 +59,7 @@
 		</queryString>
 	</subDataset>
 	<queryString>
-		<![CDATA[SELECT * FROM customer where ROWNUM <= 5 order by Money DESC
-]]>
+		<![CDATA[SELECT * FROM customer where ROWNUM <= 5 order by Money DESC]]>
 	</queryString>
 	<field name="STT" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="STT"/>
@@ -131,6 +130,13 @@
 				<reportElement x="20" y="40" width="205" height="15" uuid="7c2a697a-72fd-44cf-91e2-c83c5e6bb4f5"/>
 				<text><![CDATA[TP. Thủ Đức - TP. Hồ Chí Minh]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="556" height="30" uuid="0f3a4011-07ca-4dc4-a1c0-74551710ce7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5 khách hàng có số tiền đặt tiệc nhiều nhất]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>
@@ -146,7 +152,7 @@
 				<text><![CDATA[Tên khách hàng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="435" y="0" width="100" height="30" uuid="96591d5c-32aa-428e-9e08-e89f1682d85a"/>
+				<reportElement x="423" y="0" width="100" height="30" uuid="96591d5c-32aa-428e-9e08-e89f1682d85a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Tổng số tiền]]></text>
 			</staticText>
@@ -175,8 +181,8 @@
 				<textFieldExpression><![CDATA[$F{NUMBERPHONE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###)">
-				<reportElement x="390" y="0" width="154" height="30" uuid="9c54ff2f-25eb-40d3-bb89-ddc4b3a16005"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="390" y="0" width="166" height="30" uuid="9c54ff2f-25eb-40d3-bb89-ddc4b3a16005"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{MONEY}]]></textFieldExpression>
 			</textField>
 		</band>

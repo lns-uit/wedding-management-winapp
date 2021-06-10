@@ -60,10 +60,10 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
+	<parameter name="dateFrom" class="java.lang.String"/>
+	<parameter name="dateTo" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from report where '2020' <= EXTRACT(YEAR FROM closingDate) and '4' <= EXTRACT(MONTH FROM closingDate)
-and '2021' >= EXTRACT(YEAR FROM closingDate) and '6' >= EXTRACT(MONTH FROM closingDate)
-order by closingdate asc]]>
+		<![CDATA[SELECT * FROM report where closingdate >= to_date($P{dateFrom},'DD-MON-YY') and  closingdate <= to_date($P{dateTo},'DD-MON-YY') order by closingdate asc]]>
 	</queryString>
 	<field name="STT" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="STT"/>
@@ -127,32 +127,11 @@ order by closingdate asc]]>
 				<text><![CDATA[TP. Thủ Đức - TP. Hồ Chí Minh]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="100" width="240" height="30" uuid="95130781-55d4-4333-8b5a-003979f35d51"/>
+				<reportElement x="157" y="100" width="240" height="30" uuid="95130781-55d4-4333-8b5a-003979f35d51"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Thống kê doanh thu từ]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="250" y="100" width="100" height="30" uuid="c9a82e49-5fe7-4372-b158-7f23c92822b1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="400" y="100" width="100" height="30" uuid="f7e816ec-e512-4e6f-a9f1-a3cd2dc348c2"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="340" y="100" width="74" height="30" uuid="99eb63ba-51e3-4394-9809-88b0bed1450a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[đến]]></text>
+				<text><![CDATA[Thống kê doanh thu ]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -164,7 +143,7 @@ order by closingdate asc]]>
 				<text><![CDATA[Tháng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="10" width="100" height="30" uuid="cf55f27b-ba92-4b15-ab6c-a1f1bf6856f6"/>
+				<reportElement x="390" y="10" width="100" height="30" uuid="cf55f27b-ba92-4b15-ab6c-a1f1bf6856f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Tổng tiền]]></text>
 			</staticText>
@@ -176,7 +155,7 @@ order by closingdate asc]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="33">
+		<band height="30">
 			<textField pattern="MM/yyy">
 				<reportElement x="30" y="0" width="100" height="30" uuid="239d5d14-af0f-4164-940d-0d3859114e95"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
@@ -188,10 +167,9 @@ order by closingdate asc]]>
 				<textFieldExpression><![CDATA[$F{TOTALWEDDINGOFMONTH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###)">
-				<reportElement x="320" y="0" width="199" height="30" uuid="d36f685a-3f0b-452c-9f1b-ad6da265eea6"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{TOTALBILLOFMONTH}
-]]></textFieldExpression>
+				<reportElement x="320" y="0" width="236" height="30" uuid="d36f685a-3f0b-452c-9f1b-ad6da265eea6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TOTALBILLOFMONTH}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
