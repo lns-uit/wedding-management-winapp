@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableColumn?>
@@ -29,7 +30,7 @@
                      <children>
                         <ImageView fitHeight="89.0" fitWidth="80.0" layoutX="90.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../Img/User.png" />
+                              <Image url="@Img/User.png" />
                            </image></ImageView>
                         <Button fx:id="btnName" accessibleRole="TEXT" layoutX="1.0" layoutY="103.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="259.0" style="-fx-background-color: rgb(184, 55, 55);" text="123123" textFill="WHITE">
                            <font>
@@ -53,7 +54,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/addWedding.png" />
+                                    <Image url="@Img/addWedding.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -71,7 +72,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/staff.png" />
+                                    <Image url="@Img/staff.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -89,7 +90,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/guest.png" />
+                                    <Image url="@Img/guest.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -104,7 +105,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/InfoWedding.png" />
+                                    <Image url="@Img/InfoWedding.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -125,7 +126,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/bill.png" />
+                                    <Image url="@Img/bill.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -140,7 +141,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/report.png" />
+                                    <Image url="@Img/report.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -224,7 +225,7 @@
                               <Button fx:id="btnDetailOrder" layoutX="770.0" layoutY="600.0" mnemonicParsing="false" onAction="#ShowDetailOrder" prefHeight="35.0" prefWidth="143.0" text="Chi tiết" />
                               <ImageView fitHeight="39.0" fitWidth="65.0" layoutX="217.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/Search.PNG" />
+                                    <Image url="@Img/Search.PNG" />
                                  </image>
                               </ImageView>
                            </children>
@@ -253,7 +254,7 @@
                               <Button fx:id="btnChangePass" layoutX="22.0" layoutY="587.0" mnemonicParsing="false" onAction="#resetPassword" prefHeight="39.0" prefWidth="160.0" text="Đặt lại mật khẩu" />
                               <ImageView fitHeight="39.0" fitWidth="65.0" layoutX="204.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/Search.PNG" />
+                                    <Image url="@Img/Search.PNG" />
                                  </image>
                               </ImageView>
                            </children>
@@ -275,7 +276,7 @@
                               <TextField fx:id="tfSearchCustomer" layoutX="21.0" layoutY="23.0" prefHeight="35.0" prefWidth="182.0" promptText="Tìm kiếm" />
                               <ImageView fitHeight="39.0" fitWidth="53.0" layoutX="203.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/Search.PNG" />
+                                    <Image url="@Img/Search.PNG" />
                                  </image>
                               </ImageView>
                            </children>
@@ -314,7 +315,7 @@
                                           <Button fx:id="btnUpdateLobby" layoutX="676.0" layoutY="555.0" mnemonicParsing="false" onAction="#onActionButtonLobby" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                           <ImageView fitHeight="39.0" fitWidth="65.0" layoutX="208.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../Img/Search.PNG" />
+                                                <Image url="@Img/Search.PNG" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -344,7 +345,7 @@
                                           <Button fx:id="btnUpdateFood" layoutX="677.0" layoutY="555.0" mnemonicParsing="false" onAction="#OnActionButtonFood" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                           <ImageView fitHeight="39.0" fitWidth="65.0" layoutX="208.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../Img/Search.PNG" />
+                                                <Image url="@Img/Search.PNG" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -373,7 +374,7 @@
                                           <Button fx:id="btnUpdateService" layoutX="676.0" layoutY="554.0" mnemonicParsing="false" onAction="#OnPressServiceBtn" prefHeight="35.0" prefWidth="114.0" text="Chỉnh sửa" />
                                           <ImageView fitHeight="39.0" fitWidth="65.0" layoutX="208.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../Img/Search.PNG" />
+                                                <Image url="@Img/Search.PNG" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -420,10 +421,10 @@
                               </TableView>
                               <ImageView fitHeight="39.0" fitWidth="65.0" layoutX="203.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../Img/Search.PNG" />
+                                    <Image url="@Img/Search.PNG" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="btnStaffDelete1" layoutX="783.0" layoutY="591.0" mnemonicParsing="false" onAction="#OnActionButtonStaff" prefHeight="39.0" prefWidth="127.0" text="Chi tiết hóa đơn" />
+                              <Button layoutX="783.0" layoutY="591.0" mnemonicParsing="false" onAction="#CallBill" prefHeight="39.0" prefWidth="127.0" text="Chi tiết hóa đơn" />
                               <AnchorPane layoutX="277.0" layoutY="26.0" prefHeight="100.0" prefWidth="316.0" style="-fx-background-color: #878787; -fx-background-radius: 5;">
                                  <children>
                                     <Label layoutX="101.0" layoutY="12.0" text="Tổng Số Tiệc" textFill="WHITE">
@@ -455,9 +456,9 @@
                            </children>
                         </AnchorPane>
       
-                              <AnchorPane fx:id="reportPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+                              <AnchorPane fx:id="reportPanel" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="tbViewReport" layoutX="24.0" layoutY="27.0" prefHeight="234.0" prefWidth="889.0">
+                              <TableView fx:id="tbViewReport" layoutX="24.0" layoutY="161.0" prefHeight="100.0" prefWidth="889.0">
                                  <columns>
                                     <TableColumn fx:id="reportIDColumn" prefWidth="37.0" text="STT" />
                                     <TableColumn fx:id="reportMonthColumn" prefWidth="171.0" text="Tháng" />
@@ -476,7 +477,7 @@
                                   <NumberAxis fx:id="yRevenue" side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <LineChart fx:id="countWedding" animated="false" layoutX="20.0" layoutY="461.0" prefHeight="178.0" prefWidth="904.0">
+                              <LineChart fx:id="countWedding" animated="false" layoutX="20.0" layoutY="467.0" prefHeight="178.0" prefWidth="904.0">
                                  <xAxis>
                                     <CategoryAxis side="BOTTOM" fx:id="xCountWedding" />
                                  </xAxis>
@@ -484,9 +485,14 @@
                                     <NumberAxis fx:id="yCountWedding" side="LEFT" />
                                  </yAxis>
                               </LineChart>
+                              <Button layoutX="654.0" layoutY="105.0" mnemonicParsing="false" onAction="#Top5Customer" prefHeight="39.0" prefWidth="127.0" text="Top Cus" />
+                              <ComboBox layoutX="268.0" layoutY="33.0" prefHeight="35.0" prefWidth="101.0" />
+                              <ComboBox layoutX="153.0" layoutY="33.0" prefHeight="35.0" prefWidth="101.0" />
+                              <ComboBox layoutX="596.0" layoutY="33.0" prefHeight="35.0" prefWidth="101.0" />
+                              <ComboBox layoutX="481.0" layoutY="33.0" prefHeight="35.0" prefWidth="101.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="infoPersonalPanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="920.0">
+                        <AnchorPane fx:id="infoPersonalPanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="920.0" visible="false">
                            <children>
                               <Label layoutX="31.0" layoutY="42.0" prefHeight="31.0" prefWidth="80.0" text="Họ và tên: ">
                                  <font>

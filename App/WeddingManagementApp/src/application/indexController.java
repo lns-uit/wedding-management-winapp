@@ -1,6 +1,10 @@
 package application;
 
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javafx.animation.Animation;
@@ -30,6 +34,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.j2ee.servlets.XmlServlet;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class indexController {
 
@@ -114,9 +129,11 @@ public class indexController {
     	primaryStage = (Stage) btnName.getScene().getWindow();
     	primaryStage.setIconified(true);
     }
-    /*************** END WINDOW CONTROLLER *************/
+    /*************** END WINDOW CONTROLLER 
+     * @throws JRException 
+     * @throws ClassNotFoundException *************/
     @FXML
-    void initialize() throws SQLException {
+    void initialize() throws SQLException, ClassNotFoundException, JRException {
     	processTbView.setVisible(false);
     	// TODO Auto-generated method stub
     	//gán user vào info
@@ -142,20 +159,14 @@ public class indexController {
 		ViewCustomerColumn();
 		ViewOrderSummaryColumn();
     	IndexInit(staff.getType());
-    	// tìm kiếm nhân viên
-    	InitSearchStaff();
-    	
-    	//Call all order wedding để render view table
     	ArrayList<OrderWedding> getAllOrderWedding = OrderWeddingModel.getAllOrderWedding();
     	
     	if (currentPane==null) currentPane = infoPersonalPanel;
     	if (currentButton==null) currentButton = btnInfoPersonal;
     	currentButton.setStyle("-fx-background-color: #cf4848");
     	currentPane.setVisible(true);
-    	
-
-    	
 	}
+    
     private boolean isFist = false;
     @FXML
     private Label LbNameIndex;
@@ -1044,14 +1055,39 @@ public class indexController {
      	
     	});
     }
-    public void ViewBillTbView() throws SQLException {
+
+	public void ViewBillTbView() throws SQLException {
     	//Call all bill để render viewTalbe
     	ObservableList<Bill> arrBills = FXCollections.observableArrayList(BillModel.getAllBill());
-    	tbViewBill.setItems(arrBills);
-    	moneyOrderSum.setText("1,000,000 VNĐ");
+    	BigDecimal sumMoneyBigDecimal = new BigDecimal("0");
+    	for (Bill bill : arrBills) {
+    		String tmpString = bill.getMoneyNum().toString();
+    		BigDecimal tmpBigDecimal = new BigDecimal(tmpString);
+    		sumMoneyBigDecimal= sumMoneyBigDecimal.add(tmpBigDecimal);	
+		}
+    	DecimalFormat formatter = new DecimalFormat("###,###,###");
+		String tmpString = formatter.format(sumMoneyBigDecimal)+" VNĐ";
+    	moneyOrderSum.setText(tmpString);
     	numberOrderSum.setText(Long.toString(arrBills.size()));
+    	tbViewBill.setItems(arrBills);
     }
-    
+    @FXML
+    void CallBill(ActionEvent event) throws JRException, ClassNotFoundException, SQLException {
+    	try {
+    	//	JasperDesign jDesign = JRXmlLoader.load(getClass().getResource("Report.jrxml"));
+    		JasperDesign jDesign = JRXmlLoader.load("D:\\Course-projects\\App\\WeddingManagementApp\\src\\application\\Bill.jrxml");
+        	JRDesignQuery updateQuery = new JRDesignQuery();
+        	String aString = "B9";
+        	//updateQuery.setText("Select * From Bill Where idbill like '" + aString+"%'");
+        	updateQuery.setText("select * from bill, customer where idbill like '" + aString + "%' AND bill.idcustomer = customer.idcustomer");
+        	jDesign.setQuery(updateQuery);
+        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+        	JasperViewer.viewReport(jPrint,false);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+    }
     /***********Staff controller *************/
     @FXML
     private TableColumn<Staff,String> staffTypeColumn;
@@ -1087,7 +1123,7 @@ public class indexController {
     		} else {
     			StaffHolder holder = StaffHolder.getInstance();
     	   		holder.setStaffSelect(selectStaff);
-    	   		holderManager.AlertNotification("deleteStaff","Bạn có chắc chắn với hành động dại dột này khong",0);    			
+    	   		holderManager.AlertNotification("deleteStaff","Bạn có chắc chắn với hành động này khong",0);    			
     		}
     	} else
     	if (event.getSource()==btnStaffUpdate) {
@@ -1113,7 +1149,7 @@ public class indexController {
 		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
 		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
 		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
-		
+    	InitSearchStaff();
 
 		staffTbView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			btnStaffUpdate.setDisable(false);
@@ -1250,7 +1286,7 @@ public class indexController {
 		} else {
 			StaffHolder holder = StaffHolder.getInstance();
     		holder.setStaffSelect(selectStaff);
-    		holderManager.AlertNotification("resetPassword", "Bạn có chắc chắn với hành động dại dột này không ?",0);
+    		holderManager.AlertNotification("resetPassword", "Bạn có chắc chắn với hành động đặt lại mật khẩu cho nhân viên này không ?",0);
 		}
     }
     
@@ -1323,7 +1359,40 @@ public class indexController {
 
     	tbViewReport.setItems(arrReport);
     }
-    
+    @FXML
+    void CallReport(ActionEvent event) throws JRException, ClassNotFoundException, SQLException {
+    	try {
+    	//	JasperDesign jDesign = JRXmlLoader.load(getClass().getResource("Report.jrxml"));
+    		JasperDesign jDesign = JRXmlLoader.load("D:\\Course-projects\\App\\WeddingManagementApp\\src\\application\\Report.jrxml");
+        	JRDesignQuery updateQuery = new JRDesignQuery();
+        	String aString = "B9";
+        	//updateQuery.setText("Select * From Bill Where idbill like '" + aString+"%'");
+        	updateQuery.setText("select * from bill, customer where idbill like '" + aString + "%' AND bill.idcustomer = customer.idcustomer");
+        	jDesign.setQuery(updateQuery);
+        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+        	JasperViewer.viewReport(jPrint,false);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+    }
+    @FXML
+    void Top5Customer(ActionEvent event) throws JRException, ClassNotFoundException, SQLException {
+    	try {
+    	//	JasperDesign jDesign = JRXmlLoader.load(getClass().getResource("Report.jrxml"));
+    		JasperDesign jDesign = JRXmlLoader.load("D:\\Course-projects\\App\\WeddingManagementApp\\src\\application\\Top5Customer.jrxml");
+        	JRDesignQuery updateQuery = new JRDesignQuery();
+        	String aString = "B9";
+        	//updateQuery.setText("Select * From Bill Where idbill like '" + aString+"%'");
+        	updateQuery.setText("SELECT * FROM customer where ROWNUM <= 5 order by Money DESC");
+        	jDesign.setQuery(updateQuery);
+        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+        	JasperViewer.viewReport(jPrint,false);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+    }
     /***********Info controller *************/
     
     @FXML
