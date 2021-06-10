@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -1348,13 +1350,33 @@ public class indexController {
 //    private TableColumn<ReportRevenue, Number> reportCountWeddingColumn;
 //    @FXML
 //    private TableColumn<ReportRevenue, Number> reportRevenueColumn;
-    public void ReportTbViewShow() {
+    ArrayList<String> reportTime;
+    public void ReportTbViewShow() throws SQLException {
     	monthFrom.setItems(listMonthFrom);
     	monthTo.setItems(listMonthFrom);
+
+    	
+    	reportTime = ReportModel.getAllReport();
+    	monthFrom.getSelectionModel().select(0);
+    	monthTo.getSelectionModel().select(11);
+
+    	for (String item : reportTime) {
+    		boolean kt = true;
+    		for (String item1 : listYearFrom) {
+				if (item1.equals(item.substring(0,4))) {
+					kt = false;
+					break;
+				}
+			}
+    		if (kt)	listYearFrom.add(item.substring(0,4));
+		}
     	yearFrom.setItems(listYearFrom);
     	yearTo.setItems(listYearFrom);
+    	yearFrom.getSelectionModel().select(0);
+    	yearTo.getSelectionModel().select(listYearFrom.size()-1);
     }
-
+    @FXML
+    private Label timeWarning;
     @FXML
     private ComboBox<String> yearFrom;
     @FXML
@@ -1366,37 +1388,45 @@ public class indexController {
     @FXML
     private AnchorPane reportLoading;
     ObservableList<String> listMonthFrom = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12");
-    ObservableList<String> listYearFrom = FXCollections.observableArrayList("2020","2021");
+    ObservableList<String> listYearFrom = FXCollections.observableArrayList();
     @FXML
     void CallReport(ActionEvent event) throws JRException, ClassNotFoundException, SQLException {
-    	reportLoading.setVisible(true);
-    	Task<Void> task = new Task<Void>() {
-		    @Override
-		    public Void call() throws Exception {
-	    		JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Report.jrxml");
-	        	JRDesignQuery updateQuery = new JRDesignQuery();
-	        	
-	        	String tmpDate = "01"+ getMonthName(monthFrom.getValue()) + yearFrom.getValue();
-	        	String tmpDate1 = "28"+ getMonthName(monthTo.getValue())+ yearTo.getValue();
-	          	updateQuery.setText("SELECT * FROM report where closingdate >= to_date('"+tmpDate+"','DD-MON-YY') and  closingdate <= to_date('"+tmpDate1 +"','DD-MON-YY') order by closingdate asc");
-	        	jDesign.setQuery(updateQuery);
-	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
-	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
-	        	JasperViewer.viewReport(jPrint,false);
-		        return null ;
-		    }
-		};
-		task.setOnSucceeded(e -> {
-			reportLoading.setVisible(false);
-		});
-		new Thread(task).start();
-//    	try {
-//    	//	JasperDesign jDesign = JRXmlLoader.load(getClass().getResource("Report.jrxml"));
-//
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+    	if (ValidateTimeReport().equals("true")) {
+    		timeWarning.setVisible(false);
+    		reportLoading.setVisible(true);
+        	Task<Void> task = new Task<Void>() {
+    		    @Override
+    		    public Void call() throws Exception {
+    	    		JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Report.jrxml");
+    	        	JRDesignQuery updateQuery = new JRDesignQuery();
+    	        	
+    	        	String tmpDate = "01"+ getMonthName(monthFrom.getValue()) + yearFrom.getValue();
+    	        	String tmpDate1 = "28"+ getMonthName(monthTo.getValue())+ yearTo.getValue();
+    	          	updateQuery.setText("SELECT * FROM report where closingdate >= to_date('"+tmpDate+"','DD-MON-YY') and  closingdate <= to_date('"+tmpDate1 +"','DD-MON-YY') order by closingdate asc");
+    	        	jDesign.setQuery(updateQuery);
+    	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+    	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+    	        	JasperViewer.viewReport(jPrint,false);
+    		        return null ;
+    		    }
+    		};
+    		task.setOnSucceeded(e -> {
+    			reportLoading.setVisible(false);
+    		});
+    		new Thread(task).start();
+    	} else {
+    		timeWarning.setVisible(true);
+    	}
+
     }
+    
+    String ValidateTimeReport() {
+    	if (Long.parseLong(yearFrom.getValue()) > Long.parseLong(yearTo.getValue())) return "false";
+    	else if (Long.parseLong(yearFrom.getValue()) == Long.parseLong(yearTo.getValue())) 
+    		if (Long.parseLong(monthFrom.getValue())>=Long.parseLong(monthTo.getValue())) return "false";
+    	return "true";
+    }
+    
     private String getMonthName(String month) {
 
 		String monthName = null;
