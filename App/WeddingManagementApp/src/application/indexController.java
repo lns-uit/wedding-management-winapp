@@ -135,6 +135,7 @@ public class indexController {
     	allStaff = StaffModel.getAllStaff();
     	ArrayList<Customer> allCustomer = CustomerModel.getAllCus();
     	Bill test = BillModel.getBillById("B32");
+    	ArrayList<String> arrReport = reportModel.getAllReport();
     	// xử lí tất cả các view
 		viewStaff();
 		ViewLobbyColumn();
