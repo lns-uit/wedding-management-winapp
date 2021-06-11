@@ -450,6 +450,7 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
+                              <ProgressIndicator id="processTbView" fx:id="billProcess" layoutX="746.0" layoutY="596.0" prefHeight="30.0" prefWidth="28.0" visible="false" />
                            </children>
                         </AnchorPane>
       

@@ -1045,6 +1045,8 @@ public class indexController {
     private Label moneyOrderSum;
     @FXML
     private Button btnShowBill;
+    ObservableList<Bill> arrBills;  
+    ObservableList<Bill> arrBillFilter;
     void ViewBillColumn() {
     	billIDColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idBill"));
     	billIDStaffColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idStaff"));
@@ -1052,29 +1054,52 @@ public class indexController {
     	billIDWeddingColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idWedding"));
     	billMoneyColumn.setCellValueFactory(new PropertyValueFactory<Bill,Number>("money"));
     	dateOfPayColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("dateOfPay"));
-    	
+    	InitSearchBill();
     	tbViewBill.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
     		btnShowBill.setDisable(false);
     	});
     }
 
 	public void ViewBillTbView() throws SQLException {
-    	//Call all bill để render viewTalbe
 		tbViewBill.getSelectionModel().clearSelection();
 		btnShowBill.setDisable(true);
-    	ObservableList<Bill> arrBills = FXCollections.observableArrayList(BillModel.getAllBill());
-    	BigDecimal sumMoneyBigDecimal = new BigDecimal("0");
-    	for (Bill bill : arrBills) {
-    		String tmpString = bill.getMoneyNum().toString();
-    		BigDecimal tmpBigDecimal = new BigDecimal(tmpString);
-    		sumMoneyBigDecimal= sumMoneyBigDecimal.add(tmpBigDecimal);	
-		}
-    	DecimalFormat formatter = new DecimalFormat("###,###,###");
-		String tmpString = formatter.format(sumMoneyBigDecimal)+" VNĐ";
-    	moneyOrderSum.setText(tmpString);
-    	numberOrderSum.setText(Long.toString(arrBills.size()));
-    	tbViewBill.setItems(arrBills);
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewBill);
+    	if (tbViewBill.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+		Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	arrBills = FXCollections.observableArrayList(BillModel.getAllBill());
+
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			transfade.stop();
+			tbViewBill.setOpacity(1);
+	    	BigDecimal sumMoneyBigDecimal = new BigDecimal("0");
+	    	for (Bill bill : arrBills) {
+	    		String tmpString = bill.getMoneyNum().toString();
+	    		BigDecimal tmpBigDecimal = new BigDecimal(tmpString);
+	    		sumMoneyBigDecimal= sumMoneyBigDecimal.add(tmpBigDecimal);	
+			}
+	    	DecimalFormat formatter = new DecimalFormat("###,###,###");
+			String tmpString = formatter.format(sumMoneyBigDecimal)+" VNĐ";
+	    	moneyOrderSum.setText(tmpString);
+	    	numberOrderSum.setText(Long.toString(arrBills.size()));
+	    	tbViewBill.setItems(arrBills);
+		});
+		new Thread(task).start();
+		
+
     }
+    @FXML
+    private ProgressIndicator billProcess;
 	@FXML
 	void OnSelectBill(ActionEvent event) throws SQLException, ClassNotFoundException, JRException {
 		String idString = tbViewBill.getSelectionModel().getSelectedItem().getIdBill();
@@ -1082,18 +1107,109 @@ public class indexController {
 	}
 
     void CallBill(String idBill) throws JRException, ClassNotFoundException, SQLException {
-    	try {
-    	//	JasperDesign jDesign = JRXmlLoader.load(getClass().getResource("Report.jrxml"));
-    		JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Bill.jrxml");
-        	JRDesignQuery updateQuery = new JRDesignQuery();
-        	updateQuery.setText("select * from bill, customer where idbill like '" + idBill + "%' AND bill.idcustomer = customer.idcustomer");
-        	jDesign.setQuery(updateQuery);
-        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
-        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
-        	JasperViewer.viewReport(jPrint,false);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+    	btnShowBill.setDisable(true);
+    	billProcess.setVisible(true);
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Bill.jrxml");
+	        	JRDesignQuery updateQuery = new JRDesignQuery();
+	        	updateQuery.setText("select * from bill, customer where idbill like '" + idBill + "%' AND bill.idcustomer = customer.idcustomer");
+	        	jDesign.setQuery(updateQuery);
+	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+	        	JasperViewer.viewReport(jPrint,false);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			btnShowBill.setDisable(false);
+	    	billProcess.setVisible(false);
+		});
+		new Thread(task).start();
+    }
+    
+    public void InitSearchBill() {
+    	tfSearchBill.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrBillFilter = FXCollections.observableArrayList(
+    				filterBill(observable.getValue())
+    		
+    		);
+    		if (!observable.getValue().equals("")) {
+        		arrBillFilter.addAll(filterIDBill(observable.getValue()));
+        		arrBillFilter.addAll(filterIDCusBill(observable.getValue()));
+        		arrBillFilter.addAll(filterIDStaffBill(observable.getValue()));
+    		}
+
+    		tbViewBill.setItems(arrBillFilter);
+    	});
+    }
+    
+    public ArrayList<Bill> filterBill (String inputName) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdWedding().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    
+    public ArrayList<Bill> filterIDBill (String inputID) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdBill().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Bill stff : arrBillFilter) {
+					if (item.getIdBill().equals(stff.getIdBill())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    public ArrayList<Bill> filterIDCusBill (String input) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdCustomer().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Bill stff : arrBillFilter) {
+					if (item.getIdCustomer().equals(stff.getIdCustomer())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    public ArrayList<Bill> filterIDStaffBill (String input) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdStaff().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Bill stff : arrBillFilter) {
+					if (item.getIdStaff().equals(stff.getIdStaff())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
     }
     /***********Staff controller *************/
     @FXML
@@ -1352,28 +1468,40 @@ public class indexController {
 //    private TableColumn<ReportRevenue, Number> reportRevenueColumn;
     ArrayList<String> reportTime;
     public void ReportTbViewShow() throws SQLException {
-    	monthFrom.setItems(listMonthFrom);
-    	monthTo.setItems(listMonthFrom);
-
     	
-    	reportTime = ReportModel.getAllReport();
-    	monthFrom.getSelectionModel().select(0);
-    	monthTo.getSelectionModel().select(11);
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		   
+	    	
+		    	reportTime = ReportModel.getAllReport();
 
-    	for (String item : reportTime) {
-    		boolean kt = true;
-    		for (String item1 : listYearFrom) {
-				if (item1.equals(item.substring(0,4))) {
-					kt = false;
-					break;
+		    	
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			monthFrom.setItems(listMonthFrom);
+	    	monthTo.setItems(listMonthFrom);
+	    	monthFrom.getSelectionModel().select(0);
+	    	monthTo.getSelectionModel().select(11);
+	    	for (String item : reportTime) {
+	    		boolean kt = true;
+	    		for (String item1 : listYearFrom) {
+					if (item1.equals(item.substring(0,4))) {
+						kt = false;
+						break;
+					}
 				}
+	    		if (kt)	listYearFrom.add(item.substring(0,4));
 			}
-    		if (kt)	listYearFrom.add(item.substring(0,4));
-		}
-    	yearFrom.setItems(listYearFrom);
-    	yearTo.setItems(listYearFrom);
-    	yearFrom.getSelectionModel().select(0);
-    	yearTo.getSelectionModel().select(listYearFrom.size()-1);
+	    	yearFrom.setItems(listYearFrom);
+	    	yearTo.setItems(listYearFrom);
+	    	yearFrom.getSelectionModel().select(0);
+	    	yearTo.getSelectionModel().select(listYearFrom.size()-1);
+	     	
+		});
+		new Thread(task).start();
     }
     @FXML
     private Label timeWarning;
