@@ -556,7 +556,7 @@ public class indexController {
     	} else {
     		if (event.getSource()==btnDeleteLobby) {
     			holderManager.AlertNotification("deleteLobby","Bạn chắc chắn muốn xóa sảnh này ?", 0);
-        	}
+        	} else 
         	if (event.getSource()==btnUpdateLobby) {
         		HolderManager lobbyHolder = HolderManager.getInstance();
         		lobbyHolder.setLobby(selectedLobby);
@@ -953,8 +953,29 @@ public class indexController {
     }
     private ObservableList<Customer> arrCustomer;
     public void ViewCustomerTbView() throws SQLException {
-    	arrCustomer = FXCollections.observableArrayList(CustomerModel.getAllCus()) ;
-    	tbViewCustomer.setItems(arrCustomer);
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewCustomer);
+    	if (tbViewCustomer.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	arrCustomer = FXCollections.observableArrayList(CustomerModel.getAllCus()) ;
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			transfade.stop();
+			tbViewCustomer.setOpacity(1);
+	    	tbViewCustomer.setItems(arrCustomer);
+		});
+		new Thread(task).start();
+
+
     }
     
     private ObservableList<Customer> arrCusFilter;
