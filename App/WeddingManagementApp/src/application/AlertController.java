@@ -2,6 +2,7 @@ package application;
 
 import java.sql.SQLException;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class AlertController {
 
@@ -41,7 +50,7 @@ public class AlertController {
 		alertContent.setText(holderManager.getAlertContent());
     }
     @FXML
-    private indexController indexCtrl ;
+    private AnchorPane loadingCreateBill;
     @FXML
     public void onAcceptPress(ActionEvent event) throws SQLException {
     	HolderManager holderManager = HolderManager.getInstance();
@@ -149,13 +158,32 @@ public class AlertController {
 					String idStaff = StaffHolder.getInstance().getStaff().getId();
 					String idWedding = holderManager.getDetailOrderWedding().getIdWedding();
 					String message = BillModel.createBill(idStaff, idCus, idWedding);
-					if (message.equals("true")) {
+					if ((!message.equals("")) || (message!=null)  ) {
 						holderManager.getStageNeedClose().close();
-						closeScene();		
-						AlertNotification("Thanh toán thành công !");
-						holderManager.getIndexController().ViewOrderSummanryTbView();
+						loadingCreateBill.setVisible(true);
+						Task<Void> task = new Task<Void>() {
+						    @Override
+						    public Void call() throws Exception {
+						    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Bill.jrxml");
+					        	JRDesignQuery updateQuery = new JRDesignQuery();
+					        	updateQuery.setText("select * from bill, customer where idbill like '" + message + "%' AND bill.idcustomer = customer.idcustomer");
+					        	jDesign.setQuery(updateQuery);
+					        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+					        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+					        	JasperViewer.viewReport(jPrint,false);
+						        return null ;
+						    }
+						};
+						task.setOnSucceeded(e -> {
+							closeScene();	
+							loadingCreateBill.setVisible(false);
+							holderManager.getIndexController().ViewOrderSummanryTbView();
+						});
+						new Thread(task).start();
+
 					} else {
 						AlertNotification("Thanh toán thất bại !");
+						loadingCreateBill.setVisible(false);
 					}
 					
 				} catch (Exception e2) {

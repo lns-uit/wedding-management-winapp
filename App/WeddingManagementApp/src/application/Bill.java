@@ -34,6 +34,7 @@ public class Bill {
 	}
 	public void setMoney(Number money) {
 		this.money = money.toString();
+		setMoneyNum(money);
 	}
 	public String getDateOfPay() {
 		return dateOfPay;
@@ -41,12 +42,22 @@ public class Bill {
 	public void setDateOfPay(String dateOfPay) {
 		this.dateOfPay = dateOfPay;
 	}
+	public Bill() {
+
+	}
 	private String idBill;
 	private String idStaff;
 	private String idCustomer;
 	private String idWedding;
 	private String money;
 	private String dateOfPay;
+	private Number moneyNum;
+	public Number getMoneyNum() {
+		return moneyNum;
+	}
+	public void setMoneyNum(Number moneyNum) {
+		this.moneyNum = moneyNum;
+	}
 	public Bill(String idBill, String idStaff, String idCustomer, String idWedding, Number money, String dateOfPay) {
 		super();
 		this.idBill = idBill;
@@ -55,6 +66,7 @@ public class Bill {
 		this.idWedding = idWedding;
 		this.money = money.toString();
 		this.dateOfPay = dateOfPay;
+		this.moneyNum = money;
 	}
 	
 }

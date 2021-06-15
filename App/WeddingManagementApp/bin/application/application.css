@@ -166,7 +166,7 @@
     -fx-border-width: 0.5;
 }
 .root {
-		-fx-background-color: transparent;
+	-fx-background-color: transparent;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0, 0, 0);
     -fx-background-insets: 10;
     -fx-padding: 10;
@@ -184,9 +184,13 @@
 	-fx-background-color:#b83737;
 }
 #ColumnRight {
-  -fx-alignment: CENTER-RIGHT;
+  	-fx-alignment: CENTER-RIGHT;
 }
 
 #ColumnCenter{
-  -fx-alignment: CENTER;
+  	-fx-alignment: CENTER;
+}
+
+#BorderPanel{
+	-fx-background-radius: 10 10 10 10;
 }

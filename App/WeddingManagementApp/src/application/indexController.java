@@ -1,6 +1,8 @@
 package application;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javafx.animation.Animation;
@@ -17,7 +19,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
@@ -30,6 +32,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class indexController {
 
@@ -114,9 +125,11 @@ public class indexController {
     	primaryStage = (Stage) btnName.getScene().getWindow();
     	primaryStage.setIconified(true);
     }
-    /*************** END WINDOW CONTROLLER *************/
+    /*************** END WINDOW CONTROLLER 
+     * @throws JRException 
+     * @throws ClassNotFoundException *************/
     @FXML
-    void initialize() throws SQLException {
+    void initialize() throws SQLException, ClassNotFoundException, JRException {
     	processTbView.setVisible(false);
     	// TODO Auto-generated method stub
     	//gán user vào info
@@ -142,20 +155,14 @@ public class indexController {
 		ViewCustomerColumn();
 		ViewOrderSummaryColumn();
     	IndexInit(staff.getType());
-    	// tìm kiếm nhân viên
-    	InitSearchStaff();
-    	
-    	//Call all order wedding để render view table
     	ArrayList<OrderWedding> getAllOrderWedding = OrderWeddingModel.getAllOrderWedding();
     	
     	if (currentPane==null) currentPane = infoPersonalPanel;
     	if (currentButton==null) currentButton = btnInfoPersonal;
     	currentButton.setStyle("-fx-background-color: #cf4848");
     	currentPane.setVisible(true);
-    	
-
-    	
 	}
+    
     private boolean isFist = false;
     @FXML
     private Label LbNameIndex;
@@ -194,8 +201,7 @@ public class indexController {
     	}
     	else if (event.getSource()==btnReport) { 
     		LbNameIndex.setText("THỐNG KÊ - BÁO CÁO");
-    		currentPane = reportPanel; currentButton = btnReport;
-    		ReportChartShow();    		
+    		currentPane = reportPanel; currentButton = btnReport; 		
     		ReportTbViewShow();
     	}
     	else if (event.getSource()==btnInfoPersonal) { 
@@ -214,6 +220,7 @@ public class indexController {
     		currentPane = customerPanel;
     		currentButton = btnCustomerManagement;
     		tfSearchCustomer.setText("");
+    		ViewCustomerTbView();
     
     	}
     	currentButton.setStyle("-fx-background-color:#cf4848");
@@ -437,7 +444,7 @@ public class indexController {
     		if (item.getPhoneCus().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
     			boolean kt = true;
     			for (OrderWedding item1 : arrOrderFilter) {
-					if (item1.getPhoneCus().equals(item.getPhoneCus())) {
+					if (item1.getIdWedding().equals(item.getIdWedding())) {
 						kt=false;
 						break;
 					}
@@ -546,7 +553,7 @@ public class indexController {
     	} else {
     		if (event.getSource()==btnDeleteLobby) {
     			holderManager.AlertNotification("deleteLobby","Bạn chắc chắn muốn xóa sảnh này ?", 0);
-        	}
+        	} else 
         	if (event.getSource()==btnUpdateLobby) {
         		HolderManager lobbyHolder = HolderManager.getInstance();
         		lobbyHolder.setLobby(selectedLobby);
@@ -567,6 +574,7 @@ public class indexController {
     		);
     		if (!observable.getValue().equals("")) {
     			arrLobbyFilter.addAll(filterIDLobby(observable.getValue()));
+    			arrLobbyFilter.addAll(filterTypeLobby(observable.getValue()));
     		}
 
     		tbViewLobbyManager.setItems(arrLobbyFilter);
@@ -609,7 +617,7 @@ public class indexController {
     		if (item.getType().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Lobby item1 : arrLobbyFilter) {
-					if (item1.getType().equals(item.getType())) {
+					if (item1.getId().equals(item.getId())) {
 						kt=false;
 						break;
 					}
@@ -765,7 +773,7 @@ public class indexController {
     		if (food.getType().toUpperCase().indexOf(input.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Food stff : arrFoodFilter) {
-					if (food.getType().equals(stff.getType())) {
+					if (food.getId().equals(stff.getId())) {
 						kt=false;
 						break;
 					}
@@ -942,8 +950,30 @@ public class indexController {
     	});
     }
     private ObservableList<Customer> arrCustomer;
-    public void ViewCustomerTbView() {
-    	tbViewCustomer.setItems(arrCustomer);
+    public void ViewCustomerTbView() throws SQLException {
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewCustomer);
+    	if (tbViewCustomer.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	arrCustomer = FXCollections.observableArrayList(CustomerModel.getAllCus()) ;
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			transfade.stop();
+			tbViewCustomer.setOpacity(1);
+	    	tbViewCustomer.setItems(arrCustomer);
+		});
+		new Thread(task).start();
+
+
     }
     
     private ObservableList<Customer> arrCusFilter;
@@ -981,7 +1011,7 @@ public class indexController {
     		if (item.getPhone().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Customer item1 : arrCusFilter) {
-					if (item1.getPhone().equals(item.getPhone())) {
+					if (item1.getId().equals(item.getId())) {
 						kt=false;
 						break;
 					}
@@ -1032,6 +1062,10 @@ public class indexController {
     private Label numberOrderSum;
     @FXML
     private Label moneyOrderSum;
+    @FXML
+    private Button btnShowBill;
+    ObservableList<Bill> arrBills;  
+    ObservableList<Bill> arrBillFilter;
     void ViewBillColumn() {
     	billIDColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idBill"));
     	billIDStaffColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idStaff"));
@@ -1039,19 +1073,163 @@ public class indexController {
     	billIDWeddingColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("idWedding"));
     	billMoneyColumn.setCellValueFactory(new PropertyValueFactory<Bill,Number>("money"));
     	dateOfPayColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("dateOfPay"));
-
+    	InitSearchBill();
     	tbViewBill.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-     	
+    		btnShowBill.setDisable(false);
     	});
     }
-    public void ViewBillTbView() throws SQLException {
-    	//Call all bill để render viewTalbe
-    	ObservableList<Bill> arrBills = FXCollections.observableArrayList(BillModel.getAllBill());
-    	tbViewBill.setItems(arrBills);
-    	moneyOrderSum.setText("1,000,000 VNĐ");
-    	numberOrderSum.setText(Long.toString(arrBills.size()));
+
+	public void ViewBillTbView() throws SQLException {
+		tbViewBill.getSelectionModel().clearSelection();
+		btnShowBill.setDisable(true);
+    	FadeTransition transfade = new FadeTransition(Duration.seconds(1), tbViewBill);
+    	if (tbViewBill.getSelectionModel().isEmpty()) {
+    		transfade.setFromValue(.5);
+            transfade.setToValue(.9);
+            transfade.setCycleCount(Animation.INDEFINITE);
+            transfade.setAutoReverse(true);
+            transfade.play();
+    	}
+		Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	arrBills = FXCollections.observableArrayList(BillModel.getAllBill());
+
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			transfade.stop();
+			tbViewBill.setOpacity(1);
+	    	BigDecimal sumMoneyBigDecimal = new BigDecimal("0");
+	    	for (Bill bill : arrBills) {
+	    		String tmpString = bill.getMoneyNum().toString();
+	    		BigDecimal tmpBigDecimal = new BigDecimal(tmpString);
+	    		sumMoneyBigDecimal= sumMoneyBigDecimal.add(tmpBigDecimal);	
+			}
+	    	DecimalFormat formatter = new DecimalFormat("###,###,###");
+			String tmpString = formatter.format(sumMoneyBigDecimal)+" VNĐ";
+	    	moneyOrderSum.setText(tmpString);
+	    	numberOrderSum.setText(Long.toString(arrBills.size()));
+	    	tbViewBill.setItems(arrBills);
+		});
+		new Thread(task).start();
+		
+
+    }
+    @FXML
+    private ProgressIndicator billProcess;
+	@FXML
+	void OnSelectBill(ActionEvent event) throws SQLException, ClassNotFoundException, JRException {
+		String idString = tbViewBill.getSelectionModel().getSelectedItem().getIdBill();
+    	CallBill(idString);
+	}
+
+    void CallBill(String idBill) throws JRException, ClassNotFoundException, SQLException {
+    	btnShowBill.setDisable(true);
+    	billProcess.setVisible(true);
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Bill.jrxml");
+	        	JRDesignQuery updateQuery = new JRDesignQuery();
+	        	updateQuery.setText("select * from bill, customer where idbill like '" + idBill + "%' AND bill.idcustomer = customer.idcustomer");
+	        	jDesign.setQuery(updateQuery);
+	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+	        	JasperViewer.viewReport(jPrint,false);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			btnShowBill.setDisable(false);
+	    	billProcess.setVisible(false);
+		});
+		new Thread(task).start();
     }
     
+    public void InitSearchBill() {
+    	tfSearchBill.textProperty().addListener((observable, oldValue, newValue) -> {
+    		arrBillFilter = FXCollections.observableArrayList(
+    				filterBill(observable.getValue())
+    		
+    		);
+    		if (!observable.getValue().equals("")) {
+        		arrBillFilter.addAll(filterIDBill(observable.getValue()));
+        		arrBillFilter.addAll(filterIDCusBill(observable.getValue()));
+        		arrBillFilter.addAll(filterIDStaffBill(observable.getValue()));
+    		}
+
+    		tbViewBill.setItems(arrBillFilter);
+    	});
+    }
+    
+    public ArrayList<Bill> filterBill (String inputName) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdWedding().toUpperCase().indexOf(inputName.toUpperCase())>-1) {
+    			resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    
+    public ArrayList<Bill> filterIDBill (String inputID) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdBill().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Bill stff : arrBillFilter) {
+					if (item.getIdBill().equals(stff.getIdBill())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    public ArrayList<Bill> filterIDCusBill (String input) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdCustomer().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Bill stff : arrBillFilter) {
+					if (item.getIdBill().equals(stff.getIdBill())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    public ArrayList<Bill> filterIDStaffBill (String input) {
+    	ArrayList<Bill> resultStaffs = new ArrayList<Bill>();
+    	
+    	arrBills.forEach(item -> {
+    		if (item.getIdStaff().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Bill stff : arrBillFilter) {
+					if (item.getIdBill().equals(stff.getIdBill())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(item);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
     /***********Staff controller *************/
     @FXML
     private TableColumn<Staff,String> staffTypeColumn;
@@ -1087,7 +1265,7 @@ public class indexController {
     		} else {
     			StaffHolder holder = StaffHolder.getInstance();
     	   		holder.setStaffSelect(selectStaff);
-    	   		holderManager.AlertNotification("deleteStaff","Bạn có chắc chắn với hành động dại dột này khong",0);    			
+    	   		holderManager.AlertNotification("deleteStaff","Bạn có chắc chắn với hành động này khong",0);    			
     		}
     	} else
     	if (event.getSource()==btnStaffUpdate) {
@@ -1113,16 +1291,24 @@ public class indexController {
 		staffCMNDColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("identityCard"));
 		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
 		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
-		
-
+    	InitSearchStaff();
+    	StaffHolder holder = StaffHolder.getInstance();
 		staffTbView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			btnStaffUpdate.setDisable(false);
-			btnStaffDelete.setDisable(false);
-			btnChangePass.setDisable(false);
+			if (obs.getValue().getType().equals("quản lý") && holder.getStaff().getType().equals("quản lý")) {
+				btnStaffUpdate.setDisable(true);
+				btnStaffDelete.setDisable(true);
+				btnChangePass.setDisable(true);
+			} else {
+				btnStaffUpdate.setDisable(false);
+				btnStaffDelete.setDisable(false);
+				btnChangePass.setDisable(false);
+			}
+
     	});
 
 	}
     ArrayList<Staff> arr;
+    private int countQL, countLT, countNVK;
     @FXML
     private Button btnChangePass;
     public void updateStaffTView() throws SQLException {
@@ -1146,6 +1332,11 @@ public class indexController {
 		};
 		task.setOnSucceeded(e -> {
 			setTbView(arr);	
+			for (Staff staff : arr) {
+				if (staff.getType().equals("quản lý")) countQL++;
+				else if (staff.getType().equals("nhân viên lễ tân")) countLT++;
+				else countNVK++;
+			}
 			processTbView.setVisible(false);
            	staffTbView.setOpacity(1);
 		});
@@ -1163,6 +1354,7 @@ public class indexController {
         		arrStaff.addAll(filterIDStaff(observable.getValue()));
         		arrStaff.addAll(filterPhoneStaff(observable.getValue()));
         		arrStaff.addAll(filterIdentityCardStaff(observable.getValue()));
+        		arrStaff.addAll(filterTypeStaff(observable.getValue()));
     		}
 
     		staffTbView.setItems(arrStaff);
@@ -1235,6 +1427,24 @@ public class indexController {
     	
     	return resultStaffs;
     }
+    public ArrayList<Staff> filterTypeStaff (String input) {
+    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
+    	
+    	allStaff.forEach(staff -> {
+    		if (staff.getType().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Staff stff : arrStaff) {
+					if (staff.getId().equals(stff.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(staff);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
     public void setTbView (ArrayList<Staff> arrayStaff) {
     	arrStaff = FXCollections.observableArrayList(arrayStaff);
     	staffTbView.setItems(arrStaff);
@@ -1250,80 +1460,239 @@ public class indexController {
 		} else {
 			StaffHolder holder = StaffHolder.getInstance();
     		holder.setStaffSelect(selectStaff);
-    		holderManager.AlertNotification("resetPassword", "Bạn có chắc chắn với hành động dại dột này không ?",0);
+    		holderManager.AlertNotification("resetPassword", "Bạn có chắc chắn với hành động đặt lại mật khẩu cho nhân viên này không ?",0);
 		}
     }
     
     /***********End Staff controller *************/
 
     /***********Report controller *************/
-    @FXML
-    private CategoryAxis xRevenue;
-    @FXML
-    private NumberAxis yRevenue;
-    @FXML
-    private LineChart< ? ,? > revenue;
-    @FXML
-    private LineChart<?, ?> countWedding;
-    @FXML
-    private CategoryAxis xCountWedding;
-    @FXML
-    private NumberAxis yCountWedding;
+//    @FXML
+//    private CategoryAxis xRevenue;
+//    @FXML
+//    private NumberAxis yRevenue;
+//    @FXML
+//    private LineChart< ? ,? > revenue;
+//    @FXML
+//    private LineChart<?, ?> countWedding;
+//    @FXML
+//    private CategoryAxis xCountWedding;
+//    @FXML
+//    private NumberAxis yCountWedding;
+//
+//   
+//    void ReportChartShow() {
+//    	// Doanh số theo tháng
+//    	revenue.setTitle("Doanh thu theo tháng");
+//    	
+//    	XYChart.Series revenueSeries = new XYChart.Series();
+//    	revenueSeries.getData().add(new XYChart.Data("3/2020",20000000));
+//    	revenueSeries.getData().add(new XYChart.Data("4/2020",110000011));
+//    	revenueSeries.getData().add(new XYChart.Data("5/2020",12310002));
+//    	revenueSeries.getData().add(new XYChart.Data("6/2020",92310002));
+//    	xRevenue.setLabel("Tháng");
+//    	yRevenue.setLabel("VNĐ");
+//    	revenue.getData().addAll(revenueSeries);
+//    	
+//    	// Só tiệc theo tháng
+//    	countWedding.setTitle("Số tiệc theo tháng");
+//    	
+//    	XYChart.Series countWeddingSeries = new XYChart.Series();
+//    	countWeddingSeries.getData().add(new XYChart.Data("3/2020",20));
+//      	countWeddingSeries.getData().add(new XYChart.Data("4/2020",32));
+//      	countWeddingSeries.getData().add(new XYChart.Data("5/2020",15));
+//      	countWeddingSeries.getData().add(new XYChart.Data("6/2020",23));
+//      	xCountWedding.setLabel("Tháng");
+//      	yCountWedding.setLabel("VNĐ");
+//      	countWedding.getData().addAll(countWeddingSeries);
+//    }
+//    private ObservableList<ReportRevenue> arrReport;
+//    @FXML
+//    private TableView<ReportRevenue> tbViewReport;
+//    @FXML
+//    private TableColumn<ReportRevenue, Number> reportIDColumn;
+//    @FXML
+//    private TableColumn<ReportRevenue, String> reportMonthColumn;
+//    @FXML
+//    private TableColumn<ReportRevenue, Number> reportCountWeddingColumn;
+//    @FXML
+//    private TableColumn<ReportRevenue, Number> reportRevenueColumn;
+    ArrayList<String> reportTime;
+    public void ReportTbViewShow() throws SQLException {
+    	
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		   
+	    	
+		    	reportTime = ReportModel.getAllReport();
 
-   
-    void ReportChartShow() {
-    	// Doanh số theo tháng
-    	revenue.setTitle("Doanh thu theo tháng");
-    	
-    	XYChart.Series revenueSeries = new XYChart.Series();
-    	revenueSeries.getData().add(new XYChart.Data("3/2020",20000000));
-    	revenueSeries.getData().add(new XYChart.Data("4/2020",110000011));
-    	revenueSeries.getData().add(new XYChart.Data("5/2020",12310002));
-    	revenueSeries.getData().add(new XYChart.Data("6/2020",92310002));
-    	xRevenue.setLabel("Tháng");
-    	yRevenue.setLabel("VNĐ");
-    	revenue.getData().addAll(revenueSeries);
-    	
-    	// Só tiệc theo tháng
-    	countWedding.setTitle("Số tiệc theo tháng");
-    	
-    	XYChart.Series countWeddingSeries = new XYChart.Series();
-    	countWeddingSeries.getData().add(new XYChart.Data("3/2020",20));
-      	countWeddingSeries.getData().add(new XYChart.Data("4/2020",32));
-      	countWeddingSeries.getData().add(new XYChart.Data("5/2020",15));
-      	countWeddingSeries.getData().add(new XYChart.Data("6/2020",23));
-      	xCountWedding.setLabel("Tháng");
-      	yCountWedding.setLabel("VNĐ");
-      	countWedding.getData().addAll(countWeddingSeries);
+		    	
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			monthFrom.setItems(listMonthFrom);
+	    	monthTo.setItems(listMonthFrom);
+	    	monthFrom.getSelectionModel().select(0);
+	    	monthTo.getSelectionModel().select(11);
+	    	for (String item : reportTime) {
+	    		boolean kt = true;
+	    		for (String item1 : listYearFrom) {
+					if (item1.equals(item.substring(0,4))) {
+						kt = false;
+						break;
+					}
+				}
+	    		if (kt)	listYearFrom.add(item.substring(0,4));
+			}
+	    	yearFrom.setItems(listYearFrom);
+	    	yearTo.setItems(listYearFrom);
+	    	yearFrom.getSelectionModel().select(0);
+	    	yearTo.getSelectionModel().select(listYearFrom.size()-1);
+	     	
+		});
+		new Thread(task).start();
     }
-    private ObservableList<ReportRevenue> arrReport;
     @FXML
-    private TableView<ReportRevenue> tbViewReport;
+    private Label timeWarning;
     @FXML
-    private TableColumn<ReportRevenue, Number> reportIDColumn;
+    private ComboBox<String> yearFrom;
     @FXML
-    private TableColumn<ReportRevenue, String> reportMonthColumn;
+    private ComboBox<String> monthFrom;
     @FXML
-    private TableColumn<ReportRevenue, Number> reportCountWeddingColumn;
+    private ComboBox<String> yearTo;
     @FXML
-    private TableColumn<ReportRevenue, Number> reportRevenueColumn;
-    public void ReportTbViewShow() {
+    private ComboBox<String> monthTo;
+    @FXML
+    private AnchorPane reportLoading;
+    ObservableList<String> listMonthFrom = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12");
+    ObservableList<String> listYearFrom = FXCollections.observableArrayList();
+    @FXML
+    void CallReport(ActionEvent event) throws JRException, ClassNotFoundException, SQLException {
+    	if (ValidateTimeReport().equals("true")) {
+    		timeWarning.setVisible(false);
+    		reportLoading.setVisible(true);
+        	Task<Void> task = new Task<Void>() {
+    		    @Override
+    		    public Void call() throws Exception {
+    	    		JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Report.jrxml");
+    	        	JRDesignQuery updateQuery = new JRDesignQuery();
+    	        	
+    	        	String tmpDate = "01"+ getMonthName(monthFrom.getValue()) + yearFrom.getValue();
+    	        	String tmpDate1 = "28"+ getMonthName(monthTo.getValue())+ yearTo.getValue();
+    	          	updateQuery.setText("SELECT * FROM report where closingdate >= to_date('"+tmpDate+"','DD-MON-YY') and  closingdate <= to_date('"+tmpDate1 +"','DD-MON-YY') order by closingdate asc");
+    	        	jDesign.setQuery(updateQuery);
+    	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+    	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+    	        	JasperViewer.viewReport(jPrint,false);
+    		        return null ;
+    		    }
+    		};
+    		task.setOnSucceeded(e -> {
+    			reportLoading.setVisible(false);
+    		});
+    		new Thread(task).start();
+    	} else {
+    		timeWarning.setVisible(true);
+    	}
 
-    	arrReport = FXCollections.observableArrayList(
-    			new ReportRevenue(1,"3/2020",20,20000000),
-    			new ReportRevenue(2,"4/2020",32,110000011),
-    			new ReportRevenue(3,"5/2020",15,12310002),
-    			new ReportRevenue(4,"6/2020",23,92310002)
-    	);
-
-    	reportIDColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue,Number>("stt"));
-    	reportMonthColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue, String>("month"));
-    	reportCountWeddingColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue, Number>("countWedding"));
-    	reportRevenueColumn.setCellValueFactory(new PropertyValueFactory<ReportRevenue, Number>("revenue"));
-
-    	tbViewReport.setItems(arrReport);
     }
     
+    String ValidateTimeReport() {
+    	if (Long.parseLong(yearFrom.getValue()) > Long.parseLong(yearTo.getValue())) return "false";
+    	else if (Long.parseLong(yearFrom.getValue()) == Long.parseLong(yearTo.getValue())) 
+    		if (Long.parseLong(monthFrom.getValue())>=Long.parseLong(monthTo.getValue())) return "false";
+    	return "true";
+    }
+    
+    private String getMonthName(String month) {
+
+		String monthName = null;
+		switch (month) {
+		case "1":
+			monthName = "JAN";
+			break;
+		case "2":
+			monthName = "FEB";
+			break;
+		case "3":
+			monthName = "MAR";
+			break;
+		case "4":
+			monthName = "APR";
+			break;
+		case "5":
+			monthName = "MAY";
+			break;
+		case "6":
+			monthName = "JUN";
+			break;
+		case "7":
+			monthName = "JUL";
+			break;
+		case "8":
+			monthName = "AUG";
+			break;
+		case "9":
+			monthName = "SEP";
+			break;
+		case "10":
+			monthName = "OCT";
+			break;
+		case "11":
+			monthName = "NOV";
+			break;
+		case "12":
+			monthName = "DEC";
+			break;
+		}
+
+		return monthName;
+	}
+    
+    @FXML
+    void Top5Customer(ActionEvent event) throws JRException, ClassNotFoundException, SQLException {
+    	reportLoading.setVisible(true);
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Top5Customer.jrxml");
+	        	JRDesignQuery updateQuery = new JRDesignQuery();
+	        	updateQuery.setText("SELECT * FROM customer where ROWNUM <= 5 order by Money DESC");
+	        	jDesign.setQuery(updateQuery);
+	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+	        	JasperViewer.viewReport(jPrint,false);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			reportLoading.setVisible(false);
+		});
+		new Thread(task).start();
+    }
+    @FXML
+    void TopLobby(ActionEvent event) throws JRException, ClassNotFoundException, SQLException {
+    	reportLoading.setVisible(true);
+    	Task<Void> task = new Task<Void>() {
+		    @Override
+		    public Void call() throws Exception {
+		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Lobby.jrxml");
+	        	JRDesignQuery updateQuery = new JRDesignQuery();
+	        	updateQuery.setText("select Lobb.idLobby, Lobb.nameLobby, count(*) as SO_LUONG_DA_TUNG_DAT from OrderWedding Ord, Lobby Lobb where Ord.idLobby = Lobb.idLobby group by Lobb.idLobby, Lobb.nameLobby order by SO_LUONG_DA_TUNG_DAT desc");
+	        	jDesign.setQuery(updateQuery);
+	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
+	        	JasperViewer.viewReport(jPrint,false);
+		        return null ;
+		    }
+		};
+		task.setOnSucceeded(e -> {
+			reportLoading.setVisible(false);
+		});
+		new Thread(task).start();
+    }
     /***********Info controller *************/
     
     @FXML

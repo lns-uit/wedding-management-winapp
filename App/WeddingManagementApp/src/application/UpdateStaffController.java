@@ -62,6 +62,7 @@ public class UpdateStaffController implements Initializable {
         typeStaff.getSelectionModel().select(indexSelectStaffType);
         phone.setDisable(true);
         identityCard.setDisable(true);
+        
     }
 	
 	@FXML
