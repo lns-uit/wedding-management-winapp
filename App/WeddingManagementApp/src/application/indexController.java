@@ -1,12 +1,9 @@
 package application;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -447,7 +444,7 @@ public class indexController {
     		if (item.getPhoneCus().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
     			boolean kt = true;
     			for (OrderWedding item1 : arrOrderFilter) {
-					if (item1.getPhoneCus().equals(item.getPhoneCus())) {
+					if (item1.getIdWedding().equals(item.getIdWedding())) {
 						kt=false;
 						break;
 					}
@@ -577,6 +574,7 @@ public class indexController {
     		);
     		if (!observable.getValue().equals("")) {
     			arrLobbyFilter.addAll(filterIDLobby(observable.getValue()));
+    			arrLobbyFilter.addAll(filterTypeLobby(observable.getValue()));
     		}
 
     		tbViewLobbyManager.setItems(arrLobbyFilter);
@@ -619,7 +617,7 @@ public class indexController {
     		if (item.getType().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Lobby item1 : arrLobbyFilter) {
-					if (item1.getType().equals(item.getType())) {
+					if (item1.getId().equals(item.getId())) {
 						kt=false;
 						break;
 					}
@@ -775,7 +773,7 @@ public class indexController {
     		if (food.getType().toUpperCase().indexOf(input.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Food stff : arrFoodFilter) {
-					if (food.getType().equals(stff.getType())) {
+					if (food.getId().equals(stff.getId())) {
 						kt=false;
 						break;
 					}
@@ -1013,7 +1011,7 @@ public class indexController {
     		if (item.getPhone().toUpperCase().indexOf(inputID.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Customer item1 : arrCusFilter) {
-					if (item1.getPhone().equals(item.getPhone())) {
+					if (item1.getId().equals(item.getId())) {
 						kt=false;
 						break;
 					}
@@ -1203,7 +1201,7 @@ public class indexController {
     		if (item.getIdCustomer().toUpperCase().indexOf(input.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Bill stff : arrBillFilter) {
-					if (item.getIdCustomer().equals(stff.getIdCustomer())) {
+					if (item.getIdBill().equals(stff.getIdBill())) {
 						kt=false;
 						break;
 					}
@@ -1221,7 +1219,7 @@ public class indexController {
     		if (item.getIdStaff().toUpperCase().indexOf(input.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Bill stff : arrBillFilter) {
-					if (item.getIdStaff().equals(stff.getIdStaff())) {
+					if (item.getIdBill().equals(stff.getIdBill())) {
 						kt=false;
 						break;
 					}
@@ -1294,15 +1292,23 @@ public class indexController {
 		staffStartWorkDateColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("startWork"));
 		staffTypeColumn.setCellValueFactory(new PropertyValueFactory<Staff, String>("type"));
     	InitSearchStaff();
-
+    	StaffHolder holder = StaffHolder.getInstance();
 		staffTbView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			btnStaffUpdate.setDisable(false);
-			btnStaffDelete.setDisable(false);
-			btnChangePass.setDisable(false);
+			if (obs.getValue().getType().equals("quản lý") && holder.getStaff().getType().equals("quản lý")) {
+				btnStaffUpdate.setDisable(true);
+				btnStaffDelete.setDisable(true);
+				btnChangePass.setDisable(true);
+			} else {
+				btnStaffUpdate.setDisable(false);
+				btnStaffDelete.setDisable(false);
+				btnChangePass.setDisable(false);
+			}
+
     	});
 
 	}
     ArrayList<Staff> arr;
+    private int countQL, countLT, countNVK;
     @FXML
     private Button btnChangePass;
     public void updateStaffTView() throws SQLException {
@@ -1326,6 +1332,11 @@ public class indexController {
 		};
 		task.setOnSucceeded(e -> {
 			setTbView(arr);	
+			for (Staff staff : arr) {
+				if (staff.getType().equals("quản lý")) countQL++;
+				else if (staff.getType().equals("nhân viên lễ tân")) countLT++;
+				else countNVK++;
+			}
 			processTbView.setVisible(false);
            	staffTbView.setOpacity(1);
 		});
@@ -1343,6 +1354,7 @@ public class indexController {
         		arrStaff.addAll(filterIDStaff(observable.getValue()));
         		arrStaff.addAll(filterPhoneStaff(observable.getValue()));
         		arrStaff.addAll(filterIdentityCardStaff(observable.getValue()));
+        		arrStaff.addAll(filterTypeStaff(observable.getValue()));
     		}
 
     		staffTbView.setItems(arrStaff);
@@ -1402,6 +1414,24 @@ public class indexController {
     	
     	allStaff.forEach(staff -> {
     		if (staff.getIdentityCard().toUpperCase().indexOf(input.toUpperCase())>-1) {
+    			boolean kt = true;
+    			for (Staff stff : arrStaff) {
+					if (staff.getId().equals(stff.getId())) {
+						kt=false;
+						break;
+					}
+				}
+    			if (kt) resultStaffs.add(staff);
+    		}
+    	});
+    	
+    	return resultStaffs;
+    }
+    public ArrayList<Staff> filterTypeStaff (String input) {
+    	ArrayList<Staff> resultStaffs = new ArrayList<Staff>();
+    	
+    	allStaff.forEach(staff -> {
+    		if (staff.getType().toUpperCase().indexOf(input.toUpperCase())>-1) {
     			boolean kt = true;
     			for (Staff stff : arrStaff) {
 					if (staff.getId().equals(stff.getId())) {

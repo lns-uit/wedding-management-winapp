@@ -96,7 +96,7 @@
 			<staticText>
 				<reportElement x="400" y="10" width="64" height="20" uuid="cb977b67-1791-4e72-becd-5bea06980e6f"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<text><![CDATA[Ngày:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyy">
