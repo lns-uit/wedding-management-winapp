@@ -28,14 +28,10 @@ public class AddStaffController implements Initializable {
 
     @FXML
     private Label warningText;
-
     @FXML
     private TextField identityCard;
-    
 	@FXML
 	ComboBox<String> typeStaff;
-	
-	
 	ObservableList<String> list = FXCollections.observableArrayList("nhân viên lao công", "nhân viên lễ tân", "nhân viên phục vụ");
 	
 	@Override
@@ -44,7 +40,6 @@ public class AddStaffController implements Initializable {
 		Staff staff  = holder.getStaff();
 		String typeStaffString = staff.getType();
 		if (typeStaffString.equals("admin")) {
-			System.out.print("abacasc");
 			list.add("quản lý");
 		}
         typeStaff.setItems(list);
@@ -55,7 +50,6 @@ public class AddStaffController implements Initializable {
 		String newPhoneString = phone.getText();
 		warningText.setVisible(false);
 		if (StaffModel.findStaffByPhone(newPhoneString) != null) {
-			//check số điện thoại
 			warningText.setText("Số điện thoại đã tồn tại");
 			warningText.setVisible(true);
 		} else {

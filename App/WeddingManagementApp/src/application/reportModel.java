@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import oracle.jdbc.OracleTypes;
 
-public class reportModel {
+public class ReportModel {
 	public static ArrayList<String> getAllReport () throws SQLException {
 		String sqlString = "begin sp_getReport(?); end;" ;
 		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
@@ -23,9 +23,7 @@ public class reportModel {
 			
 			while (rs.next()) {
 				String date = rs.getString(1);
-				
 				arrReport.add(date);
-				System.out.println(date);
 			}
 			
 			

@@ -28,7 +28,8 @@ public class ConnectDB {
 
 		Connection conn = DriverManager.getConnection(connectionURL, userName, password);
 		
-		System.out.println("Connect success");
+		System.out.println(conn);
+		
 		return conn;
 	}
 	

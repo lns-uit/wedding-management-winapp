@@ -69,6 +69,7 @@ public class BillModel {
 		cStmt.close();
 		return arrBill;
 	}
+<<<<<<< HEAD
 	
 	public static Bill getBillById(String idBill) throws SQLException {
 		String sqlString = "begin sp_getBillById(?,?); end;" ;
@@ -83,6 +84,21 @@ public class BillModel {
 			cStmt.executeUpdate();
 			ResultSet rs = (ResultSet) cStmt.getObject(2);
 			
+=======
+	public static Bill getBillById(String idBill) throws SQLException {
+		String sqlString = "begin sp_getBillById(?,?); end;" ;
+		CallableStatement cStmt = Main.connection.prepareCall(sqlString);
+
+		Bill resultBill = new Bill();
+
+		try {
+			cStmt.setString(1, idBill);
+			cStmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+			cStmt.executeUpdate();
+			ResultSet rs = (ResultSet) cStmt.getObject(2);
+
+>>>>>>> f32664d1fd650b90258594b51f88f5a9e1951493
 			while (rs.next()) {
 				String idBillRs  = rs.getString(2);
 				String idStaff  = rs.getString(3);
@@ -90,25 +106,44 @@ public class BillModel {
 				String idWed  = rs.getString(5);
 				long money  = rs.getLong(6);
 				String dateOfPayment  = rs.getString(7);
+<<<<<<< HEAD
 				
+=======
+
+>>>>>>> f32664d1fd650b90258594b51f88f5a9e1951493
 				Bill a = new Bill(idBillRs, idStaff, idCus, idWed, money, dateOfPayment);
 				System.out.println(idBill + " "+ dateOfPayment);
 				resultBill = a;
 			}
 
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> f32664d1fd650b90258594b51f88f5a9e1951493
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> f32664d1fd650b90258594b51f88f5a9e1951493
 		if (resultBill.getIdBill().equals("")==true) {
 			cStmt.close();
 			return null;
 		}
+<<<<<<< HEAD
 		
 		cStmt.close();
 		return resultBill;
 		
+=======
+
+		cStmt.close();
+		return resultBill;
+
+>>>>>>> f32664d1fd650b90258594b51f88f5a9e1951493
 	}
 }

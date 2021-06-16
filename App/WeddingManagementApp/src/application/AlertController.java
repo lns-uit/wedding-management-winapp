@@ -149,8 +149,12 @@ public class AlertController {
 					String idStaff = StaffHolder.getInstance().getStaff().getId();
 					String idWedding = holderManager.getDetailOrderWedding().getIdWedding();
 					String message = BillModel.createBill(idStaff, idCus, idWedding);
+<<<<<<< HEAD
 					System.out.println("Message after payment" + message);
 					if ((message.equals("")==false) || (message!=null)  ) {
+=======
+					if ((!message.equals("")) || (message!=null)  ) {
+>>>>>>> f32664d1fd650b90258594b51f88f5a9e1951493
 						holderManager.getStageNeedClose().close();
 						closeScene();		
 						AlertNotification("Thanh toán thành công !");
