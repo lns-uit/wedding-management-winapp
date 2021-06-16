@@ -555,9 +555,6 @@ public class indexController {
     			holderManager.AlertNotification("deleteLobby","Bạn chắc chắn muốn xóa sảnh này ?", 0);
         	} else 
         	if (event.getSource()==btnUpdateLobby) {
-        		HolderManager lobbyHolder = HolderManager.getInstance();
-        		lobbyHolder.setLobby(selectedLobby);
-        		
         		UpdateLobbyScene updateLobbyScene = new UpdateLobbyScene();
         		Stage stage = new Stage();
         		updateLobbyScene.start(stage);
