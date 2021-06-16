@@ -151,8 +151,8 @@ public class AddWeddingOrderController {
     	orderLobbyName.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
     	orderLobbyType.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
     	orderLobbyTable.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
-    	orderLobbyPriceTable.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceTable"));
-    	orderLobbyPrice.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceLobby"));
+    	orderLobbyPriceTable.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceShowTable"));
+    	orderLobbyPrice.setCellValueFactory(new PropertyValueFactory<Lobby,String>("priceShowLobby"));
     	orderLobbySelect.setCellValueFactory(new PropertyValueFactory<Lobby,CheckBox>("checkBox"));
     }
     private ObservableList<Lobby> arrLobby;
@@ -216,18 +216,18 @@ public class AddWeddingOrderController {
     public void ViewFoodTbView() {
     	aptIDColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	aptNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	aptMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
+    	aptMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("priceShow"));
     	aptCheckBox.setCellValueFactory(new PropertyValueFactory<Food,CheckBox>("checkBox"));
     	
     	
     	mFoodIDColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	mFoodNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	mFoodMoney.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
+    	mFoodMoney.setCellValueFactory(new PropertyValueFactory<Food,String>("priceShow"));
     	mFoodCheckBox.setCellValueFactory(new PropertyValueFactory<Food,CheckBox>("checkBox"));
     	
     	drinkIDColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	drinkNameColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	drinkMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
+    	drinkMoneyColumn.setCellValueFactory(new PropertyValueFactory<Food,String>("priceShow"));
     	drinkCheckBox.setCellValueFactory(new PropertyValueFactory<Food,CheckBox>("checkBox"));
     }
     private ObservableList<Food> arrAptFood;
@@ -272,7 +272,7 @@ public class AddWeddingOrderController {
     public void ViewServiceTbView() {
     	svIDColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("id"));
     	svNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
-    	svMoneyColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
+    	svMoneyColumn.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("priceShow"));
     	svCheckBox.setCellValueFactory(new PropertyValueFactory<ServiceWedding,CheckBox>("checkBox"));
     }
     public void UpdateServiceTbView() throws SQLException {
@@ -473,20 +473,20 @@ public class AddWeddingOrderController {
     	nameLobbyFinal.setCellValueFactory(new PropertyValueFactory<Lobby,String>("name"));
     	typeLobbyFinal.setCellValueFactory(new PropertyValueFactory<Lobby,String>("type"));
     	numberTableLobbyFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("tableNumber"));
-    	priceLobbyTableFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceTable"));
-    	priceLobbyFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceLobby"));
+    	priceLobbyTableFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceShowTable"));
+    	priceLobbyFinal.setCellValueFactory(new PropertyValueFactory<Lobby,Number>("priceShowLobby"));
 
     	// Food
     	idFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("id"));
     	nameFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("name"));
-    	priceFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("price"));
+    	priceFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("priceShow"));
     	typeFoodFinal.setCellValueFactory(new PropertyValueFactory<Food,String>("type"));
     	
     	// Service
     	
     	idServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("id"));
     	nameServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,String>("name"));
-    	priceServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("price"));
+    	priceServiceFinal.setCellValueFactory(new PropertyValueFactory<ServiceWedding,Number>("priceShow"));
     	
 
     	

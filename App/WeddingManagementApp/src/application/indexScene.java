@@ -27,7 +27,7 @@ public class indexScene {
 			holderManager.setIndexController(ctrl);
 		
 			scene.setFill(Color.TRANSPARENT);
-			primaryStage.setResizable(false);
+		//	primaryStage.setResizable(false);
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setScene(scene);
 			primaryStage.show();

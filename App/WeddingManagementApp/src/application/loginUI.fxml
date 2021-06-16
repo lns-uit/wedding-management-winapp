@@ -13,7 +13,7 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="745.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <AnchorPane fx:id="box" layoutX="202.0" layoutY="9.0" prefHeight="470.0" prefWidth="529.0" style="-fx-background-color: white;">
+      <AnchorPane id="BorderPanel" fx:id="box" layoutX="202.0" layoutY="9.0" prefHeight="470.0" prefWidth="529.0" style="-fx-background-color: white; -fx-background-radius: 10;">
          <children>
             <AnchorPane layoutX="-191.0" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="71.0" prefWidth="720.0">
                <children>
@@ -21,9 +21,9 @@
                   <Button id="minimize" layoutX="643.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPressMinimizeWindow" prefHeight="26.0" prefWidth="27.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="-190.0" prefHeight="470.0" prefWidth="339.0" style="-fx-background-color: #b83737;">
+            <AnchorPane id="BorderPanel" layoutX="-190.0" prefHeight="470.0" prefWidth="339.0" style="-fx-background-color: #b83737;">
                <children>
-                  <ImageView fitHeight="470.0" fitWidth="339.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="BorderPanel" fitHeight="470.0" fitWidth="339.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Img/weddingposter.png" />
                      </image>
@@ -45,7 +45,7 @@
                   <Font size="18.0" />
                </font>
             </PasswordField>
-            <Button fx:id="btnLogin" layoutX="209.0" layoutY="361.0" mnemonicParsing="false" onAction="#LoginToApp" prefHeight="39.0" prefWidth="280.0" text="Đăng nhập" textFill="WHITE">
+            <Button fx:id="btnLogin" layoutX="209.0" layoutY="361.0" mnemonicParsing="false" onAction="#LoginToApp" onKeyPressed="#onPressLoginEnter" prefHeight="39.0" prefWidth="280.0" text="Đăng nhập" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

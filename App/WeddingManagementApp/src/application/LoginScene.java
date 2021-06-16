@@ -40,6 +40,8 @@ public class LoginScene {
 	        transfade.play();
 		} catch(Exception e) {
 			e.printStackTrace();
+			HolderManager holderManager = HolderManager.getInstance();
+			holderManager.AlertNotification("", e.getMessage(), 1);
 		}
 	}
 }

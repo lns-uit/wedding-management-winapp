@@ -14,7 +14,7 @@ import javafx.util.Duration;
 public class UpdateLobbyScene {
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("UpdateLobbyUI.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("updateLobbyUI.fxml"));
 			Scene scene = new Scene(root,902,524);
 			scene.setFill(Color.TRANSPARENT);
 			primaryStage.setResizable(false);
@@ -39,6 +39,8 @@ public class UpdateLobbyScene {
 	        transfade.play();
 		} catch(Exception e) {
 			e.printStackTrace();
+			HolderManager alertHolderManager = HolderManager.getInstance();
+			alertHolderManager.AlertNotification("", e.getMessage(), 1);
 		}
 	}
 }

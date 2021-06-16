@@ -229,7 +229,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="staffManagerPanel" prefHeight="200.0" prefWidth="200.0" visible="false">
                            <children>
-                              <TableView fx:id="staffTbView" layoutX="22.0" layoutY="74.0" prefHeight="493.0" prefWidth="889.0">
+                              <TableView fx:id="staffTbView" layoutX="22.0" layoutY="76.0" prefHeight="491.0" prefWidth="889.0">
                                  <columns>
                                     <TableColumn fx:id="staffIdColumn" prefWidth="102.0" text="Mã nhân viên" />
                                     <TableColumn fx:id="staffNameColumn" minWidth="0.0" prefWidth="125.0" text="Tên nhân viên" />
@@ -500,64 +500,64 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="infoPersonalPanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="920.0" visible="false">
+                        <AnchorPane fx:id="infoPersonalPanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="920.0">
                            <children>
-                              <Label layoutX="31.0" layoutY="42.0" prefHeight="31.0" prefWidth="80.0" text="Họ và tên: ">
+                              <Label layoutX="34.0" layoutY="66.0" prefHeight="31.0" prefWidth="80.0" text="Họ và tên: ">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="nameStaff" layoutX="179.0" layoutY="42.0" prefHeight="31.0" prefWidth="418.0" text="Nguyen Van A">
+                              <Label fx:id="nameStaff" layoutX="182.0" layoutY="66.0" prefHeight="31.0" prefWidth="418.0" text="Nguyen Van A">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="31.0" layoutY="116.0" prefHeight="31.0" prefWidth="114.0" text="Số điện thoại:">
+                              <Label layoutX="34.0" layoutY="140.0" prefHeight="31.0" prefWidth="114.0" text="Số điện thoại:">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="phoneNumberStaff" layoutX="179.0" layoutY="116.0" prefHeight="31.0" prefWidth="418.0" text="0336018244">
+                              <Label fx:id="phoneNumberStaff" layoutX="182.0" layoutY="140.0" prefHeight="31.0" prefWidth="418.0" text="0336018244">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="31.0" layoutY="150.0" prefHeight="31.0" prefWidth="114.0" text="Địa chỉ:">
+                              <Label layoutX="34.0" layoutY="174.0" prefHeight="31.0" prefWidth="114.0" text="Địa chỉ:">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="addressStaff" layoutX="179.0" layoutY="150.0" prefHeight="31.0" prefWidth="418.0" text="TP.HCM">
+                              <Label fx:id="addressStaff" layoutX="182.0" layoutY="174.0" prefHeight="31.0" prefWidth="418.0" text="TP.HCM">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="31.0" layoutY="184.0" prefHeight="31.0" prefWidth="114.0" text="CMND">
+                              <Label layoutX="34.0" layoutY="208.0" prefHeight="31.0" prefWidth="114.0" text="CMND">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="identityCardStaff" layoutX="179.0" layoutY="184.0" prefHeight="31.0" prefWidth="418.0" text="nguyenvana@outlook.com">
+                              <Label fx:id="identityCardStaff" layoutX="182.0" layoutY="208.0" prefHeight="31.0" prefWidth="418.0" text="nguyenvana@outlook.com">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="31.0" layoutY="219.0" prefHeight="31.0" prefWidth="114.0" text="Loại nhân viên:">
+                              <Label layoutX="34.0" layoutY="243.0" prefHeight="31.0" prefWidth="114.0" text="Loại nhân viên:">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="typeStaff" layoutX="179.0" layoutY="219.0" prefHeight="31.0" prefWidth="418.0" text="Nhân viên dịch vụ">
+                              <Label fx:id="typeStaff" layoutX="182.0" layoutY="243.0" prefHeight="31.0" prefWidth="418.0" text="Nhân viên dịch vụ">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="31.0" layoutY="79.0" prefHeight="31.0" prefWidth="114.0" text="Ngày vào làm">
+                              <Label layoutX="34.0" layoutY="103.0" prefHeight="31.0" prefWidth="114.0" text="Ngày vào làm">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="startWorkStaff" layoutX="179.0" layoutY="79.0" prefHeight="31.0" prefWidth="418.0" text="14/08/2001">
+                              <Label fx:id="startWorkStaff" layoutX="182.0" layoutY="103.0" prefHeight="31.0" prefWidth="418.0" text="14/08/2001">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
