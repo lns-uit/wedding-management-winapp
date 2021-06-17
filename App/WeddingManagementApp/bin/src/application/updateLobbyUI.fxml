@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="902.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UpdateLobbyController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="873.0" style="-fx-background-color: white;">
+         <children>
+            <TextField fx:id="tfNote" layoutX="470.0" layoutY="294.0" prefHeight="47.0" prefWidth="381.0" promptText="Ghi chú">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="cbbTypeLobby" layoutX="470.0" layoutY="118.0" prefHeight="41.0" prefWidth="381.0" />
+            <Label layoutX="480.0" layoutY="95.0" text="Kiểu sảnh">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfPriceTable" layoutX="470.0" layoutY="202.0" prefHeight="47.0" prefWidth="381.0" promptText="Giá bàn">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Label layoutX="480.0" layoutY="182.0" text="Giá bàn">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="365.0" layoutY="419.0" mnemonicParsing="false" onAction="#onUpdateLobby" prefHeight="47.0" prefWidth="143.0" text="Xác nhận">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="tfName" layoutX="25.0" layoutY="115.0" prefHeight="47.0" prefWidth="381.0" promptText="Tên sảnh">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Label layoutX="35.0" layoutY="95.0" text="Tên sảnh">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfNumberTable" layoutX="25.0" layoutY="202.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Label layoutX="35.0" layoutY="182.0" text="Số bàn">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfPriceLobby" layoutX="25.0" layoutY="294.0" prefHeight="47.0" prefWidth="381.0" promptText="Số bàn">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Label layoutX="35.0" layoutY="274.0" text="Giá sảnh">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="480.0" layoutY="274.0" text="Ghi chú">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="-1.0" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="65.0" prefWidth="874.0" style="-fx-background-color: #b83737;">
+               <children>
+                  <Label layoutX="327.0" layoutY="12.0" prefHeight="41.0" prefWidth="240.0" text="Chỉnh sửa thông tin sảnh" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnExit" layoutX="819.0" layoutY="15.0" mnemonicParsing="false" onAction="#onPressExitWindow" prefHeight="35.0" prefWidth="40.0" text="X" />
+               </children>
+            </AnchorPane>
+            <Label fx:id="warningLb" layoutX="336.0" layoutY="378.0" text="Vui lòng điền đầy đủ thông tin" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

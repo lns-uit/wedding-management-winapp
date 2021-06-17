@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="D:/java/source-code-java/Course-projects/App/WeddingManagementApp/src/application/Library/ojdbc8-full/ojdbc8.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
