@@ -58,8 +58,8 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="213.0" layoutY="170.0" text="Tên đăng nhập" textFill="#5e5e5e" />
-            <Label layoutX="214.0" layoutY="234.0" prefHeight="19.0" prefWidth="57.0" text="Mật khẩu" textFill="#5e5e5e" />
+            <Label layoutX="213.0" layoutY="170.0" prefHeight="17.0" prefWidth="273.0" text="Tên đăng nhập" textFill="#5e5e5e" />
+            <Label layoutX="214.0" layoutY="234.0" prefHeight="19.0" prefWidth="273.0" text="Mật khẩu" textFill="#5e5e5e" />
             <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="452.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Img/passwordIcon.PNG" />

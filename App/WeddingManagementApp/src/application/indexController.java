@@ -1127,7 +1127,7 @@ public class indexController {
     	Task<Void> task = new Task<Void>() {
 		    @Override
 		    public Void call() throws Exception {
-		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Bill.jrxml");
+		    	JasperDesign jDesign = JRXmlLoader.load(getClass().getResourceAsStream("Bill.jrxml"));
 	        	JRDesignQuery updateQuery = new JRDesignQuery();
 	        	updateQuery.setText("select * from bill, customer where idbill like '" + idBill + "%' AND bill.idcustomer = customer.idcustomer");
 	        	jDesign.setQuery(updateQuery);
@@ -1261,7 +1261,7 @@ public class indexController {
     		} else {
     			StaffHolder holder = StaffHolder.getInstance();
     	   		holder.setStaffSelect(selectStaff);
-    	   		holderManager.AlertNotification("deleteStaff","Bạn có chắc chắn với hành động này khong",0);    			
+    	   		holderManager.AlertNotification("deleteStaff","Bạn có chắc chắn với hành động này không",0);    			
     		}
     	} else
     	if (event.getSource()==btnStaffUpdate) {
@@ -1572,7 +1572,7 @@ public class indexController {
         	Task<Void> task = new Task<Void>() {
     		    @Override
     		    public Void call() throws Exception {
-    	    		JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Report.jrxml");
+    	    		JasperDesign jDesign = JRXmlLoader.load(getClass().getResourceAsStream("Report.jrxml"));
     	        	JRDesignQuery updateQuery = new JRDesignQuery();
     	        	
     	        	String tmpDate = "01"+ getMonthName(monthFrom.getValue()) + yearFrom.getValue();
@@ -1653,7 +1653,7 @@ public class indexController {
     	Task<Void> task = new Task<Void>() {
 		    @Override
 		    public Void call() throws Exception {
-		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Top5Customer.jrxml");
+		    	JasperDesign jDesign = JRXmlLoader.load(getClass().getResourceAsStream("Top5Customer.jrxml"));
 	        	JRDesignQuery updateQuery = new JRDesignQuery();
 	        	updateQuery.setText("select *  from  ( select *   from customer  order by money desc )  where ROWNUM <= 5");
 	        	jDesign.setQuery(updateQuery);
@@ -1674,7 +1674,7 @@ public class indexController {
     	Task<Void> task = new Task<Void>() {
 		    @Override
 		    public Void call() throws Exception {
-		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Lobby.jrxml");
+		    	JasperDesign jDesign = JRXmlLoader.load(getClass().getResourceAsStream("Lobby.jrxml"));
 	        	JRDesignQuery updateQuery = new JRDesignQuery();
 	        	updateQuery.setText("select Lobb.idLobby, Lobb.nameLobby, count(*) as SO_LUONG_DA_TUNG_DAT from OrderWedding Ord, Lobby Lobb where Ord.idLobby = Lobb.idLobby group by Lobb.idLobby, Lobb.nameLobby order by SO_LUONG_DA_TUNG_DAT desc");
 	        	jDesign.setQuery(updateQuery);
