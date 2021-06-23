@@ -164,6 +164,7 @@ public class AlertController {
 						Task<Void> task = new Task<Void>() {
 						    @Override
 						    public Void call() throws Exception {
+						    	System.out.println(message);
 						    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Bill.jrxml");
 					        	JRDesignQuery updateQuery = new JRDesignQuery();
 					        	updateQuery.setText("select * from bill, customer where idbill like '" + message + "%' AND bill.idcustomer = customer.idcustomer");

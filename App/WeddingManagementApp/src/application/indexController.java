@@ -144,9 +144,8 @@ public class indexController {
     	identityCardStaff.setText(staff.getIdentityCard());
     	typeStaff.setText(staff.getType());
     	startWorkStaff.setText(staff.getStartWork());
-    	// lấy tất cả dữ liệu từ data
-    	allStaff = StaffModel.getAllStaff();
-    	// xử lí tất cả các view
+
+    	// xử lí tất cả các Table Column
 		viewStaff();
 		ViewLobbyColumn();
 		ViewFoodColumn();
@@ -1656,7 +1655,7 @@ public class indexController {
 		    public Void call() throws Exception {
 		    	JasperDesign jDesign = JRXmlLoader.load("D:\\CourseProjects-WeddingManagement\\App\\WeddingManagementApp\\src\\application\\Top5Customer.jrxml");
 	        	JRDesignQuery updateQuery = new JRDesignQuery();
-	        	updateQuery.setText("SELECT * FROM customer where ROWNUM <= 5 order by Money DESC");
+	        	updateQuery.setText("select *  from  ( select *   from customer  order by money desc )  where ROWNUM <= 5");
 	        	jDesign.setQuery(updateQuery);
 	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
 	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());

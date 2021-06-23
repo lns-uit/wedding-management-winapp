@@ -102,8 +102,8 @@ public class OrderWeddingModel {
 		String message = cStmt.getString(8);
 		if (message.equals("true")) {
 			result.setIdWedding(idWedding);
-			result.setMoney(cStmt.getInt(9));
-			result.setDeposit(cStmt.getInt(10));
+			result.setMoney(cStmt.getLong(9));
+			result.setDeposit(cStmt.getLong(10));
 			cStmt.close();
 			return result;
 		} 
@@ -279,6 +279,7 @@ public class OrderWeddingModel {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
+			holderManager.AlertNotification("", "Đã có lỗi xảy ra vui lòng thử lại", 1);
 		}
 		
 		cStmt.close();

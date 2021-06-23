@@ -59,7 +59,7 @@
 		</queryString>
 	</subDataset>
 	<queryString>
-		<![CDATA[SELECT * FROM customer where ROWNUM <= 5 order by Money DESC]]>
+		<![CDATA[select *  from  ( select *   from customer  order by money desc )  where ROWNUM <= 5]]>
 	</queryString>
 	<field name="STT" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="STT"/>
@@ -81,13 +81,13 @@
 		<property name="com.jaspersoft.studio.field.name" value="DAYREGISTER"/>
 		<property name="com.jaspersoft.studio.field.label" value="DAYREGISTER"/>
 	</field>
-	<field name="MONEY" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="MONEY"/>
-		<property name="com.jaspersoft.studio.field.label" value="MONEY"/>
-	</field>
 	<field name="DISCOUNT" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="DISCOUNT"/>
 		<property name="com.jaspersoft.studio.field.label" value="DISCOUNT"/>
+	</field>
+	<field name="MONEY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MONEY"/>
+		<property name="com.jaspersoft.studio.field.label" value="MONEY"/>
 	</field>
 	<title>
 		<band height="147" splitType="Stretch">
