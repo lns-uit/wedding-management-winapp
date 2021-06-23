@@ -21,6 +21,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -512,6 +513,8 @@ public class AddWeddingOrderController {
 	private Label moneyRestLb;
 	@FXML
 	private TextField numberTable;
+    @FXML
+    private ProgressIndicator processConfirm;
 	private long priceSum, depositOrder, restMoney;
 	
     public void CalculateMoney() {
@@ -522,7 +525,8 @@ public class AddWeddingOrderController {
     	long tmp = priceSum-depositOrder;
     	moneyRestLb.setText(Long.toString(tmp));
     }
-    
+	boolean kt;
+	OrderWedding resultOrder;
     /************* FINAL COMMIT 
      * @throws SQLException ******************/
     public void CommitFinal() throws SQLException {
@@ -537,15 +541,14 @@ public class AddWeddingOrderController {
 		currentOrderWedding.setDeposit(null);
 		currentOrderWedding.setNumberService(null);
 		currentOrderWedding.setMoney(null);
-		
+		kt = true;
 		for (Food food : arrFoods) {
 			currentOrderFood.add(new OrderFood(food.getId(),currentOrderWedding.getIdWedding()));
 		}
 		for (ServiceWedding sv : arrServices) {
 			currentOrderService.add(new OrderServiceWedding(sv.getId(),currentOrderWedding.getIdWedding()));
 		}
-		
-	
+
 		try {
 			//String statusOrder = "true";
 			String idInfoWedding = OrderWeddingModel.CreateInfoWedding(nameBride.getText(), nameGroom.getText());
@@ -553,13 +556,13 @@ public class AddWeddingOrderController {
 				currentOrderFood.forEach((itemOrderFood) -> {
 					try {
 						String message = OrderWeddingModel.CreateFoodOrder(idInfoWedding, itemOrderFood.getIdFood());
-						if (message.equals("false")) {
-							holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau", 1);
+						if (message.equals("false")|| message.equals("error")) {
+							kt = false;
 							//statusOrder = "false";
 							return;
 						}
 					} catch (SQLException e) {
-						holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
+						kt = false;
 					}
 				});
 						
@@ -567,29 +570,43 @@ public class AddWeddingOrderController {
 				currentOrderService.forEach((itemOrderService) -> {
 					try {
 						String message = OrderWeddingModel.CreateServiceOrder(idInfoWedding, itemOrderService.getIdService());
-						if (message.equals("false")) {
-							holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau", 1);
-							//statusOrder = "false";
+						if (message.equals("false") || message.equals("error")) {
+							
+							kt = false;
 							return;
 						}
 						
 					} catch (Exception e2) {
-						holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
+						
+						kt = false;
 					}
 				});
-				
-				try {
-					OrderWedding resultOrder = OrderWeddingModel.callOrderWedding(
-							idInfoWedding, 
-							nameCustomer.getText(),
-							phoneNumberCus.getText(), 
-							currentOrderWedding.getIdLobby(), 
-							currentOrderWedding.getIdStaff(), 
-							currentOrderWedding.getNumberOfTable(), 
-							currentOrderWedding.getDateStart()
+			
+				Task<Void> task = new Task<Void>() {
+				    @Override
+				    public Void call() throws Exception {
+				    	processConfirm.setVisible(true);
+						try {
+							resultOrder = OrderWeddingModel.callOrderWedding(
+									idInfoWedding, 
+									nameCustomer.getText(),
+									phoneNumberCus.getText(), 
+									currentOrderWedding.getIdLobby(), 
+									currentOrderWedding.getIdStaff(), 
+									currentOrderWedding.getNumberOfTable(), 
+									currentOrderWedding.getDateStart()
+									
+							);
 							
-					);
-					
+							
+						} catch (Exception e3) {
+							kt = false;
+						}
+				        return null ;
+				    }
+				};
+				task.setOnSucceeded(e -> {
+					processConfirm.setVisible(false);
 					DecimalFormat formatter = new DecimalFormat("###,###,###");
 					moneySum.setText ("Tổng tiền: "+ formatter.format(resultOrder.getMoney())+ " VNĐ");
 					deposit.setText  ("Tiền cọc: "+ formatter.format(resultOrder.getDeposit())+ " VNĐ");
@@ -598,14 +615,15 @@ public class AddWeddingOrderController {
 					holderManager.setIdWeddingCommitPayment(idInfoWedding);
 					currentPane = step4;
 					currentPane.setVisible(true);
-				} catch (Exception e3) {
-					holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
-				}
+				});
+				new Thread(task).start();
+		    	
 				
 			}
 		} catch (Exception e) {
-			holderManager.AlertNotification("", "Đã có lỗi xảy ra, Vui lòng thử lại sau !", 1);
+			kt = false;
 		}
+		if (!kt) holderManager.AlertNotification("", "Sảnh đã được đặt, Vui lòng chọn sảnh khác", 1);
 
     }
     /*************** WINDOW CONTROLLER ************/

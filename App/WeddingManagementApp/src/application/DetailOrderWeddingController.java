@@ -83,6 +83,7 @@ public class DetailOrderWeddingController {
 		OrderWeddingModel.getDetailWedding(holderManager.getOrderWeddingCurrent().getIdWedding());
 		
 		// Lấy dữ liệu từ holder sau khi call
+		System.out.println(holderManager.getDetailOrderWedding());
 		OrderWedding detailOrderWedding = holderManager.getDetailOrderWedding();
 		idWedding.setText(detailOrderWedding.getIdWedding());
 		arrFoodOrder = holderManager.getArrFoodOrder();

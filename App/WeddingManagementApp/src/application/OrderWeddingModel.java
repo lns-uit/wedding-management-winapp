@@ -19,8 +19,7 @@ public class OrderWeddingModel {
 			cStmt.registerOutParameter(3, OracleTypes.VARCHAR);
 			cStmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+			return "error";
 		}
 		String idInfoWedding = cStmt.getString(3);
 		
@@ -41,8 +40,7 @@ public class OrderWeddingModel {
 			cStmt.executeUpdate();
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+			return "error";
 		}
 		
 		String message = cStmt.getString(3);
@@ -64,8 +62,7 @@ public class OrderWeddingModel {
 			cStmt.executeUpdate();
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+			return "error";
 		}
 		
 		String message = cStmt.getString(3);
@@ -95,15 +92,14 @@ public class OrderWeddingModel {
 			cStmt.executeUpdate();
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+
 		}
 		OrderWedding result = new OrderWedding();
 		String message = cStmt.getString(8);
 		if (message.equals("true")) {
 			result.setIdWedding(idWedding);
-			result.setMoney(cStmt.getInt(9));
-			result.setDeposit(cStmt.getInt(10));
+			result.setMoney(cStmt.getLong(9));
+			result.setDeposit(cStmt.getLong(10));
 			cStmt.close();
 			return result;
 		} 
@@ -149,8 +145,7 @@ public class OrderWeddingModel {
  			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+			
 		}
 		
 		cStmt.close();
@@ -169,8 +164,7 @@ public class OrderWeddingModel {
 			cStmt.executeUpdate();
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+			return "error";
 		}
 		
 		String message = cStmt.getString(2);
@@ -279,6 +273,7 @@ public class OrderWeddingModel {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
+			holderManager.AlertNotification("", "Đã có lỗi xảy ra vui lòng thử lại", 1);
 		}
 		
 		cStmt.close();
