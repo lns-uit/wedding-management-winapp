@@ -101,6 +101,7 @@ public class DetailOrderWeddingController {
 		money.setText("Tổng tiền: "+ formatter.format(detailOrderWedding.getMoney().longValue())+ " VNĐ");
 		deposit.setText("Tiền đã trả: "+ formatter.format(detailOrderWedding.getDeposit().longValue())+ " VNĐ");
 		numberTable.setText("Số bàn đã đặt: "+ detailOrderWedding.getNumberOfTable().toString());
+		idStaff.setText("Mã nhân viên lập tiệc: "+ detailOrderWedding.getIdStaff().toString());
 		long a = detailOrderWedding.getMoney().longValue(); 
 		long b = detailOrderWedding.getDeposit().longValue();
 		if (a-b==0) {
@@ -149,6 +150,8 @@ public class DetailOrderWeddingController {
 	AnchorPane orderDetail;
     @FXML
     private Label numberTable;
+    @FXML
+    private Label idStaff;
 	@FXML
     private	void OnPressPay(ActionEvent event) throws SQLException {
 		HolderManager holderManager = HolderManager.getInstance();
