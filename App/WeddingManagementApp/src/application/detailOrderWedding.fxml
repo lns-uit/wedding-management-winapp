@@ -112,6 +112,11 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Label fx:id="idStaff" layoutX="412.0" layoutY="123.0" text="Mã nhân viên lập tiệc:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onRectangleDragged" onMousePressed="#onRectanglePressed" prefHeight="48.0" prefWidth="1100.0" style="-fx-background-color: #b83737;">

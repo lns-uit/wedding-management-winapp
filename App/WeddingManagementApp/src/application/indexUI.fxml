@@ -522,32 +522,32 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="34.0" layoutY="174.0" prefHeight="31.0" prefWidth="114.0" text="Địa chỉ:">
+                              <Label layoutX="34.0" layoutY="209.0" prefHeight="31.0" prefWidth="114.0" text="Địa chỉ:">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="addressStaff" layoutX="182.0" layoutY="174.0" prefHeight="31.0" prefWidth="418.0" text="TP.HCM">
+                              <Label fx:id="addressStaff" layoutX="182.0" layoutY="209.0" prefHeight="31.0" prefWidth="418.0" text="TP.HCM">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="34.0" layoutY="208.0" prefHeight="31.0" prefWidth="114.0" text="CMND">
+                              <Label layoutX="34.0" layoutY="243.0" prefHeight="31.0" prefWidth="114.0" text="CMND">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="identityCardStaff" layoutX="182.0" layoutY="208.0" prefHeight="31.0" prefWidth="418.0" text="nguyenvana@outlook.com">
+                              <Label fx:id="identityCardStaff" layoutX="182.0" layoutY="243.0" prefHeight="31.0" prefWidth="418.0" text="nguyenvana@outlook.com">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="34.0" layoutY="243.0" prefHeight="31.0" prefWidth="114.0" text="Loại nhân viên:">
+                              <Label layoutX="34.0" layoutY="278.0" prefHeight="31.0" prefWidth="114.0" text="Loại nhân viên:">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="typeStaff" layoutX="182.0" layoutY="243.0" prefHeight="31.0" prefWidth="418.0" text="Nhân viên dịch vụ">
+                              <Label fx:id="typeStaff" layoutX="182.0" layoutY="278.0" prefHeight="31.0" prefWidth="418.0" text="Nhân viên dịch vụ">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -563,6 +563,16 @@
                                  </font>
                               </Label>
                               <Button layoutX="798.0" layoutY="14.0" mnemonicParsing="false" onAction="#onChangePassword" prefHeight="35.0" prefWidth="114.0" text="Đổi mật khẩu" />
+                              <Label layoutX="34.0" layoutY="175.0" prefHeight="31.0" prefWidth="114.0" text="Mã nhân viên:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="idStaff" layoutX="182.0" layoutY="175.0" prefHeight="31.0" prefWidth="418.0" text="TP.HCM">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                         <ProgressIndicator id="processTbView" fx:id="processTbView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="53.0" visible="false" />

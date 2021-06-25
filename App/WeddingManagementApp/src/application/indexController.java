@@ -98,6 +98,8 @@ public class indexController {
     private Button btnName;
     private AnchorPane currentPane;
     private Button currentButton;
+    @FXML
+    private Label idStaff;
     
     /*************** WINDOW CONTROLLER ************/
     private Stage primaryStage =  new Stage();
@@ -144,6 +146,7 @@ public class indexController {
     	identityCardStaff.setText(staff.getIdentityCard());
     	typeStaff.setText(staff.getType());
     	startWorkStaff.setText(staff.getStartWork());
+    	idStaff.setText(staff.getId());
     	IndexInit(staff.getType());
     	// xử lí tất cả các Table Column
 		viewStaff();
