@@ -144,7 +144,7 @@ public class indexController {
     	identityCardStaff.setText(staff.getIdentityCard());
     	typeStaff.setText(staff.getType());
     	startWorkStaff.setText(staff.getStartWork());
-
+    	IndexInit(staff.getType());
     	// xử lí tất cả các Table Column
 		viewStaff();
 		ViewLobbyColumn();
@@ -153,7 +153,7 @@ public class indexController {
 		ViewBillColumn();
 		ViewCustomerColumn();
 		ViewOrderSummaryColumn();
-    	IndexInit(staff.getType());
+    	
     	ArrayList<OrderWedding> getAllOrderWedding = OrderWeddingModel.getAllOrderWedding();
     	
     	if (currentPane==null) currentPane = infoPersonalPanel;

@@ -525,7 +525,7 @@ public class AddWeddingOrderController {
     	long tmp = priceSum-depositOrder;
     	moneyRestLb.setText(Long.toString(tmp));
     }
-	boolean kt;
+	boolean kt,kt1;
 	OrderWedding resultOrder;
     /************* FINAL COMMIT 
      * @throws SQLException ******************/
@@ -548,21 +548,22 @@ public class AddWeddingOrderController {
 		for (ServiceWedding sv : arrServices) {
 			currentOrderService.add(new OrderServiceWedding(sv.getId(),currentOrderWedding.getIdWedding()));
 		}
-
 		try {
 			//String statusOrder = "true";
 			String idInfoWedding = OrderWeddingModel.CreateInfoWedding(nameBride.getText(), nameGroom.getText());
+			System.out.println(idInfoWedding);
 			if (idInfoWedding != null) {
 				currentOrderFood.forEach((itemOrderFood) -> {
 					try {
 						String message = OrderWeddingModel.CreateFoodOrder(idInfoWedding, itemOrderFood.getIdFood());
 						if (message.equals("false")|| message.equals("error")) {
 							kt = false;
-							//statusOrder = "false";
+							System.out.println("1" + message);
 							return;
 						}
 					} catch (SQLException e) {
 						kt = false;
+						System.out.println("2");
 					}
 				});
 						
@@ -571,13 +572,13 @@ public class AddWeddingOrderController {
 					try {
 						String message = OrderWeddingModel.CreateServiceOrder(idInfoWedding, itemOrderService.getIdService());
 						if (message.equals("false") || message.equals("error")) {
-							
+							System.out.println("3" + message);
 							kt = false;
 							return;
 						}
 						
 					} catch (Exception e2) {
-						
+						System.out.println("4");
 						kt = false;
 					}
 				});
@@ -588,19 +589,19 @@ public class AddWeddingOrderController {
 				    	processConfirm.setVisible(true);
 						try {
 							resultOrder = OrderWeddingModel.callOrderWedding(
-									idInfoWedding, 
-									nameCustomer.getText(),
-									phoneNumberCus.getText(), 
-									currentOrderWedding.getIdLobby(), 
-									currentOrderWedding.getIdStaff(), 
-									currentOrderWedding.getNumberOfTable(), 
-									currentOrderWedding.getDateStart()
+								idInfoWedding, 
+								nameCustomer.getText(),
+								phoneNumberCus.getText(), 
+								currentOrderWedding.getIdLobby(), 
+								currentOrderWedding.getIdStaff(), 
+								currentOrderWedding.getNumberOfTable(), 
+								currentOrderWedding.getDateStart()
 									
 							);
 							
 							
 						} catch (Exception e3) {
-							kt = false;
+							
 						}
 				        return null ;
 				    }
@@ -619,11 +620,17 @@ public class AddWeddingOrderController {
 				new Thread(task).start();
 		    	
 				
+			} else {
+				kt = false;
 			}
 		} catch (Exception e) {
+			System.out.println("5");
 			kt = false;
 		}
-		if (!kt) holderManager.AlertNotification("", "Sảnh đã được đặt, Vui lòng chọn sảnh khác", 1);
+		System.out.println(kt);
+		if (!kt) {
+			holderManager.AlertNotification("", "Sảnh đã được đặt, Vui lòng chọn sảnh khác", 1);
+		}
 
     }
     /*************** WINDOW CONTROLLER ************/
