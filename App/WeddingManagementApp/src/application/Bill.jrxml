@@ -121,7 +121,7 @@ WHERE idbill = $P{Parameter1} AND bill.idcustomer = customer.idcustomer]]>
 		<property name="com.jaspersoft.studio.field.label" value="DISCOUNT"/>
 	</field>
 	<title>
-		<band height="379" splitType="Stretch">
+		<band height="408" splitType="Stretch">
 			<staticText>
 				<reportElement x="13" y="130" width="160" height="30" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -194,21 +194,21 @@ WHERE idbill = $P{Parameter1} AND bill.idcustomer = customer.idcustomer]]>
 				<text><![CDATA[TP. Thủ Đức - TP. Hồ Chí Minh]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="320" width="230" height="30" uuid="edfc3ac9-4f0d-4a6b-b4ba-9b639c3a682c"/>
+				<reportElement x="10" y="350" width="230" height="30" uuid="edfc3ac9-4f0d-4a6b-b4ba-9b639c3a682c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TỔNG SỐ TIỀN ĐÃ THANH TOÁN:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="220" width="160" height="30" uuid="a1321e4d-5505-4f36-b3a7-b5fe3487b26b"/>
+				<reportElement x="13" y="250" width="160" height="30" uuid="a1321e4d-5505-4f36-b3a7-b5fe3487b26b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã tiệc cưới đã đặt:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="250" width="160" height="30" uuid="6dda1b63-c7a3-43f4-8df6-5cdd82779bac"/>
+				<reportElement x="13" y="280" width="160" height="30" uuid="6dda1b63-c7a3-43f4-8df6-5cdd82779bac"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -236,21 +236,21 @@ WHERE idbill = $P{Parameter1} AND bill.idcustomer = customer.idcustomer]]>
 				<textFieldExpression><![CDATA[$F{IDCUSTOMER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="173" y="220" width="370" height="30" uuid="74ef93bd-a023-422e-b2c8-f3595547f624"/>
+				<reportElement x="173" y="250" width="370" height="30" uuid="74ef93bd-a023-422e-b2c8-f3595547f624"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{IDWEDDING}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy h:mm a">
-				<reportElement x="173" y="250" width="370" height="30" uuid="acb47769-b930-4052-9ad2-2df5c7fc0cca"/>
+				<reportElement x="173" y="280" width="370" height="30" uuid="acb47769-b930-4052-9ad2-2df5c7fc0cca"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DATEOFPAYMENT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###)">
-				<reportElement x="225" y="320" width="255" height="30" uuid="4e97ee41-ba2e-4cf1-a2c7-236c46e33330"/>
+				<reportElement x="220" y="350" width="255" height="30" uuid="4e97ee41-ba2e-4cf1-a2c7-236c46e33330"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -264,18 +264,32 @@ WHERE idbill = $P{Parameter1} AND bill.idcustomer = customer.idcustomer]]>
 				<text><![CDATA[THÔNG TIN HÓA ĐƠN]]></text>
 			</staticText>
 			<line>
-				<reportElement x="130" y="310" width="289" height="1" uuid="ccc50a94-ead1-4d3e-b98e-5884909b1c0e">
+				<reportElement x="125" y="340" width="289" height="1" uuid="ccc50a94-ead1-4d3e-b98e-5884909b1c0e">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="496" y="320" width="60" height="30" uuid="313186f1-2670-4f8f-aa85-3a9951cbe39b"/>
+				<reportElement x="491" y="350" width="60" height="30" uuid="313186f1-2670-4f8f-aa85-3a9951cbe39b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VNĐ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="13" y="220" width="160" height="30" uuid="4ab5cde2-fca8-4112-ac60-23edc61e7f0b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã nhân viên]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="220" width="370" height="30" uuid="adf8bb36-fbb2-45a0-af11-ddb9488f38aa"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IDSTAFF}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<lastPageFooter>

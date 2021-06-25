@@ -143,7 +143,7 @@
 				<text><![CDATA[Tháng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="390" y="10" width="100" height="30" uuid="cf55f27b-ba92-4b15-ab6c-a1f1bf6856f6"/>
+				<reportElement x="410" y="10" width="100" height="30" uuid="cf55f27b-ba92-4b15-ab6c-a1f1bf6856f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Tổng tiền]]></text>
 			</staticText>
@@ -167,8 +167,8 @@
 				<textFieldExpression><![CDATA[$F{TOTALWEDDINGOFMONTH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###)">
-				<reportElement x="320" y="0" width="236" height="30" uuid="d36f685a-3f0b-452c-9f1b-ad6da265eea6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="320" y="0" width="224" height="30" uuid="d36f685a-3f0b-452c-9f1b-ad6da265eea6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TOTALBILLOFMONTH}]]></textFieldExpression>
 			</textField>
 		</band>
