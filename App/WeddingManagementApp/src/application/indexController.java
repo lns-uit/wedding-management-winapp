@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import com.sun.org.omg.CORBA.ValueDefPackage.FullValueDescription;
+
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -1577,14 +1579,16 @@ public class indexController {
     		    public Void call() throws Exception {
     	    		JasperDesign jDesign = JRXmlLoader.load(getClass().getResourceAsStream("Report.jrxml"));
     	        	JRDesignQuery updateQuery = new JRDesignQuery();
-    	        	
-    	        	String tmpDate = "01"+ getMonthName(monthFrom.getValue()) + yearFrom.getValue();
-    	        	String tmpDate1 = "28"+ getMonthName(monthTo.getValue())+ yearTo.getValue();
-    	          	updateQuery.setText("SELECT * FROM report where closingdate >= to_date('"+tmpDate+"','DD-MON-YY') and  closingdate <= to_date('"+tmpDate1 +"','DD-MON-YY') order by closingdate asc");
+    	        
+    	        	String paramString = yearFrom.getValue();
+    	          //	updateQuery.setText("SELECT * FROM report where closingdate >= to_date('"+tmpDate+"','DD-MON-YY') and  closingdate <= to_date('"+tmpDate1 +"','DD-MON-YY') order by closingdate asc");
+    	          	updateQuery.setText("select * from report where EXTRACT(YEAR FROM closingDate) like '"+paramString+"%'");
+    	          	
     	        	jDesign.setQuery(updateQuery);
     	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
     	        	JasperPrint jPrint = JasperFillManager.fillReport(jReport, null,ConnectDB.getOracleConnection());
     	        	JasperViewer.viewReport(jPrint,false);
+    	
     		        return null ;
     		    }
     		};

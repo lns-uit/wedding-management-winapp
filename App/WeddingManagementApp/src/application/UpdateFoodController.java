@@ -58,7 +58,11 @@ public class UpdateFoodController {
     			Stage currentScene = (Stage) tfNameFood.getScene().getWindow();
 				currentScene.close();
     		} else  {
-    			holderManager.AlertNotification(" ","Đã có lỗi xảy ra. Vui lòng thử lại sau",1);
+    			Stage currentScene = (Stage) tfNameFood.getScene().getWindow();
+				currentScene.close();
+				holderManager.getIndexController().ViewFoodTbView();
+    			if (messageUpdateFood.equals("false")) holderManager.AlertNotification(" ","Món ăn không tồn tại", 1);
+        		else holderManager.AlertNotification("", "Món ăn đang được đặt", 1);
     		}
     	}
     	else {

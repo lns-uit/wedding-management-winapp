@@ -102,9 +102,11 @@ public class AlertController {
     			closeScene();
     		} else {
     			if (messageDelete.equals("false")) {
+    				holderManager.getIndexController().ViewServiceTbView();
+        			closeScene();
     				AlertNotification("Dịch vụ không tồn tại !");
     			} else {
-    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    				AlertNotification("Dịch vụ đang được đặt !");
     			}
     			closeScene();
     		}
@@ -117,10 +119,13 @@ public class AlertController {
     			AlertNotification("Xóa món ăn thành công !");
     			closeScene();
     		}else {
+    			
     			if (messageDelete.equals("false")) {
+    				holderManager.getIndexController().ViewFoodTbView();
+        			closeScene();
     				AlertNotification("Món ăn không tồn tại !");
     			} else {
-    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    				AlertNotification("Món ăn đang được đặt !");
     			}
     			closeScene();
     		}
@@ -133,10 +138,13 @@ public class AlertController {
     			AlertNotification("Xóa sảnh thành công !");
     			closeScene();
     		}else {
+    			
     			if (messageDelete.equals("false")) {
-    				AlertNotification("Sảnh không tồn tại hoặc đang được đặt !");
+    				AlertNotification("Sảnh không tồn tại !");
+    				holderManager.getIndexController().ViewLobbyTbView();
+        			closeScene();
     			} else {
-    				AlertNotification("Đã có lỗi xảy ra, Vui lòng thử lại sau !");
+    				AlertNotification("Sảnh đang được đặt !");
     			}
     			closeScene();
     		}

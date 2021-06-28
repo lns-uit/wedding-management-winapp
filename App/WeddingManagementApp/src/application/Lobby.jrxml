@@ -74,7 +74,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="SO_LUONG_DA_TUNG_DAT"/>
 	</field>
 	<title>
-		<band height="146" splitType="Stretch">
+		<band height="141" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -82,65 +82,75 @@
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="420" y="10" width="40" height="20" uuid="bc11a031-1e0d-45c3-b71c-a317c562e407"/>
+				<reportElement x="0" y="100" width="556" height="30" uuid="f27ea8b2-577a-4ad8-b784-39ba72bab58f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[THỐNG KÊ SỐ LƯỢNG ĐẶT CỦA CÁC SẢNH]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="-20" width="595" height="108" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="efdbc2fd-fcb1-4d7d-85b8-bf6d71141691"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="400" y="2" width="90" height="20" uuid="365027ef-19bf-4521-8769-05bee872ed3d"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Ngày:]]></text>
 			</staticText>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="450" y="10" width="99" height="20" uuid="31963eda-6a97-409b-b472-f6f5e163b14a"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+			<textField pattern="dd/MM/yyy">
+				<reportElement x="490" y="2" width="59" height="20" uuid="48bf115a-1044-4d9c-8dae-39cc024a5fed"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="0" width="210" height="25" uuid="22dbed87-715e-4f7a-8a8b-59767399ca25">
+				<reportElement x="10" y="-3" width="290" height="25" uuid="eb422c91-3502-495a-bf53-a0a1ad0eaba9">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nhà hàng tiệc cưới V]]></text>
+				<text><![CDATA[NHÀ HÀNG TIỆC CƯỚI XYZ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="55" width="205" height="15" uuid="d9ded74d-d3e6-4f77-8ce5-94dd50b7f207"/>
+				<reportElement x="10" y="52" width="205" height="15" uuid="4c654c81-bdd2-4a65-82a3-36838ffac4f5"/>
 				<text><![CDATA[LH: 0911911911]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="25" width="205" height="15" uuid="5ff4f572-18b5-46ea-a54f-d49612d96cbc"/>
+				<reportElement x="10" y="22" width="205" height="15" uuid="6c851a5f-2681-4aab-9526-07a6b09c4841"/>
 				<text><![CDATA[Khu phố 6 - phường Linh Trung ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="40" width="205" height="15" uuid="0caeedd2-3c8f-4024-a721-0f687adec7e4"/>
+				<reportElement x="10" y="37" width="205" height="15" uuid="7542507a-db84-4947-bf56-d5c9ac6e11db"/>
 				<text><![CDATA[TP. Thủ Đức - TP. Hồ Chí Minh]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="100" width="556" height="30" uuid="f27ea8b2-577a-4ad8-b784-39ba72bab58f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Thống kê các sảnh tiệc được đặt nhiều nhất]]></text>
 			</staticText>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="43">
+		<band height="30">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="30" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="28c1a8e3-8936-407b-9044-02226a7ffb9d"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="10" y="9" width="100" height="30" uuid="ecb5e088-20e6-42d2-a404-4c719c63f89d"/>
+				<reportElement x="0" y="0" width="150" height="30" uuid="ecb5e088-20e6-42d2-a404-4c719c63f89d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã sảnh]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="9" width="100" height="30" uuid="04e192bb-7df1-4a60-b2c3-ec536c345343"/>
+				<reportElement x="180" y="0" width="170" height="30" uuid="04e192bb-7df1-4a60-b2c3-ec536c345343"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tên sảnh]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="420" y="9" width="100" height="30" uuid="6f66f965-c55b-45af-9cc0-8218e374009b"/>
+				<reportElement x="420" y="0" width="100" height="30" uuid="6f66f965-c55b-45af-9cc0-8218e374009b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -149,22 +159,63 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="33">
+		<band height="40">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<rectangle>
+				<reportElement x="0" y="0" width="149" height="30" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="30890e63-c7dd-4bdf-a95d-988ee612136c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="390" y="0" width="165" height="30" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="8252d738-2713-43dd-9991-c7097010f012"/>
+			</rectangle>
 			<textField>
-				<reportElement x="10" y="0" width="100" height="30" uuid="1ac21c58-314c-4ecb-ba85-cbc60dc3ef26"/>
+				<reportElement x="25" y="5" width="100" height="20" uuid="1ac21c58-314c-4ecb-ba85-cbc60dc3ef26"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{IDLOBBY}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="0" width="100" height="30" uuid="951ee768-6adc-4cf6-8805-a70cbbaf3346"/>
+				<reportElement x="215" y="6" width="100" height="20" uuid="951ee768-6adc-4cf6-8805-a70cbbaf3346"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{NAMELOBBY}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="373" y="0" width="195" height="30" uuid="e0fadd74-df36-4011-9253-e96614bcce9e"/>
+				<reportElement x="407" y="5" width="126" height="20" uuid="e0fadd74-df36-4011-9253-e96614bcce9e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{SO_LUONG_DA_TUNG_DAT}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement x="0" y="30" width="555" height="10" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="c3ba722e-ea02-433f-a60e-4eb2cbf4e3e5"/>
+			</rectangle>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="259">
+			<rectangle>
+				<reportElement x="-20" y="10" width="595" height="249" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="12c7368c-9d6e-4d41-9e51-f4bd2873a3cf"/>
+			</rectangle>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="50" y="70" width="430" height="160" uuid="c680557f-573c-439d-b831-38aaf9dc7ae5"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{IDLOBBY}]]></keyExpression>
+					<valueExpression><![CDATA[$F{SO_LUONG_DA_TUNG_DAT}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<staticText>
+				<reportElement x="0" y="29" width="556" height="30" uuid="adc7afd2-3c7c-4693-99c9-ea01f3349711"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BIỂU ĐỒ]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
 </jasperReport>

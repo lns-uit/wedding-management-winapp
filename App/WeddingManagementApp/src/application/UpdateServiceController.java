@@ -70,7 +70,11 @@ public class UpdateServiceController {
     			Stage currentScene = (Stage) tfNameService.getScene().getWindow();
     			currentScene.close();	
     		} else {
-    			holderManager.AlertNotification(" ","Đã có lỗi xảy ra. Vui lòng thử lai sau",1);
+    			Stage currentScene = (Stage) tfNameService.getScene().getWindow();
+    			currentScene.close();	
+    			holderManager.getIndexController().ViewServiceTbView();
+    			if (messageUpdateService.equals("false")) holderManager.AlertNotification(" ","Dịch vụ không tồn tại",1);
+    			else holderManager.AlertNotification("", "Dịch vụ đang được đặt", 1);
     		}
     		
 		} else {

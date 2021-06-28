@@ -68,12 +68,16 @@ public class UpdateLobbyController {
         	if (messageUpdate.equals("true")) {
         		holderManager.getIndexController().ViewLobbyTbView();
         		
-        		holderManager.AlertNotification(" ","Chỉnh sửa thông tin sảnh thành công",1);
+        		holderManager.AlertNotification(" ","Chỉnh sửa thông tin sảnh thành công !",1);
         		Stage currentScene = (Stage) tfName.getScene().getWindow();
     			currentScene.close();
         		
         	} else {
-        		holderManager.AlertNotification(" ","Đã có lỗi xảy ra, vui lòng thử lại sau", 1);
+        		Stage currentScene = (Stage) tfName.getScene().getWindow();
+    			currentScene.close();
+    			holderManager.getIndexController().ViewLobbyTbView();
+        		if (messageUpdate.equals("false")) holderManager.AlertNotification(" ","Sảnh không tồn tại !", 1);
+        		else holderManager.AlertNotification("", "Sảnh đang được đặt !", 1);
         	}
     	} else {
     		warningLb.setVisible(true);
