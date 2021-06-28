@@ -63,7 +63,7 @@
 	<parameter name="dateFrom" class="java.lang.String"/>
 	<parameter name="dateTo" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM report where closingdate >= to_date($P{dateFrom},'DD-MON-YY') and  closingdate <= to_date($P{dateTo},'DD-MON-YY') order by closingdate asc]]>
+		<![CDATA[select * from report where EXTRACT(YEAR FROM closingDate) = 2021]]>
 	</queryString>
 	<field name="STT" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="STT"/>
@@ -73,10 +73,6 @@
 		<property name="com.jaspersoft.studio.field.name" value="IDREPORT"/>
 		<property name="com.jaspersoft.studio.field.label" value="IDREPORT"/>
 	</field>
-	<field name="TOTALBILLOFMONTH" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TOTALBILLOFMONTH"/>
-		<property name="com.jaspersoft.studio.field.label" value="TOTALBILLOFMONTH"/>
-	</field>
 	<field name="TOTALWEDDINGOFMONTH" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="TOTALWEDDINGOFMONTH"/>
 		<property name="com.jaspersoft.studio.field.label" value="TOTALWEDDINGOFMONTH"/>
@@ -85,45 +81,54 @@
 		<property name="com.jaspersoft.studio.field.name" value="CLOSINGDATE"/>
 		<property name="com.jaspersoft.studio.field.label" value="CLOSINGDATE"/>
 	</field>
+	<field name="TOTALBILLOFMONTH" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TOTALBILLOFMONTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTALBILLOFMONTH"/>
+	</field>
+	<field name="PERCENT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PERCENT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PERCENT"/>
+	</field>
 	<title>
-		<band height="154" splitType="Stretch">
-			<line>
-				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-			</line>
+		<band height="136" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="-20" width="595" height="108" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="69be1e29-12b2-4824-b3d8-97837da7ee6a"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="400" y="10" width="64" height="20" uuid="cb977b67-1791-4e72-becd-5bea06980e6f"/>
+				<reportElement x="400" y="2" width="90" height="20" uuid="cb977b67-1791-4e72-becd-5bea06980e6f"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Ngày:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyy">
-				<reportElement x="465" y="10" width="84" height="20" uuid="73bfa19e-10e0-4751-9036-ccee5b69b2c1"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="490" y="2" width="59" height="20" uuid="73bfa19e-10e0-4751-9036-ccee5b69b2c1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="0" width="210" height="25" uuid="f44785bc-62da-4afa-a77c-d28f5b270267">
+				<reportElement x="10" y="-3" width="290" height="25" uuid="f44785bc-62da-4afa-a77c-d28f5b270267">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nhà hàng tiệc cưới V]]></text>
+				<text><![CDATA[NHÀ HÀNG TIỆC CƯỚI XYZ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="55" width="205" height="15" uuid="e9ac38aa-912e-4471-8d53-375b87cfee4b"/>
+				<reportElement x="10" y="52" width="205" height="15" uuid="e9ac38aa-912e-4471-8d53-375b87cfee4b"/>
 				<text><![CDATA[LH: 0911911911]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="25" width="205" height="15" uuid="8c88575b-ed36-4252-8845-d5cdfc539ec1"/>
+				<reportElement x="10" y="22" width="205" height="15" uuid="8c88575b-ed36-4252-8845-d5cdfc539ec1"/>
 				<text><![CDATA[Khu phố 6 - phường Linh Trung ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="40" width="205" height="15" uuid="c5c85a0b-8cbf-4581-90f8-b97e6cc5645c"/>
+				<reportElement x="10" y="37" width="205" height="15" uuid="c5c85a0b-8cbf-4581-90f8-b97e6cc5645c"/>
 				<text><![CDATA[TP. Thủ Đức - TP. Hồ Chí Minh]]></text>
 			</staticText>
 			<staticText>
@@ -131,49 +136,118 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Thống kê doanh thu ]]></text>
+				<text><![CDATA[THỐNG KÊ DOANH THU]]></text>
 			</staticText>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="51">
+		<band height="52">
+			<rectangle>
+				<reportElement x="0" y="4" width="555" height="48" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="89aff590-aca8-489f-8652-1909654c0aeb"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="30" y="10" width="100" height="30" uuid="fd5380d4-529d-4011-98fb-35ed97f8dc44"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="20" y="10" width="100" height="30" forecolor="#0D0D0D" uuid="fd5380d4-529d-4011-98fb-35ed97f8dc44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Tháng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="10" width="100" height="30" uuid="cf55f27b-ba92-4b15-ab6c-a1f1bf6856f6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Tổng tiền]]></text>
+				<reportElement x="130" y="11" width="100" height="30" forecolor="#0D0D0D" uuid="3f8b0694-ca02-4228-bd37-d64fe968f809"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số lượng tiệc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="10" width="100" height="30" uuid="3f8b0694-ca02-4228-bd37-d64fe968f809"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Số lượng tiệc]]></text>
+				<reportElement x="280" y="10" width="100" height="30" forecolor="#0D0D0D" uuid="cf55f27b-ba92-4b15-ab6c-a1f1bf6856f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doanh thu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="11" width="91" height="30" forecolor="#0D0D0D" uuid="a1e76d17-9382-4462-94d9-83bb613c8806"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tăng trưởng so với tháng trước]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30">
+		<band height="40">
 			<textField pattern="MM/yyy">
-				<reportElement x="30" y="0" width="100" height="30" uuid="239d5d14-af0f-4164-940d-0d3859114e95"/>
+				<reportElement x="20" y="0" width="100" height="30" uuid="239d5d14-af0f-4164-940d-0d3859114e95"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{CLOSINGDATE}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="180" y="0" width="100" height="30" uuid="9b236f68-6430-446b-aa43-da190b131b8a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{TOTALWEDDINGOFMONTH}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0.###;(#,##0.###)">
-				<reportElement x="320" y="0" width="224" height="30" uuid="d36f685a-3f0b-452c-9f1b-ad6da265eea6"/>
+				<reportElement x="240" y="0" width="140" height="30" uuid="d36f685a-3f0b-452c-9f1b-ad6da265eea6"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TOTALBILLOFMONTH}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement x="120" y="0" width="120" height="30" forecolor="#FFFFFF" backcolor="#F5F5F5" uuid="141951b3-5dc7-473b-8b56-4d89cfdec172"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="407" y="0" width="147" height="30" forecolor="#FFFFFF" backcolor="#F5F5F5" uuid="5b367ca2-2d21-46c2-ab57-db8f1dabe72d"/>
+			</rectangle>
+			<textField pattern="#,##0.###;(#,##0.###)">
+				<reportElement x="442" y="0" width="75" height="30" uuid="b6405826-c97e-4363-b780-20185dd7994d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PERCENT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="100" height="30" uuid="9b236f68-6430-446b-aa43-da190b131b8a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TOTALWEDDINGOFMONTH}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="0" width="20" height="30" forecolor="#FFFFFF" backcolor="#F5F5F5" uuid="13b1d6d0-4591-4b7e-87b8-1d2871b081b0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="30" width="554" height="10" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="80072ea9-9df2-465a-a2ce-074bdb460cbf"/>
+			</rectangle>
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="27"/>
+		<band height="238">
+			<rectangle>
+				<reportElement x="0" y="230" width="555" height="8" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="e3c9e7b2-b9ca-4df1-b674-f98465c807c4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="150" y="30" width="240" height="30" backcolor="#E6E6E6" uuid="79132ae7-3957-42dc-a17e-ddfef3f49ef8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BIỂU ĐỒ DOANH THU]]></text>
+			</staticText>
+			<lineChart>
+				<chart evaluationTime="Report">
+					<reportElement x="10" y="70" width="545" height="150" uuid="29cdab37-b992-4aab-90f5-fa477189ea83"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Report"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["Tháng"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{CLOSINGDATE}.getMonth()]]></categoryExpression>
+						<valueExpression><![CDATA[$F{TOTALBILLOFMONTH}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
 	</lastPageFooter>
 </jasperReport>

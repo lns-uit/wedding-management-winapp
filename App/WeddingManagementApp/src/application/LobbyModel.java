@@ -85,9 +85,8 @@ public class LobbyModel {
 			cStmt.execute();
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			cStmt.close();
-			return "false";
+			return "error";
 		}
 		
 		String resultString = cStmt.getString(7);
@@ -106,9 +105,8 @@ public class LobbyModel {
 			cStmt.execute();
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			cStmt.close();
-			return "false";
+			return "error";
 		}
 		
 		String resultString = cStmt.getString(2);

@@ -122,93 +122,101 @@ WHERE idbill = $P{Parameter1} AND bill.idcustomer = customer.idcustomer]]>
 	</field>
 	<title>
 		<band height="408" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="350" width="554" height="30" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="37ed49db-7769-4e85-b646-2d91b2617bc4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-20" y="-20" width="595" height="108" forecolor="#FFFFFF" backcolor="#F2F2F2" uuid="5392568d-e016-4937-9a0f-610a7ddf584a"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="13" y="130" width="160" height="30" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
+				<reportElement x="20" y="130" width="160" height="30" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Khách hàng:]]></text>
 			</staticText>
-			<line>
-				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-			</line>
 			<staticText>
-				<reportElement x="13" y="160" width="160" height="30" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
+				<reportElement x="20" y="160" width="160" height="30" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Số điện thoại:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="190" width="160" height="30" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
+				<reportElement x="20" y="190" width="160" height="30" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã khách hàng:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="10" width="64" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<reportElement x="395" y="0" width="64" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Ngày:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyy">
-				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="460" y="0" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="465" y="30" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="460" y="20" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{IDBILL}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="400" y="30" width="64" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<reportElement x="395" y="20" width="64" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Mã hóa đơn:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="0" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+				<reportElement x="13" y="0" width="260" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nhà hàng tiệc cưới V]]></text>
+				<text><![CDATA[Nhà hàng tiệc cưới XYZ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
+				<reportElement x="13" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
 				<text><![CDATA[LH: 0911911911]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
+				<reportElement x="13" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
 				<text><![CDATA[Khu phố 6 - phường Linh Trung ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
+				<reportElement x="13" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
 				<text><![CDATA[TP. Thủ Đức - TP. Hồ Chí Minh]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="350" width="230" height="30" uuid="edfc3ac9-4f0d-4a6b-b4ba-9b639c3a682c"/>
+				<reportElement x="20" y="350" width="230" height="30" uuid="edfc3ac9-4f0d-4a6b-b4ba-9b639c3a682c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TỔNG SỐ TIỀN ĐÃ THANH TOÁN:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="250" width="160" height="30" uuid="a1321e4d-5505-4f36-b3a7-b5fe3487b26b"/>
+				<reportElement x="20" y="250" width="160" height="30" uuid="a1321e4d-5505-4f36-b3a7-b5fe3487b26b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã tiệc cưới đã đặt:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="280" width="160" height="30" uuid="6dda1b63-c7a3-43f4-8df6-5cdd82779bac"/>
+				<reportElement x="20" y="280" width="160" height="30" uuid="6dda1b63-c7a3-43f4-8df6-5cdd82779bac"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -277,7 +285,7 @@ WHERE idbill = $P{Parameter1} AND bill.idcustomer = customer.idcustomer]]>
 				<text><![CDATA[VNĐ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="220" width="160" height="30" uuid="4ab5cde2-fca8-4112-ac60-23edc61e7f0b"/>
+				<reportElement x="20" y="220" width="160" height="30" uuid="4ab5cde2-fca8-4112-ac60-23edc61e7f0b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
