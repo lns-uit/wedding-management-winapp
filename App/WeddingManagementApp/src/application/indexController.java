@@ -1582,7 +1582,7 @@ public class indexController {
     	        
     	        	String paramString = yearFrom.getValue();
     	          //	updateQuery.setText("SELECT * FROM report where closingdate >= to_date('"+tmpDate+"','DD-MON-YY') and  closingdate <= to_date('"+tmpDate1 +"','DD-MON-YY') order by closingdate asc");
-    	          	updateQuery.setText("select * from report where EXTRACT(YEAR FROM closingDate) like '"+paramString+"%'");
+    	          	updateQuery.setText("select * from report where EXTRACT(YEAR FROM closingDate) like '"+paramString+"%' order by closingdate asc");
     	          	
     	        	jDesign.setQuery(updateQuery);
     	        	JasperReport jReport = JasperCompileManager.compileReport(jDesign);
@@ -1603,9 +1603,9 @@ public class indexController {
     }
     
     String ValidateTimeReport() {
-    	if (Long.parseLong(yearFrom.getValue()) > Long.parseLong(yearTo.getValue())) return "false";
-    	else if (Long.parseLong(yearFrom.getValue()) == Long.parseLong(yearTo.getValue())) 
-    		if (Long.parseLong(monthFrom.getValue())>=Long.parseLong(monthTo.getValue())) return "false";
+//    	if (Long.parseLong(yearFrom.getValue()) > Long.parseLong(yearTo.getValue())) return "false";
+//    	else if (Long.parseLong(yearFrom.getValue()) == Long.parseLong(yearTo.getValue())) 
+//    		if (Long.parseLong(monthFrom.getValue())>=Long.parseLong(monthTo.getValue())) return "false";
     	return "true";
     }
     
