@@ -11,10 +11,10 @@ public class ConnectDB {
 
 
 		
-		String hostName = "103.116.104.148";
+		String hostName = "181.215.242.88";
 		String sid = "xe";
 		String userName = "my_user";
-		String password = "my_user";
+		String password = "my_user123";
 	
 		return getOracleConnection(hostName, sid, userName, password);
 	}
@@ -24,7 +24,7 @@ public class ConnectDB {
     SQLException {
 
 
-		String connectionURL = "jdbc:oracle:thin:@" + hostName + ":49161:" + sid;
+		String connectionURL = "jdbc:oracle:thin:@" + hostName + ":37120:" + sid;
 
 		Connection conn = DriverManager.getConnection(connectionURL, userName, password);
 		
