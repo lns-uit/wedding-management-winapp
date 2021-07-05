@@ -30,7 +30,7 @@ public class CustomerModel {
 				String numberPhoneCus  = rs.getString(4);
 				String dayRegister  = rs.getString(5);
 				long money  = rs.getLong(6);
-				int discount  = rs.getInt(7);
+				int discount  = 0;
 
 				Customer a = new Customer(idCus, nameCus, numberPhoneCus, money, discount);
 				arrCus.add(a);

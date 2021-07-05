@@ -23,12 +23,10 @@ public class ServiceModel {
 				String idService = rs.getString(2);
 				String nameService = rs.getString(3);
 				int priceService = rs.getInt(4);
-				String activeService = rs.getString(5);
-				
-				if (activeService.equals("ON")) {
-					ServiceWedding a = new ServiceWedding(idService,nameService, priceService);
-					arrService.add(a);
-				}
+
+
+				ServiceWedding a = new ServiceWedding(idService,nameService, priceService);
+				arrService.add(a);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
