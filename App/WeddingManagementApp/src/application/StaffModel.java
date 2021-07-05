@@ -34,19 +34,17 @@ public class StaffModel {
 				String identityCardStaff = rs.getString(6);
 				String startWorkStaff = rs.getString(7);
 				String typeStaff = rs.getString(8);
-				String acctiveStaff = rs.getString(9);
 				
-				if (acctiveStaff.equals("ON")) {
-					a.setId(idStaff);
-					a.setName(nameStaff);
-					a.setPhoneNumber(phoneNumberStaff);
-					a.setIdentityCard(identityCardStaff);
-					a.setStartWork(startWorkStaff);
-					a.setType(typeStaff);
-					a.setAddress(addRessStaff);
-					if (!typeStaff.equals("admin")) {
-						arrStaff.add(a);	
-					}
+			
+				a.setId(idStaff);
+				a.setName(nameStaff);
+				a.setPhoneNumber(phoneNumberStaff);
+				a.setIdentityCard(identityCardStaff);
+				a.setStartWork(startWorkStaff);
+				a.setType(typeStaff);
+				a.setAddress(addRessStaff);
+				if (!typeStaff.equals("admin")) {
+					arrStaff.add(a);	
 				}
 			}
 		} catch (Exception e) {

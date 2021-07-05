@@ -17,7 +17,7 @@ public class OrderWeddingModel {
 			cStmt.setString(2, nameGroom);
 			
 			cStmt.registerOutParameter(3, OracleTypes.VARCHAR);
-			cStmt.executeUpdate();
+			cStmt.executeUpdate(); 
 		} catch (Exception e) {
 			return "error";
 		}
@@ -40,7 +40,9 @@ public class OrderWeddingModel {
 			cStmt.executeUpdate();
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return "error";
+
 		}
 		
 		String message = cStmt.getString(3);
@@ -62,7 +64,9 @@ public class OrderWeddingModel {
 			cStmt.executeUpdate();
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return "error";
+			
 		}
 		
 		String message = cStmt.getString(3);
@@ -252,7 +256,7 @@ public class OrderWeddingModel {
 				String numberPhoneCus = rs6.getString(3);
 				String dayRegisterCus = rs6.getString(4);
 				long money = rs6.getLong(5);
-				int discount = rs6.getInt(6);
+				int discount = 0;
 				
 				Customer a = new Customer(idCus, nameCus, numberPhoneCus, money, discount);
 				holderManager.setCusOrder(a);

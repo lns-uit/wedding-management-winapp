@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Top5Customer" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="WeddingManagement"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -80,10 +80,6 @@
 	<field name="DAYREGISTER" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.name" value="DAYREGISTER"/>
 		<property name="com.jaspersoft.studio.field.label" value="DAYREGISTER"/>
-	</field>
-	<field name="DISCOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="DISCOUNT"/>
-		<property name="com.jaspersoft.studio.field.label" value="DISCOUNT"/>
 	</field>
 	<field name="MONEY" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="MONEY"/>
@@ -211,8 +207,8 @@
 				<textFieldExpression><![CDATA[$F{NUMBERPHONE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;(#,##0.###)">
-				<reportElement x="390" y="0" width="166" height="32" uuid="9c54ff2f-25eb-40d3-bb89-ddc4b3a16005"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="390" y="0" width="133" height="32" uuid="9c54ff2f-25eb-40d3-bb89-ddc4b3a16005"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{MONEY}]]></textFieldExpression>
 			</textField>
 			<rectangle>

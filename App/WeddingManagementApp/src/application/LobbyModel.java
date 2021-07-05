@@ -30,12 +30,9 @@ public class LobbyModel {
 				Number maxTable  = rs.getInt(5);
 				Number priceTable = rs.getInt(6);
 				Number priceLobby = rs.getInt(7);
-				String acctiveLobby = rs.getString(8);
-				
-				if (acctiveLobby.equals("ON")) {
-					Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTable, priceTable, priceLobby, "");
-					arrLobby.add(a);		
-				}
+
+				Lobby a = new Lobby(idLobby, nameLobby, typeLobby, maxTable, priceTable, priceLobby, "");
+				arrLobby.add(a);		
 				
 				
 			}
